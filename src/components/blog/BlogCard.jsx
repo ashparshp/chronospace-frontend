@@ -15,7 +15,19 @@ const BlogCard = ({ blog, className = "" }) => {
 
   const handleAuthorClick = (e) => {
     e.stopPropagation();
-    navigate(`/profile/${blog.author.personal_info.username}`);
+    // Only navigate if author exists
+    if (blog.author && blog.author.personal_info) {
+      navigate(`/profile/${blog.author.personal_info.username}`);
+    }
+  };
+
+  // Format date safely
+  const formatDate = (dateString) => {
+    try {
+      return format(new Date(dateString), "MMM d, yyyy");
+    } catch (error) {
+      return "Unknown date";
+    }
   };
 
   return (
@@ -72,25 +84,39 @@ const BlogCard = ({ blog, className = "" }) => {
 
         {/* Bottom Info */}
         <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
-          {/* Author */}
-          <div
-            className="flex items-center gap-2 cursor-pointer"
-            onClick={handleAuthorClick}
-          >
-            <Avatar
-              src={blog.author.personal_info.profile_img}
-              alt={blog.author.personal_info.fullname}
-              size="sm"
-            />
-            <div>
-              <p className="text-sm font-medium text-gray-900 dark:text-white">
-                {blog.author.personal_info.fullname}
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                {format(new Date(blog.publishedAt), "MMM d, yyyy")}
-              </p>
+          {/* Author - Add null check for author */}
+          {blog.author && blog.author.personal_info ? (
+            <div
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={handleAuthorClick}
+            >
+              <Avatar
+                src={blog.author.personal_info.profile_img}
+                alt={blog.author.personal_info.fullname}
+                size="sm"
+              />
+              <div>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                  {blog.author.personal_info.fullname}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  {formatDate(blog.publishedAt)}
+                </p>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Avatar size="sm" />
+              <div>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                  Unknown Author
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  {formatDate(blog.publishedAt)}
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Stats */}
           <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">

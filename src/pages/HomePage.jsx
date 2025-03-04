@@ -218,8 +218,12 @@ const HomePage = () => {
                           {blog.title}
                         </h3>
                         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                          By {blog.author.personal_info.fullname} •{" "}
-                          {blog.estimated_read_time} min read
+                          {/* Fix the null author issue with a conditional check */}
+                          By{" "}
+                          {blog.author && blog.author.personal_info
+                            ? blog.author.personal_info.fullname
+                            : "Unknown Author"}{" "}
+                          • {blog.estimated_read_time || 1} min read
                         </p>
                       </div>
                     </div>
