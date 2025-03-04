@@ -32,6 +32,7 @@ const BlogPage = () => {
   const { currentUser } = useAuth();
   const { showToast } = useNotification();
   const editorRef = useRef(null);
+  const editorContainerRef = useRef(null);
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -39,6 +40,43 @@ const BlogPage = () => {
   const [shareOpen, setShareOpen] = useState(false);
   const [relatedBlogs, setRelatedBlogs] = useState([]);
   const [readingProgress, setReadingProgress] = useState(0);
+
+  // Initialize Editor.js with proper error handling
+  const initEditor = (content) => {
+    try {
+      // First, check if we need to destroy an existing editor
+      if (
+        editorRef.current &&
+        typeof editorRef.current.destroy === "function"
+      ) {
+        editorRef.current.destroy();
+        editorRef.current = null;
+      }
+
+      // Make sure the container exists in the DOM before initializing
+      if (!editorContainerRef.current) {
+        console.warn("Editor container not found in the DOM");
+        return;
+      }
+
+      // Initialize the editor with a slight delay to ensure DOM is ready
+      setTimeout(() => {
+        try {
+          editorRef.current = new EditorJS({
+            holder: "editorjs-container",
+            tools: {},
+            data: content || {},
+            readOnly: true,
+            minHeight: 0,
+          });
+        } catch (err) {
+          console.error("Error initializing editor:", err);
+        }
+      }, 100);
+    } catch (error) {
+      console.error("Error in initEditor:", error);
+    }
+  };
 
   // Fetch blog data
   useEffect(() => {
@@ -48,31 +86,63 @@ const BlogPage = () => {
         setError(null);
 
         const response = await blogService.getBlog(blogId);
-        setBlog(response.data.blog);
 
-        // Initialize editor with blog content
-        initEditor(response.data.blog.content);
-
-        // Check if user has liked this blog
-        if (currentUser) {
-          const likedResponse = await blogService.checkLikedByUser(
-            response.data.blog._id
-          );
-          setLiked(!!likedResponse.data.result);
+        if (!response.data || !response.data.blog) {
+          throw new Error("Invalid response format from server");
         }
 
-        // Fetch related blogs
-        const relatedResponse = await blogService.searchBlogs({
-          tag: response.data.blog.tags?.[0],
-          eliminate_blog: blogId,
-          limit: 3,
-        });
-        setRelatedBlogs(relatedResponse.data.blogs);
+        const blogData = response.data.blog;
+        setBlog(blogData);
+
+        // Wait for next render cycle before initializing editor
+        setTimeout(() => {
+          if (blogData.content) {
+            initEditor(blogData.content);
+          } else {
+            console.warn("Blog content is missing or empty");
+            initEditor({});
+          }
+        }, 0);
+
+        // Check if user has liked this blog
+        if (currentUser && blogData._id) {
+          try {
+            const likedResponse = await blogService.checkLikedByUser(
+              blogData._id
+            );
+            setLiked(!!likedResponse.data.result);
+          } catch (likeError) {
+            console.error("Error checking like status:", likeError);
+            // Continue execution even if like check fails
+          }
+        }
+
+        // Fetch related blogs if tags exist
+        if (blogData.tags && blogData.tags.length > 0) {
+          try {
+            const relatedResponse = await blogService.searchBlogs({
+              tag: blogData.tags[0],
+              eliminate_blog: blogId,
+              limit: 3,
+            });
+
+            if (relatedResponse.data && relatedResponse.data.blogs) {
+              setRelatedBlogs(relatedResponse.data.blogs);
+            }
+          } catch (relatedError) {
+            console.error("Error fetching related blogs:", relatedError);
+            // Continue execution even if related blogs fetch fails
+          }
+        }
 
         setLoading(false);
       } catch (error) {
         console.error("Error fetching blog:", error);
-        setError(error.response?.data?.error || "Failed to load blog content");
+        setError(
+          error.response?.data?.error ||
+            error.message ||
+            "Failed to load blog content"
+        );
         setLoading(false);
       }
     };
@@ -81,27 +151,19 @@ const BlogPage = () => {
 
     // Cleanup function
     return () => {
-      if (editorRef.current) {
-        editorRef.current.destroy();
-        editorRef.current = null;
+      if (
+        editorRef.current &&
+        typeof editorRef.current.destroy === "function"
+      ) {
+        try {
+          editorRef.current.destroy();
+          editorRef.current = null;
+        } catch (error) {
+          console.error("Error destroying editor:", error);
+        }
       }
     };
   }, [blogId, currentUser]);
-
-  // Initialize Editor.js
-  const initEditor = (content) => {
-    if (editorRef.current) {
-      editorRef.current.destroy();
-    }
-
-    editorRef.current = new EditorJS({
-      holder: "editorjs-container",
-      tools: {},
-      data: content,
-      readOnly: true,
-      minHeight: 0,
-    });
-  };
 
   // Reading progress calculation
   useEffect(() => {
@@ -131,15 +193,18 @@ const BlogPage = () => {
       setLiked(response.data.liked_by_user);
 
       // Update like count in UI
-      setBlog((prev) => ({
-        ...prev,
-        activity: {
-          ...prev.activity,
-          total_likes: liked
-            ? prev.activity.total_likes - 1
-            : prev.activity.total_likes + 1,
-        },
-      }));
+      setBlog((prev) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          activity: {
+            ...prev.activity,
+            total_likes: liked
+              ? prev.activity.total_likes - 1
+              : prev.activity.total_likes + 1,
+          },
+        };
+      });
     } catch (error) {
       console.error("Error toggling like:", error);
       showToast("Failed to update like status", "error");
@@ -184,7 +249,13 @@ const BlogPage = () => {
 
   // Format date
   const formatPublishedDate = (date) => {
-    return format(new Date(date), "MMMM d, yyyy");
+    if (!date) return "Unknown date";
+    try {
+      return format(new Date(date), "MMMM d, yyyy");
+    } catch (error) {
+      console.error("Error formatting date:", error);
+      return "Unknown date";
+    }
   };
 
   // Loading state
@@ -235,7 +306,7 @@ const BlogPage = () => {
   // Permission checks for private or followers-only blogs
   if (
     blog?.visibility === BLOG_VISIBILITY.PRIVATE &&
-    (!currentUser || currentUser._id !== blog.author._id)
+    (!currentUser || (blog.author && currentUser._id !== blog.author._id))
   ) {
     return (
       <div className="max-w-4xl mx-auto text-center py-12">
@@ -254,7 +325,8 @@ const BlogPage = () => {
 
   if (
     blog?.visibility === BLOG_VISIBILITY.FOLLOWERS_ONLY &&
-    (!currentUser || (currentUser._id !== blog.author._id && !blog.isFollowing))
+    (!currentUser ||
+      (blog.author && currentUser._id !== blog.author._id && !blog.isFollowing))
   ) {
     return (
       <div className="max-w-4xl mx-auto text-center py-12">
@@ -263,13 +335,15 @@ const BlogPage = () => {
         </h2>
         <p className="text-gray-600 dark:text-gray-400 mb-6">
           This blog is only available to followers of{" "}
-          {blog.author.personal_info.fullname}.
+          {blog.author?.personal_info?.fullname || "the author"}.
         </p>
         <div className="flex justify-center space-x-4">
           <Button
             variant="primary"
             onClick={() =>
-              navigate(`/profile/${blog.author.personal_info.username}`)
+              blog.author && blog.author.personal_info
+                ? navigate(`/profile/${blog.author.personal_info.username}`)
+                : navigate("/")
             }
           >
             View Author Profile
@@ -283,7 +357,7 @@ const BlogPage = () => {
   }
 
   return (
-    <div className=" mx-auto">
+    <div className="mx-auto">
       {/* Reading progress bar */}
       <div
         className="fixed top-0 left-0 right-0 h-1 bg-primary-600 z-50"
@@ -319,7 +393,7 @@ const BlogPage = () => {
 
             {/* Title */}
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
-              {blog?.title}
+              {blog?.title || "Untitled Blog"}
             </h1>
 
             {/* Description */}
@@ -331,35 +405,56 @@ const BlogPage = () => {
 
             {/* Author and date */}
             <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-800">
-              <div
-                className="flex items-center space-x-3 cursor-pointer"
-                onClick={() =>
-                  navigate(`/profile/${blog?.author.personal_info.username}`)
-                }
-              >
-                <Avatar
-                  src={blog?.author.personal_info.profile_img}
-                  alt={blog?.author.personal_info.fullname}
-                  size="md"
-                />
-                <div>
-                  <h3 className="font-medium text-gray-900 dark:text-white">
-                    {blog?.author.personal_info.fullname}
-                  </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {formatPublishedDate(blog?.publishedAt)} •{" "}
-                    {blog?.estimated_read_time} min read
-                  </p>
+              {blog?.author && blog.author.personal_info ? (
+                <div
+                  className="flex items-center space-x-3 cursor-pointer"
+                  onClick={() =>
+                    navigate(`/profile/${blog.author.personal_info.username}`)
+                  }
+                >
+                  <Avatar
+                    src={blog.author.personal_info.profile_img}
+                    alt={blog.author.personal_info.fullname}
+                    size="md"
+                  />
+                  <div>
+                    <h3 className="font-medium text-gray-900 dark:text-white">
+                      {blog.author.personal_info.fullname}
+                    </h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {formatPublishedDate(blog.publishedAt)} •{" "}
+                      {blog.estimated_read_time || 1} min read
+                    </p>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="flex items-center space-x-3">
+                  <Avatar size="md" />
+                  <div>
+                    <h3 className="font-medium text-gray-900 dark:text-white">
+                      Unknown Author
+                    </h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {formatPublishedDate(blog?.publishedAt)} •{" "}
+                      {blog?.estimated_read_time || 1} min read
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {/* Edit button (if author) */}
-              {currentUser && blog?.author._id === currentUser._id && (
-                <Button variant="outline" size="sm" href={`/editor/${blogId}`}>
-                  <Edit className="h-4 w-4 mr-1" />
-                  Edit
-                </Button>
-              )}
+              {currentUser &&
+                blog?.author &&
+                blog.author._id === currentUser._id && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    href={`/editor/${blogId}`}
+                  >
+                    <Edit className="h-4 w-4 mr-1" />
+                    Edit
+                  </Button>
+                )}
             </div>
           </div>
 
@@ -368,7 +463,7 @@ const BlogPage = () => {
             <div className="rounded-lg overflow-hidden">
               <img
                 src={blog.banner}
-                alt={blog.title}
+                alt={blog.title || "Blog banner"}
                 className="w-full max-h-96 object-cover"
               />
             </div>
@@ -381,7 +476,7 @@ const BlogPage = () => {
             transition={{ duration: 0.5 }}
             className="prose dark:prose-invert max-w-none"
           >
-            <div id="editorjs-container"></div>
+            <div id="editorjs-container" ref={editorContainerRef}></div>
           </motion.div>
 
           {/* Tags */}
@@ -493,10 +588,12 @@ const BlogPage = () => {
 
           {/* Comments section */}
           <div id="comments-section" className="pt-6">
-            <CommentSection
-              blogId={blog?._id}
-              blogAuthorId={blog?.author._id}
-            />
+            {blog && (
+              <CommentSection
+                blogId={blog._id}
+                blogAuthorId={blog.author?._id}
+              />
+            )}
           </div>
         </div>
 
@@ -505,61 +602,77 @@ const BlogPage = () => {
           {/* Author card */}
           <Card className="p-6">
             <div className="text-center">
-              <Avatar
-                src={blog?.author.personal_info.profile_img}
-                alt={blog?.author.personal_info.fullname}
-                size="xl"
-                className="mx-auto mb-4"
-              />
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                {blog?.author.personal_info.fullname}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
-                {blog?.author.personal_info.bio || `Writer at ChronoSpace`}
-              </p>
+              {blog?.author && blog.author.personal_info ? (
+                <>
+                  <Avatar
+                    src={blog.author.personal_info.profile_img}
+                    alt={blog.author.personal_info.fullname}
+                    size="xl"
+                    className="mx-auto mb-4"
+                  />
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                    {blog.author.personal_info.fullname}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    {blog.author.personal_info.bio || `Writer at ChronoSpace`}
+                  </p>
 
-              {currentUser && currentUser._id !== blog?.author._id && (
-                <Button variant="primary" className="w-full">
-                  Follow Author
-                </Button>
+                  {currentUser && currentUser._id !== blog.author._id && (
+                    <Button variant="primary" className="w-full">
+                      Follow Author
+                    </Button>
+                  )}
+
+                  <Button
+                    variant="outline"
+                    className="w-full mt-2"
+                    href={`/profile/${blog.author.personal_info.username}`}
+                  >
+                    View Profile
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Avatar size="xl" className="mx-auto mb-4" />
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                    Unknown Author
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    Writer at ChronoSpace
+                  </p>
+                </>
               )}
-
-              <Button
-                variant="outline"
-                className="w-full mt-2"
-                href={`/profile/${blog?.author.personal_info.username}`}
-              >
-                View Profile
-              </Button>
             </div>
 
             {/* Author stats */}
-            <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {blog?.author.account_info?.total_posts || 0}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Posts
-                </p>
+            {blog?.author && (
+              <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {blog.author.account_info?.total_posts || 0}
+                  </p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Posts
+                  </p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {blog.author.account_info?.total_followers || 0}
+                  </p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Followers
+                  </p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {blog.author.account_info?.total_reads || 0}
+                  </p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Reads
+                  </p>
+                </div>
               </div>
-              <div className="text-center">
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {blog?.author.account_info?.total_followers || 0}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Followers
-                </p>
-              </div>
-              <div className="text-center">
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {blog?.author.account_info?.total_reads || 0}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Reads
-                </p>
-              </div>
-            </div>
+            )}
           </Card>
 
           {/* Related blogs */}
@@ -580,21 +693,16 @@ const BlogPage = () => {
                     {relatedBlog.banner && (
                       <img
                         src={relatedBlog.banner}
-                        alt={relatedBlog.title}
+                        alt={relatedBlog.title || "Related blog"}
                         className="w-full h-40 object-cover rounded-lg mb-3"
                       />
                     )}
                     <h4 className="font-bold text-gray-900 dark:text-white mb-2">
-                      {relatedBlog.title}
+                      {relatedBlog.title || "Untitled Blog"}
                     </h4>
                     <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-                      <p>
-                        {format(
-                          new Date(relatedBlog.publishedAt),
-                          "MMM d, yyyy"
-                        )}
-                      </p>
-                      <p>{relatedBlog.estimated_read_time} min read</p>
+                      <p>{formatPublishedDate(relatedBlog.publishedAt)}</p>
+                      <p>{relatedBlog.estimated_read_time || 1} min read</p>
                     </div>
                   </Card>
                 ))}

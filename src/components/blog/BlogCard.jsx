@@ -1,6 +1,6 @@
 // src/components/blog/BlogCard.jsx
 import { useNavigate } from "react-router-dom";
-import { format } from "date-fns";
+import { format, parseISO, isValid } from "date-fns";
 import { Heart, MessageSquare, Eye } from "lucide-react";
 import Avatar from "../ui/Avatar";
 import Card from "../ui/Card";
@@ -21,12 +21,29 @@ const BlogCard = ({ blog, className = "" }) => {
     }
   };
 
-  // Format date safely
+  // Format date safely with better error handling
   const formatDate = (dateString) => {
+    if (!dateString) return "No date";
+
     try {
-      return format(new Date(dateString), "MMM d, yyyy");
+      // Try to parse the date string
+      const date = new Date(dateString);
+
+      // Check if the date is valid
+      if (!isNaN(date.getTime())) {
+        return format(date, "MMM d, yyyy");
+      }
+
+      // Try parseISO as a fallback
+      const parsedDate = parseISO(dateString);
+      if (isValid(parsedDate)) {
+        return format(parsedDate, "MMM d, yyyy");
+      }
+
+      return "Invalid date";
     } catch (error) {
-      return "Unknown date";
+      console.error("Error formatting date:", error, dateString);
+      return "Invalid date";
     }
   };
 
