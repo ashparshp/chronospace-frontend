@@ -3,14 +3,11 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  LayoutDashboard,
   Users,
   FileText,
   ClipboardCheck,
   TrendingUp,
-  BarChart2,
   UserPlus,
-  Clock,
   Eye,
   MessageSquare,
   Heart,
@@ -21,7 +18,6 @@ import { format } from "date-fns";
 import Card from "../../components/ui/Card";
 import Button from "../../components/ui/Button";
 import Avatar from "../../components/ui/Avatar";
-import Badge from "../../components/ui/Badge";
 import EmptyState from "../../components/ui/EmptyState";
 
 const AdminDashboardPage = () => {
