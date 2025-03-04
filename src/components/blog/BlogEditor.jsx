@@ -31,13 +31,19 @@ const BlogEditor = ({ initialData = null, isEdit = false }) => {
   const [editorReady, setEditorReady] = useState(false);
 
   // Initialize editor
+  // Initialize editor - FIXED VERSION
   useEffect(() => {
-    // Create Editor instance
-    if (!editorRef.current) {
+    if (editorRef.current) return;
+
+    const editorElement = document.getElementById("editor");
+    if (!editorElement) return;
+
+    try {
       const editor = new EditorJS({
         holder: "editor",
         tools: {
           ...EDITOR_JS_TOOLS,
+          // Override the image tool with your custom uploader
           image: {
             class: EDITOR_JS_TOOLS.image.class,
             config: {
@@ -48,12 +54,13 @@ const BlogEditor = ({ initialData = null, isEdit = false }) => {
         placeholder: "Let's write an awesome story!",
         data: initialData?.content || {},
         async onChange() {
-          // Enable auto-save functionality
           if (editorReady) {
-            localStorage.setItem(
-              "editor-draft",
-              JSON.stringify(await editor.save())
-            );
+            try {
+              const data = await editor.save();
+              localStorage.setItem("editor-draft", JSON.stringify(data));
+            } catch (error) {
+              console.error("Error saving draft:", error);
+            }
           }
         },
         onReady: () => {
@@ -61,16 +68,22 @@ const BlogEditor = ({ initialData = null, isEdit = false }) => {
           setEditorReady(true);
         },
       });
+    } catch (error) {
+      console.error("Error initializing EditorJS:", error);
     }
 
     // Clean up on unmount
     return () => {
       if (editorRef.current) {
-        editorRef.current.destroy();
+        try {
+          editorRef.current.destroy();
+        } catch (error) {
+          console.error("Error destroying editor:", error);
+        }
         editorRef.current = null;
       }
     };
-  }, [initialData]);
+  }, [initialData]); // Only depend on initialData
 
   // Set initial data if editing
   useEffect(() => {

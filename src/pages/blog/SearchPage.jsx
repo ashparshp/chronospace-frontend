@@ -267,7 +267,7 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className=" mx-auto">
       <motion.div
         initial="initial"
         animate="animate"

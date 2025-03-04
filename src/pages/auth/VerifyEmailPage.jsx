@@ -47,7 +47,7 @@ const VerifyEmailPage = () => {
       >
         <div className="text-center">
           {status === "loading" ? (
-            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 dark:bg-blue-900 mb-4">
+            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 dark:bg-indigo-900 mb-4">
               <Loader className="h-6 w-6 text-blue-600 dark:text-blue-300 animate-spin" />
             </div>
           ) : status === "success" ? (

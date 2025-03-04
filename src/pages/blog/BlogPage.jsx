@@ -283,7 +283,7 @@ const BlogPage = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className=" mx-auto">
       {/* Reading progress bar */}
       <div
         className="fixed top-0 left-0 right-0 h-1 bg-primary-600 z-50"

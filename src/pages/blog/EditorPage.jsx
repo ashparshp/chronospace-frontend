@@ -118,7 +118,7 @@ const EditorPage = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="max-w-7xl mx-auto"
+      className=" mx-auto"
     >
       <BlogEditor initialData={blog} isEdit={!!blogId} />
     </motion.div>

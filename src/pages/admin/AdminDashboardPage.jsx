@@ -84,7 +84,7 @@ const AdminDashboardPage = () => {
   // Loading state
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto space-y-8 animate-pulse">
+      <div className=" mx-auto space-y-8 animate-pulse">
         <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-6"></div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -132,7 +132,7 @@ const AdminDashboardPage = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className=" mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -187,7 +187,7 @@ const AdminDashboardPage = () => {
                   </div>
                 )}
               </div>
-              <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg">
+              <div className="bg-blue-100 dark:bg-indigo-900/30 p-3 rounded-lg">
                 <Users className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               </div>
             </div>

@@ -221,7 +221,7 @@ const AdminBlogsPage = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className=" mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

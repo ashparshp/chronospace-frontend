@@ -233,7 +233,7 @@ const ProfilePage = () => {
   // Loading state
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto space-y-8 animate-pulse">
+      <div className=" mx-auto space-y-8 animate-pulse">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
           <div className="h-48 bg-gray-200 dark:bg-gray-700"></div>
           <div className="p-6">
@@ -254,7 +254,7 @@ const ProfilePage = () => {
   // Error state
   if (error) {
     return (
-      <div className="max-w-7xl mx-auto">
+      <div className=" mx-auto">
         <EmptyState
           title="Profile Not Found"
           description={
@@ -578,7 +578,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className=" mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

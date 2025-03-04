@@ -1,4 +1,11 @@
 // src/config/constants.js
+import Header from "@editorjs/header";
+import List from "@editorjs/list";
+import Code from "@editorjs/code";
+import Image from "@editorjs/image";
+import Embed from "@editorjs/embed";
+import Quote from "@editorjs/quote";
+import Marker from "@editorjs/marker";
 
 // API URL - Change this to your backend URL
 export const API_URL =
@@ -93,10 +100,10 @@ export const VALIDATION = {
   BIO_MAX_LENGTH: 200,
 };
 
-// Editor.js tools configuration
+// Editor.js tools configuration - FIXED
 export const EDITOR_JS_TOOLS = {
   header: {
-    class: "header",
+    class: Header,
     inlineToolbar: true,
     config: {
       levels: [1, 2, 3, 4],
@@ -104,24 +111,21 @@ export const EDITOR_JS_TOOLS = {
     },
   },
   list: {
-    class: "list",
+    class: List,
     inlineToolbar: true,
   },
   code: {
-    class: "code",
+    class: Code,
   },
   image: {
-    class: "image",
+    class: Image,
     config: {
-      uploader: {
-        uploadByFile(file) {
-          // Custom file upload logic will be implemented
-        },
-      },
+      // The uploader will be provided separately in the BlogEditor component
+      // Don't define it here, as it will be overridden
     },
   },
   embed: {
-    class: "embed",
+    class: Embed,
     inlineToolbar: true,
     config: {
       services: {
@@ -132,11 +136,11 @@ export const EDITOR_JS_TOOLS = {
     },
   },
   quote: {
-    class: "quote",
+    class: Quote,
     inlineToolbar: true,
   },
   marker: {
-    class: "marker",
+    class: Marker,
     inlineToolbar: true,
   },
 };

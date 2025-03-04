@@ -12,7 +12,7 @@ const Alert = ({
 }) => {
   // Define variant styles
   const variantStyles = {
-    info: "bg-blue-50 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300",
+    info: "bg-blue-50 text-blue-800 dark:bg-indigo-900/50 dark:text-blue-300",
     success:
       "bg-green-50 text-green-800 dark:bg-green-900/50 dark:text-green-300",
     warning:

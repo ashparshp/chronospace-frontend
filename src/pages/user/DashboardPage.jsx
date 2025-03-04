@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
 import {
+  LayoutDashboard,
   FileText,
   Edit,
   Bell,
@@ -12,7 +13,10 @@ import {
   Eye,
   MessageSquare,
   Heart,
+  ChevronDown,
+  ChevronUp,
   ExternalLink,
+  AlertCircle,
   Users,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
@@ -141,25 +145,6 @@ const DashboardPage = () => {
     }
   };
 
-  // Fetch data based on active tab
-  useEffect(() => {
-    if (!currentUser) return;
-
-    if (activeTab === "published") {
-      fetchPublishedBlogs(1, searchQuery);
-    } else if (activeTab === "drafts") {
-      fetchDraftBlogs(1, searchQuery);
-    } else if (activeTab === "notifications") {
-      fetchNotifications(1, "all", 10);
-      setHasMoreNotifications(totalNotifications > 10);
-    } else if (activeTab === "blogger-application") {
-      fetchBloggerStatus();
-    }
-
-    // Update URL
-    updateUrl(activeTab);
-  }, [activeTab, currentUser, searchQuery]);
-
   // Format date
   const formatDate = (date) => {
     return format(new Date(date), "MMM d, yyyy");
@@ -220,6 +205,36 @@ const DashboardPage = () => {
     } catch (error) {
       console.error("Error loading more notifications:", error);
       showToast("Failed to load more notifications", "error");
+    }
+  };
+
+  // IMPORTANT: Define renderNotificationContent before tabsContent
+  const renderNotificationContent = (notification) => {
+    switch (notification.type) {
+      case "like":
+        return "liked your blog";
+      case "comment":
+        return "commented on your blog";
+      case "reply":
+        return "replied to your comment";
+      case "follow":
+        return "started following you";
+      case "mention":
+        return "mentioned you in a comment";
+      case "blogger_request":
+        return notification.message || "responded to your blogger application";
+      case "blog_feature":
+        return "featured your blog";
+      case "role_update":
+        return notification.message || "updated your role";
+      case "blog_approval":
+        return "approved your blog";
+      case "account_status":
+        return notification.message || "updated your account status";
+      case "blog_published":
+        return "published a new blog";
+      default:
+        return "interacted with your content";
     }
   };
 
@@ -802,35 +817,24 @@ const DashboardPage = () => {
     },
   ];
 
-  // Render notification content based on type
-  const renderNotificationContent = (notification) => {
-    switch (notification.type) {
-      case "like":
-        return "liked your blog";
-      case "comment":
-        return "commented on your blog";
-      case "reply":
-        return "replied to your comment";
-      case "follow":
-        return "started following you";
-      case "mention":
-        return "mentioned you in a comment";
-      case "blogger_request":
-        return notification.message || "responded to your blogger application";
-      case "blog_feature":
-        return "featured your blog";
-      case "role_update":
-        return notification.message || "updated your role";
-      case "blog_approval":
-        return "approved your blog";
-      case "account_status":
-        return notification.message || "updated your account status";
-      case "blog_published":
-        return "published a new blog";
-      default:
-        return "interacted with your content";
+  // Fetch data based on active tab
+  useEffect(() => {
+    if (!currentUser) return;
+
+    if (activeTab === "published") {
+      fetchPublishedBlogs(1, searchQuery);
+    } else if (activeTab === "drafts") {
+      fetchDraftBlogs(1, searchQuery);
+    } else if (activeTab === "notifications") {
+      fetchNotifications(1, "all", 10);
+      setHasMoreNotifications(totalNotifications > 10);
+    } else if (activeTab === "blogger-application") {
+      fetchBloggerStatus();
     }
-  };
+
+    // Update URL
+    updateUrl(activeTab);
+  }, [activeTab, currentUser, searchQuery]);
 
   // Get currently active tab index
   const getActiveTabIndex = () => {
@@ -839,7 +843,7 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className=" mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -866,13 +870,13 @@ const DashboardPage = () => {
             </Card>
 
             <Card className="p-4 text-center">
-              <div className="text-accent-600 dark:text-accent-400 mb-2">
-                <Users className="h-8 w-8 mx-auto" />
+              <div className="text-secondary-600 dark:text-secondary-400 mb-2">
+                <Eye className="h-8 w-8 mx-auto" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                {currentUser?.account_info?.total_followers || 0}
+                {currentUser?.account_info?.total_reads || 0}
               </h3>
-              <p className="text-gray-500 dark:text-gray-400">Followers</p>
+              <p className="text-gray-500 dark:text-gray-400">Total Reads</p>
             </Card>
 
             <Card className="p-4 text-center">

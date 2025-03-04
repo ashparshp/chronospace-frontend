@@ -8,6 +8,7 @@ import BlogList from "../components/blog/BlogList";
 import Button from "../components/ui/Button";
 import { Search, TrendingUp, Tags } from "lucide-react";
 import { motion } from "framer-motion";
+import { useAuth } from "../context/AuthContext";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const HomePage = () => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const { currentUser } = useAuth();
 
   // Fetch homepage data
   useEffect(() => {
@@ -129,19 +131,21 @@ const HomePage = () => {
                 variant="accent"
                 size="lg"
                 href="/search"
-                className="bg-white text-primary-600 hover:bg-gray-100"
+                className="text-primary-600 hover:bg-black"
               >
                 <Search className="h-5 w-5 mr-2" />
                 Explore Blogs
               </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                href="/signup"
-                className="border-white text-white hover:bg-white/20"
-              >
-                Join ChronoSpace
-              </Button>
+              {!currentUser ? (
+                <Button
+                  variant="outline"
+                  size="lg"
+                  href="/signup"
+                  className="border-white text-white hover:bg-white/20"
+                >
+                  Join ChronoSpace
+                </Button>
+              ) : null}
             </div>
           </div>
         )}
