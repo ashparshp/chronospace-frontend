@@ -1,4 +1,3 @@
-// src/pages/admin/AdminDashboardPage.jsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -23,19 +22,22 @@ import EmptyState from "../../components/ui/EmptyState";
 const AdminDashboardPage = () => {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
-  const [stats, setStats] = useState(null);
+  const [stats, setStats] = useState({
+    users: { total: 0, bloggers: 0, active: 0, new_30d: 0 },
+    blogs: { total: 0, published: 0, drafts: 0, new_30d: 0, popular: [] },
+    comments: { total: 0, new_30d: 0 },
+    applications: { pending: 0 },
+    top_authors: [],
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch dashboard stats
   useEffect(() => {
     const fetchStats = async () => {
       try {
         setLoading(true);
-
         const response = await adminService.getDashboardStats();
         setStats(response.data);
-
         setLoading(false);
       } catch (error) {
         console.error("Error fetching dashboard stats:", error);
@@ -47,10 +49,8 @@ const AdminDashboardPage = () => {
     fetchStats();
   }, []);
 
-  // Check if user is admin
   const isAdmin = currentUser && currentUser.role === "admin";
 
-  // If not admin
   if (!isAdmin) {
     return (
       <EmptyState
@@ -77,12 +77,10 @@ const AdminDashboardPage = () => {
     );
   }
 
-  // Loading state
   if (loading) {
     return (
-      <div className=" mx-auto space-y-8 animate-pulse">
+      <div className="mx-auto space-y-8 animate-pulse">
         <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-6"></div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <div
@@ -91,7 +89,6 @@ const AdminDashboardPage = () => {
             ></div>
           ))}
         </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 h-72"></div>
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 h-72"></div>
@@ -100,7 +97,6 @@ const AdminDashboardPage = () => {
     );
   }
 
-  // Error state
   if (error) {
     return (
       <EmptyState
@@ -128,7 +124,7 @@ const AdminDashboardPage = () => {
   }
 
   return (
-    <div className=" mx-auto">
+    <div className="mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -163,9 +159,7 @@ const AdminDashboardPage = () => {
           </div>
         </div>
 
-        {/* Stats Overview */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Users Stats */}
           <Card className="p-4">
             <div className="flex items-start justify-between">
               <div>
@@ -173,9 +167,8 @@ const AdminDashboardPage = () => {
                   Total Users
                 </p>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
-                  {stats?.users?.total.toLocaleString()}
+                  {stats?.users?.total?.toLocaleString() || 0}
                 </h3>
-
                 {stats?.users?.new_30d > 0 && (
                   <div className="flex items-center mt-2 text-green-600 dark:text-green-400 text-sm">
                     <TrendingUp className="h-4 w-4 mr-1" />
@@ -192,19 +185,18 @@ const AdminDashboardPage = () => {
               <div>
                 <p className="text-gray-500 dark:text-gray-400">Bloggers</p>
                 <p className="font-medium text-gray-900 dark:text-white">
-                  {stats?.users?.bloggers.toLocaleString()}
+                  {stats?.users?.bloggers?.toLocaleString() || 0}
                 </p>
               </div>
               <div>
                 <p className="text-gray-500 dark:text-gray-400">Active</p>
                 <p className="font-medium text-gray-900 dark:text-white">
-                  {stats?.users?.active.toLocaleString()}
+                  {stats?.users?.active?.toLocaleString() || 0}
                 </p>
               </div>
             </div>
           </Card>
 
-          {/* Blogs Stats */}
           <Card className="p-4">
             <div className="flex items-start justify-between">
               <div>
@@ -212,9 +204,8 @@ const AdminDashboardPage = () => {
                   Total Blogs
                 </p>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
-                  {stats?.blogs?.total.toLocaleString()}
+                  {stats?.blogs?.total?.toLocaleString() || 0}
                 </h3>
-
                 {stats?.blogs?.new_30d > 0 && (
                   <div className="flex items-center mt-2 text-green-600 dark:text-green-400 text-sm">
                     <TrendingUp className="h-4 w-4 mr-1" />
@@ -231,19 +222,18 @@ const AdminDashboardPage = () => {
               <div>
                 <p className="text-gray-500 dark:text-gray-400">Published</p>
                 <p className="font-medium text-gray-900 dark:text-white">
-                  {stats?.blogs?.published.toLocaleString()}
+                  {stats?.blogs?.published?.toLocaleString() || 0}
                 </p>
               </div>
               <div>
                 <p className="text-gray-500 dark:text-gray-400">Drafts</p>
                 <p className="font-medium text-gray-900 dark:text-white">
-                  {stats?.blogs?.drafts.toLocaleString()}
+                  {stats?.blogs?.drafts?.toLocaleString() || 0}
                 </p>
               </div>
             </div>
           </Card>
 
-          {/* Comments Stats */}
           <Card className="p-4">
             <div className="flex items-start justify-between">
               <div>
@@ -251,9 +241,8 @@ const AdminDashboardPage = () => {
                   Total Comments
                 </p>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
-                  {stats?.comments?.total.toLocaleString()}
+                  {stats?.comments?.total?.toLocaleString() || 0}
                 </h3>
-
                 {stats?.comments?.new_30d > 0 && (
                   <div className="flex items-center mt-2 text-green-600 dark:text-green-400 text-sm">
                     <TrendingUp className="h-4 w-4 mr-1" />
@@ -278,7 +267,6 @@ const AdminDashboardPage = () => {
             </div>
           </Card>
 
-          {/* Applications Stats */}
           <Card className="p-4">
             <div className="flex items-start justify-between">
               <div>
@@ -286,7 +274,7 @@ const AdminDashboardPage = () => {
                   Pending Applications
                 </p>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
-                  {stats?.applications?.pending.toLocaleString()}
+                  {stats?.applications?.pending?.toLocaleString() || 0}
                 </h3>
               </div>
               <div className="bg-yellow-100 dark:bg-yellow-900/30 p-3 rounded-lg">
@@ -314,9 +302,7 @@ const AdminDashboardPage = () => {
           </Card>
         </div>
 
-        {/* Charts & Tables */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Popular Blogs */}
           <Card className="p-6">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-lg font-bold text-gray-900 dark:text-white">
@@ -350,19 +336,20 @@ const AdminDashboardPage = () => {
                         <div className="flex items-center">
                           <Eye className="h-3 w-3 mr-1" />
                           <span>
-                            {blog.activity.total_reads.toLocaleString()}
+                            {blog.activity?.total_reads?.toLocaleString() || 0}
                           </span>
                         </div>
                         <div className="flex items-center">
                           <Heart className="h-3 w-3 mr-1" />
                           <span>
-                            {blog.activity.total_likes.toLocaleString()}
+                            {blog.activity?.total_likes?.toLocaleString() || 0}
                           </span>
                         </div>
                         <div className="flex items-center">
                           <MessageSquare className="h-3 w-3 mr-1" />
                           <span>
-                            {blog.activity.total_comments.toLocaleString()}
+                            {blog.activity?.total_comments?.toLocaleString() ||
+                              0}
                           </span>
                         </div>
                       </div>
@@ -377,7 +364,6 @@ const AdminDashboardPage = () => {
             </div>
           </Card>
 
-          {/* Top Authors */}
           <Card className="p-6">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-lg font-bold text-gray-900 dark:text-white">
@@ -417,7 +403,9 @@ const AdminDashboardPage = () => {
                         {author.account_info.total_posts} posts
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
-                        {author.account_info.total_reads.toLocaleString()} reads
+                        {author.account_info?.total_reads?.toLocaleString() ||
+                          0}{" "}
+                        reads
                       </p>
                     </div>
                   </div>
@@ -431,7 +419,6 @@ const AdminDashboardPage = () => {
           </Card>
         </div>
 
-        {/* Quick Links */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Button
             variant="outline"
