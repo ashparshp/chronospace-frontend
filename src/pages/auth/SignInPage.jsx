@@ -1,6 +1,10 @@
-// src/pages/auth/SignInPage.jsx
-import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import {
+  Link,
+  useNavigate,
+  useLocation,
+  useSearchParams,
+} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -21,13 +25,25 @@ const signinSchema = z.object({
 const SignInPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
   const { login, loginWithGoogle, loading } = useAuth();
   const { showToast } = useNotification();
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
+  const [verificationSuccess, setVerificationSuccess] = useState(false);
 
   // Get redirect path from location state
   const from = location.state?.from || "/";
+
+  // Check if user was redirected after email verification
+  useEffect(() => {
+    // Check for 'verified=true' in the URL params
+    const verifiedParam = searchParams.get("verified");
+    if (verifiedParam === "true") {
+      setVerificationSuccess(true);
+      showToast("Email verified successfully! You can now sign in.", "success");
+    }
+  }, [searchParams, showToast]);
 
   const {
     register,
@@ -108,6 +124,19 @@ const SignInPage = () => {
             </p>
           </div>
 
+          {/* Verification Success Alert */}
+          {verificationSuccess && (
+            <Alert
+              variant="success"
+              title="Email Verified"
+              onClose={() => setVerificationSuccess(false)}
+              className="mb-6"
+            >
+              Your email has been successfully verified. You can now sign in to
+              your account.
+            </Alert>
+          )}
+
           {/* Error alert */}
           {error && (
             <Alert
@@ -156,6 +185,7 @@ const SignInPage = () => {
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   error={errors.password?.message}
+                  autoComplete="current-password"
                   icon={<Lock className="h-5 w-5 text-gray-400" />}
                   appendIcon={
                     <button
