@@ -110,7 +110,7 @@ const HomePage = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] rounded-full bg-gradient-to-r from-primary-100/10 to-secondary-100/10 dark:from-primary-900/5 dark:to-secondary-900/5 blur-3xl"></div>
       </div>
 
-      <div className=" mx-auto px-4 sm:px-6 lg:px-8 space-y-12 pb-12">
+      <div className="w-full space-y-12 pb-12">
         {/* Hero Section - Enhanced */}
         <PageTransition.Item>
           <section className="pt-6 md:pt-10">

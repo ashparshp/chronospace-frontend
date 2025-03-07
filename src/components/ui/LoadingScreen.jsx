@@ -68,7 +68,7 @@ const LoadingScreen = () => {
   };
 
   return (
-    <div className=" flex items-center justify-center bg-background-light dark:bg-background-dark">
+    <div className="min-h-screen flex items-center justify-center bg-background-light dark:bg-background-dark">
       <motion.div
         className="flex flex-col items-center"
         variants={containerVariants}

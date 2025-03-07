@@ -30,9 +30,14 @@
   }
 }
 
-@layer components {
+/* @layer components {
   .container-custom {
     @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  } */
+
+@layer components {
+  .container-custom {
+    @apply w-full mx-auto px-4 sm:px-6 lg:px-8;
   }
 
   .btn-primary {

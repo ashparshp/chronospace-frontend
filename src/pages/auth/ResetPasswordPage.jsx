@@ -76,7 +76,7 @@ const ResetPasswordPage = () => {
   // If reset successful, show success message
   if (success) {
     return (
-      <div className=" flex items-center justify-center bg-gray-50 dark:bg-black px-4">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -120,7 +120,7 @@ const ResetPasswordPage = () => {
   }
 
   return (
-    <div className=" flex items-center justify-center bg-gray-50 dark:bg-black p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

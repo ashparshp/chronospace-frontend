@@ -42,7 +42,7 @@ const MainLayout = () => {
   };
 
   return (
-    <div className="flex flex-col  bg-background-light dark:bg-background-dark transition-colors duration-300 scrollbar-thin">
+    <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark transition-colors duration-300 scrollbar-thin">
       <ScrollToTop />
       <Header />
 
