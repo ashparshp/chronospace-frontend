@@ -328,7 +328,7 @@ const AdminUsersPage = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
+            className="bg-white dark:bg-black rounded-lg shadow-md p-6"
           >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Select
@@ -368,7 +368,7 @@ const AdminUsersPage = () => {
         <Card>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className="bg-gray-50 dark:bg-gray-800">
+              <thead className="bg-gray-50 dark:bg-black">
                 <tr>
                   <th
                     scope="col"
@@ -408,34 +408,34 @@ const AdminUsersPage = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800">
+              <tbody className="bg-white dark:bg-black divide-y divide-gray-200 dark:divide-gray-800">
                 {loading ? (
                   // Loading skeleton
                   Array.from({ length: 5 }).map((_, index) => (
                     <tr key={index} className="animate-pulse">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                          <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-black"></div>
                           <div className="ml-4">
-                            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
-                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-16 mt-1"></div>
+                            <div className="h-4 bg-gray-200 dark:bg-black rounded w-24"></div>
+                            <div className="h-3 bg-gray-200 dark:bg-black rounded w-16 mt-1"></div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-black rounded w-32"></div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+                        <div className="h-6 bg-gray-200 dark:bg-black rounded w-16"></div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+                        <div className="h-6 bg-gray-200 dark:bg-black rounded w-16"></div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-black rounded w-24"></div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right">
-                        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-8 ml-auto"></div>
+                        <div className="h-8 bg-gray-200 dark:bg-black rounded w-8 ml-auto"></div>
                       </td>
                     </tr>
                   ))
@@ -443,7 +443,7 @@ const AdminUsersPage = () => {
                   users.map((user) => (
                     <tr
                       key={user._id}
-                      className="hover:bg-gray-50 dark:hover:bg-gray-800"
+                      className="hover:bg-gray-50 dark:hover:bg-black"
                     >
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
@@ -526,13 +526,13 @@ const AdminUsersPage = () => {
                           </button>
 
                           {isActionMenuOpen[user._id] && (
-                            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10">
+                            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-black rounded-md shadow-lg z-10">
                               <div
                                 className="py-1"
                                 onClick={(e) => e.stopPropagation()}
                               >
                                 <button
-                                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black"
                                   onClick={() =>
                                     viewUserProfile(user.personal_info.username)
                                   }
@@ -541,14 +541,14 @@ const AdminUsersPage = () => {
                                   View Profile
                                 </button>
                                 <button
-                                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black"
                                   onClick={() => handleEditRole(user)}
                                 >
                                   <Shield className="h-4 w-4 mr-2" />
                                   Change Role
                                 </button>
                                 <button
-                                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black"
                                   onClick={() => handleEditStatus(user)}
                                 >
                                   {user.account_status === "active" ? (
@@ -650,7 +650,7 @@ const AdminUsersPage = () => {
                   className={`p-4 border rounded-lg cursor-pointer ${
                     selectedUser.role === role
                       ? "border-primary-500 bg-primary-50 dark:bg-primary-900/20"
-                      : "border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
+                      : "border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-black"
                   }`}
                   onClick={() => updateUserRole(selectedUser._id, role)}
                 >
@@ -729,7 +729,7 @@ const AdminUsersPage = () => {
                   className={`p-4 border rounded-lg cursor-pointer ${
                     selectedUser.account_status === status
                       ? "border-primary-500 bg-primary-50 dark:bg-primary-900/20"
-                      : "border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
+                      : "border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-black"
                   }`}
                   onClick={() => updateUserStatus(selectedUser._id, status)}
                 >

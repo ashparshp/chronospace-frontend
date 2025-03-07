@@ -37,7 +37,7 @@ const AuthLayout = ({
         );
       case "none":
         return (
-          <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900"></div>
+          <div className="absolute inset-0 bg-gray-50 dark:bg-black"></div>
         );
       case "gradient":
       default:
@@ -76,7 +76,7 @@ const AuthLayout = ({
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-white dark:bg-gray-900">
+    <div className="min-h-screen flex flex-col md:flex-row bg-white dark:bg-black">
       {/* Main content */}
       <motion.div
         className={`flex-1 flex items-center justify-center p-6 sm:p-12 ${contentOrder} ${className}`}
@@ -167,7 +167,7 @@ const AuthLayout = ({
 
       {/* Side panel */}
       <motion.div
-        className={`hidden md:flex md:flex-1 bg-gray-100 dark:bg-gray-800 relative overflow-hidden ${sideOrder}`}
+        className={`hidden md:flex md:flex-1 bg-gray-100 dark:bg-black relative overflow-hidden ${sideOrder}`}
         initial={{ opacity: 0, x: sidePosition === "right" ? 20 : -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}

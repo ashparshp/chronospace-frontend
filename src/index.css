@@ -66,7 +66,7 @@
   }
 
   .input-field {
-    @apply w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all duration-200;
+    @apply w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all duration-200;
   }
 
   .form-label {
@@ -90,7 +90,7 @@
   }
 
   .glass-effect {
-    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md backdrop-saturate-150 border border-white/20 dark:border-gray-800/50;
+    @apply bg-white/80 dark:bg-black/80 backdrop-blur-md backdrop-saturate-150 border border-white/20 dark:border-gray-800/50;
   }
 
   .page-container {
@@ -138,7 +138,7 @@
 
 /* Loading animations */
 .skeleton {
-  @apply animate-pulse bg-gray-200 dark:bg-gray-700 rounded;
+  @apply animate-pulse bg-gray-200 dark:bg-black rounded;
 }
 
 /* Custom Scrollbar */
@@ -153,7 +153,7 @@
   }
 
   .scrollbar-thin::-webkit-scrollbar-track {
-    @apply bg-gray-100 dark:bg-gray-800 rounded-full;
+    @apply bg-gray-100 dark:bg-black rounded-full;
   }
 
   .scrollbar-thin::-webkit-scrollbar-thumb {

@@ -57,11 +57,11 @@ const RequestPasswordResetPage = () => {
   // If request successful, show success message
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md max-w-md w-full"
+          className="bg-white dark:bg-black p-8 rounded-lg shadow-md max-w-md w-full"
         >
           <div className="text-center">
             <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 dark:bg-indigo-900 mb-4">
@@ -102,11 +102,11 @@ const RequestPasswordResetPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md max-w-md w-full"
+        className="bg-white dark:bg-black p-8 rounded-lg shadow-md max-w-md w-full"
       >
         <div className="mb-6">
           <Link

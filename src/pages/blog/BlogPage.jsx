@@ -262,21 +262,21 @@ const BlogPage = () => {
   if (loading) {
     return (
       <div className="max-w-4xl mx-auto space-y-8 animate-pulse">
-        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+        <div className="h-8 bg-gray-200 dark:bg-black rounded w-3/4"></div>
+        <div className="h-6 bg-gray-200 dark:bg-black rounded w-1/2"></div>
         <div className="flex items-center space-x-4">
-          <div className="h-12 w-12 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+          <div className="h-12 w-12 bg-gray-200 dark:bg-black rounded-full"></div>
           <div className="space-y-2">
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
-            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+            <div className="h-4 bg-gray-200 dark:bg-black rounded w-32"></div>
+            <div className="h-3 bg-gray-200 dark:bg-black rounded w-24"></div>
           </div>
         </div>
-        <div className="h-80 bg-gray-200 dark:bg-gray-700 rounded"></div>
+        <div className="h-80 bg-gray-200 dark:bg-black rounded"></div>
         <div className="space-y-3">
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="h-4 bg-gray-200 dark:bg-gray-700 rounded"
+              className="h-4 bg-gray-200 dark:bg-black rounded"
             ></div>
           ))}
         </div>
@@ -549,32 +549,32 @@ const BlogPage = () => {
                 </button>
 
                 {shareOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10">
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-black rounded-md shadow-lg z-10">
                     <div className="py-1">
                       <button
                         onClick={() => handleShare("facebook")}
-                        className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black w-full text-left"
                       >
                         <Facebook className="h-4 w-4 mr-2" />
                         Share on Facebook
                       </button>
                       <button
                         onClick={() => handleShare("twitter")}
-                        className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black w-full text-left"
                       >
                         <Twitter className="h-4 w-4 mr-2" />
                         Share on Twitter
                       </button>
                       <button
                         onClick={() => handleShare("linkedin")}
-                        className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black w-full text-left"
                       >
                         <Linkedin className="h-4 w-4 mr-2" />
                         Share on LinkedIn
                       </button>
                       <button
                         onClick={() => handleShare("copy")}
-                        className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black w-full text-left"
                       >
                         <LinkIcon className="h-4 w-4 mr-2" />
                         Copy Link

@@ -236,18 +236,18 @@ const AdminBloggerApplicationsPage = () => {
               {Array.from({ length: 3 }).map((_, i) => (
                 <div
                   key={i}
-                  className="animate-pulse bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700"
+                  className="animate-pulse bg-white dark:bg-black rounded-lg p-4 border border-gray-200 dark:border-gray-700"
                 >
                   <div className="flex items-start space-x-4">
-                    <div className="h-12 w-12 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                    <div className="h-12 w-12 bg-gray-200 dark:bg-black rounded-full"></div>
                     <div className="flex-1 space-y-2 py-1">
-                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
-                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
-                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                      <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/4"></div>
+                      <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/2"></div>
+                      <div className="h-4 bg-gray-200 dark:bg-black rounded w-3/4"></div>
                     </div>
                     <div className="space-y-2">
-                      <div className="h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded"></div>
-                      <div className="h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                      <div className="h-8 w-24 bg-gray-200 dark:bg-black rounded"></div>
+                      <div className="h-8 w-24 bg-gray-200 dark:bg-black rounded"></div>
                     </div>
                   </div>
                 </div>
@@ -260,7 +260,7 @@ const AdminBloggerApplicationsPage = () => {
                 {applications.map((application) => (
                   <div
                     key={application._id}
-                    className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700"
+                    className="bg-white dark:bg-black rounded-lg p-4 border border-gray-200 dark:border-gray-700"
                   >
                     <div className="flex flex-col sm:flex-row justify-between gap-4">
                       {/* Applicant Info */}
@@ -358,7 +358,7 @@ const AdminBloggerApplicationsPage = () => {
                         <h4 className="font-medium text-gray-900 dark:text-white mb-2">
                           Application Reason:
                         </h4>
-                        <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-md mb-4">
+                        <div className="bg-gray-50 dark:bg-black p-4 rounded-md mb-4">
                           <p className="text-gray-700 dark:text-gray-300 whitespace-pre-line">
                             {application.reason}
                           </p>
@@ -370,7 +370,7 @@ const AdminBloggerApplicationsPage = () => {
                               <h4 className="font-medium text-gray-900 dark:text-white mb-2">
                                 Writing Samples:
                               </h4>
-                              <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-md">
+                              <div className="bg-gray-50 dark:bg-black p-4 rounded-md">
                                 <p className="text-gray-700 dark:text-gray-300 whitespace-pre-line">
                                   {application.writing_samples.join("\n\n")}
                                 </p>

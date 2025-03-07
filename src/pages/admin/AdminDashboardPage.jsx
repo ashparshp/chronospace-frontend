@@ -80,18 +80,18 @@ const AdminDashboardPage = () => {
   if (loading) {
     return (
       <div className="mx-auto space-y-8 animate-pulse">
-        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-6"></div>
+        <div className="h-8 bg-gray-200 dark:bg-black rounded w-1/4 mb-6"></div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 h-32"
+              className="bg-white dark:bg-black rounded-lg shadow-md p-4 h-32"
             ></div>
           ))}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 h-72"></div>
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 h-72"></div>
+          <div className="bg-white dark:bg-black rounded-lg shadow-md p-4 h-72"></div>
+          <div className="bg-white dark:bg-black rounded-lg shadow-md p-4 h-72"></div>
         </div>
       </div>
     );
@@ -318,7 +318,7 @@ const AdminDashboardPage = () => {
                 stats.blogs.popular.map((blog, index) => (
                   <div
                     key={blog.blog_id}
-                    className="flex items-start space-x-4 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
+                    className="flex items-start space-x-4 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-black cursor-pointer"
                     onClick={() => navigate(`/blog/${blog.blog_id}`)}
                   >
                     <div className="flex-shrink-0 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 font-bold rounded-full w-8 h-8 flex items-center justify-center">
@@ -379,7 +379,7 @@ const AdminDashboardPage = () => {
                 stats.top_authors.map((author) => (
                   <div
                     key={author.personal_info.username}
-                    className="flex items-center p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
+                    className="flex items-center p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-black cursor-pointer"
                     onClick={() =>
                       navigate(`/profile/${author.personal_info.username}`)
                     }

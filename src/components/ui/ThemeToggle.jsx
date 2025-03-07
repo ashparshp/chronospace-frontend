@@ -50,7 +50,7 @@ const ThemeToggle = ({ className = "" }) => {
         className={`p-2 rounded-full ${
           !darkMode
             ? "bg-primary-100 text-primary-600 dark:bg-primary-900 dark:text-primary-300"
-            : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+            : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-black"
         } transition-all duration-200`}
         aria-label="Light mode"
         title="Light mode"
@@ -68,7 +68,7 @@ const ThemeToggle = ({ className = "" }) => {
           ).matches;
           setTheme(prefersDark);
         }}
-        className={`p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200`}
+        className={`p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-black transition-all duration-200`}
         aria-label="System preference"
         title="System preference"
       >
@@ -82,7 +82,7 @@ const ThemeToggle = ({ className = "" }) => {
         className={`p-2 rounded-full ${
           darkMode
             ? "bg-primary-100 text-primary-600 dark:bg-primary-900 dark:text-primary-300"
-            : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+            : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-black"
         } transition-all duration-200`}
         aria-label="Dark mode"
         title="Dark mode"

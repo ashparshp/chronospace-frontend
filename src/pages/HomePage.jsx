@@ -140,9 +140,9 @@ const HomePage = () => {
             ) : loading ? (
               // Enhanced loading skeleton for featured blogs
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                <div className="md:col-span-2 lg:row-span-2 bg-gray-200 dark:bg-gray-800 animate-pulse rounded-2xl h-96"></div>
-                <div className="bg-gray-200 dark:bg-gray-800 animate-pulse rounded-2xl h-64"></div>
-                <div className="bg-gray-200 dark:bg-gray-800 animate-pulse rounded-2xl h-64"></div>
+                <div className="md:col-span-2 lg:row-span-2 bg-gray-200 dark:bg-black animate-pulse rounded-2xl h-96"></div>
+                <div className="bg-gray-200 dark:bg-black animate-pulse rounded-2xl h-64"></div>
+                <div className="bg-gray-200 dark:bg-black animate-pulse rounded-2xl h-64"></div>
               </div>
             ) : (
               // Enhanced fallback if no featured blogs
@@ -425,10 +425,10 @@ const HomePage = () => {
                         key={i}
                         className="flex items-start space-x-4 pb-4 mb-4 border-b border-gray-100 dark:border-gray-700 last:border-0 last:mb-0 last:pb-0"
                       >
-                        <div className="flex-shrink-0 bg-gray-200 dark:bg-gray-700 rounded-full w-8 h-8 animate-pulse"></div>
+                        <div className="flex-shrink-0 bg-gray-200 dark:bg-black rounded-full w-8 h-8 animate-pulse"></div>
                         <div className="flex-1 space-y-2">
-                          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                          <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-2/3"></div>
+                          <div className="h-4 bg-gray-200 dark:bg-black rounded animate-pulse"></div>
+                          <div className="h-3 bg-gray-200 dark:bg-black rounded animate-pulse w-2/3"></div>
                         </div>
                       </div>
                     ))

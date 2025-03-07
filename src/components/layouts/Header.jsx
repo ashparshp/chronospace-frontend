@@ -163,7 +163,7 @@ const Header = () => {
               type="text"
               name="search"
               placeholder="Search blogs..."
-              className="w-48 lg:w-64 px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-sm transition-all duration-300 border border-transparent focus:border-primary-400"
+              className="w-48 lg:w-64 px-4 py-1.5 rounded-full bg-gray-100 dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-sm transition-all duration-300 border border-transparent focus:border-primary-400"
             />
             <button
               type="submit"
@@ -197,7 +197,7 @@ const Header = () => {
                 currentUser.role === "admin") && (
                 <Link
                   to="/editor"
-                  className="hidden sm:flex items-center space-x-1 p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                  className="hidden sm:flex items-center space-x-1 p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black transition-colors duration-200"
                   aria-label="Create new blog"
                 >
                   <Edit size={20} />
@@ -238,7 +238,7 @@ const Header = () => {
                       stiffness: 300,
                       damping: 30,
                     }}
-                    className="absolute right-0 mt-60 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-custom overflow-hidden border border-gray-100 dark:border-gray-700 py-1 z-50"
+                    className="absolute right-0 mt-60 w-48 bg-white dark:bg-black rounded-xl shadow-custom overflow-hidden border border-gray-100 dark:border-gray-700 py-1 z-50"
                     onClick={(e) => e.stopPropagation()}
                   >
                     {[
@@ -308,7 +308,7 @@ const Header = () => {
                       >
                         <Link
                           to={item.to}
-                          className="flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                          className="flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black transition-colors duration-200"
                           onClick={() => setIsProfileMenuOpen(false)}
                         >
                           {item.icon}
@@ -326,7 +326,7 @@ const Header = () => {
                         transition: { delay: 0.2 },
                       }}
                       onClick={logout}
-                      className="flex items-center w-full px-4 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                      className="flex items-center w-full px-4 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black transition-colors duration-200"
                     >
                       <LogOut className="w-4 h-4 mr-2" />
                       Logout
@@ -368,7 +368,7 @@ const Header = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3, delay: 0.3 }}
             onClick={toggleMenu}
-            className="md:hidden p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+            className="md:hidden p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black transition-colors duration-200"
             aria-label="Menu"
             whileTap={{ scale: 0.9 }}
           >
@@ -385,7 +385,7 @@ const Header = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden bg-white dark:bg-gray-900 shadow-md border-t border-gray-100 dark:border-gray-800"
+            className="md:hidden bg-white dark:bg-black shadow-md border-t border-gray-100 dark:border-gray-800"
           >
             <div className="container-custom mx-auto px-4 py-4 space-y-4">
               {/* Mobile Search */}
@@ -397,7 +397,7 @@ const Header = () => {
                   type="text"
                   name="search"
                   placeholder="Search blogs..."
-                  className="w-full px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-sm transition-all duration-300 border border-transparent focus:border-primary-400"
+                  className="w-full px-4 py-2 rounded-full bg-gray-100 dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-sm transition-all duration-300 border border-transparent focus:border-primary-400"
                 />
                 <button
                   type="submit"

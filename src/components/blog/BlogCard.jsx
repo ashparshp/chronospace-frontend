@@ -49,10 +49,10 @@ const BlogCard = ({ blog, className = "", variant = "default" }) => {
 
   // Card variants
   const cardVariants = {
-    default: "bg-white dark:bg-gray-800 shadow-custom",
+    default: "bg-white dark:bg-black shadow-custom",
     gradient: "card-gradient",
     minimal:
-      "bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-800",
+      "bg-white dark:bg-black border border-gray-100 dark:border-gray-800",
     featured:
       "bg-gradient-to-r from-primary-500/10 to-secondary-500/10 dark:from-primary-900/20 dark:to-secondary-900/20",
   };

@@ -105,7 +105,7 @@ const TagPage = () => {
         className="space-y-8"
       >
         {/* Tag Header */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <div className="bg-white dark:bg-black rounded-lg shadow-md p-6">
           <div className="flex items-center space-x-3 mb-4">
             <Tag className="h-6 w-6 text-primary-600 dark:text-primary-400" />
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -136,7 +136,7 @@ const TagPage = () => {
         </div>
 
         {/* Blog List */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <div className="bg-white dark:bg-black rounded-lg shadow-md p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">
               Blogs tagged with #{tag}
@@ -145,7 +145,7 @@ const TagPage = () => {
               <button
                 className={`p-2 rounded-md ${
                   viewMode === "grid"
-                    ? "bg-gray-100 dark:bg-gray-700"
+                    ? "bg-gray-100 dark:bg-black"
                     : "text-gray-500 dark:text-gray-400"
                 }`}
                 onClick={() => setViewMode("grid")}
@@ -156,7 +156,7 @@ const TagPage = () => {
               <button
                 className={`p-2 rounded-md ${
                   viewMode === "list"
-                    ? "bg-gray-100 dark:bg-gray-700"
+                    ? "bg-gray-100 dark:bg-black"
                     : "text-gray-500 dark:text-gray-400"
                 }`}
                 onClick={() => setViewMode("list")}

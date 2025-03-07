@@ -112,7 +112,7 @@ const FeatureHighlight = ({
               <div className="absolute -inset-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
 
               {/* Main image */}
-              <div className="relative bg-white dark:bg-gray-800 p-2 rounded-xl shadow-xl">
+              <div className="relative bg-white dark:bg-black p-2 rounded-xl shadow-xl">
                 {image}
               </div>
 
@@ -199,7 +199,7 @@ FeatureHighlight.List = ({
                   colors[index % colors.length]
                 }-800/30`
               : "border-gray-200 dark:border-gray-800"
-          } bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow duration-300`}
+          } bg-white dark:bg-black shadow-sm hover:shadow-md transition-shadow duration-300`}
           variants={animate ? itemVariants : {}}
         >
           {feature.icon && (
