@@ -6,12 +6,11 @@ const FeatureHighlight = ({
   description,
   icon,
   image,
-  direction = "right", // left, right
-  color = "primary", // primary, secondary, accent
+  direction = "right",
+  color = "primary",
   className = "",
   ...props
 }) => {
-  // Color variations
   const colorVariants = {
     primary: {
       bg: "from-primary-500/10 to-primary-500/5",
@@ -35,7 +34,6 @@ const FeatureHighlight = ({
 
   const currentColor = colorVariants[color] || colorVariants.primary;
 
-  // Animation variants
   const containerVariants = {
     offscreen: {
       opacity: 0,
