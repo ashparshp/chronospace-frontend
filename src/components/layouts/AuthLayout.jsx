@@ -99,7 +99,7 @@ const AuthLayout = ({
             ) : (
               <div></div>
             )}
-            <ThemeToggleMini />
+            <ThemeToggle.ThemeToggleMini />
           </div>
 
           {/* Logo */}
