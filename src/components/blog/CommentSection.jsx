@@ -7,8 +7,16 @@ import Avatar from "../ui/Avatar";
 import Button from "../ui/Button";
 import TextArea from "../ui/TextArea";
 import { format } from "date-fns";
-import { Reply, Trash2, ChevronDown, ChevronUp } from "lucide-react";
+import {
+  Reply,
+  Trash2,
+  ChevronDown,
+  ChevronUp,
+  Heart,
+  MoreHorizontal,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 const CommentSection = ({ blogId, blogAuthorId }) => {
   const { currentUser } = useAuth();
@@ -25,6 +33,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
   const [loadingReplies, setLoadingReplies] = useState({});
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [likedComments, setLikedComments] = useState({});
 
   // Fetch comments when blog ID changes
   useEffect(() => {
@@ -212,15 +221,55 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
     }
   };
 
+  // Like/unlike comment (this is a mock function since it's not in the original)
+  const handleLikeComment = (commentId) => {
+    setLikedComments((prev) => ({
+      ...prev,
+      [commentId]: !prev[commentId],
+    }));
+  };
+
   // Format comment date
   const formatCommentDate = (date) => {
     return format(new Date(date), "MMM d, yyyy • h:mm a");
   };
 
+  // Animation variants
+  const commentVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: "easeOut" },
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      transition: { duration: 0.2 },
+    },
+  };
+
+  const repliesVariants = {
+    hidden: { opacity: 0, height: 0 },
+    visible: {
+      opacity: 1,
+      height: "auto",
+      transition: { duration: 0.3, ease: "easeOut" },
+    },
+    exit: {
+      opacity: 0,
+      height: 0,
+      transition: { duration: 0.2 },
+    },
+  };
+
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-        Comments ({comments.length})
+      <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center">
+        <span className="mr-1">Comments</span>
+        <span className="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded-full text-sm font-normal">
+          {comments.length}
+        </span>
       </h3>
 
       {/* Comment Form */}
@@ -231,35 +280,45 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
               src={currentUser.profile_img}
               alt={currentUser.fullname}
               size="md"
+              className="mt-2"
+              animate
             />
             <TextArea
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               placeholder="Add a comment..."
               rows={3}
-              className="flex-1"
+              className="flex-1 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700"
+              maxLength={1000}
+              showCount
             />
           </div>
           <div className="flex justify-end">
             <Button
               type="submit"
-              variant="primary"
+              variant="gradient"
               disabled={submitting || !commentText.trim()}
               isLoading={submitting}
+              className="px-6"
             >
               Post Comment
             </Button>
           </div>
         </form>
       ) : (
-        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 text-center">
-          <p className="text-gray-700 dark:text-gray-300 mb-2">
+        <motion.div
+          className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 text-center border border-gray-200 dark:border-gray-700"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
             Please sign in to join the conversation.
           </p>
-          <Button variant="primary" href="/signin">
+          <Button variant="gradient" href="/signin" className="px-8">
             Sign In
           </Button>
-        </div>
+        </motion.div>
       )}
 
       {/* Comments List */}
@@ -278,10 +337,16 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
           ))
         ) : comments.length > 0 ? (
           <>
-            {comments.map((comment) => (
-              <div
+            {comments.map((comment, index) => (
+              <motion.div
                 key={comment._id}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                variants={commentVariants}
+                custom={index}
                 className="border-b border-gray-100 dark:border-gray-800 pb-6"
+                transition={{ delay: index * 0.1 }}
               >
                 {/* Main Comment */}
                 <div className="flex space-x-4">
@@ -294,13 +359,14 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                         `/profile/${comment.commented_by.personal_info.username}`
                       )
                     }
-                    className="cursor-pointer"
+                    className="cursor-pointer mt-1"
+                    animate
                   />
                   <div className="flex-1">
                     <div className="flex justify-between items-start">
                       <div>
                         <h4
-                          className="font-medium text-gray-900 dark:text-gray-100 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                          className="font-medium text-gray-900 dark:text-gray-100 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
                           onClick={() =>
                             navigate(
                               `/profile/${comment.commented_by.personal_info.username}`
@@ -314,76 +380,109 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                         </p>
                       </div>
 
-                      {/* Delete button (if comment author or blog author) */}
-                      {currentUser &&
-                        (currentUser._id === comment.commented_by._id ||
-                          currentUser._id === blogAuthorId) && (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleDeleteComment(comment._id)}
-                            className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        )}
+                      {/* Comment Actions Dropdown */}
+                      <div className="relative">
+                        {currentUser &&
+                          (currentUser._id === comment.commented_by._id ||
+                            currentUser._id === blogAuthorId) && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleDeleteComment(comment._id)}
+                              className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 p-1"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          )}
+                      </div>
                     </div>
 
-                    <p className="mt-2 text-gray-800 dark:text-gray-200">
+                    <div className="mt-2 text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg">
                       {comment.comment}
-                    </p>
+                    </div>
 
-                    {/* Reply button */}
-                    {currentUser && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() =>
-                          setReplyingTo(
-                            replyingTo === comment._id ? null : comment._id
-                          )
-                        }
-                        className="mt-2 text-gray-600 dark:text-gray-400"
+                    {/* Comment actions */}
+                    <div className="mt-2 flex items-center space-x-4">
+                      {/* Like button */}
+                      <button
+                        onClick={() => handleLikeComment(comment._id)}
+                        className={`flex items-center text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 ${
+                          likedComments[comment._id]
+                            ? "text-primary-600 dark:text-primary-400"
+                            : ""
+                        }`}
                       >
-                        <Reply className="h-4 w-4 mr-1" />
-                        Reply
-                      </Button>
-                    )}
+                        <Heart
+                          className={`h-4 w-4 mr-1 ${
+                            likedComments[comment._id] ? "fill-current" : ""
+                          }`}
+                        />
+                        <span className="text-xs">Like</span>
+                      </button>
+
+                      {/* Reply button */}
+                      {currentUser && (
+                        <button
+                          onClick={() =>
+                            setReplyingTo(
+                              replyingTo === comment._id ? null : comment._id
+                            )
+                          }
+                          className="text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 flex items-center"
+                        >
+                          <Reply className="h-4 w-4 mr-1" />
+                          <span className="text-xs">Reply</span>
+                        </button>
+                      )}
+                    </div>
 
                     {/* Reply form */}
-                    {replyingTo === comment._id && (
-                      <form
-                        onSubmit={(e) => handleSubmitReply(e, comment._id)}
-                        className="mt-4 space-y-4"
-                      >
-                        <TextArea
-                          value={replyText}
-                          onChange={(e) => setReplyText(e.target.value)}
-                          placeholder={`Reply to ${comment.commented_by.personal_info.fullname}...`}
-                          rows={2}
-                        />
-                        <div className="flex justify-end space-x-2">
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            onClick={() => {
-                              setReplyingTo(null);
-                              setReplyText("");
-                            }}
+                    <AnimatePresence>
+                      {replyingTo === comment._id && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="mt-4 space-y-4"
+                        >
+                          <form
+                            onSubmit={(e) => handleSubmitReply(e, comment._id)}
+                            className="ml-6 border-l-2 border-gray-100 dark:border-gray-800 pl-4"
                           >
-                            Cancel
-                          </Button>
-                          <Button
-                            type="submit"
-                            variant="primary"
-                            disabled={submitting || !replyText.trim()}
-                            isLoading={submitting}
-                          >
-                            Reply
-                          </Button>
-                        </div>
-                      </form>
-                    )}
+                            <TextArea
+                              value={replyText}
+                              onChange={(e) => setReplyText(e.target.value)}
+                              placeholder={`Reply to ${comment.commented_by.personal_info.fullname}...`}
+                              rows={2}
+                              className="bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700"
+                            />
+                            <div className="flex justify-end space-x-2 mt-2">
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => {
+                                  setReplyingTo(null);
+                                  setReplyText("");
+                                }}
+                              >
+                                Cancel
+                              </Button>
+                              <Button
+                                type="submit"
+                                variant="primary"
+                                size="sm"
+                                disabled={submitting || !replyText.trim()}
+                                isLoading={submitting}
+                              >
+                                Reply
+                              </Button>
+                            </div>
+                          </form>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
                     {/* Replies section */}
                     {comment.children && comment.children.length > 0 && (
@@ -393,7 +492,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                           size="sm"
                           onClick={() => toggleReplies(comment._id)}
                           disabled={loadingReplies[comment._id]}
-                          className="text-gray-600 dark:text-gray-400"
+                          className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
                         >
                           {loadingReplies[comment._id] ? (
                             <span className="flex items-center">
@@ -433,82 +532,132 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                         </Button>
 
                         {/* Replies list */}
-                        {showReplies[comment._id] &&
-                          expandedReplies[comment._id] && (
-                            <div className="mt-4 pl-8 space-y-4 border-l-2 border-gray-100 dark:border-gray-800">
-                              {expandedReplies[comment._id].map((reply) => (
-                                <div key={reply._id} className="flex space-x-3">
-                                  <Avatar
-                                    src={
-                                      reply.commented_by.personal_info
-                                        .profile_img
-                                    }
-                                    alt={
-                                      reply.commented_by.personal_info.fullname
-                                    }
-                                    size="sm"
-                                    onClick={() =>
-                                      navigate(
-                                        `/profile/${reply.commented_by.personal_info.username}`
-                                      )
-                                    }
-                                    className="cursor-pointer"
-                                  />
-                                  <div className="flex-1">
-                                    <div className="flex justify-between items-start">
-                                      <div>
-                                        <h5
-                                          className="font-medium text-gray-900 dark:text-gray-100 text-sm cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
-                                          onClick={() =>
-                                            navigate(
-                                              `/profile/${reply.commented_by.personal_info.username}`
-                                            )
-                                          }
-                                        >
-                                          {
-                                            reply.commented_by.personal_info
-                                              .fullname
-                                          }
-                                        </h5>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                                          {formatCommentDate(reply.commentedAt)}
-                                        </p>
-                                      </div>
+                        <AnimatePresence>
+                          {showReplies[comment._id] &&
+                            expandedReplies[comment._id] && (
+                              <motion.div
+                                key={`replies-${comment._id}`}
+                                initial="hidden"
+                                animate="visible"
+                                exit="exit"
+                                variants={repliesVariants}
+                                className="mt-4 pl-8 space-y-4 border-l-2 border-gray-100 dark:border-gray-800"
+                              >
+                                {expandedReplies[comment._id].map(
+                                  (reply, replyIndex) => (
+                                    <motion.div
+                                      key={reply._id}
+                                      initial={{ opacity: 0, x: -10 }}
+                                      animate={{
+                                        opacity: 1,
+                                        x: 0,
+                                        transition: {
+                                          delay: replyIndex * 0.05,
+                                        },
+                                      }}
+                                      className="flex space-x-3"
+                                    >
+                                      <Avatar
+                                        src={
+                                          reply.commented_by.personal_info
+                                            .profile_img
+                                        }
+                                        alt={
+                                          reply.commented_by.personal_info
+                                            .fullname
+                                        }
+                                        size="sm"
+                                        onClick={() =>
+                                          navigate(
+                                            `/profile/${reply.commented_by.personal_info.username}`
+                                          )
+                                        }
+                                        className="cursor-pointer mt-1"
+                                        animate
+                                      />
+                                      <div className="flex-1">
+                                        <div className="flex justify-between items-start">
+                                          <div>
+                                            <h5
+                                              className="font-medium text-gray-900 dark:text-gray-100 text-sm cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+                                              onClick={() =>
+                                                navigate(
+                                                  `/profile/${reply.commented_by.personal_info.username}`
+                                                )
+                                              }
+                                            >
+                                              {
+                                                reply.commented_by.personal_info
+                                                  .fullname
+                                              }
+                                            </h5>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                              {formatCommentDate(
+                                                reply.commentedAt
+                                              )}
+                                            </p>
+                                          </div>
 
-                                      {/* Delete reply button */}
-                                      {currentUser &&
-                                        (currentUser._id ===
-                                          reply.commented_by._id ||
-                                          currentUser._id === blogAuthorId) && (
-                                          <Button
-                                            variant="ghost"
-                                            size="sm"
+                                          {/* Delete reply button */}
+                                          {currentUser &&
+                                            (currentUser._id ===
+                                              reply.commented_by._id ||
+                                              currentUser._id ===
+                                                blogAuthorId) && (
+                                              <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={() =>
+                                                  handleDeleteComment(
+                                                    reply._id,
+                                                    true,
+                                                    comment._id
+                                                  )
+                                                }
+                                                className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 p-1"
+                                              >
+                                                <Trash2 className="h-3 w-3" />
+                                              </Button>
+                                            )}
+                                        </div>
+                                        <div className="mt-1 text-gray-800 dark:text-gray-200 text-sm bg-gray-50 dark:bg-gray-800/50 p-2 rounded-lg">
+                                          {reply.comment}
+                                        </div>
+
+                                        {/* Reply actions */}
+                                        <div className="mt-1 flex items-center space-x-3">
+                                          <button
                                             onClick={() =>
-                                              handleDeleteComment(
-                                                reply._id,
-                                                true,
-                                                comment._id
-                                              )
+                                              handleLikeComment(reply._id)
                                             }
-                                            className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300"
+                                            className={`flex items-center text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 text-xs ${
+                                              likedComments[reply._id]
+                                                ? "text-primary-600 dark:text-primary-400"
+                                                : ""
+                                            }`}
                                           >
-                                            <Trash2 className="h-3 w-3" />
-                                          </Button>
-                                        )}
-                                    </div>
-                                    <p className="mt-1 text-gray-800 dark:text-gray-200 text-sm">
-                                      {reply.comment}
-                                    </p>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          )}
+                                            <Heart
+                                              className={`h-3 w-3 mr-1 ${
+                                                likedComments[reply._id]
+                                                  ? "fill-current"
+                                                  : ""
+                                              }`}
+                                            />
+                                            Like
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </motion.div>
+                                  )
+                                )}
+                              </motion.div>
+                            )}
+                        </AnimatePresence>
                       </div>
                     )}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
 
             {/* Load more button */}
@@ -519,6 +668,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                   onClick={loadMoreComments}
                   disabled={loading}
                   isLoading={loading}
+                  className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm"
                 >
                   Load More Comments
                 </Button>
@@ -526,11 +676,29 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
             )}
           </>
         ) : (
-          <div className="text-center py-8">
-            <p className="text-gray-500 dark:text-gray-400">
+          <motion.div
+            className="text-center py-12 bg-gray-50 dark:bg-gray-800/30 rounded-xl border border-gray-100 dark:border-gray-800"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <svg
+              className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1}
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+              />
+            </svg>
+            <p className="mt-4 text-gray-500 dark:text-gray-400">
               No comments yet. Be the first to comment!
             </p>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>

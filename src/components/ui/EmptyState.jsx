@@ -1,46 +1,127 @@
 // src/components/ui/EmptyState.jsx
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import Button from "./Button";
 
 const EmptyState = ({
   title,
   description,
   icon,
+  image,
   actionText,
   actionLink,
   actionClick,
+  secondaryActionText,
+  secondaryActionLink,
+  secondaryActionClick,
   className = "",
   ...props
 }) => {
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: "easeOut" },
+    },
+  };
+
   return (
-    <div
+    <motion.div
       className={`flex flex-col items-center justify-center py-12 px-4 text-center ${className}`}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
       {...props}
     >
       {icon && (
-        <div className="text-gray-400 dark:text-gray-500 mb-4">{icon}</div>
+        <motion.div
+          className="text-gray-400 dark:text-gray-500 mb-6"
+          variants={itemVariants}
+        >
+          {icon}
+        </motion.div>
       )}
+
+      {image && (
+        <motion.div className="mb-6 max-w-xs" variants={itemVariants}>
+          <img
+            src={image}
+            alt={title || "Empty state illustration"}
+            className="w-full h-auto"
+          />
+        </motion.div>
+      )}
+
       {title && (
-        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
+        <motion.h3
+          className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2"
+          variants={itemVariants}
+        >
           {title}
-        </h3>
+        </motion.h3>
       )}
+
       {description && (
-        <p className="text-gray-500 dark:text-gray-400 mb-6 max-w-md">
+        <motion.p
+          className="text-gray-600 dark:text-gray-400 mb-8 max-w-md"
+          variants={itemVariants}
+        >
           {description}
-        </p>
+        </motion.p>
       )}
-      {actionText && actionLink && (
-        <Button href={actionLink} variant="primary" size="md">
-          {actionText}
-        </Button>
-      )}
-      {actionText && actionClick && (
-        <Button onClick={actionClick} variant="primary" size="md">
-          {actionText}
-        </Button>
-      )}
-    </div>
+
+      <motion.div
+        className="flex flex-col sm:flex-row gap-3"
+        variants={itemVariants}
+      >
+        {actionText && actionLink && (
+          <Button href={actionLink} variant="primary" size="md" animate>
+            {actionText}
+          </Button>
+        )}
+
+        {actionText && actionClick && (
+          <Button onClick={actionClick} variant="primary" size="md" animate>
+            {actionText}
+          </Button>
+        )}
+
+        {secondaryActionText && secondaryActionLink && (
+          <Button
+            href={secondaryActionLink}
+            variant="outline"
+            size="md"
+            animate
+          >
+            {secondaryActionText}
+          </Button>
+        )}
+
+        {secondaryActionText && secondaryActionClick && (
+          <Button
+            onClick={secondaryActionClick}
+            variant="outline"
+            size="md"
+            animate
+          >
+            {secondaryActionText}
+          </Button>
+        )}
+      </motion.div>
+    </motion.div>
   );
 };
 

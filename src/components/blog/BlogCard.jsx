@@ -1,12 +1,12 @@
 // src/components/blog/BlogCard.jsx
 import { useNavigate } from "react-router-dom";
 import { format, parseISO, isValid } from "date-fns";
-import { Heart, MessageSquare, Eye } from "lucide-react";
+import { Heart, MessageSquare, Eye, Bookmark } from "lucide-react";
+import { motion } from "framer-motion";
 import Avatar from "../ui/Avatar";
-import Card from "../ui/Card";
 import Badge from "../ui/Badge";
 
-const BlogCard = ({ blog, className = "" }) => {
+const BlogCard = ({ blog, className = "", variant = "default" }) => {
   const navigate = useNavigate();
 
   const handleBlogClick = () => {
@@ -47,24 +47,73 @@ const BlogCard = ({ blog, className = "" }) => {
     }
   };
 
+  // Card variants
+  const cardVariants = {
+    default: "bg-white dark:bg-gray-800 shadow-custom",
+    gradient: "card-gradient",
+    minimal:
+      "bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-800",
+    featured:
+      "bg-gradient-to-r from-primary-500/10 to-secondary-500/10 dark:from-primary-900/20 dark:to-secondary-900/20",
+  };
+
+  // Animation variants
+  const animationVariants = {
+    hover: {
+      y: -8,
+      boxShadow: "0 15px 30px rgba(0, 0, 0, 0.12)",
+      transition: { duration: 0.3, ease: "easeOut" },
+    },
+    tap: {
+      y: -2,
+      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
+      transition: { duration: 0.2 },
+    },
+  };
+
+  const isPremium = blog.is_premium;
+
   return (
-    <Card
-      className={`overflow-hidden h-full cursor-pointer transition-shadow hover:shadow-custom-lg ${className}`}
-      animate
+    <motion.div
+      className={`rounded-xl overflow-hidden cursor-pointer h-full flex flex-col transition-all duration-300 ${
+        cardVariants[variant] || cardVariants.default
+      } ${className}`}
+      whileHover={animationVariants.hover}
+      whileTap={animationVariants.tap}
       onClick={handleBlogClick}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
     >
       {/* Blog Banner Image */}
-      {blog.banner && (
-        <div className="h-48 overflow-hidden">
-          <img
-            src={blog.banner}
-            alt={blog.title}
-            className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
-          />
-        </div>
-      )}
+      <div className="relative">
+        {blog.banner ? (
+          <div className="h-48 overflow-hidden">
+            <img
+              src={blog.banner}
+              alt={blog.title}
+              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            />
+          </div>
+        ) : (
+          <div className="h-32 bg-gradient-to-r from-primary-500 to-secondary-500" />
+        )}
 
-      <div className="px-6 py-5">
+        {/* Premium badge */}
+        {isPremium && (
+          <div className="absolute top-3 right-3">
+            <Badge
+              variant="accent"
+              className="bg-accent-500 text-white font-semibold"
+              dot
+            >
+              Premium
+            </Badge>
+          </div>
+        )}
+      </div>
+
+      <div className="p-5 flex flex-col flex-grow">
         {/* Tags */}
         {blog.tags && blog.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-3">
@@ -72,7 +121,8 @@ const BlogCard = ({ blog, className = "" }) => {
               <Badge
                 key={index}
                 variant="secondary"
-                className="hover:bg-secondary-200 dark:hover:bg-secondary-800 cursor-pointer"
+                animate
+                className="transition-all duration-300 hover:bg-secondary-100 dark:hover:bg-secondary-900/30"
                 onClick={(e) => {
                   e.stopPropagation();
                   navigate(`/tag/${tag}`);
@@ -88,13 +138,13 @@ const BlogCard = ({ blog, className = "" }) => {
         )}
 
         {/* Title */}
-        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
           {blog.title}
         </h3>
 
         {/* Description */}
         {blog.des && (
-          <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base mb-4 line-clamp-2">
+          <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2 flex-grow">
             {blog.des}
           </p>
         )}
@@ -104,16 +154,17 @@ const BlogCard = ({ blog, className = "" }) => {
           {/* Author - Add null check for author */}
           {blog.author && blog.author.personal_info ? (
             <div
-              className="flex items-center gap-2 cursor-pointer"
+              className="flex items-center gap-2 cursor-pointer group"
               onClick={handleAuthorClick}
             >
               <Avatar
                 src={blog.author.personal_info.profile_img}
                 alt={blog.author.personal_info.fullname}
                 size="sm"
+                animate
               />
               <div>
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                <p className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
                   {blog.author.personal_info.fullname}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -137,11 +188,11 @@ const BlogCard = ({ blog, className = "" }) => {
 
           {/* Stats */}
           <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 transition-colors duration-200 hover:text-red-500">
               <Heart size={16} />
               <span>{blog.activity?.total_likes || 0}</span>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 transition-colors duration-200 hover:text-blue-500">
               <MessageSquare size={16} />
               <span>{blog.activity?.total_comments || 0}</span>
             </div>
@@ -152,7 +203,7 @@ const BlogCard = ({ blog, className = "" }) => {
           </div>
         </div>
       </div>
-    </Card>
+    </motion.div>
   );
 };
 
