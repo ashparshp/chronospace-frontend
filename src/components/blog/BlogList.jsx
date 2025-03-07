@@ -123,24 +123,24 @@ const BlogList = ({
             <motion.div
               key={`skeleton-${index}`}
               variants={itemVariants}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 h-full animate-pulse"
+              className="bg-white dark:bg-black rounded-xl shadow-md p-4 h-full animate-pulse"
             >
-              <div className="h-48 bg-gray-200 dark:bg-gray-700 rounded-md mb-4"></div>
-              <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded-md mb-3 w-3/4"></div>
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-md mb-2"></div>
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-md mb-4 w-5/6"></div>
+              <div className="h-48 bg-gray-200 dark:bg-black rounded-md mb-4"></div>
+              <div className="h-6 bg-gray-200 dark:bg-black rounded-md mb-3 w-3/4"></div>
+              <div className="h-4 bg-gray-200 dark:bg-black rounded-md mb-2"></div>
+              <div className="h-4 bg-gray-200 dark:bg-black rounded-md mb-4 w-5/6"></div>
               <div className="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
                 <div className="flex items-center space-x-2">
-                  <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                  <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-black"></div>
                   <div>
-                    <div className="h-4 w-24 bg-gray-200 dark:bg-gray-700 rounded-md"></div>
-                    <div className="h-3 w-16 bg-gray-200 dark:bg-gray-700 rounded-md mt-1"></div>
+                    <div className="h-4 w-24 bg-gray-200 dark:bg-black rounded-md"></div>
+                    <div className="h-3 w-16 bg-gray-200 dark:bg-black rounded-md mt-1"></div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="h-4 w-8 bg-gray-200 dark:bg-gray-700 rounded-md"></div>
-                  <div className="h-4 w-8 bg-gray-200 dark:bg-gray-700 rounded-md"></div>
-                  <div className="h-4 w-8 bg-gray-200 dark:bg-gray-700 rounded-md"></div>
+                  <div className="h-4 w-8 bg-gray-200 dark:bg-black rounded-md"></div>
+                  <div className="h-4 w-8 bg-gray-200 dark:bg-black rounded-md"></div>
+                  <div className="h-4 w-8 bg-gray-200 dark:bg-black rounded-md"></div>
                 </div>
               </div>
             </motion.div>
@@ -162,7 +162,7 @@ const BlogList = ({
               variant="outline"
               onClick={onLoadMore}
               disabled={loading}
-              className="px-6 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700"
+              className="px-6 py-2.5 bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700"
             >
               {loading ? (
                 <>

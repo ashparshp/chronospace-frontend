@@ -276,7 +276,7 @@ const SearchPage = () => {
         className="space-y-8"
       >
         {/* Search Header */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <div className="bg-white dark:bg-black rounded-lg shadow-md p-6">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
             {getSearchTitle()}
           </h1>
@@ -404,7 +404,7 @@ const SearchPage = () => {
         </div>
 
         {/* Search Tabs */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+        <div className="bg-white dark:bg-black rounded-lg shadow-md overflow-hidden">
           <div className="border-b border-gray-200 dark:border-gray-700">
             <nav className="-mb-px flex" aria-label="Tabs">
               <button
@@ -461,7 +461,7 @@ const SearchPage = () => {
                     <button
                       className={`p-2 rounded-md ${
                         viewMode === "grid"
-                          ? "bg-gray-100 dark:bg-gray-700"
+                          ? "bg-gray-100 dark:bg-black"
                           : "text-gray-500 dark:text-gray-400"
                       }`}
                       onClick={() => setViewMode("grid")}
@@ -472,7 +472,7 @@ const SearchPage = () => {
                     <button
                       className={`p-2 rounded-md ${
                         viewMode === "list"
-                          ? "bg-gray-100 dark:bg-gray-700"
+                          ? "bg-gray-100 dark:bg-black"
                           : "text-gray-500 dark:text-gray-400"
                       }`}
                       onClick={() => setViewMode("list")}
@@ -511,13 +511,13 @@ const SearchPage = () => {
                     {Array.from({ length: 6 }).map((_, i) => (
                       <div
                         key={i}
-                        className="animate-pulse bg-white dark:bg-gray-800 rounded-lg shadow p-4"
+                        className="animate-pulse bg-white dark:bg-black rounded-lg shadow p-4"
                       >
                         <div className="flex items-center space-x-4">
-                          <div className="h-12 w-12 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                          <div className="h-12 w-12 bg-gray-200 dark:bg-black rounded-full"></div>
                           <div className="space-y-2 flex-1">
-                            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                            <div className="h-4 bg-gray-200 dark:bg-black rounded w-3/4"></div>
+                            <div className="h-3 bg-gray-200 dark:bg-black rounded w-1/2"></div>
                           </div>
                         </div>
                       </div>

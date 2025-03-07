@@ -76,7 +76,7 @@ const Select = forwardRef(
                 error
                   ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                   : "border-gray-300 dark:border-gray-700 focus:ring-primary-500/50 focus:border-primary-500"
-              } bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 ${
+              } bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 ${
                 icon ? "pl-10" : ""
               } ${className}`}
               animate={error ? "error" : "animate"}

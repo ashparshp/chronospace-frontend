@@ -113,7 +113,7 @@ const Progress = ({
 
       {/* Progress container */}
       <div
-        className={`w-full bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden ${
+        className={`w-full bg-gray-200 dark:bg-black rounded-full overflow-hidden ${
           sizeStyles[size] || sizeStyles.md
         }`}
       >

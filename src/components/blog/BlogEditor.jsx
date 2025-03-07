@@ -353,7 +353,7 @@ const BlogEditor = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+    <div className="bg-white dark:bg-black shadow-md rounded-lg overflow-hidden">
       {/* Editor Header/Toolbar */}
       <div className="bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-4">
         <div className="flex items-center justify-between">
@@ -487,7 +487,7 @@ const BlogEditor = () => {
             {tags.map((tag, index) => (
               <div
                 key={index}
-                className="bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-1 text-sm flex items-center"
+                className="bg-gray-100 dark:bg-black rounded-full px-3 py-1 text-sm flex items-center"
               >
                 <span className="text-gray-800 dark:text-gray-200">{tag}</span>
                 <button

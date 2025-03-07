@@ -267,7 +267,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
     <div className="space-y-6">
       <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center">
         <span className="mr-1">Comments</span>
-        <span className="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded-full text-sm font-normal">
+        <span className="px-2 py-0.5 bg-gray-100 dark:bg-black rounded-full text-sm font-normal">
           {comments.length}
         </span>
       </h3>
@@ -288,7 +288,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
               onChange={(e) => setCommentText(e.target.value)}
               placeholder="Add a comment..."
               rows={3}
-              className="flex-1 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700"
+              className="flex-1 bg-gray-50 dark:bg-black/50 border border-gray-200 dark:border-gray-700"
               maxLength={1000}
               showCount
             />
@@ -307,7 +307,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
         </form>
       ) : (
         <motion.div
-          className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 text-center border border-gray-200 dark:border-gray-700"
+          className="bg-gray-50 dark:bg-black rounded-xl p-6 text-center border border-gray-200 dark:border-gray-700"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
@@ -327,11 +327,11 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
           // Loading skeleton
           Array.from({ length: 3 }).map((_, i) => (
             <div key={i} className="animate-pulse flex space-x-4">
-              <div className="rounded-full bg-gray-200 dark:bg-gray-700 h-10 w-10"></div>
+              <div className="rounded-full bg-gray-200 dark:bg-black h-10 w-10"></div>
               <div className="flex-1 space-y-2 py-1">
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/4"></div>
+                <div className="h-4 bg-gray-200 dark:bg-black rounded w-3/4"></div>
+                <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/2"></div>
               </div>
             </div>
           ))
@@ -397,7 +397,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                       </div>
                     </div>
 
-                    <div className="mt-2 text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg">
+                    <div className="mt-2 text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-black/50 p-3 rounded-lg">
                       {comment.comment}
                     </div>
 
@@ -455,7 +455,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                               onChange={(e) => setReplyText(e.target.value)}
                               placeholder={`Reply to ${comment.commented_by.personal_info.fullname}...`}
                               rows={2}
-                              className="bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700"
+                              className="bg-gray-50 dark:bg-black/50 border border-gray-200 dark:border-gray-700"
                             />
                             <div className="flex justify-end space-x-2 mt-2">
                               <Button
@@ -620,7 +620,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                                               </Button>
                                             )}
                                         </div>
-                                        <div className="mt-1 text-gray-800 dark:text-gray-200 text-sm bg-gray-50 dark:bg-gray-800/50 p-2 rounded-lg">
+                                        <div className="mt-1 text-gray-800 dark:text-gray-200 text-sm bg-gray-50 dark:bg-black/50 p-2 rounded-lg">
                                           {reply.comment}
                                         </div>
 
@@ -668,7 +668,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                   onClick={loadMoreComments}
                   disabled={loading}
                   isLoading={loading}
-                  className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm"
+                  className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-black shadow-sm"
                 >
                   Load More Comments
                 </Button>
@@ -677,7 +677,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
           </>
         ) : (
           <motion.div
-            className="text-center py-12 bg-gray-50 dark:bg-gray-800/30 rounded-xl border border-gray-100 dark:border-gray-800"
+            className="text-center py-12 bg-gray-50 dark:bg-black/30 rounded-xl border border-gray-100 dark:border-gray-800"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}

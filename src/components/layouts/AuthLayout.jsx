@@ -167,7 +167,7 @@ const AuthLayout = ({
 
       {/* Side panel */}
       <motion.div
-        className={`hidden md:flex md:flex-1 bg-gray-100 dark:bg-gray-800 relative overflow-hidden ${sideOrder}`}
+        className={`hidden md:flex md:flex-1 bg-gray-100 dark:bg-black relative overflow-hidden ${sideOrder}`}
         initial={{ opacity: 0, x: sidePosition === "right" ? 20 : -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}

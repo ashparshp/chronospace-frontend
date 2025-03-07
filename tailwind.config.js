@@ -49,11 +49,11 @@ export default {
         },
         background: {
           light: "#F9FAFB",
-          dark: "#0F172A",
+          dark: "#0D1117",
         },
         surface: {
           light: "#FFFFFF",
-          dark: "#1E293B",
+          dark: "#0D1117",
         },
         text: {
           light: "#111827",

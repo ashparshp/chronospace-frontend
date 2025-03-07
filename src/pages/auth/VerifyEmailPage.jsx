@@ -48,7 +48,7 @@ const VerifyEmailPage = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md max-w-md w-full"
+        className="bg-white dark:bg-black p-8 rounded-lg shadow-md max-w-md w-full"
       >
         <div className="text-center">
           {status === "loading" ? (
