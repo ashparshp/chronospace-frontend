@@ -2,6 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Gelasio:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -19,7 +21,12 @@
   }
 
   body {
-    @apply bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark;
+    @apply bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark transition-colors duration-300;
+    font-feature-settings: "kern", "liga", "calt";
+  }
+
+  ::selection {
+    @apply bg-primary-200 dark:bg-primary-800 text-text-light dark:text-text-dark;
   }
 }
 
@@ -29,27 +36,37 @@
   }
 
   .btn-primary {
-    @apply bg-primary hover:bg-primary-700 text-white rounded-lg px-4 py-2 font-medium transition-colors;
+    @apply bg-gradient-to-r from-primary to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-lg px-4 py-2 font-medium transition-all duration-300 shadow-md hover:shadow-lg focus:ring-2 focus:ring-primary-500/50 focus:ring-offset-2;
   }
 
   .btn-secondary {
-    @apply bg-secondary hover:bg-secondary-600 text-white rounded-lg px-4 py-2 font-medium transition-colors;
+    @apply bg-gradient-to-r from-secondary to-secondary-600 hover:from-secondary-600 hover:to-secondary-700 text-white rounded-lg px-4 py-2 font-medium transition-all duration-300 shadow-md hover:shadow-lg focus:ring-2 focus:ring-secondary-500/50 focus:ring-offset-2;
   }
 
   .btn-accent {
-    @apply bg-accent hover:bg-accent-600 text-white rounded-lg px-4 py-2 font-medium transition-colors;
+    @apply bg-gradient-to-r from-accent to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white rounded-lg px-4 py-2 font-medium transition-all duration-300 shadow-md hover:shadow-lg focus:ring-2 focus:ring-accent-500/50 focus:ring-offset-2;
   }
 
   .btn-outline {
-    @apply border border-primary text-primary hover:bg-primary-50 dark:hover:bg-primary-900 rounded-lg px-4 py-2 font-medium transition-colors;
+    @apply border border-primary text-primary hover:bg-primary-50 dark:hover:bg-primary-900/30 hover:border-primary-600 dark:hover:border-primary-400 rounded-lg px-4 py-2 font-medium transition-all duration-300 focus:ring-2 focus:ring-primary-500/50 focus:ring-offset-2;
+  }
+
+  .btn-ghost {
+    @apply text-primary hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-lg px-4 py-2 font-medium transition-all duration-300 focus:ring-2 focus:ring-primary-500/50 focus:ring-offset-2;
   }
 
   .card {
-    @apply bg-white dark:bg-gray-800 rounded-lg shadow-custom overflow-hidden;
+    @apply bg-surface-light dark:bg-surface-dark rounded-xl shadow-custom overflow-hidden transition-shadow duration-300 hover:shadow-custom-lg border border-gray-100 dark:border-gray-800;
+  }
+
+  .card-gradient {
+    @apply relative overflow-hidden rounded-xl;
+    @apply before:absolute before:inset-0 before:bg-gradient-to-r before:from-primary-50/50 before:to-secondary-50/50 dark:before:from-primary-950/30 dark:before:to-secondary-950/30 before:opacity-50 before:transition-opacity before:duration-300;
+    @apply hover:before:opacity-75;
   }
 
   .input-field {
-    @apply w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500;
+    @apply w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all duration-200;
   }
 
   .form-label {
@@ -57,16 +74,49 @@
   }
 
   .form-error {
-    @apply mt-1 text-sm text-red-600 dark:text-red-400;
+    @apply mt-1 text-sm text-red-600 dark:text-red-400 font-medium;
   }
 
   .section-title {
-    @apply text-2xl font-bold text-gray-900 dark:text-white mb-6;
+    @apply text-2xl font-bold bg-gradient-to-r from-primary-700 to-secondary-700 bg-clip-text text-transparent mb-6;
+  }
+
+  .gradient-heading {
+    @apply font-display font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent;
   }
 
   .gradient-bg {
-    @apply bg-gradient-to-r from-primary-700 via-primary to-secondary;
+    @apply bg-gradient-to-r from-primary-600 via-accent-500 to-secondary-500;
   }
+
+  .glass-effect {
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md backdrop-saturate-150 border border-white/20 dark:border-gray-800/50;
+  }
+
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Animations */
+.fade-in {
+  @apply animate-fade-in;
+}
+
+.fade-out {
+  @apply animate-fade-out;
+}
+
+.slide-up {
+  @apply animate-slide-up;
+}
+
+.slide-down {
+  @apply animate-slide-down;
+}
+
+.float {
+  @apply animate-float;
 }
 
 /* Editor.js styling */
@@ -91,31 +141,22 @@
   @apply animate-pulse bg-gray-200 dark:bg-gray-700 rounded;
 }
 
-/* Animations */
-.fade-in {
-  @apply animate-[fadeIn_0.3s_ease-in-out];
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+/* Custom Scrollbar */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
   }
-  to {
-    opacity: 1;
-  }
-}
 
-.slide-in {
-  @apply animate-[slideIn_0.3s_ease-in-out];
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(10px);
-    opacity: 0;
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
   }
-  to {
-    transform: translateY(0);
-    opacity: 1;
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-800 rounded-full;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors duration-200;
   }
 }
