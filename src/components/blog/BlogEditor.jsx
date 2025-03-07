@@ -31,7 +31,6 @@ const BlogEditor = ({ initialData = null, isEdit = false }) => {
   const [editorReady, setEditorReady] = useState(false);
 
   // Initialize editor
-  // Initialize editor - FIXED VERSION
   useEffect(() => {
     if (editorRef.current) return;
 

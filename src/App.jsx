@@ -4,6 +4,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import RoleBasedRoute from "./components/auth/RoleBasedRoute";
 import LoadingScreen from "./components/ui/LoadingScreen";
 import MainLayout from "./components/layouts/MainLayout";
+import RequestPasswordResetPage from "./pages/auth/RequestPasswordResetPage";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const SignUpPage = lazy(() => import("./pages/auth/SignUpPage"));
@@ -39,6 +40,10 @@ function App() {
           <Route path="tag/:tag" element={<TagPage />} />
           <Route path="profile/:username" element={<ProfilePage />} />
           <Route path="*" element={<NotFoundPage />} />
+          <Route
+            path="/request-password-reset"
+            element={<RequestPasswordResetPage />}
+          />
         </Route>
 
         {/* Auth routes */}
