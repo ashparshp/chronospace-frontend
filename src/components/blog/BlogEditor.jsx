@@ -1,6 +1,5 @@
-// src/components/blog/BlogEditor.jsx
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import EditorJS from "@editorjs/editorjs";
 import { createImageUploadHandler } from "../../services/uploadService";
 import { EDITOR_JS_TOOLS } from "../../config/constants";
@@ -13,7 +12,8 @@ import { blogService } from "../../services/blogService";
 import { uploadService } from "../../services/uploadService";
 import { useNotification } from "../../context/NotificationContext";
 
-const BlogEditor = ({ initialData = null, isEdit = false }) => {
+const BlogEditor = () => {
+  const { blogId } = useParams();
   const navigate = useNavigate();
   const { showToast } = useNotification();
   const editorRef = useRef(null);
@@ -28,7 +28,44 @@ const BlogEditor = ({ initialData = null, isEdit = false }) => {
   const [bannerFile, setBannerFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [fetchingBlog, setFetchingBlog] = useState(false);
+  const [initialData, setInitialData] = useState(null);
   const [editorReady, setEditorReady] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+
+  // Fetch blog data if editing
+  useEffect(() => {
+    const fetchBlog = async () => {
+      if (!blogId) return;
+
+      try {
+        setFetchingBlog(true);
+        setIsEdit(true);
+
+        const response = await blogService.getBlog(blogId, true, "edit");
+        const blogData = response.data.blog;
+
+        setInitialData(blogData);
+        setTitle(blogData.title || "");
+        setDescription(blogData.des || "");
+        setTags(blogData.tags || []);
+        setCategory(blogData.category || "general");
+        setVisibility(blogData.visibility || "public");
+        setIsPremium(blogData.is_premium || false);
+        setBanner(blogData.banner || "");
+      } catch (error) {
+        console.error("Error fetching blog:", error);
+        showToast("Failed to load blog data", "error");
+        navigate("/dashboard");
+      } finally {
+        setFetchingBlog(false);
+      }
+    };
+
+    if (blogId) {
+      fetchBlog();
+    }
+  }, [blogId, navigate, showToast]);
 
   // Initialize editor
   useEffect(() => {
@@ -41,7 +78,13 @@ const BlogEditor = ({ initialData = null, isEdit = false }) => {
       const editor = new EditorJS({
         holder: "editor",
         tools: {
-          ...EDITOR_JS_TOOLS,
+          // Include all existing tools
+          header: EDITOR_JS_TOOLS.header,
+          list: EDITOR_JS_TOOLS.list,
+          code: EDITOR_JS_TOOLS.code,
+          embed: EDITOR_JS_TOOLS.embed,
+          quote: EDITOR_JS_TOOLS.quote,
+          marker: EDITOR_JS_TOOLS.marker,
           // Override the image tool with your custom uploader
           image: {
             class: EDITOR_JS_TOOLS.image.class,
@@ -82,25 +125,18 @@ const BlogEditor = ({ initialData = null, isEdit = false }) => {
         editorRef.current = null;
       }
     };
-  }, [initialData]); // Only depend on initialData
+  }, [initialData, editorReady]);
 
-  // Set initial data if editing
+  // Set initial content if editing and editor is ready
   useEffect(() => {
-    if (initialData && initialData.blog_id) {
-      setTitle(initialData.title || "");
-      setDescription(initialData.des || "");
-      setTags(initialData.tags || []);
-      setCategory(initialData.category || "general");
-      setVisibility(initialData.visibility || "public");
-      setIsPremium(initialData.is_premium || false);
-      setBanner(initialData.banner || "");
-    } else {
-      // Check for draft in localStorage
+    if (editorRef.current && initialData?.content && isEdit && editorReady) {
+      editorRef.current.render(initialData.content);
+    } else if (!isEdit && editorReady) {
+      // Check for draft in localStorage for new posts
       const savedDraft = localStorage.getItem("editor-draft");
       if (savedDraft) {
         try {
           const draftData = JSON.parse(savedDraft);
-          // You might want to prompt the user before loading the draft
           if (editorRef.current) {
             editorRef.current.render(draftData);
           }
@@ -109,7 +145,7 @@ const BlogEditor = ({ initialData = null, isEdit = false }) => {
         }
       }
     }
-  }, [initialData, editorReady]);
+  }, [initialData, isEdit, editorReady]);
 
   // Handle tag input
   const handleTagInputKeyDown = (e) => {
@@ -185,7 +221,7 @@ const BlogEditor = ({ initialData = null, isEdit = false }) => {
         category,
         visibility,
         is_premium: isPremium,
-        id: initialData?.blog_id, // Include ID if editing
+        id: blogId, // Include ID if editing
       };
 
       const response = await blogService.createUpdateBlog(blogData);
@@ -222,9 +258,16 @@ const BlogEditor = ({ initialData = null, isEdit = false }) => {
     }
 
     // Validate content
-    const content = await editorRef.current.save();
-    if (!content.blocks || content.blocks.length === 0) {
-      showToast("Please add some content to your blog", "error");
+    let content;
+    try {
+      content = await editorRef.current.save();
+      if (!content.blocks || content.blocks.length === 0) {
+        showToast("Please add some content to your blog", "error");
+        return;
+      }
+    } catch (error) {
+      console.error("Error saving editor content:", error);
+      showToast("Failed to save editor content", "error");
       return;
     }
 
@@ -251,7 +294,7 @@ const BlogEditor = ({ initialData = null, isEdit = false }) => {
         category,
         visibility,
         is_premium: isPremium,
-        id: initialData?.blog_id, // Include ID if editing
+        id: blogId, // Include ID if editing
       };
 
       const response = await blogService.createUpdateBlog(blogData);
@@ -300,6 +343,14 @@ const BlogEditor = ({ initialData = null, isEdit = false }) => {
       showToast("Failed to create preview", "error");
     }
   };
+
+  if (fetchingBlog) {
+    return (
+      <div className="flex justify-center items-center h-96">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
@@ -389,11 +440,7 @@ const BlogEditor = ({ initialData = null, isEdit = false }) => {
                 <p className="text-gray-500 dark:text-gray-400 mb-2">
                   Drag & drop a banner image or click to upload
                 </p>
-                <label htmlFor="banner-upload" className="cursor-pointer">
-                  <Button variant="outline" size="sm">
-                    <Upload className="h-4 w-4 mr-1" />
-                    Upload Banner
-                  </Button>
+                <div>
                   <input
                     id="banner-upload"
                     type="file"
@@ -401,7 +448,17 @@ const BlogEditor = ({ initialData = null, isEdit = false }) => {
                     onChange={handleBannerUpload}
                     className="hidden"
                   />
-                </label>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() =>
+                      document.getElementById("banner-upload").click()
+                    }
+                  >
+                    <Upload className="h-4 w-4 mr-1" />
+                    Upload Banner
+                  </Button>
+                </div>
               </div>
             </div>
           )}
