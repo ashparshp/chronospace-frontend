@@ -163,7 +163,7 @@ const Header = () => {
               type="text"
               name="search"
               placeholder="Search blogs..."
-              className="w-48 lg:w-64 px-4 py-1.5 rounded-full bg-gray-100 dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-sm transition-all duration-300 border border-transparent focus:border-primary-400"
+              className="w-48 lg:w-64 px-4 py-1.5 rounded-full bg-gray-100 dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-sm transition-all duration-300 border border-gray-300 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-600 focus:border-primary-400"
             />
             <button
               type="submit"
@@ -172,10 +172,8 @@ const Header = () => {
               <Search size={18} />
             </button>
           </motion.form>
-
           {/* Theme Toggle */}
           <ThemeToggle.ThemeToggleMini />
-
           {/* User Menu (when logged in) */}
           {currentUser ? (
             <motion.div
@@ -361,7 +359,6 @@ const Header = () => {
               </motion.div>
             </motion.div>
           )}
-
           {/* Mobile Menu Button */}
           <motion.button
             initial={{ opacity: 0, scale: 0.8 }}
