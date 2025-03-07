@@ -163,7 +163,7 @@ const Header = () => {
               type="text"
               name="search"
               placeholder="Search blogs..."
-              className="w-48 lg:w-64 px-4 py-1.5 rounded-full bg-gray-100 dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-sm transition-all duration-300 border border-transparent focus:border-primary-400"
+              className="w-48 lg:w-64 px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-sm transition-all duration-300 border border-transparent focus:border-primary-400"
             />
             <button
               type="submit"
@@ -238,7 +238,7 @@ const Header = () => {
                       stiffness: 300,
                       damping: 30,
                     }}
-                    className="absolute right-0 mt-60 w-48 bg-white dark:bg-black rounded-xl shadow-custom overflow-hidden border border-gray-100 dark:border-gray-700 py-1 z-50"
+                    className="absolute right-0 mt-60 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-custom overflow-hidden border border-gray-100 dark:border-gray-700 py-1 z-50"
                     onClick={(e) => e.stopPropagation()}
                   >
                     {[
@@ -397,7 +397,7 @@ const Header = () => {
                   type="text"
                   name="search"
                   placeholder="Search blogs..."
-                  className="w-full px-4 py-2 rounded-full bg-gray-100 dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-sm transition-all duration-300 border border-transparent focus:border-primary-400"
+                  className="w-full px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-sm transition-all duration-300 border border-transparent focus:border-primary-400"
                 />
                 <button
                   type="submit"

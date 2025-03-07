@@ -328,7 +328,7 @@ const AdminUsersPage = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="bg-white dark:bg-black rounded-lg shadow-md p-6"
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
           >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Select
@@ -368,7 +368,7 @@ const AdminUsersPage = () => {
         <Card>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className="bg-gray-50 dark:bg-black">
+              <thead className="bg-gray-50 dark:bg-gray-800">
                 <tr>
                   <th
                     scope="col"
@@ -415,27 +415,27 @@ const AdminUsersPage = () => {
                     <tr key={index} className="animate-pulse">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-black"></div>
+                          <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-700"></div>
                           <div className="ml-4">
-                            <div className="h-4 bg-gray-200 dark:bg-black rounded w-24"></div>
-                            <div className="h-3 bg-gray-200 dark:bg-black rounded w-16 mt-1"></div>
+                            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-16 mt-1"></div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="h-4 bg-gray-200 dark:bg-black rounded w-32"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="h-6 bg-gray-200 dark:bg-black rounded w-16"></div>
+                        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="h-6 bg-gray-200 dark:bg-black rounded w-16"></div>
+                        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="h-4 bg-gray-200 dark:bg-black rounded w-24"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right">
-                        <div className="h-8 bg-gray-200 dark:bg-black rounded w-8 ml-auto"></div>
+                        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-8 ml-auto"></div>
                       </td>
                     </tr>
                   ))
@@ -526,7 +526,7 @@ const AdminUsersPage = () => {
                           </button>
 
                           {isActionMenuOpen[user._id] && (
-                            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-black rounded-md shadow-lg z-10">
+                            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10">
                               <div
                                 className="py-1"
                                 onClick={(e) => e.stopPropagation()}

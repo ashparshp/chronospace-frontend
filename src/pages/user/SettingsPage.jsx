@@ -491,7 +491,7 @@ const SettingsPage = () => {
           </h2>
 
           {/* User Info */}
-          <div className="bg-gray-50 dark:bg-black rounded-lg p-4">
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -744,7 +744,7 @@ const SettingsPage = () => {
                     className={`absolute cursor-pointer top-0 left-0 right-0 bottom-0 rounded-full transition-colors ${
                       emailNotifications
                         ? "bg-primary-500"
-                        : "bg-gray-300 dark:bg-black"
+                        : "bg-gray-300 dark:bg-gray-700"
                     }`}
                   >
                     <span
@@ -777,7 +777,7 @@ const SettingsPage = () => {
         className="space-y-8"
       >
         {/* Settings Header */}
-        <div className="bg-white dark:bg-black rounded-lg shadow-md p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
             Settings
           </h1>

@@ -262,7 +262,7 @@ const DashboardPage = () => {
               placeholder="Search your blogs..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
             />
             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
               <svg
@@ -287,11 +287,11 @@ const DashboardPage = () => {
               {Array.from({ length: 3 }).map((_, index) => (
                 <div
                   key={index}
-                  className="animate-pulse bg-white dark:bg-black rounded-lg shadow p-4"
+                  className="animate-pulse bg-white dark:bg-gray-800 rounded-lg shadow p-4"
                 >
-                  <div className="h-6 bg-gray-200 dark:bg-black rounded w-3/4 mb-3"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/2 mb-2"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/4"></div>
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-3"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mb-2"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
                 </div>
               ))}
             </div>
@@ -408,7 +408,7 @@ const DashboardPage = () => {
               placeholder="Search your drafts..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
             />
             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
               <svg
@@ -433,11 +433,11 @@ const DashboardPage = () => {
               {Array.from({ length: 3 }).map((_, index) => (
                 <div
                   key={index}
-                  className="animate-pulse bg-white dark:bg-black rounded-lg shadow p-4"
+                  className="animate-pulse bg-white dark:bg-gray-800 rounded-lg shadow p-4"
                 >
-                  <div className="h-6 bg-gray-200 dark:bg-black rounded w-3/4 mb-3"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/2 mb-2"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/4"></div>
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-3"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mb-2"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
                 </div>
               ))}
             </div>
@@ -532,13 +532,13 @@ const DashboardPage = () => {
               {Array.from({ length: 5 }).map((_, index) => (
                 <div
                   key={index}
-                  className="animate-pulse bg-white dark:bg-black rounded-lg shadow p-4"
+                  className="animate-pulse bg-white dark:bg-gray-800 rounded-lg shadow p-4"
                 >
                   <div className="flex items-start space-x-4">
-                    <div className="h-10 w-10 bg-gray-200 dark:bg-black rounded-full"></div>
+                    <div className="h-10 w-10 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
                     <div className="flex-1 space-y-2">
-                      <div className="h-4 bg-gray-200 dark:bg-black rounded w-3/4"></div>
-                      <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/2"></div>
+                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
                     </div>
                   </div>
                 </div>
@@ -656,12 +656,12 @@ const DashboardPage = () => {
           </h2>
 
           {loadingBloggerStatus ? (
-            <div className="animate-pulse bg-white dark:bg-black rounded-lg shadow p-6">
-              <div className="h-6 bg-gray-200 dark:bg-black rounded w-3/4 mb-4"></div>
-              <div className="h-4 bg-gray-200 dark:bg-black rounded w-full mb-2"></div>
-              <div className="h-4 bg-gray-200 dark:bg-black rounded w-full mb-2"></div>
-              <div className="h-4 bg-gray-200 dark:bg-black rounded w-3/4 mb-4"></div>
-              <div className="h-10 bg-gray-200 dark:bg-black rounded w-full"></div>
+            <div className="animate-pulse bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+              <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-4"></div>
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full mb-2"></div>
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full mb-2"></div>
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-4"></div>
+              <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
             </div>
           ) : currentUser?.role === "blogger" ||
             currentUser?.role === "admin" ? (
@@ -1048,7 +1048,7 @@ const BloggerApplicationForm = ({ onSubmit }) => {
               reason.trim().length < 10 && reason.trim().length > 0
                 ? "border-red-300 dark:border-red-700"
                 : "border-gray-300 dark:border-gray-700"
-            } bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500`}
+            } bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500`}
             required
           />
           <p
@@ -1077,7 +1077,7 @@ const BloggerApplicationForm = ({ onSubmit }) => {
             value={samples}
             onChange={(e) => setSamples(e.target.value)}
             placeholder="Provide links to your previous writing work or samples..."
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
           />
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
             You can include links to your published work, personal blog, or

@@ -139,7 +139,7 @@ const NotificationDropdown = ({
               stiffness: 500,
               damping: 30,
             }}
-            className="absolute right-0 mt-2 w-80 bg-white dark:bg-black rounded-xl shadow-custom-lg border border-gray-100 dark:border-gray-700 z-50 overflow-hidden"
+            className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-custom-lg border border-gray-100 dark:border-gray-700 z-50 overflow-hidden"
           >
             {/* Header */}
             <div className="flex justify-between items-center p-4 border-b border-gray-100 dark:border-gray-700 bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/30 dark:to-secondary-900/30">
@@ -219,7 +219,7 @@ const NotificationDropdown = ({
                 </ul>
               ) : (
                 <div className="p-6 text-center">
-                  <div className="mx-auto h-12 w-12 rounded-full bg-gray-100 dark:bg-black flex items-center justify-center mb-3">
+                  <div className="mx-auto h-12 w-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-3">
                     <Bell
                       size={24}
                       className="text-gray-400 dark:text-gray-500"

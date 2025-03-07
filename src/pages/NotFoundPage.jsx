@@ -242,7 +242,7 @@ const NotFoundPage = () => {
 
         {/* Auto-redirect progress */}
         <motion.div
-          className="w-full bg-gray-100 dark:bg-black h-1 rounded-full overflow-hidden"
+          className="w-full bg-gray-100 dark:bg-gray-800 h-1 rounded-full overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}

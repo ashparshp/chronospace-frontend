@@ -80,18 +80,18 @@ const AdminDashboardPage = () => {
   if (loading) {
     return (
       <div className="mx-auto space-y-8 animate-pulse">
-        <div className="h-8 bg-gray-200 dark:bg-black rounded w-1/4 mb-6"></div>
+        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-6"></div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="bg-white dark:bg-black rounded-lg shadow-md p-4 h-32"
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 h-32"
             ></div>
           ))}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white dark:bg-black rounded-lg shadow-md p-4 h-72"></div>
-          <div className="bg-white dark:bg-black rounded-lg shadow-md p-4 h-72"></div>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 h-72"></div>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 h-72"></div>
         </div>
       </div>
     );

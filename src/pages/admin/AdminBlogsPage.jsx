@@ -330,17 +330,17 @@ const AdminBlogsPage = () => {
             Array.from({ length: 5 }).map((_, index) => (
               <div
                 key={index}
-                className="animate-pulse bg-white dark:bg-black rounded-lg shadow p-4"
+                className="animate-pulse bg-white dark:bg-gray-800 rounded-lg shadow p-4"
               >
                 <div className="flex flex-col sm:flex-row">
                   <div className="flex-1 space-y-2">
-                    <div className="h-6 bg-gray-200 dark:bg-black rounded w-3/4"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/2"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/4"></div>
+                    <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
                   </div>
                   <div className="flex flex-row sm:flex-col gap-2 mt-3 sm:mt-0">
-                    <div className="h-8 bg-gray-200 dark:bg-black rounded w-20"></div>
-                    <div className="h-8 bg-gray-200 dark:bg-black rounded w-20"></div>
+                    <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
+                    <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
                   </div>
                 </div>
               </div>

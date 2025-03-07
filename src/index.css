@@ -66,7 +66,7 @@
   }
 
   .input-field {
-    @apply w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all duration-200;
+    @apply w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all duration-200;
   }
 
   .form-label {
@@ -138,7 +138,7 @@
 
 /* Loading animations */
 .skeleton {
-  @apply animate-pulse bg-gray-200 dark:bg-black rounded;
+  @apply animate-pulse bg-gray-200 dark:bg-gray-700 rounded;
 }
 
 /* Custom Scrollbar */
@@ -153,10 +153,10 @@
   }
 
   .scrollbar-thin::-webkit-scrollbar-track {
-    @apply bg-gray-100 dark:bg-black rounded-full;
+    @apply bg-gray-100 dark:bg-gray-800 rounded-full;
   }
 
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 dark:bg-black rounded-full hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors duration-200;
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors duration-200;
   }
 }

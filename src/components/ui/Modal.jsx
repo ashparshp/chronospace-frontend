@@ -99,7 +99,7 @@ const Modal = ({
             <motion.div
               className={`w-full ${
                 sizeStyles[size] || sizeStyles.md
-              } bg-white dark:bg-black rounded-xl shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700 ${className}`}
+              } bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700 ${className}`}
               initial="hidden"
               animate="visible"
               exit="exit"
