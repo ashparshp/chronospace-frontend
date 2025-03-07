@@ -123,7 +123,7 @@ const FeaturedBlogCard = ({ blog, className = "" }) => {
 
         {/* Tags */}
         {blog.tags && blog.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-3">
+          <div className="flex flex-wrap gap-2 mb-3 z-[-1] ml-auto">
             {blog.tags.slice(0, 3).map((tag, index) => (
               <Badge
                 key={index}
