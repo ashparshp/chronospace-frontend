@@ -11,7 +11,6 @@ import {
   Menu,
   X,
   Search,
-  Bell,
   Edit,
   User,
   LogOut,
@@ -19,13 +18,17 @@ import {
   ChevronDown,
 } from "lucide-react";
 
+import NotificationDropdown from "../notifications/NotificationDropdown";
+import ThemeToggle from "../ui/ThemeToggle";
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { currentUser, logout } = useAuth();
   const { darkMode, toggleTheme } = useTheme();
-  const { hasNewNotifications } = useNotification();
+  const { notifications, markAsRead, markAllAsRead, fetchNotifications } =
+    useNotification();
   const navigate = useNavigate();
 
   // Handle scroll effect
@@ -172,81 +175,56 @@ const Header = () => {
           </motion.form>
 
           {/* Theme Toggle */}
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, delay: 0.3 }}
-            onClick={toggleTheme}
-            className="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
-            aria-label="Toggle theme"
-            whileHover={{ rotate: 15 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            {darkMode ? (
-              <Sun size={20} className="text-yellow-500" />
-            ) : (
-              <Moon size={20} className="text-primary-600" />
-            )}
-          </motion.button>
+          <ThemeToggle.ThemeToggleMini />
 
           {/* User Menu (when logged in) */}
           {currentUser ? (
             <motion.div
-              className="relative"
+              className="relative flex items-center space-x-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3, delay: 0.4 }}
             >
-              <div className="flex items-center space-x-4">
-                {/* Notifications */}
+              {/* Notification Dropdown - Replace the original Bell button */}
+              <NotificationDropdown
+                notifications={notifications || []}
+                onMarkAsRead={markAsRead}
+                onMarkAllAsRead={markAllAsRead}
+                fetchNotifications={fetchNotifications}
+              />
+
+              {/* Write button (for bloggers and admins) */}
+              {(currentUser.role === "blogger" ||
+                currentUser.role === "admin") && (
                 <Link
-                  to="/dashboard?tab=notifications"
-                  className="relative p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
-                  aria-label="Notifications"
+                  to="/editor"
+                  className="hidden sm:flex items-center space-x-1 p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                  aria-label="Create new blog"
                 >
-                  <Bell size={20} />
-                  {hasNewNotifications && (
-                    <motion.span
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full"
-                    />
-                  )}
+                  <Edit size={20} />
                 </Link>
+              )}
 
-                {/* Write button (for bloggers and admins) */}
-                {(currentUser.role === "blogger" ||
-                  currentUser.role === "admin") && (
-                  <Link
-                    to="/editor"
-                    className="hidden sm:flex items-center space-x-1 p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
-                    aria-label="Create new blog"
-                  >
-                    <Edit size={20} />
-                  </Link>
-                )}
-
-                {/* Profile Menu Trigger */}
-                <motion.button
-                  onClick={toggleProfileMenu}
-                  className="flex items-center space-x-2"
-                  aria-label="User menu"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <div className="relative w-9 h-9 overflow-hidden rounded-full border-2 border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-400 transition-colors duration-300">
-                    <img
-                      src={currentUser.profile_img}
-                      alt={currentUser.fullname}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <span className="hidden lg:block text-gray-700 dark:text-gray-300 font-medium">
-                    {currentUser.fullname}
-                  </span>
-                  <ChevronDown className="hidden lg:block w-4 h-4 text-gray-500 dark:text-gray-400" />
-                </motion.button>
-              </div>
+              {/* Profile Menu Trigger */}
+              <motion.button
+                onClick={toggleProfileMenu}
+                className="flex items-center space-x-2"
+                aria-label="User menu"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <div className="relative w-9 h-9 overflow-hidden rounded-full border-2 border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-400 transition-colors duration-300">
+                  <img
+                    src={currentUser.profile_img}
+                    alt={currentUser.fullname}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <span className="hidden lg:block text-gray-700 dark:text-gray-300 font-medium">
+                  {currentUser.fullname}
+                </span>
+                <ChevronDown className="hidden lg:block w-4 h-4 text-gray-500 dark:text-gray-400" />
+              </motion.button>
 
               {/* Profile Dropdown Menu */}
               <AnimatePresence>
@@ -259,6 +237,7 @@ const Header = () => {
                       duration: 0.2,
                       type: "spring",
                       stiffness: 300,
+                      damping: 30,
                     }}
                     className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-custom overflow-hidden border border-gray-100 dark:border-gray-700 py-1 z-50"
                     onClick={(e) => e.stopPropagation()}
@@ -376,7 +355,7 @@ const Header = () => {
               >
                 <Link
                   to="/signup"
-                  className="px-4 py-2 bg-gradient-to-r from-primary-600 to-accent-600 text-white rounded-lg text-sm hover:from-primary-700 hover:to-accent-700 transition-all duration-300 shadow-md hover:shadow-lg"
+                  className="px-4 py-1.5 bg-gradient-to-r from-primary-600 to-accent-600 text-white rounded-lg text-sm hover:from-primary-700 hover:to-accent-700 transition-all duration-300 shadow-md hover:shadow-lg"
                 >
                   Get Started
                 </Link>
