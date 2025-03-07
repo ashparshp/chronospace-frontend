@@ -87,7 +87,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
     }
   };
 
-  // Submit a new comment
   const handleSubmitComment = async (e) => {
     e.preventDefault();
 
@@ -101,23 +100,35 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
       return;
     }
 
+    // Check if we have the required blog ID
+    if (!blogId) {
+      showToast("Unable to add comment: Blog ID is missing", "error");
+      return;
+    }
+
     setSubmitting(true);
     try {
-      await commentService.addComment({
+      // Send only the blog ID - the backend will find the author
+      const response = await commentService.addComment({
         _id: blogId,
         comment: commentText,
-        blog_author: blogAuthorId,
+        // Don't send blog_author at all - let the backend handle it
       });
 
+      console.log("Comment added successfully:", response.data);
       setCommentText("");
       fetchComments(); // Refresh comments
       showToast("Comment added successfully", "success");
     } catch (error) {
       console.error("Error adding comment:", error);
-      showToast(
-        error.response?.data?.error || "Failed to add comment",
-        "error"
-      );
+      // Log detailed error info
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+        console.error("Response status:", error.response.status);
+      }
+      const errorMessage =
+        error.response?.data?.error || "Failed to add comment";
+      showToast(errorMessage, "error");
     } finally {
       setSubmitting(false);
     }

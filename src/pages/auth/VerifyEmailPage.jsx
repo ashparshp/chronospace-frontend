@@ -1,8 +1,7 @@
-// src/pages/auth/VerifyEmailPage.jsx
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useAuth } from "../../context/AuthContext";
+import { authService } from "../../services/authService";
 import Button from "../../components/ui/Button";
 import Alert from "../../components/ui/Alert";
 import { CheckCircle, XCircle, Loader } from "lucide-react";
@@ -10,7 +9,6 @@ import { CheckCircle, XCircle, Loader } from "lucide-react";
 const VerifyEmailPage = () => {
   const { token } = useParams();
   const navigate = useNavigate();
-  const { verifyEmail } = useAuth();
   const [status, setStatus] = useState("loading"); // loading, success, error
   const [error, setError] = useState(null);
 
@@ -23,8 +21,15 @@ const VerifyEmailPage = () => {
       }
 
       try {
-        await verifyEmail(token);
-        setStatus("success");
+        // Try GET verification first (direct link)
+        try {
+          await authService.verifyEmailGet(token);
+          setStatus("success");
+        } catch (getError) {
+          // Fall back to POST if GET fails
+          await authService.verifyEmailPost(token);
+          setStatus("success");
+        }
       } catch (error) {
         console.error("Verification error:", error);
         setStatus("error");
@@ -36,7 +41,7 @@ const VerifyEmailPage = () => {
     };
 
     verify();
-  }, [token, verifyEmail]);
+  }, [token]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">

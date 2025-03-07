@@ -102,13 +102,9 @@ export const AuthProvider = ({ children }) => {
 
   const verifyEmail = async (token) => {
     try {
-      setLoading(true);
-      const response = await authService.verifyEmail(token);
-      return response.data;
+      return await authService.verifyEmailGet(token);
     } catch (error) {
-      throw error;
-    } finally {
-      setLoading(false);
+      return await authService.verifyEmailPost(token);
     }
   };
 

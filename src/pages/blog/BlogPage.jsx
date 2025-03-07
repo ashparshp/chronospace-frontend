@@ -585,15 +585,9 @@ const BlogPage = () => {
               </div>
             </div>
           </div>
-
           {/* Comments section */}
           <div id="comments-section" className="pt-6">
-            {blog && (
-              <CommentSection
-                blogId={blog._id}
-                blogAuthorId={blog.author?._id}
-              />
-            )}
+            {blog && <CommentSection blogId={blog._id} />}
           </div>
         </div>
 

@@ -1,4 +1,3 @@
-// src/context/NotificationContext.jsx
 import { createContext, useState, useEffect, useContext } from "react";
 import { useAuth } from "./AuthContext";
 import { notificationService } from "../services/notificationService";
@@ -17,14 +16,20 @@ export const NotificationProvider = ({ children }) => {
 
   // Check for new notifications when user is logged in
   useEffect(() => {
-    if (!currentUser) return;
+    if (!currentUser) {
+      setHasNewNotifications(false);
+      return;
+    }
 
     const checkNewNotifications = async () => {
       try {
         const response = await notificationService.checkNewNotifications();
         setHasNewNotifications(response.data.new_notification_available);
       } catch (error) {
-        console.error("Error checking new notifications:", error);
+        // Only log non-auth related errors to avoid console spam
+        if (error.response?.status !== 401 && error.response?.status !== 403) {
+          console.error("Error checking new notifications:", error);
+        }
       }
     };
 
@@ -39,7 +44,7 @@ export const NotificationProvider = ({ children }) => {
 
   // Fetch notifications (paginated)
   const fetchNotifications = async (page = 1, filter = "all", limit = 10) => {
-    if (!currentUser) return;
+    if (!currentUser) return [];
 
     try {
       setLoading(true);
@@ -66,7 +71,10 @@ export const NotificationProvider = ({ children }) => {
 
       return response.data.notifications;
     } catch (error) {
-      console.error("Error fetching notifications:", error);
+      // Only log non-auth related errors
+      if (error.response?.status !== 401 && error.response?.status !== 403) {
+        console.error("Error fetching notifications:", error);
+      }
       return [];
     } finally {
       setLoading(false);
@@ -131,3 +139,5 @@ export const NotificationProvider = ({ children }) => {
     </NotificationContext.Provider>
   );
 };
+
+export default NotificationProvider;
