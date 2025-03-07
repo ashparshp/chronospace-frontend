@@ -76,7 +76,7 @@ const AuthLayout = ({
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-white dark:bg-black">
+    <div className=" flex flex-col md:flex-row bg-white dark:bg-black">
       {/* Main content */}
       <motion.div
         className={`flex-1 flex items-center justify-center p-6 sm:p-12 ${contentOrder} ${className}`}

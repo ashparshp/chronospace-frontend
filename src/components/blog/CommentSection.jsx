@@ -677,7 +677,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
           </>
         ) : (
           <motion.div
-            className="text-center py-12 bg-gray-50 dark:bg-black/30 rounded-xl border border-gray-100 dark:border-gray-800"
+            className="text-center py-12 bg-gray-50 dark:bg-black rounded-xl border border-gray-100 dark:border-gray-800"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}

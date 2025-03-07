@@ -83,7 +83,7 @@ const Modal = ({
         <Fragment>
           {/* Backdrop with blur effect */}
           <motion.div
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+            className="fixed inset-0 bg-black backdrop-blur-sm z-40"
             onClick={handleBackdropClick}
             initial="hidden"
             animate="visible"
