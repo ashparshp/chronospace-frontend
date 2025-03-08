@@ -1,3 +1,4 @@
+// src/components/blog/BlogEditor.jsx
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import EditorJS from "@editorjs/editorjs";
@@ -11,6 +12,7 @@ import { BLOG_CATEGORIES, BLOG_VISIBILITY } from "../../config/constants";
 import { blogService } from "../../services/blogService";
 import { uploadService } from "../../services/uploadService";
 import { useNotification } from "../../context/NotificationContext";
+import { setupMarkdownPasteHandler } from "../../utils/simpleMarkdownPaste";
 
 const BlogEditor = () => {
   const { blogId } = useParams();
@@ -92,6 +94,9 @@ const BlogEditor = () => {
               uploader: createImageUploadHandler(),
             },
           },
+          // Add table tool
+          table: EDITOR_JS_TOOLS.table,
+          checklist: EDITOR_JS_TOOLS.checklist,
         },
         placeholder: "Let's write an awesome story!",
         data: initialData?.content || {},
@@ -108,6 +113,16 @@ const BlogEditor = () => {
         onReady: () => {
           editorRef.current = editor;
           setEditorReady(true);
+
+          // Set up markdown paste handler
+          setupMarkdownPasteHandler(editor);
+
+          // Show a welcome toast to inform about markdown paste feature
+          showToast(
+            "Tip: You can paste markdown text into the editor and it will be automatically formatted!",
+            "info",
+            8000
+          );
         },
       });
     } catch (error) {
@@ -125,7 +140,7 @@ const BlogEditor = () => {
         editorRef.current = null;
       }
     };
-  }, [initialData, editorReady]);
+  }, [initialData, editorReady, showToast]);
 
   // Set initial content if editing and editor is ready
   useEffect(() => {
@@ -576,6 +591,10 @@ const BlogEditor = () => {
 
         {/* Editor.js Container */}
         <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 min-h-[400px]">
+          <div className="markdown-support-tip text-xs text-gray-500 dark:text-gray-400 mb-2 italic">
+            Tip: You can paste markdown content and it will be automatically
+            formatted.
+          </div>
           <div id="editor" className="prose dark:prose-invert max-w-none"></div>
         </div>
       </div>

@@ -6,6 +6,8 @@ import Image from "@editorjs/image";
 import Embed from "@editorjs/embed";
 import Quote from "@editorjs/quote";
 import Marker from "@editorjs/marker";
+import Checklist from "@editorjs/checklist";
+import Table from "@editorjs/table";
 
 // API URL - Change this to your backend URL
 export const API_URL =
@@ -100,7 +102,7 @@ export const VALIDATION = {
   BIO_MAX_LENGTH: 200,
 };
 
-// Editor.js tools configuration - FIXED
+// Editor.js tools configuration
 export const EDITOR_JS_TOOLS = {
   header: {
     class: Header,
@@ -142,5 +144,17 @@ export const EDITOR_JS_TOOLS = {
   marker: {
     class: Marker,
     inlineToolbar: true,
+  },
+  checklist: {
+    class: Checklist,
+    inlineToolbar: true,
+  },
+  table: {
+    class: Table,
+    inlineToolbar: true,
+    config: {
+      rows: 2,
+      cols: 3,
+    },
   },
 };

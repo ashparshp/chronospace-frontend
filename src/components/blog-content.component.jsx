@@ -89,10 +89,79 @@ const CheckList = ({ items }) => {
   );
 };
 
+// Simple Table component that can handle different formats
+const Table = ({ content, withHeadings }) => {
+  // First, handle if we somehow got a string instead of an array
+  if (typeof content === "string") {
+    // Try to parse table content
+    const tableLines = content.split("\n");
+    content = tableLines.map((line) =>
+      line
+        .split("|")
+        .map((cell) => cell.trim())
+        .filter((cell) => cell.length > 0)
+    );
+  }
+
+  // Check if content is array and has items
+  if (!Array.isArray(content) || content.length === 0) {
+    return (
+      <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg my-4">
+        <p className="text-gray-500 dark:text-gray-400">
+          Table content missing or invalid
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="overflow-x-auto my-4">
+      <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700">
+        {withHeadings && (
+          <thead>
+            <tr className="bg-gray-100 dark:bg-gray-800">
+              {content[0].map((cell, cellIndex) => (
+                <th
+                  key={cellIndex}
+                  className="border border-gray-300 dark:border-gray-700 px-4 py-2 text-left"
+                >
+                  {cell}
+                </th>
+              ))}
+            </tr>
+          </thead>
+        )}
+        <tbody>
+          {content.slice(withHeadings ? 1 : 0).map((row, rowIndex) => (
+            <tr
+              key={rowIndex}
+              className={
+                rowIndex % 2 === 0
+                  ? "bg-white dark:bg-black"
+                  : "bg-gray-50 dark:bg-gray-900"
+              }
+            >
+              {row.map((cell, cellIndex) => (
+                <td
+                  key={cellIndex}
+                  className="border border-gray-300 dark:border-gray-700 px-4 py-2"
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 const List = ({ style, items }) => {
   // Check if this is actually a checklist/todo list
   // (items with checked property)
   if (
+    items &&
     items.length > 0 &&
     typeof items[0] === "object" &&
     "checked" in items[0]
@@ -144,11 +213,12 @@ const List = ({ style, items }) => {
         return <span dangerouslySetInnerHTML={{ __html: item.text }}></span>;
       }
 
-      // For debugging - display what the object contains
-      console.log("List item object:", item);
-
-      // Last resort - stringify the object
-      return JSON.stringify(item);
+      // Try to convert object to string if all else fails
+      try {
+        return String(item);
+      } catch (err) {
+        return "[Complex Object]";
+      }
     }
 
     // Fallback for any other type
@@ -170,83 +240,157 @@ const List = ({ style, items }) => {
   );
 };
 
-const Code = ({ code }) => {
+const Code = ({ code, language = "" }) => {
+  // Handle the object HTMLPreElement case specifically
+  if (
+    code &&
+    typeof code === "object" &&
+    code.toString() === "[object HTMLPreElement]"
+  ) {
+    // Try to extract the text content from the HTMLPreElement
+    try {
+      // These are typical properties of HTMLPreElement that might contain the actual code
+      let codeText = "";
+      if (code.textContent) codeText = code.textContent;
+      else if (code.innerText) codeText = code.innerText;
+      else if (code.innerHTML) codeText = code.innerHTML;
+      else codeText = "Unable to extract code from HTMLPreElement";
+
+      return (
+        <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg my-4 overflow-x-auto text-sm">
+          <code className={language ? `language-${language}` : ""}>
+            {codeText}
+          </code>
+        </pre>
+      );
+    } catch (error) {
+      console.error("Error extracting code from HTMLPreElement:", error);
+      return (
+        <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg my-4 overflow-x-auto text-sm">
+          <code>Error extracting code content</code>
+        </pre>
+      );
+    }
+  }
+
   return (
-    <pre className="bg-gray-100 dark:bg-black p-4 rounded-lg my-4 overflow-x-auto">
-      <code>{code}</code>
+    <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg my-4 overflow-x-auto text-sm">
+      <code className={language ? `language-${language}` : ""}>{code}</code>
     </pre>
   );
 };
 
 const BlogContent = ({ block }) => {
+  // Handle null/undefined block
   if (!block) return null;
 
-  let { type, data } = block;
+  // Extract type and data with fallbacks
+  const type = block.type || "";
+  const data = block.data || {};
 
-  if (type === "paragraph") {
-    return (
-      <p dangerouslySetInnerHTML={{ __html: data.text }} className="my-4"></p>
-    );
-  }
+  // Special handling for tables that might be improperly formatted
+  if (type === "table") {
+    // Check if the table data might be malformed
+    if (data && typeof data === "object") {
+      // If content is missing but we have text property, try to parse it as table
+      if (!data.content && data.text) {
+        return (
+          <Table
+            content={data.text.split("\n").map((line) =>
+              line
+                .split("|")
+                .map((cell) => cell.trim())
+                .filter((cell) => cell.length > 0)
+            )}
+            withHeadings={data.withHeadings || true}
+          />
+        );
+      }
 
-  if (type === "header") {
-    if (data.level === 1) {
-      return (
-        <h1
-          className="text-5xl font-bold my-6"
-          dangerouslySetInnerHTML={{ __html: data.text }}
-        ></h1>
-      );
-    }
-    if (data.level === 2) {
-      return (
-        <h2
-          className="text-4xl font-bold my-5"
-          dangerouslySetInnerHTML={{ __html: data.text }}
-        ></h2>
-      );
-    }
-    if (data.level === 3) {
-      return (
-        <h3
-          className="text-3xl font-bold my-4"
-          dangerouslySetInnerHTML={{ __html: data.text }}
-        ></h3>
-      );
-    }
-    if (data.level === 4) {
-      return (
-        <h4
-          className="text-2xl font-bold my-3"
-          dangerouslySetInnerHTML={{ __html: data.text }}
-        ></h4>
-      );
+      // If content is an array, use it directly
+      if (Array.isArray(data.content)) {
+        return (
+          <Table
+            content={data.content}
+            withHeadings={data.withHeadings || true}
+          />
+        );
+      }
     }
   }
 
-  if (type === "image") {
-    return <Img url={data.file?.url} caption={data.caption} />;
-  }
+  // Regular type handling
+  switch (type) {
+    case "paragraph":
+      return (
+        <p dangerouslySetInnerHTML={{ __html: data.text }} className="my-4"></p>
+      );
 
-  if (type === "quote") {
-    return <Quote quote={data.text} caption={data.caption} />;
-  }
+    case "header":
+      if (data.level === 1) {
+        return (
+          <h1
+            className="text-5xl font-bold my-6"
+            dangerouslySetInnerHTML={{ __html: data.text }}
+          ></h1>
+        );
+      }
+      if (data.level === 2) {
+        return (
+          <h2
+            className="text-4xl font-bold my-5"
+            dangerouslySetInnerHTML={{ __html: data.text }}
+          ></h2>
+        );
+      }
+      if (data.level === 3) {
+        return (
+          <h3
+            className="text-3xl font-bold my-4"
+            dangerouslySetInnerHTML={{ __html: data.text }}
+          ></h3>
+        );
+      }
+      if (data.level === 4) {
+        return (
+          <h4
+            className="text-2xl font-bold my-3"
+            dangerouslySetInnerHTML={{ __html: data.text }}
+          ></h4>
+        );
+      }
+      // Default to paragraph if level not specified
+      return (
+        <p
+          className="text-xl font-semibold my-4"
+          dangerouslySetInnerHTML={{ __html: data.text }}
+        ></p>
+      );
 
-  if (type === "list") {
-    return <List style={data.style} items={data.items} />;
-  }
+    case "image":
+      return <Img url={data.file?.url} caption={data.caption} />;
 
-  // Specific handler for checklist/todo type
-  if (type === "checklist" || type === "todo") {
-    return <CheckList items={data.items} />;
-  }
+    case "quote":
+      return <Quote quote={data.text} caption={data.caption} />;
 
-  if (type === "code") {
-    return <Code code={data.code} />;
-  }
+    case "list":
+      return <List style={data.style} items={data.items} />;
 
-  // Return null for unhandled block types
-  return null;
+    case "checklist":
+    case "todo":
+      return <CheckList items={data.items} />;
+
+    case "code":
+      return <Code code={data.code} language={data.language} />;
+
+    case "table":
+      return <Table content={data.content} withHeadings={data.withHeadings} />;
+
+    default:
+      // For other block types or debug purposes, just return JSON representation
+      console.log("Unknown block type:", type, data);
+      return null;
+  }
 };
 
 export default BlogContent;
