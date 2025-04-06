@@ -134,31 +134,80 @@ const Header = () => {
             <span>Menu</span>
             <ChevronDown className="w-4 h-4" />
           </button>
-          <div className={`absolute right-0 top-full mt-2 w-56 rounded-lg bg-white dark:bg-zinc-900 shadow-xl border border-gray-200 dark:border-zinc-700 ${isNavDropdownOpen ? "block" : "hidden"} lg:hidden`}>
+          <div
+            className={`absolute right-0 top-full mt-2 w-56 rounded-lg bg-white dark:bg-zinc-900 shadow-xl border border-gray-200 dark:border-zinc-700 ${
+              isNavDropdownOpen ? "block" : "hidden"
+            } lg:hidden`}
+          >
             <div className="flex flex-col space-y-2 px-4 py-2">
               {[
                 { to: "/", label: "Home" },
                 { to: "/search", label: "Explore" },
-                ...(currentUser ? [{ to: "/dashboard", label: "Dashboard" }] : []),
+                ...(currentUser
+                  ? [{ to: "/dashboard", label: "Dashboard" }]
+                  : []),
                 ...(currentUser &&
-                  (currentUser.role === "blogger" || currentUser.role === "admin")
+                (currentUser.role === "blogger" || currentUser.role === "admin")
                   ? [{ to: "/editor", label: "Write" }]
                   : []),
                 ...(currentUser && currentUser.role === "admin"
                   ? [{ to: "/admin", label: "Admin" }]
                   : []),
-              ].slice(1).map((item, i) => (
+              ]
+                .slice(1)
+                .map((item, i) => (
                   <motion.div
+                    key={item.to}
+                    custom={i}
+                    initial="hidden"
+                    animate="visible"
+                    variants={navItemVariants}
+                    className="transition-colors duration-200 px-4 py-2"
+                  >
+                    <NavLink
+                      to={item.to}
+                      onClick={() => setIsNavDropdownOpen(false)}
+                      className={({ isActive }) =>
+                        `${linkHoverStyle} ${
+                          isActive
+                            ? "text-primary-600 dark:text-primary-400 font-semibold"
+                            : "text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+                        }`
+                      }
+                    >
+                      {item.label}
+                    </NavLink>
+                  </motion.div>
+                ))}
+            </div>
+          </div>
+          <div className="hidden lg:flex items-center space-x-8 px-6">
+            {[
+              { to: "/", label: "Home" },
+              { to: "/search", label: "Explore" },
+              ...(currentUser
+                ? [{ to: "/dashboard", label: "Dashboard" }]
+                : []),
+              ...(currentUser &&
+              (currentUser.role === "blogger" || currentUser.role === "admin")
+                ? [{ to: "/editor", label: "Write" }]
+                : []),
+              ...(currentUser && currentUser.role === "admin"
+                ? [{ to: "/admin", label: "Admin" }]
+                : []),
+            ]
+              .slice(1)
+              .map((item, i) => (
+                <motion.div
                   key={item.to}
                   custom={i}
                   initial="hidden"
                   animate="visible"
                   variants={navItemVariants}
-                  className="transition-colors duration-200 px-4 py-2"
+                  className="transition-colors duration-200"
                 >
                   <NavLink
                     to={item.to}
-                    onClick={() => setIsNavDropdownOpen(false)}
                     className={({ isActive }) =>
                       `${linkHoverStyle} ${
                         isActive
@@ -171,43 +220,6 @@ const Header = () => {
                   </NavLink>
                 </motion.div>
               ))}
-            </div>
-          </div>
-          <div className="hidden lg:flex items-center space-x-8 px-6">
-            {[
-              { to: "/", label: "Home" },
-              { to: "/search", label: "Explore" },
-              ...(currentUser ? [{ to: "/dashboard", label: "Dashboard" }] : []),
-              ...(currentUser &&
-                (currentUser.role === "blogger" || currentUser.role === "admin")
-                ? [{ to: "/editor", label: "Write" }]
-                : []),
-              ...(currentUser && currentUser.role === "admin"
-                ? [{ to: "/admin", label: "Admin" }]
-                : []),
-            ].map((item, i) => (
-              <motion.div
-                key={item.to}
-                custom={i}
-                initial="hidden"
-                animate="visible"
-                variants={navItemVariants}
-                className="transition-colors duration-200"
-              >
-                <NavLink
-                  to={item.to}
-                  className={({ isActive }) =>
-                    `${linkHoverStyle} ${
-                      isActive
-                        ? "text-primary-600 dark:text-primary-400 font-semibold"
-                        : "text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-                    }`
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              </motion.div>
-            ))}
           </div>
         </nav>
 
