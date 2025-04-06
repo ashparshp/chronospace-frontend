@@ -67,6 +67,14 @@ const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("blogs");
   const [viewMode, setViewMode] = useState("grid");
 
+  // Helper function to check if the current user is viewing their own profile
+  const isCurrentUserProfile = () => {
+    if (!currentUser || !profile?.personal_info) return false;
+
+    // Compare usernames instead of IDs
+    return currentUser.username === profile.personal_info.username;
+  };
+
   // Fetch profile data
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -79,7 +87,11 @@ const ProfilePage = () => {
         setProfile(profileResponse.data);
 
         // Check if current user is following this profile
-        if (currentUser && currentUser._id !== profileResponse.data._id) {
+        // Only check if the profile is not the current user's profile
+        if (
+          currentUser &&
+          currentUser.username !== profileResponse.data.personal_info.username
+        ) {
           const followingResponse = await userService.checkIsFollowing(
             profileResponse.data._id
           );
@@ -630,7 +642,7 @@ const ProfilePage = () => {
 
                 {/* Action Buttons */}
                 <div className="flex space-x-3">
-                  {currentUser && currentUser._id === profile._id ? (
+                  {currentUser && isCurrentUserProfile() ? (
                     <Button variant="outline" href="/settings">
                       <Settings className="h-4 w-4 mr-2" />
                       Edit Profile

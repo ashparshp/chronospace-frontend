@@ -9,8 +9,11 @@ import {
   Share2,
   Bookmark,
   Edit,
+  UserCheck,
+  UserPlus,
 } from "lucide-react";
 import { blogService } from "../../services/blogService";
+import { userService } from "../../services/userService";
 import { useAuth } from "../../context/AuthContext";
 import { useNotification } from "../../context/NotificationContext";
 import BlogContent from "../../components/blog-content.component";
@@ -37,6 +40,130 @@ const BlogPage = () => {
   const [readingProgress, setReadingProgress] = useState(0);
   const [commentsWrapper, setCommentsWrapper] = useState(false);
   const [totalParentCommentsLoaded, setTotalParentCommentsLoaded] = useState(0);
+  const [isFollowingAuthor, setIsFollowingAuthor] = useState(false);
+  const [followLoading, setFollowLoading] = useState(false);
+
+  // Helper function to check if the current user is the author using username
+  const isCurrentUserAuthor = () => {
+    if (!currentUser || !blog?.author?.personal_info) return false;
+    
+    // Compare usernames instead of IDs
+    return currentUser.username === blog.author.personal_info.username;
+  };
+
+  // Improved function to check following status with better error handling
+  const checkIsFollowingAuthor = async () => {
+    if (!currentUser || !blog?.author?._id) return;
+    
+    // Don't make the API call if it's the user's own blog
+    if (isCurrentUserAuthor()) return;
+    
+    try {
+      const response = await userService.checkIsFollowing(blog.author._id);
+      
+      // Log response for debugging
+      console.log("Check following response:", response);
+      
+      if (response && response.data) {
+        // Handle different possible response formats
+        const isFollowing = 
+          response.data.isFollowing || 
+          response.data.following || 
+          response.data.result === true || 
+          response.data.status === 'following';
+          
+        setIsFollowingAuthor(!!isFollowing);
+      }
+    } catch (error) {
+      console.error("Error checking follow status:", error);
+      console.error("Error details:", error.response?.data);
+      
+      // Don't show error toast for this check - just log it
+      // For Google auth, default to not following if there's an error
+      setIsFollowingAuthor(false);
+    }
+  };
+
+  // Improved handleFollowAuthor function with better error handling for Google auth
+  const handleFollowAuthor = async () => {
+    if (!currentUser) {
+      navigate("/signin", { state: { from: `/blog/${blogId}` } });
+      return;
+    }
+    
+    if (!blog?.author?._id) {
+      showToast("Author information is missing", "error");
+      return;
+    }
+    
+    try {
+      setFollowLoading(true);
+      
+      // Call follow API
+      const response = await userService.followUser(blog.author._id);
+      
+      // Log response for debugging
+      console.log("Follow response:", response);
+      
+      // Check if the response contains the expected data
+      if (response && response.data) {
+        // For Google auth, the followed property might be nested differently
+        // or have a different name, so check multiple possibilities
+        const isNowFollowing = 
+          response.data.followed || 
+          response.data.isFollowing || 
+          response.data.status === 'followed' ||
+          response.data.success === true;
+        
+        // Update local state
+        setIsFollowingAuthor(isNowFollowing);
+        
+        // Show success message
+        showToast(
+          isNowFollowing
+            ? `You are now following ${blog.author.personal_info.fullname}`
+            : `You unfollowed ${blog.author.personal_info.fullname}`,
+          "success"
+        );
+        
+        // Update the author's follower count in the UI
+        if (blog.author.account_info) {
+          setBlog(prevBlog => ({
+            ...prevBlog,
+            author: {
+              ...prevBlog.author,
+              account_info: {
+                ...prevBlog.author.account_info,
+                total_followers: isNowFollowing
+                  ? (prevBlog.author.account_info.total_followers || 0) + 1
+                  : Math.max((prevBlog.author.account_info.total_followers || 0) - 1, 0)
+              }
+            }
+          }));
+        }
+      } else {
+        // Handle case where response doesn't have expected data structure
+        console.error("Unexpected response format:", response);
+        // Still assume success if we got a response without errors
+        setIsFollowingAuthor(!isFollowingAuthor);
+        showToast(`Follow status updated for ${blog.author.personal_info.fullname}`, "success");
+      }
+    } catch (error) {
+      console.error("Error following author:", error);
+      console.error("Error details:", error.response?.data);
+      
+      // Special case for Google auth - if we get an error but it might have worked anyway
+      if (error.response?.status === 200 || error.response?.status === 201) {
+        // The request might have succeeded despite throwing an error
+        setIsFollowingAuthor(!isFollowingAuthor);
+        showToast(`Follow status updated for ${blog.author.personal_info.fullname}`, "success");
+      } else {
+        showToast("Failed to update follow status", "error");
+      }
+    } finally {
+      setFollowLoading(false);
+    }
+  };
 
   // Fetch blog data
   useEffect(() => {
@@ -53,6 +180,11 @@ const BlogPage = () => {
 
         const blogData = response.data.blog;
         setBlog(blogData);
+
+        // After setting blog data, check if following the author
+        if (currentUser && blogData.author) {
+          checkIsFollowingAuthor();
+        }
 
         // Check if user has liked this blog
         if (currentUser && blogData._id) {
@@ -239,7 +371,7 @@ const BlogPage = () => {
   // Permission checks for private or followers-only blogs
   if (
     blog?.visibility === BLOG_VISIBILITY.PRIVATE &&
-    (!currentUser || (blog.author && currentUser._id !== blog.author._id))
+    (!currentUser || !isCurrentUserAuthor())
   ) {
     return (
       <div className="max-w-4xl mx-auto text-center py-12">
@@ -259,8 +391,7 @@ const BlogPage = () => {
   // Followers-only content check
   if (
     blog?.visibility === BLOG_VISIBILITY.FOLLOWERS_ONLY &&
-    (!currentUser ||
-      (blog.author && currentUser._id !== blog.author._id && !blog.isFollowing))
+    (!currentUser || (!isCurrentUserAuthor() && !blog.isFollowing))
   ) {
     return (
       <div className="max-w-4xl mx-auto text-center py-12">
@@ -391,18 +522,18 @@ const BlogPage = () => {
                 )}
 
                 {/* Edit button (if author) */}
-                {currentUser &&
-                  blog?.author &&
-                  blog.author._id === currentUser._id && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => navigate(`/editor/${blogId}`)}
-                    >
-                      <Edit className="h-4 w-4 mr-1" />
-                      Edit
-                    </Button>
-                  )}
+                {currentUser && 
+                 blog?.author?.personal_info?.username && 
+                 currentUser.username === blog.author.personal_info.username && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => navigate(`/editor/${blogId}`)}
+                  >
+                    <Edit className="h-4 w-4 mr-1" />
+                    Edit
+                  </Button>
+                )}
               </div>
             </div>
 
@@ -559,9 +690,35 @@ const BlogPage = () => {
                       {blog.author.personal_info.bio || `Writer at BlogApp`}
                     </p>
 
-                    {currentUser && currentUser._id !== blog.author._id && (
-                      <Button variant="primary" className="w-full">
-                        Follow Author
+                    {/* Only show Follow button if user is logged in AND not the author */}
+                    {currentUser ? (
+                      !isCurrentUserAuthor() && (
+                        <Button 
+                          variant={isFollowingAuthor ? "outline" : "primary"} 
+                          className="w-full"
+                          onClick={handleFollowAuthor}
+                          disabled={followLoading}
+                        >
+                          {isFollowingAuthor ? (
+                            <>
+                              <UserCheck className="h-4 w-4 mr-2" />
+                              Following
+                            </>
+                          ) : (
+                            <>
+                              <UserPlus className="h-4 w-4 mr-2" />
+                              Follow Author
+                            </>
+                          )}
+                        </Button>
+                      )
+                    ) : (
+                      <Button 
+                        variant="primary" 
+                        className="w-full"
+                        onClick={() => navigate('/signin', { state: { from: `/blog/${blogId}` } })}
+                      >
+                        Sign in to Follow
                       </Button>
                     )}
 
