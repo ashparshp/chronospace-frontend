@@ -441,21 +441,27 @@ const HomePage = () => {
               </Card>
             </PageTransition.Item>
 
-            {/* Popular Tags Section - Enhanced */}
+            {/* Popular Tags Section - Updated Font, Small Size, Lowercase */}
             <PageTransition.Item transition="slideUp" delay={0.2}>
               <Card
                 variant="elevated"
                 className="border border-gray-100 dark:border-gray-800 shadow-md"
               >
-                <Card.Header className="space-y-3 border-b border-gray-100 dark:border-gray-800">
+                <Card.Header className="flex flex-col items-start pb-3 border-b border-gray-100 dark:border-gray-800">
                   <div className="flex items-center space-x-2">
-                    <div className="p-1.5 bg-secondary-100 dark:bg-secondary-900/50 rounded-md">
+                    <div className="p-2 bg-secondary-100 dark:bg-secondary-900/50 rounded-full shadow-sm">
                       <Tags className="h-5 w-5 text-secondary-600 dark:text-secondary-400" />
                     </div>
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
                       Popular Tags
                     </h2>
                   </div>
+                  <motion.div
+                    className="w-full mt-2 h-0.5 bg-gradient-to-r from-secondary-200 to-secondary-400"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.5 }}
+                  />
                 </Card.Header>
 
                 <Card.Body className="pt-4">
@@ -464,7 +470,7 @@ const HomePage = () => {
                       <Badge
                         key={tag}
                         variant="secondary"
-                        className="py-1.5 px-3 cursor-pointer transition-all duration-300 hover:bg-secondary-200 dark:hover:bg-secondary-800 hover:scale-105"
+                        className="py-1 px-2 cursor-pointer transition-all duration-300 hover:bg-secondary-200 dark:hover:bg-secondary-800 hover:scale-105 rounded-full text-xs font-mono lowercase"
                         onClick={() => navigate(`/tag/${tag}`)}
                       >
                         #{tag}
@@ -476,7 +482,9 @@ const HomePage = () => {
             </PageTransition.Item>
 
             {/* Join Community Section - Enhanced */}
-            {!(currentUser?.role === "blogger" || currentUser?.role === "admin") && (
+            {!(
+              currentUser?.role === "blogger" || currentUser?.role === "admin"
+            ) && (
               <PageTransition.Item transition="slideUp" delay={0.3}>
                 <div className="overflow-hidden rounded-xl relative group shadow-lg hover:shadow-xl transition-shadow duration-300">
                   {/* Enhanced animated background */}
@@ -531,8 +539,8 @@ const HomePage = () => {
                     </div>
 
                     <p className="mb-6 opacity-90 text-white/90 leading-relaxed">
-                      Share your knowledge and insights with our growing community.
-                      Apply to become a blogger today!
+                      Share your knowledge and insights with our growing
+                      community. Apply to become a blogger today!
                     </p>
 
                     <motion.div

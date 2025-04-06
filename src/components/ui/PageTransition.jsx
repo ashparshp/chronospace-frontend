@@ -1,16 +1,14 @@
-// src/components/ui/PageTransition.jsx
 import { motion } from "framer-motion";
 
 const PageTransition = ({
   children,
-  transition = "fade", // fade, slideUp, slideLeft, zoom, none
+  transition = "fade",
   duration = 0.5,
   delay = 0,
   className = "",
-  mode = "wait", // wait, sync
+  mode = "wait",
   ...props
 }) => {
-  // Define transition presets
   const transitions = {
     fade: {
       initial: { opacity: 0 },
@@ -54,10 +52,8 @@ const PageTransition = ({
     },
   };
 
-  // Get selected transition
   const selectedTransition = transitions[transition] || transitions.fade;
 
-  // Create transition timing
   const timing = {
     duration,
     delay,
@@ -96,16 +92,14 @@ const PageTransition = ({
   );
 };
 
-// Child component for staggered animations
 PageTransition.Item = ({
   children,
   delay = 0,
   duration = 0.3,
-  transition = "fade", // fade, slideUp, slideLeft, zoom
+  transition = "fade",
   className = "",
   ...props
 }) => {
-  // Define transition presets for items
   const itemTransitions = {
     fade: {
       initial: { opacity: 0 },
@@ -129,7 +123,6 @@ PageTransition.Item = ({
     },
   };
 
-  // Get selected transition
   const selectedTransition =
     itemTransitions[transition] || itemTransitions.fade;
 
@@ -153,17 +146,5 @@ PageTransition.Item = ({
     </motion.div>
   );
 };
-
-// Example usage:
-/*
-<PageTransition transition="slideUp">
-  <PageTransition.Item>
-    <h1>This will animate in first</h1>
-  </PageTransition.Item>
-  <PageTransition.Item>
-    <p>This will animate in second</p>
-  </PageTransition.Item>
-</PageTransition>
-*/
 
 export default PageTransition;
