@@ -447,55 +447,59 @@ const SearchPage = () => {
             {/* Blog Results */}
             {activeTab === "blogs" && (
               <>
-              <div>
-                <div className="flex justify-between items-center mb-6">
-                  <div className="mb-2">
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white tracking-wide">
-                      {loading && blogs.length === 0
-                        ? "Searching blogs..."
-                        : blogs.length === 0
-                        ? "No blogs found"
-                        : `Found ${blogs.length}${hasMore ? "+" : ""} blogs`}
-                    </h2>
-                    <div className="mt-1 h-1 bg-blue-500 rounded -ml-1" style={{ width: "10rem" }}></div>
+                <div>
+                  <div className="flex justify-between items-center mb-6">
+                    <div className="mb-2">
+                      <h2 className="text-xl font-bold text-gray-900 dark:text-white tracking-wide">
+                        {loading && blogs.length === 0
+                          ? "Searching blogs..."
+                          : blogs.length === 0
+                          ? "No blogs found"
+                          : `Found ${blogs.length}${hasMore ? "+" : ""} blogs`}
+                      </h2>
+                      <div
+                        className="mt-1 h-1 bg-blue-500 rounded -ml-1"
+                        style={{ width: "10rem" }}
+                      ></div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <button
+                        className={`p-2 rounded-md ${
+                          viewMode === "grid"
+                            ? "bg-gray-100 dark:bg-black"
+                            : "text-gray-500 dark:text-gray-400"
+                        }`}
+                        onClick={() => setViewMode("grid")}
+                        aria-label="Grid view"
+                      >
+                        <Grid className="h-5 w-5" />
+                      </button>
+                      <button
+                        className={`p-2 rounded-md ${
+                          viewMode === "list"
+                            ? "bg-gray-100 dark:bg-black"
+                            : "text-gray-500 dark:text-gray-400"
+                        }`}
+                        onClick={() => setViewMode("list")}
+                        aria-label="List view"
+                      >
+                        <List className="h-5 w-5" />
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <button
-                      className={`p-2 rounded-md ${
-                        viewMode === "grid"
-                          ? "bg-gray-100 dark:bg-black"
-                          : "text-gray-500 dark:text-gray-400"
-                      }`}
-                      onClick={() => setViewMode("grid")}
-                      aria-label="Grid view"
-                    >
-                      <Grid className="h-5 w-5" />
-                    </button>
-                    <button
-                      className={`p-2 rounded-md ${
-                        viewMode === "list"
-                          ? "bg-gray-100 dark:bg-black"
-                          : "text-gray-500 dark:text-gray-400"
-                      }`}
-                      onClick={() => setViewMode("list")}
-                      aria-label="List view"
-                    >
-                      <List className="h-5 w-5" />
-                    </button>
-                  </div>
-                </div>
 
-                <BlogList
-                  blogs={blogs}
-                  loading={loading}
-                  error={error}
-                  onLoadMore={handleLoadMore}
-                  hasMore={hasMore}
-                  emptyTitle="No blogs found"
-                  emptyDescription="We couldn't find any blogs matching your search criteria."
-                />
-      </div>
-    </>
+                  <BlogList
+                    blogs={blogs}
+                    loading={loading}
+                    error={error}
+                    onLoadMore={handleLoadMore}
+                    hasMore={hasMore}
+                    layout={viewMode} // Pass current view mode
+                    emptyTitle="No blogs found"
+                    emptyDescription="We couldn't find any blogs matching your search criteria."
+                  />
+                </div>
+              </>
             )}
 
             {/* User Results */}
@@ -509,7 +513,10 @@ const SearchPage = () => {
                       ? "No users found"
                       : `Found ${users.length}${hasMore ? "+" : ""} users`}
                   </h2>
-                  <div className="mt-1 h-1 bg-blue-500 rounded -ml-1" style={{ width: "10rem" }}></div>
+                  <div
+                    className="mt-1 h-1 bg-blue-500 rounded -ml-1"
+                    style={{ width: "10rem" }}
+                  ></div>
                 </div>
 
                 {loading && users.length === 0 ? (
@@ -616,17 +623,20 @@ const SearchPage = () => {
                   <h2 className="text-xl font-bold text-gray-900 dark:text-white tracking-wide">
                     Popular Tags
                   </h2>
-                  <div className="mt-1 h-1 bg-blue-500 rounded -ml-1" style={{ width: "9rem" }}></div>
+                  <div
+                    className="mt-1 h-1 bg-blue-500 rounded -ml-1"
+                    style={{ width: "9rem" }}
+                  ></div>
                 </div>
 
                 <div className="flex flex-wrap gap-3">
                   {tags.map((tag) => (
-                  <Badge
+                    <Badge
                       key={tag}
                       variant="secondary"
                       className="py-2 px-3 cursor-pointer text-base font-semibold tracking-wide font-mono lowercase"
                       onClick={() => handleTagClick(tag)}
-                  >
+                    >
                       #{tag}
                     </Badge>
                   ))}
