@@ -24,6 +24,8 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isNavDropdownOpen, setIsNavDropdownOpen] = useState(false);
+  const toggleNavDropdown = () => setIsNavDropdownOpen(!isNavDropdownOpen);
   const { currentUser, logout } = useAuth();
   const { notifications, markAsRead, markAllAsRead, fetchNotifications } =
     useNotification();
@@ -112,41 +114,101 @@ const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center justify-center space-x-8 px-6">
-          {[
-            { to: "/", label: "Home" },
-            { to: "/search", label: "Explore" },
-            ...(currentUser ? [{ to: "/dashboard", label: "Dashboard" }] : []),
-            ...(currentUser &&
-            (currentUser.role === "blogger" || currentUser.role === "admin")
-              ? [{ to: "/editor", label: "Write" }]
-              : []),
-            ...(currentUser && currentUser.role === "admin"
-              ? [{ to: "/admin", label: "Admin" }]
-              : []),
-          ].map((item, i) => (
-            <motion.div
-              key={item.to}
-              custom={i}
-              initial="hidden"
-              animate="visible"
-              variants={navItemVariants}
-              className="transition-colors duration-200"
-            >
-              <NavLink
-                to={item.to}
-                className={({ isActive }) =>
-                  `${linkHoverStyle} ${
-                    isActive
-                      ? "text-primary-600 dark:text-primary-400 font-semibold"
-                      : "text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-                  }`
-                }
+        <nav className="hidden md:flex items-center relative">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `${linkHoverStyle} ${
+                isActive
+                  ? "text-primary-600 dark:text-primary-400 font-semibold"
+                  : "text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+              } mr-6`
+            }
+          >
+            Home
+          </NavLink>
+          <button
+            onClick={toggleNavDropdown}
+            className="md:inline-flex lg:hidden items-center gap-1 px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"
+          >
+            <span>Menu</span>
+            <ChevronDown className="w-4 h-4" />
+          </button>
+          <div className={`absolute right-0 top-full mt-2 w-56 rounded-lg bg-white dark:bg-zinc-900 shadow-xl border border-gray-200 dark:border-zinc-700 ${isNavDropdownOpen ? "block" : "hidden"} lg:hidden`}>
+            <div className="flex flex-col space-y-2 px-4 py-2">
+              {[
+                { to: "/", label: "Home" },
+                { to: "/search", label: "Explore" },
+                ...(currentUser ? [{ to: "/dashboard", label: "Dashboard" }] : []),
+                ...(currentUser &&
+                  (currentUser.role === "blogger" || currentUser.role === "admin")
+                  ? [{ to: "/editor", label: "Write" }]
+                  : []),
+                ...(currentUser && currentUser.role === "admin"
+                  ? [{ to: "/admin", label: "Admin" }]
+                  : []),
+              ].slice(1).map((item, i) => (
+                  <motion.div
+                  key={item.to}
+                  custom={i}
+                  initial="hidden"
+                  animate="visible"
+                  variants={navItemVariants}
+                  className="transition-colors duration-200 px-4 py-2"
+                >
+                  <NavLink
+                    to={item.to}
+                    onClick={() => setIsNavDropdownOpen(false)}
+                    className={({ isActive }) =>
+                      `${linkHoverStyle} ${
+                        isActive
+                          ? "text-primary-600 dark:text-primary-400 font-semibold"
+                          : "text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+                      }`
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+          <div className="hidden lg:flex items-center space-x-8 px-6">
+            {[
+              { to: "/", label: "Home" },
+              { to: "/search", label: "Explore" },
+              ...(currentUser ? [{ to: "/dashboard", label: "Dashboard" }] : []),
+              ...(currentUser &&
+                (currentUser.role === "blogger" || currentUser.role === "admin")
+                ? [{ to: "/editor", label: "Write" }]
+                : []),
+              ...(currentUser && currentUser.role === "admin"
+                ? [{ to: "/admin", label: "Admin" }]
+                : []),
+            ].map((item, i) => (
+              <motion.div
+                key={item.to}
+                custom={i}
+                initial="hidden"
+                animate="visible"
+                variants={navItemVariants}
+                className="transition-colors duration-200"
               >
-                {item.label}
-              </NavLink>
-            </motion.div>
-          ))}
+                <NavLink
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `${linkHoverStyle} ${
+                      isActive
+                        ? "text-primary-600 dark:text-primary-400 font-semibold"
+                        : "text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+                    }`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              </motion.div>
+            ))}
+          </div>
         </nav>
 
         {/* Right Section: Search & User Actions */}
