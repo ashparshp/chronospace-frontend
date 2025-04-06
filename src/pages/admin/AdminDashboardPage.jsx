@@ -124,19 +124,19 @@ const AdminDashboardPage = () => {
   }
 
   return (
-    <div className="mx-auto">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="space-y-8"
       >
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 flex-wrap">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
             Admin Dashboard
           </h1>
 
-          <div className="flex space-x-2">
+          <div className="flex flex-wrap gap-2">
             <Button variant="outline" href="/admin/users" size="sm">
               <Users className="h-4 w-4 mr-1" />
               Manage Users
@@ -419,38 +419,38 @@ const AdminDashboardPage = () => {
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
           <Button
             variant="outline"
             href="/admin/users"
-            className="flex flex-col items-center p-6 h-24"
+            className="flex flex-col items-center justify-center p-6 min-h-[6rem] w-full"
           >
             <Users className="h-6 w-6 mb-2" />
-            <span>Manage Users</span>
+            <span className="text-sm text-center">Manage Users</span>
           </Button>
-
+ 
           <Button
             variant="outline"
             href="/admin/blogs"
-            className="flex flex-col items-center p-6 h-24"
+            className="flex flex-col items-center justify-center p-6 min-h-[6rem] w-full"
           >
             <FileText className="h-6 w-6 mb-2" />
-            <span>Manage Blogs</span>
+            <span className="text-sm text-center">Manage Blogs</span>
           </Button>
-
+ 
           <Button
             variant="outline"
             href="/admin/applications"
-            className="flex flex-col items-center p-6 h-24"
+            className="flex flex-col items-center justify-center p-6 min-h-[6rem] w-full"
           >
             <UserPlus className="h-6 w-6 mb-2" />
-            <span>Review Applications</span>
+            <span className="text-sm text-center">Review Applications</span>
           </Button>
-
+ 
           <Button
             variant="outline"
             href="/editor"
-            className="flex flex-col items-center p-6 h-24"
+            className="flex flex-col items-center justify-center p-6 min-h-[6rem] w-full"
           >
             <svg
               className="h-6 w-6 mb-2"
@@ -465,7 +465,7 @@ const AdminDashboardPage = () => {
                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
               />
             </svg>
-            <span>Write Blog</span>
+            <span className="text-sm text-center">Write Blog</span>
           </Button>
         </div>
       </motion.div>
