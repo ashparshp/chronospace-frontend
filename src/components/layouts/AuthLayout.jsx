@@ -1,4 +1,3 @@
-// src/components/layouts/AuthLayout.jsx
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
@@ -13,13 +12,12 @@ const AuthLayout = ({
   showBackButton = true,
   sideContent,
   sideImage,
-  sideBackground = "gradient", // gradient, image, none
-  sidePosition = "right", // left, right
+  sideBackground = "gradient",
+  sidePosition = "right",
   footerLinks = [],
   className = "",
   ...props
 }) => {
-  // Background for the side panel
   const getSideBackground = () => {
     switch (sideBackground) {
       case "image":
@@ -47,11 +45,9 @@ const AuthLayout = ({
     }
   };
 
-  // Layout structure based on side position
   const contentOrder = sidePosition === "left" ? "order-last" : "order-first";
   const sideOrder = sidePosition === "left" ? "order-first" : "order-last";
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -77,7 +73,6 @@ const AuthLayout = ({
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-white dark:bg-black">
-      {/* Main content */}
       <motion.div
         className={`flex-1 flex items-center justify-center p-6 sm:p-12 ${contentOrder} ${className}`}
         initial="hidden"
@@ -86,7 +81,6 @@ const AuthLayout = ({
         {...props}
       >
         <div className="w-full max-w-md">
-          {/* Theme toggle on mobile */}
           <div className="mb-6 flex justify-between items-center">
             {showBackButton ? (
               <Link
@@ -102,7 +96,6 @@ const AuthLayout = ({
             <ThemeToggle.ThemeToggleMini />
           </div>
 
-          {/* Logo */}
           {showLogo && (
             <motion.div className="text-center mb-8" variants={itemVariants}>
               <Link to="/" className="inline-block mb-6">
@@ -113,7 +106,6 @@ const AuthLayout = ({
             </motion.div>
           )}
 
-          {/* Title & Subtitle */}
           {(title || subtitle) && (
             <motion.div className="text-center mb-8" variants={itemVariants}>
               {title && (
@@ -129,10 +121,8 @@ const AuthLayout = ({
             </motion.div>
           )}
 
-          {/* Main content */}
           <motion.div variants={itemVariants}>{children}</motion.div>
 
-          {/* Footer links */}
           {footerLinks.length > 0 && (
             <motion.div
               className="mt-8 text-center text-gray-600 dark:text-gray-400"
@@ -165,7 +155,6 @@ const AuthLayout = ({
         </div>
       </motion.div>
 
-      {/* Side panel */}
       <motion.div
         className={`hidden md:flex md:flex-1 bg-gray-100 dark:bg-black relative overflow-hidden ${sideOrder}`}
         initial={{ opacity: 0, x: sidePosition === "right" ? 20 : -20 }}
@@ -284,3 +273,4 @@ const AuthLayout = ({
 };
 
 export default AuthLayout;
+
