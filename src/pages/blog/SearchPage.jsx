@@ -409,9 +409,9 @@ const SearchPage = () => {
             <nav className="-mb-px flex" aria-label="Tabs">
               <button
                 onClick={() => handleTabChange("blogs")}
-                className={`whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm ${
+                className={`whitespace-nowrap py-3 pl-2 pr-4 border-b font-medium text-sm ${
                   activeTab === "blogs"
-                    ? "border-primary-500 text-primary-600 dark:text-primary-400"
+                    ? "border-b border-blue-500 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-700"
                 }`}
               >
@@ -420,9 +420,9 @@ const SearchPage = () => {
               </button>
               <button
                 onClick={() => handleTabChange("users")}
-                className={`whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm ${
+                className={`whitespace-nowrap py-3 pl-2 pr-4 border-b font-medium text-sm ${
                   activeTab === "users"
-                    ? "border-primary-500 text-primary-600 dark:text-primary-400"
+                    ? "border-b border-blue-500 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-700"
                 }`}
               >
@@ -431,9 +431,9 @@ const SearchPage = () => {
               </button>
               <button
                 onClick={() => handleTabChange("tags")}
-                className={`whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm ${
+                className={`whitespace-nowrap py-3 pl-2 pr-4 border-b font-medium text-sm ${
                   activeTab === "tags"
-                    ? "border-primary-500 text-primary-600 dark:text-primary-400"
+                    ? "border-b border-blue-500 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-700"
                 }`}
               >
@@ -446,6 +446,7 @@ const SearchPage = () => {
           <div className="p-6">
             {/* Blog Results */}
             {activeTab === "blogs" && (
+              <>
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <div>
@@ -492,7 +493,8 @@ const SearchPage = () => {
                   emptyTitle="No blogs found"
                   emptyDescription="We couldn't find any blogs matching your search criteria."
                 />
-              </div>
+      </div>
+    </>
             )}
 
             {/* User Results */}
@@ -606,18 +608,21 @@ const SearchPage = () => {
             {/* Tags Results */}
             {activeTab === "tags" && (
               <div>
-                <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-6">
-                  Popular Tags
-                </h2>
+                <div className="mb-6">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white tracking-wide">
+                    Popular Tags
+                  </h2>
+                  <div className="mt-1 h-1 bg-blue-500 rounded -ml-1" style={{ width: "9rem" }}></div>
+                </div>
 
                 <div className="flex flex-wrap gap-3">
                   {tags.map((tag) => (
-                    <Badge
+                  <Badge
                       key={tag}
                       variant="secondary"
-                      className="py-2 px-3 cursor-pointer text-base"
+                      className="py-2 px-3 cursor-pointer text-base font-semibold tracking-wide font-mono lowercase"
                       onClick={() => handleTagClick(tag)}
-                    >
+                  >
                       #{tag}
                     </Badge>
                   ))}
