@@ -1,4 +1,3 @@
-// src/components/marketing/FeatureHighlight.jsx
 import { motion } from "framer-motion";
 
 const FeatureHighlight = ({

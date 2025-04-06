@@ -1,5 +1,3 @@
-// src/components/blog-content.component.jsx
-
 const Img = ({ url, caption }) => {
   return (
     <div>

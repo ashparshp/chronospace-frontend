@@ -2,7 +2,6 @@ import { createContext, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { signInWithGoogle } from "../services/firebase";
-import { API_URL } from "../config/constants";
 import { authService } from "../services/authService";
 
 const AuthContext = createContext();
