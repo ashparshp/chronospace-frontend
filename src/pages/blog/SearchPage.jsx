@@ -449,14 +449,15 @@ const SearchPage = () => {
               <>
               <div>
                 <div className="flex justify-between items-center mb-6">
-                  <div>
-                    <h2 className="text-lg font-medium text-gray-900 dark:text-white">
+                  <div className="mb-2">
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white tracking-wide">
                       {loading && blogs.length === 0
                         ? "Searching blogs..."
                         : blogs.length === 0
                         ? "No blogs found"
                         : `Found ${blogs.length}${hasMore ? "+" : ""} blogs`}
                     </h2>
+                    <div className="mt-1 h-1 bg-blue-500 rounded -ml-1" style={{ width: "10rem" }}></div>
                   </div>
                   <div className="flex items-center space-x-2">
                     <button
