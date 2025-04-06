@@ -60,7 +60,7 @@ const BlogCard = ({ blog, className = "", variant = "default", layout = "grid" }
       <div
         className={`relative ${
           layout === "list"
-            ? "w-[200px] h-[160px] flex items-center justify-center flex-shrink-0 bg-gray-100 dark:bg-gray-800 rounded-l-xl overflow-hidden"
+            ? "w-[200px] h-[160px] flex items-center justify-center flex-shrink-0 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden ml-1"
             : "h-48 w-full"
         }`}
       >
