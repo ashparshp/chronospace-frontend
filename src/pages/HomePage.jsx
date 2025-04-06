@@ -80,7 +80,7 @@ const HomePage = () => {
     };
 
     fetchHomePageData();
-  }, []);
+  }, [showToast]);
 
   // Load more blogs
   const handleLoadMore = async () => {
@@ -466,7 +466,6 @@ const HomePage = () => {
                         variant="secondary"
                         className="py-1.5 px-3 cursor-pointer transition-all duration-300 hover:bg-secondary-200 dark:hover:bg-secondary-800 hover:scale-105"
                         onClick={() => navigate(`/tag/${tag}`)}
-                        animate
                       >
                         #{tag}
                       </Badge>
@@ -477,83 +476,85 @@ const HomePage = () => {
             </PageTransition.Item>
 
             {/* Join Community Section - Enhanced */}
-            <PageTransition.Item transition="slideUp" delay={0.3}>
-              <div className="overflow-hidden rounded-xl relative group shadow-lg hover:shadow-xl transition-shadow duration-300">
-                {/* Enhanced animated background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-700 overflow-hidden">
-                  {/* Enhanced animated particles/circles */}
-                  <motion.div
-                    className="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-full blur-xl"
-                    animate={{
-                      x: [0, 20, 0],
-                      y: [0, -20, 0],
-                    }}
-                    transition={{
-                      duration: 8,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                  <motion.div
-                    className="absolute bottom-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-xl"
-                    animate={{
-                      x: [0, -30, 0],
-                      y: [0, 30, 0],
-                    }}
-                    transition={{
-                      duration: 10,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 1,
-                    }}
-                  />
-                  <motion.div
-                    className="absolute -bottom-20 -left-20 w-60 h-60 bg-white/5 rounded-full"
-                    animate={{
-                      x: [0, 40, 0],
-                      y: [0, -40, 0],
-                    }}
-                    transition={{
-                      duration: 12,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 2,
-                    }}
-                  />
-                </div>
-
-                <div className="relative z-10 p-6 text-white">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="p-2 bg-white/20 rounded-full group-hover:bg-white/30 transition-colors duration-300">
-                      <Edit className="h-5 w-5" />
-                    </div>
-                    <h3 className="font-bold text-xl">Become a Creator</h3>
+            {!(currentUser?.role === "blogger" || currentUser?.role === "admin") && (
+              <PageTransition.Item transition="slideUp" delay={0.3}>
+                <div className="overflow-hidden rounded-xl relative group shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  {/* Enhanced animated background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-700 overflow-hidden">
+                    {/* Enhanced animated particles/circles */}
+                    <motion.div
+                      className="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-full blur-xl"
+                      animate={{
+                        x: [0, 20, 0],
+                        y: [0, -20, 0],
+                      }}
+                      transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
+                    <motion.div
+                      className="absolute bottom-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-xl"
+                      animate={{
+                        x: [0, -30, 0],
+                        y: [0, 30, 0],
+                      }}
+                      transition={{
+                        duration: 10,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 1,
+                      }}
+                    />
+                    <motion.div
+                      className="absolute -bottom-20 -left-20 w-60 h-60 bg-white/5 rounded-full"
+                      animate={{
+                        x: [0, 40, 0],
+                        y: [0, -40, 0],
+                      }}
+                      transition={{
+                        duration: 12,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 2,
+                      }}
+                    />
                   </div>
 
-                  <p className="mb-6 opacity-90 text-white/90 leading-relaxed">
-                    Share your knowledge and insights with our growing
-                    community. Apply to become a blogger today!
-                  </p>
+                  <div className="relative z-10 p-6 text-white">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="p-2 bg-white/20 rounded-full group-hover:bg-white/30 transition-colors duration-300">
+                        <Edit className="h-5 w-5" />
+                      </div>
+                      <h3 className="font-bold text-xl">Become a Creator</h3>
+                    </div>
 
-                  <motion.div
-                    whileHover={{
-                      scale: 1.05,
-                      transition: { duration: 0.2 },
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button
-                      variant="accent"
-                      className="w-full bg-white text-primary-600 hover:bg-gray-100 shadow-lg group"
-                      href="/dashboard?tab=blogger-application"
+                    <p className="mb-6 opacity-90 text-white/90 leading-relaxed">
+                      Share your knowledge and insights with our growing community.
+                      Apply to become a blogger today!
+                    </p>
+
+                    <motion.div
+                      whileHover={{
+                        scale: 1.05,
+                        transition: { duration: 0.2 },
+                      }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      <span>Apply Now</span>
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                    </Button>
-                  </motion.div>
+                      <Button
+                        variant="accent"
+                        className="w-full bg-white text-primary-600 hover:bg-gray-100 shadow-lg"
+                        href="/dashboard?tab=blogger-application"
+                      >
+                        <span>Apply Now</span>
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                      </Button>
+                    </motion.div>
+                  </div>
                 </div>
-              </div>
-            </PageTransition.Item>
+              </PageTransition.Item>
+            )}
           </div>
         </div>
       </div>
