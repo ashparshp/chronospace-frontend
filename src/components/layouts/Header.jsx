@@ -113,7 +113,7 @@ const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center justify-center space-x-8 px-6">
           {[
             { to: "/", label: "Home" },
             { to: "/search", label: "Explore" },
@@ -132,13 +132,14 @@ const Header = () => {
               initial="hidden"
               animate="visible"
               variants={navItemVariants}
+              className="transition-colors duration-200"
             >
               <NavLink
                 to={item.to}
                 className={({ isActive }) =>
                   `${linkHoverStyle} ${
                     isActive
-                      ? "text-primary-600 dark:text-primary-400 font-medium"
+                      ? "text-primary-600 dark:text-primary-400 font-semibold"
                       : "text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
                   }`
                 }
