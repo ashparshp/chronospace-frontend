@@ -501,13 +501,16 @@ const SearchPage = () => {
             {/* User Results */}
             {activeTab === "users" && (
               <div>
-                <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-6">
-                  {loading
-                    ? "Searching users..."
-                    : users.length === 0
-                    ? "No users found"
-                    : `Found ${users.length}${hasMore ? "+" : ""} users`}
-                </h2>
+                <div className="mb-2">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white tracking-wide">
+                    {loading
+                      ? "Searching users..."
+                      : users.length === 0
+                      ? "No users found"
+                      : `Found ${users.length}${hasMore ? "+" : ""} users`}
+                  </h2>
+                  <div className="mt-1 h-1 bg-blue-500 rounded -ml-1" style={{ width: "10rem" }}></div>
+                </div>
 
                 {loading && users.length === 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
