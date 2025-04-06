@@ -13,10 +13,10 @@ import {
   ChevronDown,
   ChevronUp,
   Heart,
-  MoreHorizontal,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import DeleteConfirmationModal from "../ui/DeleteConfirmationModal";
 
 const CommentSection = ({ blogId, blogAuthorId }) => {
   const { currentUser } = useAuth();
@@ -34,6 +34,10 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [likedComments, setLikedComments] = useState({});
+
+  // State for deletion modal
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState(null); // { commentId, isReply, parentId }
 
   // Fetch comments when blog ID changes
   useEffect(() => {
@@ -109,7 +113,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
       return;
     }
 
-    // Check if we have the required blog ID
     if (!blogId) {
       showToast("Unable to add comment: Blog ID is missing", "error");
       return;
@@ -117,24 +120,16 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
 
     setSubmitting(true);
     try {
-      // Send only the blog ID - the backend will find the author
       const response = await commentService.addComment({
         _id: blogId,
         comment: commentText,
-        // Don't send blog_author at all - let the backend handle it
       });
-
       console.log("Comment added successfully:", response.data);
       setCommentText("");
-      fetchComments(); // Refresh comments
+      fetchComments();
       showToast("Comment added successfully", "success");
     } catch (error) {
       console.error("Error adding comment:", error);
-      // Log detailed error info
-      if (error.response) {
-        console.error("Response data:", error.response.data);
-        console.error("Response status:", error.response.status);
-      }
       const errorMessage =
         error.response?.data?.error || "Failed to add comment";
       showToast(errorMessage, "error");
@@ -169,45 +164,44 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
       setReplyText("");
       setReplyingTo(null);
 
-      // Update replies for this comment
       const response = await commentService.getCommentReplies(commentId);
       setExpandedReplies((prev) => ({
         ...prev,
         [commentId]: response.data.replies,
       }));
       setShowReplies((prev) => ({ ...prev, [commentId]: true }));
-
       showToast("Reply added successfully", "success");
     } catch (error) {
       console.error("Error adding reply:", error);
-      showToast(error.response?.data?.error || "Failed to add reply", "error");
+      showToast(
+        error.response?.data?.error || "Failed to add reply",
+        "error"
+      );
     } finally {
       setSubmitting(false);
     }
   };
 
-  // Delete comment
-  const handleDeleteComment = async (
-    commentId,
-    isReply = false,
-    parentId = null
-  ) => {
-    if (!confirm("Are you sure you want to delete this comment?")) {
-      return;
-    }
+  // Open delete modal when user clicks delete
+  const confirmDelete = (commentId, isReply = false, parentId = null) => {
+    setDeleteTarget({ commentId, isReply, parentId });
+    setIsDeleteModalOpen(true);
+  };
 
+  // Handle the actual deletion after confirmation
+  const handleDeleteCommentConfirmed = async () => {
+    if (!deleteTarget) return;
+    const { commentId, isReply, parentId } = deleteTarget;
     try {
       await commentService.deleteComment(commentId);
 
       if (isReply && parentId) {
-        // Update the replies for this parent comment
         const response = await commentService.getCommentReplies(parentId);
         setExpandedReplies((prev) => ({
           ...prev,
           [parentId]: response.data.replies,
         }));
       } else {
-        // Refresh all comments
         fetchComments();
       }
 
@@ -218,10 +212,19 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
         error.response?.data?.error || "Failed to delete comment",
         "error"
       );
+    } finally {
+      setIsDeleteModalOpen(false);
+      setDeleteTarget(null);
     }
   };
 
-  // Like/unlike comment (this is a mock function since it's not in the original)
+  // Cancel deletion
+  const handleCancelDelete = () => {
+    setIsDeleteModalOpen(false);
+    setDeleteTarget(null);
+  };
+
+  // Like/unlike comment
   const handleLikeComment = (commentId) => {
     setLikedComments((prev) => ({
       ...prev,
@@ -324,7 +327,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
       {/* Comments List */}
       <div className="space-y-6">
         {loading && comments.length === 0 ? (
-          // Loading skeleton
           Array.from({ length: 3 }).map((_, i) => (
             <div key={i} className="animate-pulse flex space-x-4">
               <div className="rounded-full bg-gray-200 dark:bg-black h-10 w-10"></div>
@@ -348,7 +350,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                 className="border-b border-gray-100 dark:border-gray-800 pb-6"
                 transition={{ delay: index * 0.1 }}
               >
-                {/* Main Comment */}
                 <div className="flex space-x-4">
                   <Avatar
                     src={comment.commented_by.personal_info.profile_img}
@@ -379,8 +380,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                           {formatCommentDate(comment.commentedAt)}
                         </p>
                       </div>
-
-                      {/* Comment Actions Dropdown */}
                       <div className="relative">
                         {currentUser &&
                           (currentUser._id === comment.commented_by._id ||
@@ -388,7 +387,9 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={() => handleDeleteComment(comment._id)}
+                              onClick={() =>
+                                confirmDelete(comment._id, false, null)
+                              }
                               className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 p-1"
                             >
                               <Trash2 className="h-4 w-4" />
@@ -396,14 +397,10 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                           )}
                       </div>
                     </div>
-
                     <div className="mt-2 text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-black/50 p-3 rounded-lg">
                       {comment.comment}
                     </div>
-
-                    {/* Comment actions */}
                     <div className="mt-2 flex items-center space-x-4">
-                      {/* Like button */}
                       <button
                         onClick={() => handleLikeComment(comment._id)}
                         className={`flex items-center text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 ${
@@ -419,8 +416,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                         />
                         <span className="text-xs">Like</span>
                       </button>
-
-                      {/* Reply button */}
                       {currentUser && (
                         <button
                           onClick={() =>
@@ -435,8 +430,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                         </button>
                       )}
                     </div>
-
-                    {/* Reply form */}
                     <AnimatePresence>
                       {replyingTo === comment._id && (
                         <motion.div
@@ -483,8 +476,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                         </motion.div>
                       )}
                     </AnimatePresence>
-
-                    {/* Replies section */}
                     {comment.children && comment.children.length > 0 && (
                       <div className="mt-4">
                         <Button
@@ -530,8 +521,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                             </span>
                           )}
                         </Button>
-
-                        {/* Replies list */}
                         <AnimatePresence>
                           {showReplies[comment._id] &&
                             expandedReplies[comment._id] && (
@@ -597,18 +586,15 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                                               )}
                                             </p>
                                           </div>
-
-                                          {/* Delete reply button */}
                                           {currentUser &&
                                             (currentUser._id ===
                                               reply.commented_by._id ||
-                                              currentUser._id ===
-                                                blogAuthorId) && (
+                                              currentUser._id === blogAuthorId) && (
                                               <Button
                                                 variant="ghost"
                                                 size="sm"
                                                 onClick={() =>
-                                                  handleDeleteComment(
+                                                  confirmDelete(
                                                     reply._id,
                                                     true,
                                                     comment._id
@@ -623,8 +609,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                                         <div className="mt-1 text-gray-800 dark:text-gray-200 text-sm bg-gray-50 dark:bg-black/50 p-2 rounded-lg">
                                           {reply.comment}
                                         </div>
-
-                                        {/* Reply actions */}
                                         <div className="mt-1 flex items-center space-x-3">
                                           <button
                                             onClick={() =>
@@ -659,8 +643,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                 </div>
               </motion.div>
             ))}
-
-            {/* Load more button */}
             {hasMore && (
               <div className="flex justify-center">
                 <Button
@@ -701,6 +683,14 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
           </motion.div>
         )}
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onConfirm={handleDeleteCommentConfirmed}
+        onCancel={handleCancelDelete}
+        message="Are you sure you want to delete this comment?"
+      />
     </div>
   );
 };
