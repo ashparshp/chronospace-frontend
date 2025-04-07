@@ -39,6 +39,13 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null); // { commentId, isReply, parentId }
 
+  // Debug logging for current user
+  useEffect(() => {
+    if (currentUser) {
+      console.log("Current user data:", currentUser);
+    }
+  }, [currentUser]);
+
   // Fetch comments when blog ID changes
   useEffect(() => {
     if (blogId) {
@@ -56,6 +63,11 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
         5
       );
 
+      // Log the first comment for debugging
+      if (response.data && response.data.length > 0) {
+        console.log("Comment structure example:", response.data[0]);
+      }
+
       if (append) {
         setComments((prev) => [...prev, ...response.data]);
       } else {
@@ -70,6 +82,26 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Check if user can delete a comment - using username instead of ID
+  const canDeleteComment = (comment) => {
+    if (!currentUser || !comment || !comment.commented_by) return false;
+    
+    // Since current user doesn't have _id, use username to match
+    const isCommentAuthor = currentUser.username === comment.commented_by.personal_info.username;
+    
+    // For blog author check, we need to match by different criteria since we don't have user._id
+    // This assumes the blog page has the right checks to determine if currentUser is the blog author
+    const isBlogAuthor = blogAuthorId && 
+                         (currentUser._id === blogAuthorId || 
+                          currentUser.user_id === blogAuthorId || 
+                          currentUser.id === blogAuthorId);
+    
+    // Check if user is admin 
+    const isAdmin = currentUser.role === 'admin';
+    
+    return isCommentAuthor || isBlogAuthor || isAdmin;
   };
 
   // Load more comments
@@ -118,16 +150,25 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
       return;
     }
 
+    // Log what's being sent
+    console.log("Submitting comment with data:", {
+      blogId,
+      comment: commentText,
+      currentUser
+    });
+
     setSubmitting(true);
     try {
       const response = await commentService.addComment({
         _id: blogId,
         comment: commentText,
       });
-      console.log("Comment added successfully:", response.data);
+      
+      console.log("Comment added successfully, server response:", response.data);
+      
       setCommentText("");
       fetchComments();
-      showToast("Comment added successfully", "success");
+      showToast("Comment added", "success");
     } catch (error) {
       console.error("Error adding comment:", error);
       const errorMessage =
@@ -154,20 +195,22 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
 
     setSubmitting(true);
     try {
-      await commentService.addComment({
+      const response = await commentService.addComment({
         _id: blogId,
         comment: replyText,
         blog_author: blogAuthorId,
         replying_to: commentId,
       });
-
+      
+      console.log("Reply added successfully, server response:", response.data);
+      
       setReplyText("");
       setReplyingTo(null);
 
-      const response = await commentService.getCommentReplies(commentId);
+      const repliesResponse = await commentService.getCommentReplies(commentId);
       setExpandedReplies((prev) => ({
         ...prev,
-        [commentId]: response.data.replies,
+        [commentId]: repliesResponse.data.replies,
       }));
       setShowReplies((prev) => ({ ...prev, [commentId]: true }));
       showToast("Reply added successfully", "success");
@@ -205,13 +248,10 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
         fetchComments();
       }
 
-      showToast("Comment deleted successfully", "success");
+      showToast("Deleted!", "success");
     } catch (error) {
       console.error("Error deleting comment:", error);
-      showToast(
-        error.response?.data?.error || "Failed to delete comment",
-        "error"
-      );
+      showToast(error.response?.data?.error || "Delete failed", "error");
     } finally {
       setIsDeleteModalOpen(false);
       setDeleteTarget(null);
@@ -381,20 +421,19 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                         </p>
                       </div>
                       <div className="relative">
-                        {currentUser &&
-                          (currentUser._id === comment.commented_by._id ||
-                            currentUser._id === blogAuthorId) && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() =>
-                                confirmDelete(comment._id, false, null)
-                              }
-                              className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 p-1"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          )}
+                        {/* Check if current user can delete this comment */}
+                        {currentUser && canDeleteComment(comment) && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() =>
+                              confirmDelete(comment._id, false, null)
+                            }
+                            className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 p-1"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        )}
                       </div>
                     </div>
                     <div className="mt-2 text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-black/50 p-3 rounded-lg">
@@ -586,25 +625,23 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                                               )}
                                             </p>
                                           </div>
-                                          {currentUser &&
-                                            (currentUser._id ===
-                                              reply.commented_by._id ||
-                                              currentUser._id === blogAuthorId) && (
-                                              <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                onClick={() =>
-                                                  confirmDelete(
-                                                    reply._id,
-                                                    true,
-                                                    comment._id
-                                                  )
-                                                }
-                                                className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 p-1"
-                                              >
-                                                <Trash2 className="h-3 w-3" />
-                                              </Button>
-                                            )}
+                                          {/* Check if current user can delete this reply */}
+                                          {currentUser && canDeleteComment(reply) && (
+                                            <Button
+                                              variant="ghost"
+                                              size="sm"
+                                              onClick={() =>
+                                                confirmDelete(
+                                                  reply._id,
+                                                  true,
+                                                  comment._id
+                                                )
+                                              }
+                                              className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 p-1"
+                                            >
+                                              <Trash2 className="h-3 w-3" />
+                                            </Button>
+                                          )}
                                         </div>
                                         <div className="mt-1 text-gray-800 dark:text-gray-200 text-sm bg-gray-50 dark:bg-black/50 p-2 rounded-lg">
                                           {reply.comment}

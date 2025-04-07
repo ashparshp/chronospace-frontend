@@ -1,4 +1,3 @@
-// src/pages/user/ProfilePage.jsx
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -67,27 +66,18 @@ const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("blogs");
   const [viewMode, setViewMode] = useState("grid");
 
-  // Helper function to check if the current user is viewing their own profile
   const isCurrentUserProfile = () => {
     if (!currentUser || !profile?.personal_info) return false;
-
-    // Compare usernames instead of IDs
     return currentUser.username === profile.personal_info.username;
   };
 
-  // Fetch profile data
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
         setLoading(true);
         setError(null);
-
-        // Get profile data
         const profileResponse = await userService.getProfile(username);
         setProfile(profileResponse.data);
-
-        // Check if current user is following this profile
-        // Only check if the profile is not the current user's profile
         if (
           currentUser &&
           currentUser.username !== profileResponse.data.personal_info.username
@@ -97,7 +87,6 @@ const ProfilePage = () => {
           );
           setIsFollowing(followingResponse.data.isFollowing);
         }
-
         setLoading(false);
       } catch (error) {
         console.error("Error fetching profile:", error);
@@ -109,46 +98,38 @@ const ProfilePage = () => {
     fetchProfileData();
   }, [username, currentUser]);
 
-  // Fetch blogs when profile is loaded
   useEffect(() => {
     if (profile && activeTab === "blogs") {
       fetchUserBlogs();
     }
   }, [profile, activeTab]);
 
-  // Fetch followers when tab changes to followers
   useEffect(() => {
     if (profile && activeTab === "followers") {
       fetchFollowers();
     }
   }, [profile, activeTab]);
 
-  // Fetch following when tab changes to following
   useEffect(() => {
     if (profile && activeTab === "following") {
       fetchFollowing();
     }
   }, [profile, activeTab]);
 
-  // Fetch user's blogs
   const fetchUserBlogs = async (page = 1) => {
     try {
       setBlogsLoading(true);
-
       const searchParams = {
         author: profile._id,
         page,
         limit: 6,
       };
-
       const response = await blogService.searchBlogs(searchParams);
-
       if (page === 1) {
         setBlogs(response.data.blogs);
       } else {
         setBlogs((prev) => [...prev, ...response.data.blogs]);
       }
-
       setHasMoreBlogs(response.data.blogs.length === 6);
       setBlogPage(page);
       setBlogsLoading(false);
@@ -159,19 +140,15 @@ const ProfilePage = () => {
     }
   };
 
-  // Load more blogs
   const handleLoadMoreBlogs = () => {
     fetchUserBlogs(blogPage + 1);
   };
 
-  // Fetch followers
   const fetchFollowers = async () => {
     try {
       setFollowersLoading(true);
-
       const response = await userService.getFollowers(profile._id);
       setFollowers(response.data.followers);
-
       setFollowersLoading(false);
     } catch (error) {
       console.error("Error fetching followers:", error);
@@ -180,14 +157,11 @@ const ProfilePage = () => {
     }
   };
 
-  // Fetch following
   const fetchFollowing = async () => {
     try {
       setFollowingLoading(true);
-
       const response = await userService.getFollowing(profile._id);
       setFollowing(response.data.following);
-
       setFollowingLoading(false);
     } catch (error) {
       console.error("Error fetching following:", error);
@@ -196,7 +170,6 @@ const ProfilePage = () => {
     }
   };
 
-  // Toggle follow user
   const handleToggleFollow = async () => {
     if (!currentUser) {
       navigate("/signin", { state: { from: `/profile/${username}` } });
@@ -206,8 +179,6 @@ const ProfilePage = () => {
     try {
       const response = await userService.followUser(profile._id);
       setIsFollowing(response.data.followed);
-
-      // Update follower count
       setProfile((prev) => ({
         ...prev,
         account_info: {
@@ -217,8 +188,6 @@ const ProfilePage = () => {
             : prev.account_info.total_followers - 1,
         },
       }));
-
-      // Update current user following count
       if (currentUser) {
         updateUserData({
           account_info: {
@@ -229,7 +198,6 @@ const ProfilePage = () => {
           },
         });
       }
-
       showToast(
         response.data.followed
           ? `You are now following ${profile.personal_info.fullname}`
@@ -242,7 +210,6 @@ const ProfilePage = () => {
     }
   };
 
-  // Loading state
   if (loading) {
     return (
       <div className=" mx-auto space-y-8 animate-pulse">
@@ -263,7 +230,6 @@ const ProfilePage = () => {
     );
   }
 
-  // Error state
   if (error) {
     return (
       <div className=" mx-auto">
@@ -296,12 +262,10 @@ const ProfilePage = () => {
     );
   }
 
-  // Format dates
   const formatDate = (date) => {
     return format(new Date(date), "MMMM yyyy");
   };
 
-  // Prepare tabs content
   const tabsContent = [
     {
       label: `Blogs (${profile.account_info.total_posts})`,
@@ -337,7 +301,6 @@ const ProfilePage = () => {
               </button>
             </div>
           </div>
-
           {viewMode === "grid" ? (
             <BlogList
               blogs={blogs}
@@ -410,8 +373,6 @@ const ProfilePage = () => {
                       </div>
                     </Card>
                   ))}
-
-                  {/* Load more button */}
                   {hasMoreBlogs && (
                     <div className="flex justify-center mt-6">
                       <Button
@@ -460,7 +421,6 @@ const ProfilePage = () => {
           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
             Followers
           </h3>
-
           {followersLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {Array.from({ length: 6 }).map((_, i) => (
@@ -525,7 +485,6 @@ const ProfilePage = () => {
           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
             Following
           </h3>
-
           {followingLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {Array.from({ length: 6 }).map((_, i) => (
@@ -584,7 +543,6 @@ const ProfilePage = () => {
     },
   ];
 
-  // Handle tab change
   const handleTabChange = (tabIndex) => {
     setActiveTab(tabsContent[tabIndex].id);
   };
@@ -597,32 +555,24 @@ const ProfilePage = () => {
         transition={{ duration: 0.5 }}
         className="space-y-8"
       >
-        {/* Profile Header */}
         <Card className="overflow-hidden">
-          {/* Cover Photo (placeholder gradient) */}
           <div className="h-48 bg-gradient-to-r from-primary-500 to-secondary-500"></div>
-
           <div className="p-6">
             <div className="flex flex-col md:flex-row items-center md:items-end -mt-24 md:space-x-6">
-              {/* Profile Picture */}
               <Avatar
                 src={profile.personal_info.profile_img}
                 alt={profile.personal_info.fullname}
                 size="2xl"
                 className="border-4 border-white dark:border-gray-800 rounded-full h-36 w-36"
               />
-
               <div className="flex-1 flex flex-col md:flex-row items-center md:items-end justify-between mt-4 md:mt-0">
                 <div className="text-center md:text-left mb-4 md:mb-0">
-                  {/* Name and Username */}
                   <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                     {profile.personal_info.fullname}
                   </h1>
                   <p className="text-gray-600 dark:text-gray-400">
                     @{profile.personal_info.username}
                   </p>
-
-                  {/* Role Badge */}
                   <div className="mt-2">
                     {profile.role === "admin" ? (
                       <Badge variant="accent" className="capitalize">
@@ -639,8 +589,6 @@ const ProfilePage = () => {
                     )}
                   </div>
                 </div>
-
-                {/* Action Buttons */}
                 <div className="flex space-x-3">
                   {currentUser && isCurrentUserProfile() ? (
                     <Button variant="outline" href="/settings">
@@ -668,21 +616,17 @@ const ProfilePage = () => {
                 </div>
               </div>
             </div>
-
-            {/* Bio and Info */}
             <div className="mt-6">
               {profile.personal_info.bio && (
                 <p className="text-gray-700 dark:text-gray-300 mb-4">
                   {profile.personal_info.bio}
                 </p>
               )}
-
               <div className="flex flex-col sm:flex-row sm:space-x-6 space-y-2 sm:space-y-0 text-sm text-gray-600 dark:text-gray-400">
                 <div className="flex items-center">
                   <Calendar className="h-4 w-4 mr-2" />
                   <span>Joined {formatDate(profile.joinedAt)}</span>
                 </div>
-
                 {profile.location && (
                   <div className="flex items-center">
                     <MapPin className="h-4 w-4 mr-2" />
@@ -690,8 +634,6 @@ const ProfilePage = () => {
                   </div>
                 )}
               </div>
-
-              {/* Social Links */}
               {profile.social_links &&
                 Object.values(profile.social_links).some((link) => link) && (
                   <div className="mt-4 flex flex-wrap gap-3">
@@ -748,8 +690,6 @@ const ProfilePage = () => {
                   </div>
                 )}
             </div>
-
-            {/* Stats */}
             <div className="mt-6 border-t border-gray-200 dark:border-gray-700 pt-6 grid grid-cols-4 gap-2 text-center">
               <div>
                 <p className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -786,8 +726,6 @@ const ProfilePage = () => {
             </div>
           </div>
         </Card>
-
-        {/* Profile Content Tabs */}
         <Tabs tabs={tabsContent} defaultTab={0} onChange={handleTabChange} />
       </motion.div>
     </div>
