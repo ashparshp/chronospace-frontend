@@ -1,4 +1,3 @@
-// src/components/blog/CommentSection.jsx
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { commentService } from "../../services/commentService";
@@ -34,26 +33,15 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [likedComments, setLikedComments] = useState({});
-
-  // State for deletion modal
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState(null); // { commentId, isReply, parentId }
+  const [deleteTarget, setDeleteTarget] = useState(null);
 
-  // Debug logging for current user
-  useEffect(() => {
-    if (currentUser) {
-      console.log("Current user data:", currentUser);
-    }
-  }, [currentUser]);
-
-  // Fetch comments when blog ID changes
   useEffect(() => {
     if (blogId) {
       fetchComments();
     }
   }, [blogId]);
 
-  // Fetch comments
   const fetchComments = async (pageNum = 1, append = false) => {
     try {
       setLoading(true);
@@ -62,18 +50,11 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
         (pageNum - 1) * 5,
         5
       );
-
-      // Log the first comment for debugging
-      if (response.data && response.data.length > 0) {
-        console.log("Comment structure example:", response.data[0]);
-      }
-
       if (append) {
         setComments((prev) => [...prev, ...response.data]);
       } else {
         setComments(response.data);
       }
-
       setHasMore(response.data.length === 5);
       setPage(pageNum);
     } catch (error) {
@@ -84,38 +65,29 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
     }
   };
 
-  // Check if user can delete a comment - using username instead of ID
   const canDeleteComment = (comment) => {
     if (!currentUser || !comment || !comment.commented_by) return false;
-    
-    // Since current user doesn't have _id, use username to match
-    const isCommentAuthor = currentUser.username === comment.commented_by.personal_info.username;
-    
-    // For blog author check, we need to match by different criteria since we don't have user._id
-    // This assumes the blog page has the right checks to determine if currentUser is the blog author
-    const isBlogAuthor = blogAuthorId && 
-                         (currentUser._id === blogAuthorId || 
-                          currentUser.user_id === blogAuthorId || 
-                          currentUser.id === blogAuthorId);
-    
-    // Check if user is admin 
-    const isAdmin = currentUser.role === 'admin';
-    
+    const isCommentAuthor =
+      currentUser.username ===
+      comment.commented_by.personal_info.username;
+    const isBlogAuthor =
+      blogAuthorId &&
+      (currentUser._id === blogAuthorId ||
+        currentUser.user_id === blogAuthorId ||
+        currentUser.id === blogAuthorId);
+    const isAdmin = currentUser.role === "admin";
     return isCommentAuthor || isBlogAuthor || isAdmin;
   };
 
-  // Load more comments
   const loadMoreComments = () => {
     fetchComments(page + 1, true);
   };
 
-  // Toggle replies visibility
   const toggleReplies = async (commentId) => {
     if (showReplies[commentId]) {
       setShowReplies((prev) => ({ ...prev, [commentId]: false }));
       return;
     }
-
     setLoadingReplies((prev) => ({ ...prev, [commentId]: true }));
     try {
       const response = await commentService.getCommentReplies(commentId);
@@ -134,38 +106,24 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
 
   const handleSubmitComment = async (e) => {
     e.preventDefault();
-
     if (!currentUser) {
       navigate("/signin", { state: { from: location.pathname } });
       return;
     }
-
     if (!commentText.trim()) {
       showToast("Comment cannot be empty", "error");
       return;
     }
-
     if (!blogId) {
       showToast("Unable to add comment: Blog ID is missing", "error");
       return;
     }
-
-    // Log what's being sent
-    console.log("Submitting comment with data:", {
-      blogId,
-      comment: commentText,
-      currentUser
-    });
-
     setSubmitting(true);
     try {
-      const response = await commentService.addComment({
+      await commentService.addComment({
         _id: blogId,
         comment: commentText,
       });
-      
-      console.log("Comment added successfully, server response:", response.data);
-      
       setCommentText("");
       fetchComments();
       showToast("Comment added", "success");
@@ -179,41 +137,33 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
     }
   };
 
-  // Submit a reply to a comment
   const handleSubmitReply = async (e, commentId) => {
     e.preventDefault();
-
     if (!currentUser) {
       navigate("/signin", { state: { from: location.pathname } });
       return;
     }
-
     if (!replyText.trim()) {
       showToast("Reply cannot be empty", "error");
       return;
     }
-
     setSubmitting(true);
     try {
-      const response = await commentService.addComment({
+      await commentService.addComment({
         _id: blogId,
         comment: replyText,
         blog_author: blogAuthorId,
         replying_to: commentId,
       });
-      
-      console.log("Reply added successfully, server response:", response.data);
-      
       setReplyText("");
       setReplyingTo(null);
-
       const repliesResponse = await commentService.getCommentReplies(commentId);
       setExpandedReplies((prev) => ({
         ...prev,
         [commentId]: repliesResponse.data.replies,
       }));
       setShowReplies((prev) => ({ ...prev, [commentId]: true }));
-      showToast("Reply added successfully", "success");
+      showToast("Reply added", "success");
     } catch (error) {
       console.error("Error adding reply:", error);
       showToast(
@@ -225,19 +175,16 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
     }
   };
 
-  // Open delete modal when user clicks delete
   const confirmDelete = (commentId, isReply = false, parentId = null) => {
     setDeleteTarget({ commentId, isReply, parentId });
     setIsDeleteModalOpen(true);
   };
 
-  // Handle the actual deletion after confirmation
   const handleDeleteCommentConfirmed = async () => {
     if (!deleteTarget) return;
     const { commentId, isReply, parentId } = deleteTarget;
     try {
       await commentService.deleteComment(commentId);
-
       if (isReply && parentId) {
         const response = await commentService.getCommentReplies(parentId);
         setExpandedReplies((prev) => ({
@@ -247,7 +194,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
       } else {
         fetchComments();
       }
-
       showToast("Deleted!", "success");
     } catch (error) {
       console.error("Error deleting comment:", error);
@@ -258,13 +204,11 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
     }
   };
 
-  // Cancel deletion
   const handleCancelDelete = () => {
     setIsDeleteModalOpen(false);
     setDeleteTarget(null);
   };
 
-  // Like/unlike comment
   const handleLikeComment = (commentId) => {
     setLikedComments((prev) => ({
       ...prev,
@@ -272,12 +216,10 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
     }));
   };
 
-  // Format comment date
   const formatCommentDate = (date) => {
     return format(new Date(date), "MMM d, yyyy • h:mm a");
   };
 
-  // Animation variants
   const commentVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -314,8 +256,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
           {comments.length}
         </span>
       </h3>
-
-      {/* Comment Form */}
       {currentUser ? (
         <form onSubmit={handleSubmitComment} className="space-y-4">
           <div className="flex items-start space-x-4">
@@ -363,8 +303,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
           </Button>
         </motion.div>
       )}
-
-      {/* Comments List */}
       <div className="space-y-6">
         {loading && comments.length === 0 ? (
           Array.from({ length: 3 }).map((_, i) => (
@@ -421,7 +359,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                         </p>
                       </div>
                       <div className="relative">
-                        {/* Check if current user can delete this comment */}
                         {currentUser && canDeleteComment(comment) && (
                           <Button
                             variant="ghost"
@@ -625,7 +562,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                                               )}
                                             </p>
                                           </div>
-                                          {/* Check if current user can delete this reply */}
                                           {currentUser && canDeleteComment(reply) && (
                                             <Button
                                               variant="ghost"
@@ -720,8 +656,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
           </motion.div>
         )}
       </div>
-
-      {/* Delete Confirmation Modal */}
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}
         onConfirm={handleDeleteCommentConfirmed}
