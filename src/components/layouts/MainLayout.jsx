@@ -1,4 +1,3 @@
-// src/components/layouts/MainLayout.jsx
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -42,15 +41,17 @@ const MainLayout = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark transition-colors duration-300 scrollbar-thin">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white transition-colors duration-300 scrollbar-thin">
       <ScrollToTop />
       <Header />
 
-      {/* Background effect for visual interest */}
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[40%] -right-[30%] w-[80%] h-[80%] rounded-full bg-gradient-to-b from-primary-100/30 to-transparent dark:from-primary-900/10 blur-3xl"></div>
-        <div className="absolute -bottom-[40%] -left-[30%] w-[80%] h-[80%] rounded-full bg-gradient-to-t from-secondary-100/30 to-transparent dark:from-secondary-900/10 blur-3xl"></div>
+      {/* Animated Background Noise Effect */}
+      <div className="fixed inset-0 -z-10 opacity-20 pointer-events-none">
+        <div className="absolute inset-0 bg-noise"></div>
       </div>
+
+      {/* Subtle Gradient Overlay */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-purple-900/10 via-black/20 to-indigo-900/10 opacity-50 pointer-events-none"></div>
 
       <AnimatePresence mode="wait">
         <motion.main
