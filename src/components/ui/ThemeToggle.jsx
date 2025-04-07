@@ -6,30 +6,60 @@ import { Sun, Moon, Monitor } from "lucide-react";
 const ThemeToggleMini = () => {
   const { darkMode, toggleTheme } = useTheme();
 
-  const variants = {
-    light: { rotate: 0 },
-    dark: { rotate: 180 },
-  };
-
   return (
-    <motion.button
-      onClick={toggleTheme}
-      className={`p-2 rounded-full transition-colors duration-300 ${
-        darkMode
-          ? "bg-primary-900/30 text-yellow-400"
-          : "bg-primary-100/50 text-primary-600"
-      }`}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
+    <motion.button 
+      onClick={toggleTheme} 
+      className={`w-14 h-8 rounded-full overflow-hidden relative transition-colors duration-200 ${
+        darkMode ? 'bg-gray-800' : 'bg-blue-300'
+      } border-2 ${darkMode ? 'border-gray-600' : 'border-blue-400'} shadow-sm`}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       aria-label="Toggle theme"
     >
-      <motion.div
-        initial={false}
-        animate={darkMode ? "dark" : "light"}
-        variants={variants}
-        transition={{ duration: 0.5, type: "spring" }}
+      {/* Sun */}
+      <motion.div 
+        className="absolute transform"
+        animate={{
+          translateX: darkMode ? '3rem' : '0.5rem',
+          translateY: darkMode ? '-2rem' : '0.25rem',
+        }}
+        transition={{ duration: 0.2 }}
       >
-        {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+        <div className="w-5 h-5 rounded-full bg-yellow-400"></div>
+      </motion.div>
+      
+      {/* Moon */}
+      <motion.div 
+        className="absolute transform"
+        animate={{
+          translateX: darkMode ? '0.5rem' : '4rem',
+          translateY: '0.25rem',
+          opacity: darkMode ? 1 : 0
+        }}
+        transition={{ duration: 0.2 }}
+      >
+        <div className="w-4 h-4 rounded-full bg-gray-200"></div>
+      </motion.div>
+      
+      {/* Stars */}
+      <motion.div 
+        className="absolute top-2 left-2"
+        animate={{
+          opacity: darkMode ? 1 : 0
+        }}
+        transition={{ duration: 0.2 }}
+      >
+        <div className="w-1 h-1 rounded-full bg-white"></div>
+      </motion.div>
+      
+      <motion.div 
+        className="absolute top-6 left-9"
+        animate={{
+          opacity: darkMode ? 1 : 0
+        }}
+        transition={{ duration: 0.2 }}
+      >
+        <div className="w-1 h-1 rounded-full bg-white"></div>
       </motion.div>
     </motion.button>
   );
