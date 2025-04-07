@@ -19,7 +19,8 @@ const NotificationDropdown = ({
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
-  const unreadCount = notifications.filter((n) => !n.read).length;
+  // Use the 'seen' property consistently for unread count
+  const unreadCount = notifications.filter((n) => !n.seen).length;
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -42,7 +43,6 @@ const NotificationDropdown = ({
     }
   }, [isOpen, fetchNotifications]);
 
-  // Format notification time
   const formatNotificationTime = (date) => {
     try {
       return formatDistanceToNow(new Date(date), { addSuffix: true });
@@ -51,32 +51,17 @@ const NotificationDropdown = ({
     }
   };
 
-  // Handle notification click
   const handleNotificationClick = (notification) => {
-    // Mark as read if not already
-    if (!notification.read && onMarkAsRead) {
+    // Mark as read if not already (using 'seen')
+    if (!notification.seen && onMarkAsRead) {
       onMarkAsRead(notification._id);
     }
-
-    // Navigate based on notification type
-    switch (notification.type) {
-      case "blog_comment":
-        navigate(`/blog/${notification.blog}`);
-        break;
-      case "follow":
-        navigate(`/profile/${notification.from.username}`);
-        break;
-      case "like":
-        navigate(`/blog/${notification.blog}`);
-        break;
-      default:
-        navigate("/dashboard?tab=notifications");
-    }
-
+    // Example: Navigate based on notification type (customize as needed)
+    navigate("/dashboard?tab=notifications");
     setIsOpen(false);
   };
 
-  // Get notification icon based on type
+  // Get icon based on type (update as needed)
   const getNotificationIcon = (type) => {
     switch (type) {
       case "blog_comment":
@@ -139,7 +124,7 @@ const NotificationDropdown = ({
               stiffness: 500,
               damping: 30,
             }}
-            className="absolute right-0 mt-2 w-80 bg-white dark:bg-black rounded-xl shadow-custom-lg border border-gray-100 dark:border-gray-700 z-50 overflow-hidden"
+            className="absolute right-0 mt-2 w-80 bg-white dark:bg-black rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 z-50 overflow-hidden"
           >
             {/* Header */}
             <div className="flex justify-between items-center p-4 border-b border-gray-100 dark:border-gray-700 bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/30 dark:to-secondary-900/30">
@@ -172,7 +157,7 @@ const NotificationDropdown = ({
             </div>
 
             {/* Notification List */}
-            <div className="max-h-96 overflow-y-auto scrollbar-thin">
+            <div className="max-h-96 overflow-y-auto">
               {notifications.length > 0 ? (
                 <ul className="divide-y divide-gray-100 dark:divide-gray-700">
                   {notifications.map((notification) => (
@@ -181,9 +166,7 @@ const NotificationDropdown = ({
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       className={`p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-black/50 transition-colors duration-200 ${
-                        !notification.read
-                          ? "bg-primary-50/50 dark:bg-primary-900/20"
-                          : ""
+                        !notification.seen ? "bg-primary-50/50 dark:bg-primary-900/20" : ""
                       }`}
                       onClick={() => handleNotificationClick(notification)}
                     >
@@ -205,11 +188,11 @@ const NotificationDropdown = ({
                             <div className="flex items-center">
                               {getNotificationIcon(notification.type)}
                             </div>
-                            <span className="text-xs text-gray-500 dark:text-gray-400">
+                            <span className="text-xs text-gray-500">
                               {formatNotificationTime(notification.createdAt)}
                             </span>
                           </div>
-                          <p className="text-sm text-gray-800 dark:text-gray-200 mt-1">
+                          <p className="text-sm text-gray-800 mt-1">
                             {notification.message}
                           </p>
                         </div>
@@ -219,25 +202,20 @@ const NotificationDropdown = ({
                 </ul>
               ) : (
                 <div className="p-6 text-center">
-                  <div className="mx-auto h-12 w-12 rounded-full bg-gray-100 dark:bg-black flex items-center justify-center mb-3">
-                    <Bell
-                      size={24}
-                      className="text-gray-400 dark:text-gray-500"
-                    />
+                  <div className="mx-auto h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center mb-3">
+                    <Bell size={24} className="text-gray-400" />
                   </div>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    No notifications yet
-                  </p>
+                  <p className="text-gray-500">No notifications yet</p>
                 </div>
               )}
             </div>
 
             {/* Footer */}
-            <div className="p-3 border-t border-gray-100 dark:border-gray-700 text-center">
+            <div className="p-3 border-t border-gray-100 text-center">
               <Button
                 variant="ghost"
                 size="sm"
-                className="w-full text-primary-600 dark:text-primary-400"
+                className="w-full text-primary-600"
                 onClick={() => {
                   navigate("/dashboard?tab=notifications");
                   setIsOpen(false);

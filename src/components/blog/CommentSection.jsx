@@ -1,4 +1,3 @@
-// src/components/blog/CommentSection.jsx
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { commentService } from "../../services/commentService";
@@ -34,19 +33,15 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [likedComments, setLikedComments] = useState({});
-
-  // State for deletion modal
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState(null); // { commentId, isReply, parentId }
+  const [deleteTarget, setDeleteTarget] = useState(null);
 
-  // Fetch comments when blog ID changes
   useEffect(() => {
     if (blogId) {
       fetchComments();
     }
   }, [blogId]);
 
-  // Fetch comments
   const fetchComments = async (pageNum = 1, append = false) => {
     try {
       setLoading(true);
@@ -55,13 +50,11 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
         (pageNum - 1) * 5,
         5
       );
-
       if (append) {
         setComments((prev) => [...prev, ...response.data]);
       } else {
         setComments(response.data);
       }
-
       setHasMore(response.data.length === 5);
       setPage(pageNum);
     } catch (error) {
@@ -72,18 +65,29 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
     }
   };
 
-  // Load more comments
+  const canDeleteComment = (comment) => {
+    if (!currentUser || !comment || !comment.commented_by) return false;
+    const isCommentAuthor =
+      currentUser.username ===
+      comment.commented_by.personal_info.username;
+    const isBlogAuthor =
+      blogAuthorId &&
+      (currentUser._id === blogAuthorId ||
+        currentUser.user_id === blogAuthorId ||
+        currentUser.id === blogAuthorId);
+    const isAdmin = currentUser.role === "admin";
+    return isCommentAuthor || isBlogAuthor || isAdmin;
+  };
+
   const loadMoreComments = () => {
     fetchComments(page + 1, true);
   };
 
-  // Toggle replies visibility
   const toggleReplies = async (commentId) => {
     if (showReplies[commentId]) {
       setShowReplies((prev) => ({ ...prev, [commentId]: false }));
       return;
     }
-
     setLoadingReplies((prev) => ({ ...prev, [commentId]: true }));
     try {
       const response = await commentService.getCommentReplies(commentId);
@@ -102,32 +106,27 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
 
   const handleSubmitComment = async (e) => {
     e.preventDefault();
-
     if (!currentUser) {
       navigate("/signin", { state: { from: location.pathname } });
       return;
     }
-
     if (!commentText.trim()) {
       showToast("Comment cannot be empty", "error");
       return;
     }
-
     if (!blogId) {
       showToast("Unable to add comment: Blog ID is missing", "error");
       return;
     }
-
     setSubmitting(true);
     try {
-      const response = await commentService.addComment({
+      await commentService.addComment({
         _id: blogId,
         comment: commentText,
       });
-      console.log("Comment added successfully:", response.data);
       setCommentText("");
       fetchComments();
-      showToast("Comment added successfully", "success");
+      showToast("Comment added", "success");
     } catch (error) {
       console.error("Error adding comment:", error);
       const errorMessage =
@@ -138,20 +137,16 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
     }
   };
 
-  // Submit a reply to a comment
   const handleSubmitReply = async (e, commentId) => {
     e.preventDefault();
-
     if (!currentUser) {
       navigate("/signin", { state: { from: location.pathname } });
       return;
     }
-
     if (!replyText.trim()) {
       showToast("Reply cannot be empty", "error");
       return;
     }
-
     setSubmitting(true);
     try {
       await commentService.addComment({
@@ -160,17 +155,15 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
         blog_author: blogAuthorId,
         replying_to: commentId,
       });
-
       setReplyText("");
       setReplyingTo(null);
-
-      const response = await commentService.getCommentReplies(commentId);
+      const repliesResponse = await commentService.getCommentReplies(commentId);
       setExpandedReplies((prev) => ({
         ...prev,
-        [commentId]: response.data.replies,
+        [commentId]: repliesResponse.data.replies,
       }));
       setShowReplies((prev) => ({ ...prev, [commentId]: true }));
-      showToast("Reply added successfully", "success");
+      showToast("Reply added", "success");
     } catch (error) {
       console.error("Error adding reply:", error);
       showToast(
@@ -182,19 +175,16 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
     }
   };
 
-  // Open delete modal when user clicks delete
   const confirmDelete = (commentId, isReply = false, parentId = null) => {
     setDeleteTarget({ commentId, isReply, parentId });
     setIsDeleteModalOpen(true);
   };
 
-  // Handle the actual deletion after confirmation
   const handleDeleteCommentConfirmed = async () => {
     if (!deleteTarget) return;
     const { commentId, isReply, parentId } = deleteTarget;
     try {
       await commentService.deleteComment(commentId);
-
       if (isReply && parentId) {
         const response = await commentService.getCommentReplies(parentId);
         setExpandedReplies((prev) => ({
@@ -204,27 +194,21 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
       } else {
         fetchComments();
       }
-
-      showToast("Comment deleted successfully", "success");
+      showToast("Deleted!", "success");
     } catch (error) {
       console.error("Error deleting comment:", error);
-      showToast(
-        error.response?.data?.error || "Failed to delete comment",
-        "error"
-      );
+      showToast(error.response?.data?.error || "Delete failed", "error");
     } finally {
       setIsDeleteModalOpen(false);
       setDeleteTarget(null);
     }
   };
 
-  // Cancel deletion
   const handleCancelDelete = () => {
     setIsDeleteModalOpen(false);
     setDeleteTarget(null);
   };
 
-  // Like/unlike comment
   const handleLikeComment = (commentId) => {
     setLikedComments((prev) => ({
       ...prev,
@@ -232,12 +216,10 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
     }));
   };
 
-  // Format comment date
   const formatCommentDate = (date) => {
     return format(new Date(date), "MMM d, yyyy • h:mm a");
   };
 
-  // Animation variants
   const commentVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -274,8 +256,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
           {comments.length}
         </span>
       </h3>
-
-      {/* Comment Form */}
       {currentUser ? (
         <form onSubmit={handleSubmitComment} className="space-y-4">
           <div className="flex items-start space-x-4">
@@ -323,8 +303,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
           </Button>
         </motion.div>
       )}
-
-      {/* Comments List */}
       <div className="space-y-6">
         {loading && comments.length === 0 ? (
           Array.from({ length: 3 }).map((_, i) => (
@@ -381,20 +359,18 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                         </p>
                       </div>
                       <div className="relative">
-                        {currentUser &&
-                          (currentUser._id === comment.commented_by._id ||
-                            currentUser._id === blogAuthorId) && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() =>
-                                confirmDelete(comment._id, false, null)
-                              }
-                              className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 p-1"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          )}
+                        {currentUser && canDeleteComment(comment) && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() =>
+                              confirmDelete(comment._id, false, null)
+                            }
+                            className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 p-1"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        )}
                       </div>
                     </div>
                     <div className="mt-2 text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-black/50 p-3 rounded-lg">
@@ -586,25 +562,22 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                                               )}
                                             </p>
                                           </div>
-                                          {currentUser &&
-                                            (currentUser._id ===
-                                              reply.commented_by._id ||
-                                              currentUser._id === blogAuthorId) && (
-                                              <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                onClick={() =>
-                                                  confirmDelete(
-                                                    reply._id,
-                                                    true,
-                                                    comment._id
-                                                  )
-                                                }
-                                                className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 p-1"
-                                              >
-                                                <Trash2 className="h-3 w-3" />
-                                              </Button>
-                                            )}
+                                          {currentUser && canDeleteComment(reply) && (
+                                            <Button
+                                              variant="ghost"
+                                              size="sm"
+                                              onClick={() =>
+                                                confirmDelete(
+                                                  reply._id,
+                                                  true,
+                                                  comment._id
+                                                )
+                                              }
+                                              className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 p-1"
+                                            >
+                                              <Trash2 className="h-3 w-3" />
+                                            </Button>
+                                          )}
                                         </div>
                                         <div className="mt-1 text-gray-800 dark:text-gray-200 text-sm bg-gray-50 dark:bg-black/50 p-2 rounded-lg">
                                           {reply.comment}
@@ -683,8 +656,6 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
           </motion.div>
         )}
       </div>
-
-      {/* Delete Confirmation Modal */}
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}
         onConfirm={handleDeleteCommentConfirmed}

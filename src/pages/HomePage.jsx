@@ -1,4 +1,3 @@
-// src/pages/HomePage.jsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { blogService } from "../services/blogService";
@@ -14,7 +13,6 @@ import {
   TrendingUp,
   Tags,
   Zap,
-  ChevronRight,
   MessageSquare,
   Users,
   Bookmark,
@@ -37,26 +35,21 @@ const HomePage = () => {
   const [hasMore, setHasMore] = useState(true);
   const { currentUser } = useAuth();
 
-  // Fetch homepage data
   useEffect(() => {
     const fetchHomePageData = async () => {
       try {
         setLoading(true);
 
-        // Fetch featured blogs
         const featuredResponse = await blogService.getFeaturedBlogs(3);
         setFeaturedBlogs(featuredResponse.data.blogs);
 
-        // Fetch latest blogs
         const latestResponse = await blogService.getLatestBlogs(1, 6);
         setLatestBlogs(latestResponse.data.blogs);
         setHasMore(latestResponse.data.blogs.length === 6);
 
-        // Fetch trending blogs
         const trendingResponse = await blogService.getTrendingBlogs(5);
         setTrendingBlogs(trendingResponse.data.blogs);
 
-        // Set popular tags (this could come from an API or be hardcoded)
         setPopularTags([
           "technology",
           "programming",
@@ -82,7 +75,6 @@ const HomePage = () => {
     fetchHomePageData();
   }, [showToast]);
 
-  // Load more blogs
   const handleLoadMore = async () => {
     try {
       const nextPage = page + 1;
@@ -138,14 +130,12 @@ const HomePage = () => {
                 ))}
               </div>
             ) : loading ? (
-              // Enhanced loading skeleton for featured blogs
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 <div className="md:col-span-2 lg:row-span-2 bg-gray-200 dark:bg-black animate-pulse rounded-2xl h-96"></div>
                 <div className="bg-gray-200 dark:bg-black animate-pulse rounded-2xl h-64"></div>
                 <div className="bg-gray-200 dark:bg-black animate-pulse rounded-2xl h-64"></div>
               </div>
             ) : (
-              // Enhanced fallback if no featured blogs
               <div className="rounded-2xl overflow-hidden shadow-lg">
                 <div className="bg-gradient-to-r from-primary-600 to-secondary-600 rounded-2xl p-8 md:p-12 text-white text-center relative overflow-hidden">
                   {/* Enhanced background pattern */}
