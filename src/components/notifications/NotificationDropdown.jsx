@@ -3,13 +3,14 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
-import { Bell, X, Check, Settings } from "lucide-react";
+import { Bell, Check, Settings } from "lucide-react";
 import Avatar from "../ui/Avatar";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
 
 const NotificationDropdown = ({
   notifications = [],
+  hasNewNotifications = false,
   onMarkAsRead,
   onMarkAllAsRead,
   fetchNotifications,
@@ -19,21 +20,28 @@ const NotificationDropdown = ({
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
-  // Use the 'seen' property consistently for unread count
-  const unreadCount = notifications.filter((n) => !n.seen).length;
+  // Calculate unread count – fallback to the new notifications flag if list is empty
+  const unreadCount =
+    notifications.length > 0
+      ? notifications.filter((n) => !n.seen).length
+      : hasNewNotifications
+      ? 1
+      : 0;
 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
         setIsOpen(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
+    return () =>
       document.removeEventListener("mousedown", handleClickOutside);
-    };
   }, []);
 
   // Fetch notifications when dropdown opens
@@ -56,12 +64,10 @@ const NotificationDropdown = ({
     if (!notification.seen && onMarkAsRead) {
       onMarkAsRead(notification._id);
     }
-    // Example: Navigate based on notification type (customize as needed)
     navigate("/dashboard?tab=notifications");
     setIsOpen(false);
   };
 
-  // Get icon based on type (update as needed)
   const getNotificationIcon = (type) => {
     switch (type) {
       case "blog_comment":
@@ -166,7 +172,9 @@ const NotificationDropdown = ({
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       className={`p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-black/50 transition-colors duration-200 ${
-                        !notification.seen ? "bg-primary-50/50 dark:bg-primary-900/20" : ""
+                        !notification.seen
+                          ? "bg-primary-50/50 dark:bg-primary-900/20"
+                          : ""
                       }`}
                       onClick={() => handleNotificationClick(notification)}
                     >
@@ -189,7 +197,9 @@ const NotificationDropdown = ({
                               {getNotificationIcon(notification.type)}
                             </div>
                             <span className="text-xs text-gray-500">
-                              {formatNotificationTime(notification.createdAt)}
+                              {formatDistanceToNow(new Date(notification.createdAt), {
+                                addSuffix: true,
+                              })}
                             </span>
                           </div>
                           <p className="text-sm text-gray-800 mt-1">

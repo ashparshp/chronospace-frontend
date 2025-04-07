@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
 import { useNotification } from "../../context/NotificationContext";
 import {
-  Sun,
-  Moon,
   Menu,
   X,
   Search,
@@ -27,30 +25,28 @@ const Header = () => {
   const [isNavDropdownOpen, setIsNavDropdownOpen] = useState(false);
   const toggleNavDropdown = () => setIsNavDropdownOpen(!isNavDropdownOpen);
   const { currentUser, logout } = useAuth();
-  const { notifications, markAsRead, markAllAsRead, fetchNotifications } =
-    useNotification();
+  const {
+    notifications,
+    markAsRead,
+    markAllAsRead,
+    fetchNotifications,
+    hasNewNotifications,
+  } = useNotification();
   const navigate = useNavigate();
 
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 10);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menus when clicking outside
+  // Close profile menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = () => {
-      setIsProfileMenuOpen(false);
-    };
-
+    const handleClickOutside = () => setIsProfileMenuOpen(false);
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
@@ -68,7 +64,7 @@ const Header = () => {
   // Toggle mobile menu
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  // Toggle profile dropdown menu, stopping event propagation
+  // Toggle profile dropdown menu (stopping event propagation)
   const toggleProfileMenu = (e) => {
     e.stopPropagation();
     setIsProfileMenuOpen(!isProfileMenuOpen);
@@ -81,7 +77,7 @@ const Header = () => {
       : "glass-effect"
   }`;
 
-  // Animation variants
+  // Animation variants for nav items
   const navItemVariants = {
     hidden: { opacity: 0, y: -5 },
     visible: (i) => ({
@@ -94,7 +90,6 @@ const Header = () => {
     }),
   };
 
-  // Link hover effect
   const linkHoverStyle =
     "relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary-600 dark:after:bg-primary-400 after:transition-all after:duration-300 hover:after:w-full";
 
@@ -143,9 +138,7 @@ const Header = () => {
               {[
                 { to: "/", label: "Home" },
                 { to: "/search", label: "Explore" },
-                ...(currentUser
-                  ? [{ to: "/dashboard", label: "Dashboard" }]
-                  : []),
+                ...(currentUser ? [{ to: "/dashboard", label: "Dashboard" }] : []),
                 ...(currentUser &&
                 (currentUser.role === "blogger" || currentUser.role === "admin")
                   ? [{ to: "/editor", label: "Write" }]
@@ -185,9 +178,7 @@ const Header = () => {
             {[
               { to: "/", label: "Home" },
               { to: "/search", label: "Explore" },
-              ...(currentUser
-                ? [{ to: "/dashboard", label: "Dashboard" }]
-                : []),
+              ...(currentUser ? [{ to: "/dashboard", label: "Dashboard" }] : []),
               ...(currentUser &&
               (currentUser.role === "blogger" || currentUser.role === "admin")
                 ? [{ to: "/editor", label: "Write" }]
@@ -256,9 +247,10 @@ const Header = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3, delay: 0.4 }}
             >
-              {/* Notification Dropdown - Replace the original Bell button */}
+              {/* Notification Dropdown */}
               <NotificationDropdown
                 notifications={notifications || []}
+                hasNewNotifications={hasNewNotifications}
                 onMarkAsRead={markAsRead}
                 onMarkAllAsRead={markAllAsRead}
                 fetchNotifications={fetchNotifications}
