@@ -29,7 +29,7 @@ const Button = ({
     accent:
       "bg-gradient-to-r from-accent to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white shadow-md hover:shadow-lg focus:ring-accent-500/50",
     outline:
-      "border border-primary text-primary hover:bg-primary-50 dark:hover:bg-primary-900/30 hover:border-primary-600 dark:hover:border-primary-400 focus:ring-primary-500/50",
+      "border border-primary text-primary dark:text-white hover:bg-primary-50 dark:hover:bg-primary-900/30 hover:border-primary-600 dark:hover:border-primary-400 focus:ring-primary-500/50",
     ghost:
       "text-primary hover:bg-primary-50 dark:hover:bg-primary-900/30 focus:ring-primary-500/50",
     danger:
