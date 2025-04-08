@@ -11,42 +11,39 @@ const Card = ({
   delay = 0,
   ...props
 }) => {
-  // Base styles for all card variants
   const baseStyles = "rounded-xl overflow-hidden transition-all duration-300";
 
-  // Different card style variants
   const variantStyles = {
     default:
-      "bg-surface-light dark:bg-surface-dark shadow-custom border border-gray-100 dark:border-gray-800",
+      "bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm dark:shadow-gray-900/10",
     gradient:
-      "card-gradient bg-surface-light dark:bg-surface-dark shadow-custom border border-gray-100 dark:border-gray-800",
+      "bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm dark:shadow-gray-900/10 relative before:absolute before:inset-0 before:rounded-xl before:p-[1px] before:bg-gradient-to-r before:from-primary-200 before:to-secondary-200 dark:before:from-primary-800/40 dark:before:to-secondary-800/40 before:-z-10 before:opacity-70",
     outline:
-      "bg-transparent border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-400",
-    glass: "glass-effect backdrop-blur-md",
+      "bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-primary-400 dark:hover:border-primary-500 shadow-none",
+    glass:
+      "bg-white/70 dark:bg-gray-800/70 backdrop-blur-md backdrop-saturate-150 border border-white/20 dark:border-gray-700/20 shadow-lg shadow-gray-200/50 dark:shadow-black/20",
     elevated:
-      "bg-surface-light dark:bg-surface-dark shadow-custom-lg border border-gray-100 dark:border-gray-800",
+      "bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-md hover:shadow-lg dark:shadow-gray-900/10",
   };
 
-  // Hover animation settings
   const hoverAnimations = hoverEffect
     ? {
         whileHover: {
-          y: -5,
-          boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)",
-          transition: { duration: 0.2 },
+          y: -4,
+          boxShadow: "0 12px 24px rgba(0, 0, 0, 0.08)",
+          transition: { duration: 0.25, ease: "easeOut" },
         },
-        whileTap: { y: 0 },
+        whileTap: { y: -2, transition: { duration: 0.15 } },
       }
     : {};
 
-  // If animate is true, render with motion div
   if (animate) {
     return (
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
-          duration: 0.5,
+          duration: 0.4,
           delay: delay,
           ease: "easeOut",
         }}
@@ -62,7 +59,6 @@ const Card = ({
     );
   }
 
-  // If not animating entry but want hover effects
   if (hoverEffect && !animate) {
     return (
       <motion.div
@@ -78,7 +74,6 @@ const Card = ({
     );
   }
 
-  // Basic card with no animations
   return (
     <div
       className={`${baseStyles} ${
@@ -92,22 +87,21 @@ const Card = ({
   );
 };
 
-// Card sub-components for better organization
 Card.Header = ({ children, className = "", ...props }) => (
-  <div className={`p-4 sm:p-6 ${className}`} {...props}>
+  <div className={`p-5 ${className}`} {...props}>
     {children}
   </div>
 );
 
 Card.Body = ({ children, className = "", ...props }) => (
-  <div className={`p-4 sm:p-6 pt-0 ${className}`} {...props}>
+  <div className={`px-5 pb-5 ${className}`} {...props}>
     {children}
   </div>
 );
 
 Card.Footer = ({ children, className = "", ...props }) => (
   <div
-    className={`p-4 sm:p-6 border-t border-gray-100 dark:border-gray-800 ${className}`}
+    className={`p-5 border-t border-gray-100 dark:border-gray-800 mt-auto ${className}`}
     {...props}
   >
     {children}
@@ -119,7 +113,7 @@ Card.Image = ({ src, alt, className = "", ...props }) => (
     <img
       src={src}
       alt={alt}
-      className={`w-full h-full object-cover transition-transform duration-500 hover:scale-105 ${className}`}
+      className={`w-full h-full object-cover transition-all duration-700 hover:scale-105 hover:filter hover:brightness-105 ${className}`}
       {...props}
     />
   </div>
