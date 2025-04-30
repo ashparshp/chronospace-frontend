@@ -32,7 +32,6 @@ import { useAuth } from "../../context/AuthContext";
 import { useNotification } from "../../context/NotificationContext";
 import { blogService } from "../../services/blogService";
 import { userService } from "../../services/userService";
-import Card from "../../components/ui/Card";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
 import Avatar from "../../components/ui/Avatar";
@@ -54,6 +53,19 @@ const DashboardPage = () => {
     showToast,
   } = useNotification();
 
+  const isCreator = currentUser?.role === "blogger" || currentUser?.role === "admin";
+  
+  function getInitialTab() {
+    const params = new URLSearchParams(location.search);
+    const tab = params.get("tab");
+
+    const validTabs = isCreator 
+      ? ["published", "drafts", "notifications"] 
+      : ["notifications", "blogger-application"];
+      
+    return validTabs.includes(tab) ? tab : validTabs[0];
+  }
+
   const [activeTab, setActiveTab] = useState(getInitialTab());
   const [publishedBlogs, setPublishedBlogs] = useState([]);
   const [draftBlogs, setDraftBlogs] = useState([]);
@@ -71,21 +83,6 @@ const DashboardPage = () => {
   const [loadingBloggerStatus, setLoadingBloggerStatus] = useState(true);
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [deleting, setDeleting] = useState(false);
-
-  // Check if user is a blogger or admin
-  const isCreator = currentUser?.role === "blogger" || currentUser?.role === "admin";
-
-  function getInitialTab() {
-    const params = new URLSearchParams(location.search);
-    const tab = params.get("tab");
-
-    // Only include blogger-application tab if user is not a blogger/admin
-    const validTabs = isCreator 
-      ? ["published", "drafts", "notifications"] 
-      : ["notifications", "blogger-application"];
-       
-    return validTabs.includes(tab) ? tab : validTabs[0];
-  }
 
   const updateUrl = (tab) => {
     navigate(`/dashboard?tab=${tab}`, { replace: true });
