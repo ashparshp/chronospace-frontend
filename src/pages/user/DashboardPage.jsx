@@ -58,7 +58,6 @@ const DashboardPage = () => {
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
-  // Get initial tab from URL parameter
   function getInitialTab() {
     const params = new URLSearchParams(location.search);
     const tab = params.get("tab");
@@ -72,12 +71,10 @@ const DashboardPage = () => {
     return validTabs.includes(tab) ? tab : "published";
   }
 
-  // Update URL when tab changes
   const updateUrl = (tab) => {
     navigate(`/dashboard?tab=${tab}`, { replace: true });
   };
 
-  // Fetch published blogs
   const fetchPublishedBlogs = async (page = 1, query = "") => {
     try {
       setLoadingPublished(true);
@@ -232,7 +229,6 @@ const DashboardPage = () => {
     }
   };
 
-  // Prepare tabs content
   const tabsContent = [
     {
       label: "Published",
