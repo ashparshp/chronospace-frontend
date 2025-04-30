@@ -33,6 +33,7 @@ import Select from "../../components/ui/Select";
 import Avatar from "../../components/ui/Avatar";
 import EmptyState from "../../components/ui/EmptyState";
 import Modal from "../../components/ui/Modal";
+import StatCard from "../../components/ui/StatsCard";
 
 const AdminBlogsPage = () => {
   const navigate = useNavigate();
@@ -327,81 +328,36 @@ const AdminBlogsPage = () => {
               
               {/* Admin Summary Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
-                >
-                  <div className="flex items-center">
-                    <div className="bg-violet-500/20 rounded-lg p-2.5 mr-4">
-                      <FileText className="h-5 w-5 text-violet-600 dark:text-violet-400" />
-                    </div>
-                    <div>
-                      <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Total Blogs</p>
-                      <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
-                        {totalBlogs}
-                      </h3>
-                    </div>
-                  </div>
-                </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.2 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
-                >
-                  <div className="flex items-center">
-                    <div className="bg-indigo-500/20 rounded-lg p-2.5 mr-4">
-                      <Star className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
-                    </div>
-                    <div>
-                      <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Featured</p>
-                      <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
-                        {blogs.filter(blog => blog.featured).length}
-                      </h3>
-                    </div>
-                  </div>
-                </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.3 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
-                >
-                  <div className="flex items-center">
-                    <div className="bg-green-500/20 rounded-lg p-2.5 mr-4">
-                      <Bookmark className="h-5 w-5 text-green-600 dark:text-green-400" />
-                    </div>
-                    <div>
-                      <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Published</p>
-                      <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
-                        {blogs.filter(blog => blog.status === BLOG_STATUS.PUBLISHED).length}
-                      </h3>
-                    </div>
-                  </div>
-                </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.4 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
-                >
-                  <div className="flex items-center">
-                    <div className="bg-orange-500/20 rounded-lg p-2.5 mr-4">
-                      <Settings className="h-5 w-5 text-orange-600 dark:text-orange-400" />
-                    </div>
-                    <div>
-                      <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Pending Review</p>
-                      <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
-                        {blogs.filter(blog => blog.status === BLOG_STATUS.UNDER_REVIEW).length}
-                      </h3>
-                    </div>
-                  </div>
-                </motion.div>
+                <StatCard
+                  title="Total Blogs"
+                  value={totalBlogs}
+                  icon={<FileText />}
+                  delay={0.1}
+                />
+                <StatCard
+                  title="Featured"
+                  value={blogs.filter((blog) => blog.featured).length}
+                  icon={<Star />}
+                  iconBgColor="bg-indigo-500/20"
+                  iconColor="text-indigo-600 dark:text-indigo-400"
+                  delay={0.2}
+                />
+                <StatCard
+                  title="Published"
+                  value={blogs.filter((blog) => blog.status === BLOG_STATUS.PUBLISHED).length}
+                  icon={<Bookmark />}
+                  iconBgColor="bg-green-500/20"
+                  iconColor="text-green-600 dark:text-green-400"
+                  delay={0.3}
+                />
+                <StatCard
+                  title="Pending Review"
+                  value={blogs.filter((blog) => blog.status === BLOG_STATUS.UNDER_REVIEW).length}
+                  icon={<Settings />}
+                  iconBgColor="bg-orange-500/20"
+                  iconColor="text-orange-600 dark:text-orange-400"
+                  delay={0.4}
+                />
               </div>
             </div>
           </div>
