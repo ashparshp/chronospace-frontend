@@ -53,16 +53,17 @@ const DashboardPage = () => {
     showToast,
   } = useNotification();
 
-  const isCreator = currentUser?.role === "blogger" || currentUser?.role === "admin";
-  
+  const isCreator =
+    currentUser?.role === "blogger" || currentUser?.role === "admin";
+
   function getInitialTab() {
     const params = new URLSearchParams(location.search);
     const tab = params.get("tab");
 
-    const validTabs = isCreator 
-      ? ["published", "drafts", "notifications"] 
+    const validTabs = isCreator
+      ? ["published", "drafts", "notifications"]
       : ["notifications", "blogger-application"];
-      
+
     return validTabs.includes(tab) ? tab : validTabs[0];
   }
 
@@ -245,7 +246,7 @@ const DashboardPage = () => {
   // Define tabs based on user role
   const getTabsContent = () => {
     const tabs = [];
-    
+
     // Only add Published and Drafts tabs for creators (bloggers/admins)
     if (isCreator) {
       tabs.push({
@@ -265,9 +266,9 @@ const DashboardPage = () => {
                 </p>
               </div>
               {isCreator && (
-                <Button 
-                  variant="primary" 
-                  href="/editor" 
+                <Button
+                  variant="primary"
+                  href="/editor"
                   glossy={true}
                   shadowDepth="deep"
                   size="md"
@@ -294,7 +295,7 @@ const DashboardPage = () => {
                   className="w-full pl-10 pr-10 py-2.5 rounded-lg border-0 ring-0 focus:ring-0 focus:outline-none bg-transparent text-gray-700 dark:text-gray-300 placeholder-gray-400 font-montserrat"
                 />
                 {searchQuery && (
-                  <button 
+                  <button
                     className="absolute right-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
                     onClick={() => setSearchQuery("")}
                   >
@@ -351,29 +352,37 @@ const DashboardPage = () => {
                                 <FileText className="h-8 w-8 text-violet-600 dark:text-violet-400" />
                               </div>
                             </div>
-                            
+
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2">
                                 <h3 className="font-playfair text-lg font-bold text-gray-900 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 transition-colors duration-200 truncate">
                                   {blog.title}
                                 </h3>
                                 {index < 2 && (
-                                  <Badge variant="success" className="text-xs px-2 py-0.5">New</Badge>
+                                  <Badge
+                                    variant="success"
+                                    className="text-xs px-2 py-0.5"
+                                  >
+                                    New
+                                  </Badge>
                                 )}
                               </div>
-                              
+
                               <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 space-x-3 mt-1 font-montserrat">
                                 <div className="flex items-center">
                                   <CalendarDays className="h-3.5 w-3.5 mr-1" />
                                   <span>{formatDate(blog.publishedAt)}</span>
                                 </div>
                                 {blog.category && (
-                                  <Badge variant="secondary" className="px-2 py-0.5 text-xs">
+                                  <Badge
+                                    variant="secondary"
+                                    className="px-2 py-0.5 text-xs"
+                                  >
                                     {blog.category}
                                   </Badge>
                                 )}
                               </div>
-                              
+
                               {blog.des && (
                                 <p className="font-montserrat text-gray-600 dark:text-gray-300 text-sm mt-2 line-clamp-2">
                                   {blog.des}
@@ -391,7 +400,9 @@ const DashboardPage = () => {
                                 </div>
                                 <div className="flex items-center bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
                                   <MessageSquare className="h-3.5 w-3.5 mr-1.5 text-blue-500" />
-                                  <span>{blog.activity?.total_comments || 0}</span>
+                                  <span>
+                                    {blog.activity?.total_comments || 0}
+                                  </span>
                                 </div>
                               </div>
                             </div>
@@ -465,7 +476,8 @@ const DashboardPage = () => {
                   No published blogs yet
                 </h3>
                 <p className="font-montserrat text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6">
-                  You haven't published any blogs yet. Start writing your first blog post and share your ideas with the world!
+                  You haven't published any blogs yet. Start writing your first
+                  blog post and share your ideas with the world!
                 </p>
                 <Button
                   variant="primary"
@@ -500,9 +512,9 @@ const DashboardPage = () => {
                 </p>
               </div>
               {isCreator && (
-                <Button 
-                  variant="primary" 
-                  href="/editor" 
+                <Button
+                  variant="primary"
+                  href="/editor"
                   glossy={true}
                   shadowDepth="deep"
                   size="md"
@@ -529,7 +541,7 @@ const DashboardPage = () => {
                   className="w-full pl-10 pr-10 py-2.5 rounded-lg border-0 ring-0 focus:ring-0 focus:outline-none bg-transparent text-gray-700 dark:text-gray-300 placeholder-gray-400 font-montserrat"
                 />
                 {searchQuery && (
-                  <button 
+                  <button
                     className="absolute right-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
                     onClick={() => setSearchQuery("")}
                   >
@@ -580,22 +592,29 @@ const DashboardPage = () => {
                                 <PenLine className="h-8 w-8 text-gray-500 dark:text-gray-400" />
                               </div>
                             </div>
-                            
+
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2">
                                 <h3 className="font-playfair text-lg font-bold text-gray-900 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 transition-colors duration-200 truncate">
                                   {blog.title || "Untitled Draft"}
                                 </h3>
-                                <Badge variant="secondary" className="text-xs px-2 py-0.5">Draft</Badge>
+                                <Badge
+                                  variant="secondary"
+                                  className="text-xs px-2 py-0.5"
+                                >
+                                  Draft
+                                </Badge>
                               </div>
-                              
+
                               <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 space-x-3 mt-1 font-montserrat">
                                 <div className="flex items-center">
                                   <Clock className="h-3.5 w-3.5 mr-1" />
-                                  <span>Last updated {formatDate(blog.publishedAt)}</span>
+                                  <span>
+                                    Last updated {formatDate(blog.publishedAt)}
+                                  </span>
                                 </div>
                               </div>
-                              
+
                               {blog.des && (
                                 <p className="font-montserrat text-gray-600 dark:text-gray-300 text-sm mt-2 line-clamp-2">
                                   {blog.des}
@@ -604,27 +623,42 @@ const DashboardPage = () => {
 
                               <div className="flex items-center gap-2 mt-3">
                                 <div className="h-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-full w-full">
-                                  <div 
-                                    className="h-2 bg-gradient-to-r from-yellow-500 to-yellow-400 rounded-full" 
-                                    style={{ 
+                                  <div
+                                    className="h-2 bg-gradient-to-r from-yellow-500 to-yellow-400 rounded-full"
+                                    style={{
                                       width: `${Math.min(
                                         Math.max(
-                                          ((blog.title ? 20 : 0) + 
-                                          (blog.des ? 30 : 0) + 
-                                          ((blog.content && blog.content.length > 200) ? 50 : (blog.content ? 20 : 0))), 
-                                          5), 
-                                        100)}%` 
+                                          (blog.title ? 20 : 0) +
+                                            (blog.des ? 30 : 0) +
+                                            (blog.content &&
+                                            blog.content.length > 200
+                                              ? 50
+                                              : blog.content
+                                              ? 20
+                                              : 0),
+                                          5
+                                        ),
+                                        100
+                                      )}%`,
                                     }}
                                   ></div>
                                 </div>
                                 <span className="text-xs text-gray-500 dark:text-gray-400 font-montserrat">
                                   {Math.min(
                                     Math.max(
-                                      ((blog.title ? 20 : 0) + 
-                                      (blog.des ? 30 : 0) + 
-                                      ((blog.content && blog.content.length > 200) ? 50 : (blog.content ? 20 : 0))), 
-                                      5), 
-                                    100)}% complete
+                                      (blog.title ? 20 : 0) +
+                                        (blog.des ? 30 : 0) +
+                                        (blog.content &&
+                                        blog.content.length > 200
+                                          ? 50
+                                          : blog.content
+                                          ? 20
+                                          : 0),
+                                      5
+                                    ),
+                                    100
+                                  )}
+                                  % complete
                                 </span>
                               </div>
                             </div>
@@ -665,7 +699,9 @@ const DashboardPage = () => {
                   <div className="flex justify-center mt-8">
                     <Button
                       variant="white"
-                      onClick={() => fetchDraftBlogs(draftPage + 1, searchQuery)}
+                      onClick={() =>
+                        fetchDraftBlogs(draftPage + 1, searchQuery)
+                      }
                       disabled={loadingDrafts}
                       isLoading={loadingDrafts}
                       glossy={true}
@@ -686,7 +722,8 @@ const DashboardPage = () => {
                   No draft blogs
                 </h3>
                 <p className="font-montserrat text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6">
-                  You don't have any drafts. Start writing a new blog post and save it as a draft to continue later.
+                  You don't have any drafts. Start writing a new blog post and
+                  save it as a draft to continue later.
                 </p>
                 {isCreator && (
                   <Button
@@ -724,9 +761,9 @@ const DashboardPage = () => {
                 Stay updated with activity on your content
               </p>
             </div>
-            <Button 
-              variant="white" 
-              onClick={markAllAsRead} 
+            <Button
+              variant="white"
+              onClick={markAllAsRead}
               size="md"
               shadowDepth="shallow"
               icon={<CheckCircle className="h-4 w-4" />}
@@ -765,10 +802,10 @@ const DashboardPage = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
-                  <div 
+                  <div
                     className={`bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm transition-all duration-200 hover:shadow-md ${
-                      !notification.seen 
-                        ? "border-l-4 border-violet-500 dark:border-violet-500 border-y border-r border-gray-100 dark:border-gray-700" 
+                      !notification.seen
+                        ? "border-l-4 border-violet-500 dark:border-violet-500 border-y border-r border-gray-100 dark:border-gray-700"
                         : "border border-gray-100 dark:border-gray-700"
                     }`}
                   >
@@ -785,7 +822,7 @@ const DashboardPage = () => {
                           }
                           className="cursor-pointer mr-4 flex-shrink-0"
                         />
-                        
+
                         <div className="flex-1 min-w-0">
                           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1">
                             <div>
@@ -803,7 +840,7 @@ const DashboardPage = () => {
                                 {renderNotificationContent(notification)}
                               </span>
                             </div>
-                            
+
                             <p className="text-xs text-gray-500 dark:text-gray-400 font-montserrat mt-1 sm:mt-0">
                               {format(
                                 new Date(notification.createdAt),
@@ -834,11 +871,13 @@ const DashboardPage = () => {
                                 View Blog
                               </Button>
                             )}
-                            
+
                             <Button
                               variant="ghost"
                               size="xs"
-                              onClick={() => deleteNotification(notification._id)}
+                              onClick={() =>
+                                deleteNotification(notification._id)
+                              }
                               className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
                               icon={<Trash2 className="h-3.5 w-3.5" />}
                             >
@@ -877,7 +916,8 @@ const DashboardPage = () => {
                 No notifications
               </h3>
               <p className="font-montserrat text-gray-600 dark:text-gray-400 max-w-md mx-auto">
-                You don't have any notifications yet. When someone interacts with your content, you'll see it here.
+                You don't have any notifications yet. When someone interacts
+                with your content, you'll see it here.
               </p>
             </div>
           )}
@@ -927,13 +967,14 @@ const DashboardPage = () => {
                     You Are a Blogger
                   </h3>
                   <p className="font-montserrat text-gray-600 dark:text-gray-400 max-w-lg mx-auto mb-8">
-                    Congratulations! You have full blogger privileges and can publish content on the platform. 
-                    Your expertise and unique perspective are valuable to our community.
+                    Congratulations! You have full blogger privileges and can
+                    publish content on the platform. Your expertise and unique
+                    perspective are valuable to our community.
                   </p>
                   <div className="flex justify-center gap-4">
-                    <Button 
-                      variant="primary" 
-                      href="/editor" 
+                    <Button
+                      variant="primary"
+                      href="/editor"
                       glossy={true}
                       shadowDepth="deep"
                       icon={<Edit className="h-4 w-4" />}
@@ -941,9 +982,9 @@ const DashboardPage = () => {
                     >
                       Start Writing
                     </Button>
-                    <Button 
-                      variant="white" 
-                      href="/bloggers-guide" 
+                    <Button
+                      variant="white"
+                      href="/bloggers-guide"
                       icon={<BookOpen className="h-4 w-4" />}
                       iconPosition="left"
                       shadowDepth="shallow"
@@ -965,8 +1006,9 @@ const DashboardPage = () => {
                         Application Under Review
                       </h3>
                       <p className="font-montserrat text-gray-600 dark:text-gray-400 max-w-lg mx-auto mb-4">
-                        Your application to become a blogger is currently under review by our team. 
-                        We carefully evaluate each application to ensure quality content for our readers.
+                        Your application to become a blogger is currently under
+                        review by our team. We carefully evaluate each
+                        application to ensure quality content for our readers.
                       </p>
                       <div className="flex items-center justify-center mb-8">
                         <p className="px-4 py-2 bg-gray-100 dark:bg-gray-900/50 rounded-full text-sm text-gray-700 dark:text-gray-300 font-montserrat">
@@ -975,7 +1017,8 @@ const DashboardPage = () => {
                       </div>
                       <div className="max-w-md mx-auto bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
                         <p className="text-sm text-blue-700 dark:text-blue-300 font-montserrat">
-                          We'll notify you once a decision has been made. Thank you for your patience!
+                          We'll notify you once a decision has been made. Thank
+                          you for your patience!
                         </p>
                       </div>
                     </>
@@ -988,8 +1031,9 @@ const DashboardPage = () => {
                         Application Approved!
                       </h3>
                       <p className="font-montserrat text-gray-600 dark:text-gray-400 max-w-lg mx-auto mb-8">
-                        Congratulations! Your application to become a blogger has been approved. 
-                        You can now create and publish content on our platform.
+                        Congratulations! Your application to become a blogger
+                        has been approved. You can now create and publish
+                        content on our platform.
                       </p>
                       <div className="flex justify-center">
                         <Button
@@ -1012,8 +1056,10 @@ const DashboardPage = () => {
                         Application Not Approved
                       </h3>
                       <p className="font-montserrat text-gray-600 dark:text-gray-400 max-w-lg mx-auto mb-6">
-                        We're sorry, but your application to become a blogger was not approved at this time. 
-                        This doesn't mean you can't apply again with additional information or improved samples.
+                        We're sorry, but your application to become a blogger
+                        was not approved at this time. This doesn't mean you
+                        can't apply again with additional information or
+                        improved samples.
                       </p>
 
                       {bloggerStatus.review_notes && (
@@ -1117,7 +1163,7 @@ const DashboardPage = () => {
                 delay: 1,
               }}
             ></motion.div>
-            
+
             <div className="relative z-10">
               <div className="flex flex-col md:flex-row justify-between items-center">
                 <div className="mb-6 md:mb-0 max-w-3xl">
@@ -1141,12 +1187,14 @@ const DashboardPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
                   >
-                    {isCreator 
-                      ? `Welcome back, ${currentUser?.personal_info?.fullname || 'Author'}! Your space to manage content and connect with readers.`
+                    {isCreator
+                      ? `Welcome back, ${
+                          currentUser?.personal_info?.fullname || "Author"
+                        }! Your space to manage content and connect with readers.`
                       : "Your space for timeless content. Discover high-quality articles, share your thoughts, and connect with a community of passionate writers."}
                   </motion.p>
                 </div>
-                
+
                 {/* Only show "Create New Content" button for creators */}
                 {isCreator && (
                   <motion.div
@@ -1169,87 +1217,6 @@ const DashboardPage = () => {
                   </motion.div>
                 )}
               </div>
-              
-              {/* Stats Cards - Only show for creators */}
-              {isCreator && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.1 }}
-                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
-                  >
-                    <div className="flex items-center">
-                      <div className="bg-violet-500/20 rounded-lg p-2.5 mr-4">
-                        <FileText className="h-5 w-5 text-violet-600 dark:text-violet-400" />
-                      </div>
-                      <div>
-                        <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Published Blogs</p>
-                        <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
-                          {currentUser?.account_info?.total_posts || 0}
-                        </h3>
-                      </div>
-                    </div>
-                  </motion.div>
-                  
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.2 }}
-                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
-                  >
-                    <div className="flex items-center">
-                      <div className="bg-indigo-500/20 rounded-lg p-2.5 mr-4">
-                        <Eye className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
-                      </div>
-                      <div>
-                        <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Total Reads</p>
-                        <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
-                          {currentUser?.account_info?.total_reads || 0}
-                        </h3>
-                      </div>
-                    </div>
-                  </motion.div>
-                  
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.3 }}
-                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
-                  >
-                    <div className="flex items-center">
-                      <div className="bg-pink-500/20 rounded-lg p-2.5 mr-4">
-                        <Heart className="h-5 w-5 text-pink-600 dark:text-pink-400" />
-                      </div>
-                      <div>
-                        <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Total Likes</p>
-                        <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
-                          {currentUser?.account_info?.total_likes || 0}
-                        </h3>
-                      </div>
-                    </div>
-                  </motion.div>
-                  
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.4 }}
-                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
-                  >
-                    <div className="flex items-center">
-                      <div className="bg-teal-500/20 rounded-lg p-2.5 mr-4">
-                        <Users className="h-5 w-5 text-teal-600 dark:text-teal-400" />
-                      </div>
-                      <div>
-                        <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Followers</p>
-                        <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
-                          {currentUser?.account_info?.total_followers || 0}
-                        </h3>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -1270,10 +1237,10 @@ const DashboardPage = () => {
               >
                 {tab.icon}
                 <span className="font-montserrat">{tab.label}</span>
-                
+
                 {/* Active Indicator */}
                 {activeTab === tab.id && (
-                  <motion.div 
+                  <motion.div
                     className="absolute bottom-0 left-0 right-0 h-0.5 bg-violet-600 dark:bg-violet-400"
                     layoutId="activeTabIndicator"
                     initial={false}
@@ -1307,11 +1274,12 @@ const DashboardPage = () => {
               Delete Blog?
             </h3>
           </div>
-          
+
           <p className="font-montserrat text-gray-700 dark:text-gray-300 text-center">
-            This action cannot be undone. Are you sure you want to permanently delete this blog?
+            This action cannot be undone. Are you sure you want to permanently
+            delete this blog?
           </p>
-          
+
           <div className="flex justify-center gap-3 pt-2">
             <Button
               variant="white"
@@ -1350,19 +1318,19 @@ const BloggerApplicationForm = ({ onSubmit }) => {
   useEffect(() => {
     // Calculate form progress
     let progress = 0;
-    
+
     // Step 1: Reason (70% weight)
     if (reason.trim().length >= 10) {
       const reasonScore = Math.min(reason.trim().length / 200, 1) * 70;
       progress += reasonScore;
     }
-    
+
     // Step 2: Samples (30% weight)
     if (samples.trim().length > 0) {
       const samplesScore = Math.min(samples.trim().length / 100, 1) * 30;
       progress += samplesScore;
     }
-    
+
     setFormProgress(Math.min(Math.round(progress), 100));
   }, [reason, samples]);
 
@@ -1397,12 +1365,12 @@ const BloggerApplicationForm = ({ onSubmit }) => {
         <div className="p-6 pb-5">
           {/* Progress Bar */}
           <div className="w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-4">
-            <div 
-              className="h-1 bg-gradient-to-r from-violet-500 to-indigo-500 transition-all duration-500" 
+            <div
+              className="h-1 bg-gradient-to-r from-violet-500 to-indigo-500 transition-all duration-500"
               style={{ width: `${formProgress}%` }}
             ></div>
           </div>
-          
+
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <div className="bg-violet-100 dark:bg-violet-900/30 p-2 rounded-full mr-3">
@@ -1417,12 +1385,14 @@ const BloggerApplicationForm = ({ onSubmit }) => {
             </span>
           </div>
         </div>
-        
+
         {/* Application Form */}
         <div className="px-6 pb-6">
           <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-6">
             <p className="text-sm text-blue-700 dark:text-blue-300 font-montserrat">
-              Share your expertise with our community! We're looking for passionate writers who can create valuable content. Tell us about yourself and your writing experience.
+              Share your expertise with our community! We're looking for
+              passionate writers who can create valuable content. Tell us about
+              yourself and your writing experience.
             </p>
           </div>
 
@@ -1456,9 +1426,13 @@ const BloggerApplicationForm = ({ onSubmit }) => {
                 required
               />
               <div className="flex justify-between mt-1.5 text-xs">
-                <p className={`${
-                  reason.trim().length < 10 ? "text-red-500" : "text-gray-500 dark:text-gray-400"
-                } font-montserrat`}>
+                <p
+                  className={`${
+                    reason.trim().length < 10
+                      ? "text-red-500"
+                      : "text-gray-500 dark:text-gray-400"
+                  } font-montserrat`}
+                >
                   Minimum 10 characters required.{" "}
                   {reason.trim().length < 10 && reason.trim().length > 0
                     ? `(${10 - reason.trim().length} more needed)`
@@ -1487,7 +1461,8 @@ const BloggerApplicationForm = ({ onSubmit }) => {
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-violet-500 font-montserrat text-sm"
               />
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5 font-montserrat">
-                Include URLs to published work, personal blog, or other writing samples that showcase your style and expertise.
+                Include URLs to published work, personal blog, or other writing
+                samples that showcase your style and expertise.
               </p>
             </div>
 
@@ -1496,7 +1471,9 @@ const BloggerApplicationForm = ({ onSubmit }) => {
               <Button
                 type="submit"
                 variant="primary"
-                disabled={submitting || !reason.trim() || reason.trim().length < 10}
+                disabled={
+                  submitting || !reason.trim() || reason.trim().length < 10
+                }
                 isLoading={submitting}
                 glossy={true}
                 shadowDepth="deep"
