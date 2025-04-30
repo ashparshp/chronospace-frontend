@@ -13,6 +13,11 @@ import {
   Edit,
   ExternalLink,
   AlertCircle,
+  FileText,
+  Calendar,
+  Bookmark,
+  User,
+  Settings,
 } from "lucide-react";
 import { format } from "date-fns";
 import { adminService } from "../../services/adminService";
@@ -220,276 +225,484 @@ const AdminBlogsPage = () => {
   }
 
   return (
-    <div className=" mx-auto">
+    <div className="mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="space-y-6"
       >
-        {/* Header */}
-        <div className="flex justify-between items-center">
-          <div className="flex items-center">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => navigate("/admin")}
-              className="mr-4"
-            >
-              <ArrowLeft className="h-4 w-4 mr-1" />
-              Back to Dashboard
-            </Button>
+        {/* Admin Header - Styled to match new design */}
+        <div className="rounded-2xl overflow-hidden shadow-lg mb-8">
+          <div className="relative bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 py-8 px-6">
+            {/* Background decoration */}
+            <motion.div
+              className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-violet-500/20 to-indigo-500/20 dark:from-violet-500/10 dark:to-indigo-500/10 rounded-full blur-2xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.7, 0.5],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            ></motion.div>
+            <motion.div
+              className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-r from-indigo-500/20 to-violet-500/20 dark:from-indigo-500/10 dark:to-violet-500/10 rounded-full blur-3xl"
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.4, 0.6, 0.4],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1,
+              }}
+            ></motion.div>
+            
+            <div className="relative z-10">
+              <div className="flex flex-col md:flex-row justify-between items-center">
+                <div className="mb-6 md:mb-0">
+                  <Button
+                    variant="white"
+                    size="sm"
+                    onClick={() => navigate("/admin")}
+                    className="mb-4"
+                    icon={<ArrowLeft className="h-4 w-4" />}
+                    iconPosition="left"
+                    shadowDepth="shallow"
+                  >
+                    Back to Dashboard
+                  </Button>
+                  
+                  <motion.h1
+                    className="font-playfair text-3xl md:text-4xl font-bold mb-2 tracking-tight leading-tight"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                      Manage Content
+                    </span>
+                  </motion.h1>
+                  
+                  <motion.p
+                    className="font-montserrat text-lg leading-relaxed text-gray-700 dark:text-gray-300"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                  >
+                    {totalBlogs} blogs in your platform
+                  </motion.p>
+                </div>
+                
+                <div className="flex gap-3">
+                  <Button
+                    variant="white"
+                    size="md"
+                    onClick={() => setShowFilters(!showFilters)}
+                    glossy={true}
+                    shadowDepth="shallow"
+                    icon={<Filter className="h-4 w-4" />}
+                    iconPosition="left"
+                  >
+                    {showFilters ? "Hide Filters" : "Show Filters"}
+                  </Button>
 
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                Manage Blogs
-              </h1>
-              <p className="text-gray-600 dark:text-gray-400">
-                {totalBlogs} blogs found
-              </p>
+                  <Button
+                    variant="primary"
+                    size="md"
+                    href="/editor"
+                    glossy={true}
+                    shadowDepth="deep"
+                    icon={<Edit className="h-4 w-4" />}
+                    iconPosition="left"
+                  >
+                    Create Blog
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Admin Summary Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
+                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
+                >
+                  <div className="flex items-center">
+                    <div className="bg-violet-500/20 rounded-lg p-2.5 mr-4">
+                      <FileText className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+                    </div>
+                    <div>
+                      <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Total Blogs</p>
+                      <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
+                        {totalBlogs}
+                      </h3>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.2 }}
+                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
+                >
+                  <div className="flex items-center">
+                    <div className="bg-indigo-500/20 rounded-lg p-2.5 mr-4">
+                      <Star className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+                    </div>
+                    <div>
+                      <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Featured</p>
+                      <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
+                        {blogs.filter(blog => blog.featured).length}
+                      </h3>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.3 }}
+                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
+                >
+                  <div className="flex items-center">
+                    <div className="bg-green-500/20 rounded-lg p-2.5 mr-4">
+                      <Bookmark className="h-5 w-5 text-green-600 dark:text-green-400" />
+                    </div>
+                    <div>
+                      <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Published</p>
+                      <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
+                        {blogs.filter(blog => blog.status === BLOG_STATUS.PUBLISHED).length}
+                      </h3>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.4 }}
+                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
+                >
+                  <div className="flex items-center">
+                    <div className="bg-orange-500/20 rounded-lg p-2.5 mr-4">
+                      <Settings className="h-5 w-5 text-orange-600 dark:text-orange-400" />
+                    </div>
+                    <div>
+                      <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Pending Review</p>
+                      <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
+                        {blogs.filter(blog => blog.status === BLOG_STATUS.UNDER_REVIEW).length}
+                      </h3>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
             </div>
-          </div>
-
-          <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowFilters(!showFilters)}
-            >
-              <Filter className="h-4 w-4 mr-1" />
-              Filters
-            </Button>
-
-            <Button variant="primary" size="sm" href="/editor">
-              <Edit className="h-4 w-4 mr-1" />
-              Create Blog
-            </Button>
           </div>
         </div>
 
-        {/* Filters */}
+        {/* Filters - Enhanced */}
         {showFilters && (
-          <Card className="p-4">
-            <form
-              onSubmit={handleSearchSubmit}
-              className="grid grid-cols-1 md:grid-cols-4 gap-4"
-            >
-              <Input
-                placeholder="Search blogs..."
-                value={filters.query}
-                onChange={(e) => handleFilterChange("query", e.target.value)}
-                icon={<Search className="h-5 w-5 text-gray-400" />}
-              />
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Card className="p-6 border border-gray-100 dark:border-gray-800 shadow-md">
+              <h3 className="font-playfair text-xl font-bold mb-4 text-gray-900 dark:text-white">
+                Filter Blogs
+              </h3>
+              <form
+                onSubmit={handleSearchSubmit}
+                className="grid grid-cols-1 md:grid-cols-4 gap-4"
+              >
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                    Search
+                  </label>
+                  <Input
+                    placeholder="Search blogs..."
+                    value={filters.query}
+                    onChange={(e) => handleFilterChange("query", e.target.value)}
+                    icon={<Search className="h-5 w-5 text-gray-400" />}
+                    className="bg-white dark:bg-gray-900"
+                  />
+                </div>
 
-              <Select
-                value={filters.status}
-                onChange={(e) => handleFilterChange("status", e.target.value)}
-                options={[
-                  { value: "all", label: "All Statuses" },
-                  { value: BLOG_STATUS.PUBLISHED, label: "Published" },
-                  { value: BLOG_STATUS.DRAFT, label: "Draft" },
-                  { value: BLOG_STATUS.UNDER_REVIEW, label: "Under Review" },
-                  { value: BLOG_STATUS.REJECTED, label: "Rejected" },
-                  { value: BLOG_STATUS.ARCHIVED, label: "Archived" },
-                ]}
-              />
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                    Status
+                  </label>
+                  <Select
+                    value={filters.status}
+                    onChange={(e) => handleFilterChange("status", e.target.value)}
+                    options={[
+                      { value: "all", label: "All Statuses" },
+                      { value: BLOG_STATUS.PUBLISHED, label: "Published" },
+                      { value: BLOG_STATUS.DRAFT, label: "Draft" },
+                      { value: BLOG_STATUS.UNDER_REVIEW, label: "Under Review" },
+                      { value: BLOG_STATUS.REJECTED, label: "Rejected" },
+                      { value: BLOG_STATUS.ARCHIVED, label: "Archived" },
+                    ]}
+                    className="bg-white dark:bg-gray-900"
+                  />
+                </div>
 
-              <Input
-                placeholder="Filter by author username"
-                value={filters.author}
-                onChange={(e) => handleFilterChange("author", e.target.value)}
-              />
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                    Author
+                  </label>
+                  <Input
+                    placeholder="Filter by author username"
+                    value={filters.author}
+                    onChange={(e) => handleFilterChange("author", e.target.value)}
+                    className="bg-white dark:bg-gray-900"
+                  />
+                </div>
 
-              <Select
-                value={filters.featured}
-                onChange={(e) => handleFilterChange("featured", e.target.value)}
-                options={[
-                  { value: "all", label: "All Blogs" },
-                  { value: "true", label: "Featured" },
-                  { value: "false", label: "Not Featured" },
-                ]}
-              />
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                    Featured
+                  </label>
+                  <Select
+                    value={filters.featured}
+                    onChange={(e) => handleFilterChange("featured", e.target.value)}
+                    options={[
+                      { value: "all", label: "All Blogs" },
+                      { value: "true", label: "Featured" },
+                      { value: "false", label: "Not Featured" },
+                    ]}
+                    className="bg-white dark:bg-gray-900"
+                  />
+                </div>
 
-              <div className="flex space-x-2 col-span-full justify-end">
-                <Button variant="ghost" type="button" onClick={resetFilters}>
-                  Reset
-                </Button>
-                <Button variant="primary" type="submit">
-                  Apply Filters
-                </Button>
-              </div>
-            </form>
-          </Card>
+                <div className="flex space-x-2 col-span-full justify-end mt-2">
+                  <Button variant="ghost" type="button" onClick={resetFilters}>
+                    Reset
+                  </Button>
+                  <Button 
+                    variant="primary" 
+                    type="submit" 
+                    glossy={true}
+                    shadowDepth="shallow"
+                  >
+                    Apply Filters
+                  </Button>
+                </div>
+              </form>
+            </Card>
+          </motion.div>
         )}
 
-        {/* Blogs List */}
+        {/* Blogs List - Enhanced */}
         <div className="space-y-4">
           {loading && blogs.length === 0 ? (
-            // Loading skeleton
+            // Loading skeleton with improved styling
             Array.from({ length: 5 }).map((_, index) => (
               <div
                 key={index}
-                className="animate-pulse bg-white dark:bg-black rounded-lg shadow p-4"
+                className="animate-pulse bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-100 dark:border-gray-700 p-5"
               >
                 <div className="flex flex-col sm:flex-row">
-                  <div className="flex-1 space-y-2">
-                    <div className="h-6 bg-gray-200 dark:bg-black rounded w-3/4"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/2"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/4"></div>
+                  <div className="flex-1 space-y-3">
+                    <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                    <div className="flex gap-2">
+                      <div className="h-6 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                      <div className="h-6 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="h-10 w-10 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                      <div className="flex-1">
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+                        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-16 mt-1"></div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex flex-row sm:flex-col gap-2 mt-3 sm:mt-0">
-                    <div className="h-8 bg-gray-200 dark:bg-black rounded w-20"></div>
-                    <div className="h-8 bg-gray-200 dark:bg-black rounded w-20"></div>
+                  <div className="flex flex-row sm:flex-col gap-2 mt-4 sm:mt-0 sm:ml-4">
+                    <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded w-28"></div>
+                    <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded w-28"></div>
+                    <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded w-28"></div>
                   </div>
                 </div>
               </div>
             ))
           ) : blogs.length > 0 ? (
-            blogs.map((blog) => (
-              <Card key={blog.blog_id} className="p-4">
-                <div className="flex flex-col sm:flex-row justify-between">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center">
-                      <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
-                        {blog.title}
-                      </h3>
-                      {blog.featured && (
-                        <Badge
-                          variant="accent"
-                          className="ml-2 bg-accent-500 text-white"
-                        >
-                          <Star className="h-3 w-3 mr-1" /> Featured
-                        </Badge>
-                      )}
-                    </div>
-
-                    <div className="flex flex-wrap items-center gap-2 mt-1">
-                      {getStatusBadge(blog.status)}
-                      {getVisibilityBadge(blog.visibility)}
-                      {blog.tags &&
-                        blog.tags.map((tag, i) => (
-                          <Badge
-                            key={i}
-                            variant="secondary"
-                            className="text-xs"
-                          >
-                            {tag}
-                          </Badge>
-                        ))}
-                    </div>
-
-                    <div className="flex items-center mt-2">
-                      <Avatar
-                        src={blog.author.personal_info.profile_img}
-                        alt={blog.author.personal_info.fullname}
-                        size="sm"
-                        className="mr-2"
-                      />
-                      <div>
-                        <p className="text-sm text-gray-900 dark:text-white">
-                          {blog.author.personal_info.fullname}
-                        </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                          @{blog.author.personal_info.username}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-4 mt-3 text-sm text-gray-500 dark:text-gray-400">
+            blogs.map((blog, index) => (
+              <motion.div
+                key={blog.blog_id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+              >
+                <Card className="p-5 border border-gray-100 dark:border-gray-700 hover:border-violet-200 dark:hover:border-violet-800 transition-all duration-300 hover:shadow-md">
+                  <div className="flex flex-col sm:flex-row justify-between">
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center">
-                        <Eye className="h-4 w-4 mr-1" />
-                        <span>{blog.activity.total_reads}</span>
+                        <h3 className="font-playfair text-lg font-bold text-gray-900 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 transition-colors duration-200 truncate mr-2">
+                          {blog.title}
+                        </h3>
+                        {blog.featured && (
+                          <Badge
+                            variant="accent"
+                            className="bg-gradient-to-r from-amber-500 to-amber-600 text-white text-xs"
+                          >
+                            <Star className="h-3 w-3 mr-1" /> Featured
+                          </Badge>
+                        )}
                       </div>
-                      <div>
-                        Published:{" "}
-                        {format(new Date(blog.publishedAt), "MMM d, yyyy")}
+
+                      <div className="flex flex-wrap items-center gap-2 mt-2">
+                        {getStatusBadge(blog.status)}
+                        {getVisibilityBadge(blog.visibility)}
+                        {blog.tags &&
+                          blog.tags.map((tag, i) => (
+                            <Badge
+                              key={i}
+                              variant="secondary"
+                              className="text-xs px-2 py-0.5 font-mono lowercase bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                            >
+                              #{tag}
+                            </Badge>
+                          ))}
+                      </div>
+
+                      <div className="flex items-center mt-3">
+                        <Avatar
+                          src={blog.author.personal_info.profile_img}
+                          alt={blog.author.personal_info.fullname}
+                          size="sm"
+                          className="mr-3"
+                        />
+                        <div>
+                          <p className="text-sm font-medium text-gray-900 dark:text-white font-montserrat">
+                            {blog.author.personal_info.fullname}
+                          </p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 font-montserrat">
+                            @{blog.author.personal_info.username}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-4 mt-3 text-xs text-gray-500 dark:text-gray-400 font-montserrat">
+                        <div className="flex items-center bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                          <Eye className="h-3.5 w-3.5 mr-1.5 text-violet-500 dark:text-violet-400" />
+                          <span>{blog.activity?.total_reads || 0} reads</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Calendar className="h-3.5 w-3.5 mr-1.5" />
+                          <span>{format(new Date(blog.publishedAt), "MMM d, yyyy")}</span>
+                        </div>
                       </div>
                     </div>
+
+                    <div className="flex flex-row sm:flex-col gap-2 mt-4 sm:mt-0 sm:ml-4">
+                      <Button
+                        variant={blog.featured ? "secondary" : "primary"}
+                        size="sm"
+                        onClick={() => setFeaturingBlog(blog)}
+                        glossy={true}
+                        shadowDepth="shallow"
+                        icon={<Star className="h-4 w-4" />}
+                        iconPosition="left"
+                      >
+                        {blog.featured ? "Unfeature" : "Feature"}
+                      </Button>
+
+                      <Button
+                        variant="white"
+                        size="sm"
+                        href={`/blog/${blog.blog_id}`}
+                        target="_blank"
+                        shadowDepth="shallow"
+                        icon={<ExternalLink className="h-4 w-4" />}
+                        iconPosition="left"
+                      >
+                        View
+                      </Button>
+
+                      <Button
+                        variant="white"
+                        size="sm"
+                        href={`/editor/${blog.blog_id}`}
+                        shadowDepth="shallow"
+                        icon={<Edit className="h-4 w-4" />}
+                        iconPosition="left"
+                      >
+                        Edit
+                      </Button>
+
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => setConfirmDeleteId(blog.blog_id)}
+                        shadowDepth="shallow"
+                        icon={<Trash2 className="h-4 w-4" />}
+                        iconPosition="left"
+                      >
+                        Delete
+                      </Button>
+                    </div>
                   </div>
-
-                  <div className="flex flex-row sm:flex-col gap-2 mt-3 sm:mt-0 justify-end">
-                    <Button
-                      variant={blog.featured ? "secondary" : "primary"}
-                      size="sm"
-                      onClick={() => setFeaturingBlog(blog)}
-                    >
-                      <Star className="h-4 w-4 mr-1" />
-                      {blog.featured ? "Unfeature" : "Feature"}
-                    </Button>
-
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      href={`/blog/${blog.blog_id}`}
-                      target="_blank"
-                    >
-                      <ExternalLink className="h-4 w-4 mr-1" />
-                      View
-                    </Button>
-
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      href={`/editor/${blog.blog_id}`}
-                    >
-                      <Edit className="h-4 w-4 mr-1" />
-                      Edit
-                    </Button>
-
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => setConfirmDeleteId(blog.blog_id)}
-                    >
-                      <Trash2 className="h-4 w-4 mr-1" />
-                      Delete
-                    </Button>
-                  </div>
-                </div>
-              </Card>
+                </Card>
+              </motion.div>
             ))
           ) : (
             <EmptyState
               title="No blogs found"
               description="No blogs matching your filters were found."
-              icon={<AlertCircle className="h-12 w-12 text-gray-400" />}
+              icon={<AlertCircle className="h-16 w-16 text-gray-400" />}
               actionText="Reset Filters"
               actionClick={resetFilters}
+              className="bg-white dark:bg-gray-800 rounded-xl p-10 border border-gray-100 dark:border-gray-700 shadow-sm"
             />
           )}
         </div>
 
-        {/* Pagination */}
+        {/* Pagination - Enhanced */}
         {totalPages > 1 && (
           <div className="flex justify-center mt-8">
-            <nav className="flex items-center space-x-2">
+            <nav className="flex items-center space-x-4">
               <Button
-                variant="outline"
-                size="sm"
+                variant="white"
+                size="md"
                 onClick={() => handlePageChange(page - 1)}
                 disabled={page === 1 || loading}
+                shadowDepth="shallow"
+                icon={<ChevronLeft className="h-4 w-4" />}
+                iconPosition="left"
               >
-                <ChevronLeft className="h-4 w-4" />
+                Previous
               </Button>
 
-              <div className="text-sm text-gray-700 dark:text-gray-300">
+              <div className="text-sm font-medium text-gray-700 dark:text-gray-300 font-montserrat bg-white dark:bg-gray-800 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700">
                 Page {page} of {totalPages}
               </div>
 
               <Button
-                variant="outline"
-                size="sm"
+                variant="white"
+                size="md"
                 onClick={() => handlePageChange(page + 1)}
                 disabled={page === totalPages || loading}
+                shadowDepth="shallow"
+                icon={<ChevronRight className="h-4 w-4" />}
+                iconPosition="right"
               >
-                <ChevronRight className="h-4 w-4" />
+                Next
               </Button>
             </nav>
           </div>
         )}
       </motion.div>
 
-      {/* Delete Confirmation Modal */}
+      {/* Delete Confirmation Modal - Enhanced */}
       <Modal
         isOpen={!!confirmDeleteId}
         onClose={() => setConfirmDeleteId(null)}
@@ -497,15 +710,25 @@ const AdminBlogsPage = () => {
         size="sm"
       >
         <div className="space-y-4">
-          <p className="text-gray-700 dark:text-gray-300">
-            Are you sure you want to delete this blog? This action cannot be
-            undone.
+          <div className="text-center mb-4">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 mb-4">
+              <Trash2 className="h-6 w-6" />
+            </div>
+            <h3 className="font-playfair text-xl font-medium text-gray-900 dark:text-white">
+              Delete Blog?
+            </h3>
+          </div>
+          
+          <p className="font-montserrat text-gray-700 dark:text-gray-300 text-center">
+            This action cannot be undone. Are you sure you want to permanently delete this blog?
           </p>
-          <div className="flex justify-end space-x-2">
+          
+          <div className="flex justify-center gap-3 pt-2">
             <Button
-              variant="ghost"
+              variant="white"
               onClick={() => setConfirmDeleteId(null)}
               disabled={deleting}
+              shadowDepth="shallow"
             >
               Cancel
             </Button>
@@ -514,6 +737,8 @@ const AdminBlogsPage = () => {
               onClick={() => handleDeleteBlog(confirmDeleteId)}
               disabled={deleting}
               isLoading={deleting}
+              shadowDepth="shallow"
+              glossy={true}
             >
               Delete
             </Button>
@@ -521,7 +746,7 @@ const AdminBlogsPage = () => {
         </div>
       </Modal>
 
-      {/* Feature Confirmation Modal */}
+      {/* Feature Confirmation Modal - Enhanced */}
       <Modal
         isOpen={!!featuringBlog}
         onClose={() => setFeaturingBlog(null)}
@@ -531,16 +756,27 @@ const AdminBlogsPage = () => {
         size="sm"
       >
         <div className="space-y-4">
-          <p className="text-gray-700 dark:text-gray-300">
+          <div className="text-center mb-4">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 mb-4">
+              <Star className="h-6 w-6" />
+            </div>
+            <h3 className="font-playfair text-xl font-medium text-gray-900 dark:text-white">
+              {featuringBlog?.featured ? "Unfeature Blog?" : "Feature Blog?"}
+            </h3>
+          </div>
+          
+          <p className="font-montserrat text-gray-700 dark:text-gray-300 text-center">
             {featuringBlog?.featured
-              ? "Are you sure you want to remove this blog from featured?"
-              : "Are you sure you want to feature this blog? Featured blogs appear prominently on the homepage."}
+              ? "This blog will no longer be highlighted on the homepage."
+              : "Featured blogs appear prominently on the homepage and receive more visibility."}
           </p>
-          <div className="flex justify-end space-x-2">
+          
+          <div className="flex justify-center gap-3 pt-2">
             <Button
-              variant="ghost"
+              variant="white"
               onClick={() => setFeaturingBlog(null)}
               disabled={featuring}
+              shadowDepth="shallow"
             >
               Cancel
             </Button>
@@ -549,6 +785,8 @@ const AdminBlogsPage = () => {
               onClick={() => handleToggleFeature(featuringBlog)}
               disabled={featuring}
               isLoading={featuring}
+              shadowDepth="shallow"
+              glossy={true}
             >
               {featuringBlog?.featured ? "Unfeature" : "Feature"}
             </Button>
