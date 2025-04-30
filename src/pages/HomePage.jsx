@@ -244,58 +244,185 @@ const HomePage = () => {
           </section>
         </PageTransition.Item>
 
-        {/* Categories Quick Links - Enhanced */}
+        {/* Categories Quick Links */}
+
         <PageTransition.Item>
-          <section>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {[
-                {
-                  icon: <Zap className="w-5 h-5" />,
-                  label: "Technology",
-                  color: "from-blue-600 to-indigo-700",
-                  link: "/search?category=technology",
-                },
-                {
-                  icon: <MessageSquare className="w-5 h-5" />,
-                  label: "Lifestyle",
-                  color: "from-pink-600 to-rose-600",
-                  link: "/search?category=lifestyle",
-                },
-                {
-                  icon: <Users className="w-5 h-5" />,
-                  label: "Business",
-                  color: "from-amber-500 to-orange-600",
-                  link: "/search?category=business",
-                },
-                {
-                  icon: <Bookmark className="w-5 h-5" />,
-                  label: "Science",
-                  color: "from-teal-500 to-green-600",
-                  link: "/search?category=science",
-                },
-              ].map((category, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{
-                    y: -5,
-                    transition: { duration: 0.2 },
-                  }}
-                  onClick={() => navigate(category.link)}
-                  className="cursor-pointer"
-                >
-                  <div
-                    className={`bg-gradient-to-r ${category.color} text-white rounded-xl p-4 sm:p-6 flex flex-col sm:flex-row items-center gap-3 h-full shadow-md hover:shadow-lg transition-all duration-300 group`}
+          <section className="py-4">
+            <div className="relative">
+              {/* Section Title with Premium Typography */}
+              <div className="mb-10 text-center">
+                <h2 className="font-playfair text-3xl font-bold inline-block relative tracking-tight">
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                    Discover Categories
+                  </span>
+                  <motion.div
+                    className="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 rounded-full"
+                    initial={{ width: 0, left: "50%" }}
+                    animate={{ width: "100%", left: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                  />
+                </h2>
+              </div>
+
+              {/* Premium Category Cards with White Text */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-7">
+                {[
+                  {
+                    icon: <Zap className="w-6 h-6" />,
+                    label: "Technology",
+                    description:
+                      "Discover the latest tech innovations and digital transformations",
+                    gradient:
+                      "bg-gradient-to-br from-indigo-700 via-blue-600 to-sky-600",
+                    hoverGradient:
+                      "bg-gradient-to-br from-indigo-600 via-blue-500 to-sky-500",
+                    pattern:
+                      "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20L0 20z' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E\")",
+                    iconBg: "bg-white/20",
+                    buttonHoverBg: "bg-white/20",
+                    link: "/search?category=technology",
+                  },
+                  {
+                    icon: <MessageSquare className="w-6 h-6" />,
+                    label: "Lifestyle",
+                    description:
+                      "Explore wellness, personal growth, and balanced living",
+                    gradient:
+                      "bg-gradient-to-br from-fuchsia-700 via-purple-600 to-violet-600",
+                    hoverGradient:
+                      "bg-gradient-to-br from-fuchsia-600 via-purple-500 to-violet-500",
+                    pattern:
+                      "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E\")",
+                    iconBg: "bg-white/20",
+                    buttonHoverBg: "bg-white/20",
+                    link: "/search?category=lifestyle",
+                  },
+                  {
+                    icon: <Users className="w-6 h-6" />,
+                    label: "Business",
+                    description:
+                      "Stay informed on market trends and entrepreneurship",
+                    gradient:
+                      "bg-gradient-to-br from-amber-600 via-orange-600 to-red-600",
+                    hoverGradient:
+                      "bg-gradient-to-br from-amber-500 via-orange-500 to-red-500",
+                    pattern:
+                      "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h10v10H0zm10 10h10v10H10z' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E\")",
+                    iconBg: "bg-white/20",
+                    buttonHoverBg: "bg-white/20",
+                    link: "/search?category=business",
+                  },
+                  {
+                    icon: <Bookmark className="w-6 h-6" />,
+                    label: "Science",
+                    description:
+                      "Explore fascinating discoveries and scientific concepts",
+                    gradient:
+                      "bg-gradient-to-br from-emerald-700 via-teal-600 to-teal-600",
+                    hoverGradient:
+                      "bg-gradient-to-br from-emerald-600 via-teal-500 to-teal-500",
+                    pattern:
+                      "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0v20L0 10h20z' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E\")",
+                    iconBg: "bg-white/20",
+                    buttonHoverBg: "bg-white/20",
+                    link: "/search?category=science",
+                  },
+                ].map((category, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      transition: { delay: 0.1 * index, duration: 0.4 },
+                    }}
+                    className="relative h-full"
                   >
-                    <div className="p-2 bg-white/20 rounded-full group-hover:bg-white/30 transition-colors duration-300">
-                      {category.icon}
+                    <div
+                      className="group h-full cursor-pointer perspective-[1200px]"
+                      onClick={() => navigate(category.link)}
+                    >
+                      {/* Premium Card with Layered Design */}
+                      <motion.div
+                        whileHover={{
+                          rotateY: 5,
+                          rotateX: -5,
+                          translateY: -8,
+                          scale: 1.02,
+                          transition: { duration: 0.4, ease: "easeOut" },
+                        }}
+                        className="relative h-full transform-gpu will-change-transform preserve-3d"
+                      >
+                        {/* Main Card with Premium Background */}
+                        <div
+                          className={`${category.gradient} group-hover:${category.hoverGradient} rounded-xl overflow-hidden h-full border border-white/10 relative z-20 transition-all duration-300 shadow-lg`}
+                        >
+                          {/* Background Pattern */}
+                          <div
+                            className="absolute inset-0 opacity-60"
+                            style={{ backgroundImage: category.pattern }}
+                          ></div>
+
+                          {/* Content Container */}
+                          <div className="h-full p-5 sm:p-6 flex flex-col relative z-10">
+                            {/* Top Section with White Text */}
+                            <div className="flex items-start mb-4 relative">
+                              <div
+                                className={`flex-shrink-0 p-2.5 backdrop-blur-sm ${category.iconBg} rounded-lg shadow-inner
+                                       transform-gpu group-hover:scale-110 group-hover:rotate-3
+                                       transition-all duration-500 ease-out`}
+                              >
+                                {category.icon}
+                              </div>
+
+                              <div className="ml-3">
+                                <h3 className="font-display font-bold text-xl text-white tracking-tight group-hover:translate-y-0 transform-gpu transition-transform duration-300">
+                                  {category.label}
+                                </h3>
+                              </div>
+                            </div>
+
+                            {/* Description with White Text */}
+                            <div className="mt-1 mb-4">
+                              <p className="font-montserrat text-sm text-white/90 leading-relaxed overflow-hidden transition-all duration-500 ease-out">
+                                {category.description}
+                              </p>
+                            </div>
+
+                            {/* Bottom Action Area with White Text */}
+                            <div className="mt-auto pt-3 border-t border-white/10 flex justify-end items-center">
+                              {/* Explore Button */}
+                              <div
+                                className={`flex items-center text-white text-sm font-medium py-1 px-3 rounded-full bg-white/0 group-hover:${category.buttonHoverBg} transition-all duration-300`}
+                              >
+                                <span className="mr-1.5 tracking-wide">
+                                  Explore
+                                </span>
+                                <motion.div className="inline-flex group-hover:translate-x-1 transition-transform duration-300">
+                                  <ArrowRight className="w-4 h-4" />
+                                </motion.div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Elegant Glossy Overlay */}
+                          <div
+                            className="absolute inset-0 bg-gradient-to-b from-white/20 to-white/0 opacity-60 
+                                 rounded-xl pointer-events-none z-30 group-hover:opacity-20 transition-opacity duration-500"
+                          ></div>
+                        </div>
+
+                        {/* Shadow Element for 3D Depth */}
+                        <div
+                          className="absolute inset-0 -z-10 translate-y-2 scale-[0.97] blur-md rounded-xl
+                                bg-black/50 opacity-40 transform-gpu group-hover:opacity-60 group-hover:translate-y-3
+                                transition-all duration-500 ease-out"
+                        ></div>
+                      </motion.div>
                     </div>
-                    <h3 className="font-semibold text-center sm:text-left">
-                      {category.label}
-                      <div className="h-0.5 w-0 group-hover:w-full bg-white/50 mt-1 transition-all duration-300"></div>
-                    </h3>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </section>
         </PageTransition.Item>
