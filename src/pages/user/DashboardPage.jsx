@@ -13,6 +13,20 @@ import {
   Heart,
   ExternalLink,
   Users,
+  CalendarDays,
+  Clock,
+  ChevronRight,
+  ArrowUpRight,
+  CheckCircle,
+  XCircle,
+  ClockIcon,
+  BarChart3,
+  BookOpen,
+  Star,
+  PenLine,
+  Plus,
+  Search,
+  Filter,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import { useNotification } from "../../context/NotificationContext";
@@ -58,17 +72,19 @@ const DashboardPage = () => {
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
+  // Check if user is a blogger or admin
+  const isCreator = currentUser?.role === "blogger" || currentUser?.role === "admin";
+
   function getInitialTab() {
     const params = new URLSearchParams(location.search);
     const tab = params.get("tab");
 
-    const validTabs = [
-      "published",
-      "drafts",
-      "notifications",
-      "blogger-application",
-    ];
-    return validTabs.includes(tab) ? tab : "published";
+    // Only include blogger-application tab if user is not a blogger/admin
+    const validTabs = isCreator 
+      ? ["published", "drafts", "notifications"] 
+      : ["notifications", "blogger-application"];
+       
+    return validTabs.includes(tab) ? tab : validTabs[0];
   }
 
   const updateUrl = (tab) => {
@@ -229,290 +245,496 @@ const DashboardPage = () => {
     }
   };
 
-  const tabsContent = [
-    {
-      label: "Published",
-      id: "published",
-      icon: <FileText className="h-5 w-5 mr-2" />,
-      content: (
-        <div className="space-y-6">
-          <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-              Published Blogs
-            </h2>
-            <Button variant="primary" href="/editor" size="sm">
-              <Edit className="h-4 w-4 mr-2" />
-              Write New Blog
-            </Button>
-          </div>
-
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search your blogs..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
-            />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </span>
-          </div>
-
-          {loadingPublished && publishedBlogs.length === 0 ? (
-            <div className="space-y-4">
-              {Array.from({ length: 3 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="animate-pulse bg-white dark:bg-black rounded-lg shadow p-4"
+  // Define tabs based on user role
+  const getTabsContent = () => {
+    const tabs = [];
+    
+    // Only add Published and Drafts tabs for creators (bloggers/admins)
+    if (isCreator) {
+      tabs.push({
+        label: "Published",
+        id: "published",
+        icon: <FileText className="h-5 w-5 mr-2" />,
+        content: (
+          <div className="space-y-6">
+            {/* Premium Header */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+              <div>
+                <h2 className="font-playfair text-2xl font-bold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                  Published Blogs
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400 font-montserrat">
+                  Manage your published content and track performance
+                </p>
+              </div>
+              {isCreator && (
+                <Button 
+                  variant="primary" 
+                  href="/editor" 
+                  glossy={true}
+                  shadowDepth="deep"
+                  size="md"
+                  icon={<Edit className="h-4 w-4" />}
+                  iconPosition="left"
+                  className="min-w-[140px]"
                 >
-                  <div className="h-6 bg-gray-200 dark:bg-black rounded w-3/4 mb-3"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/2 mb-2"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/4"></div>
-                </div>
-              ))}
+                  New Blog
+                </Button>
+              )}
             </div>
-          ) : publishedBlogs.length > 0 ? (
-            <div className="space-y-4">
-              {publishedBlogs.map((blog) => (
-                <Card key={blog.blog_id} className="p-4">
-                  <div className="flex flex-col sm:flex-row justify-between">
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
-                        {blog.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        Published on {formatDate(blog.publishedAt)}
-                      </p>
-                      {blog.des && (
-                        <p className="text-gray-700 dark:text-gray-300 text-sm mt-2 line-clamp-2">
-                          {blog.des}
-                        </p>
-                      )}
 
-                      <div className="flex items-center gap-4 mt-3 text-sm text-gray-500 dark:text-gray-400">
-                        <div className="flex items-center">
-                          <Eye className="h-4 w-4 mr-1" />
-                          <span>{blog.activity.total_reads}</span>
+            {/* Search and Filter Bar */}
+            <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg shadow-sm p-2 mb-6">
+              <div className="relative flex items-center">
+                <span className="absolute left-3 text-gray-400">
+                  <Search className="h-5 w-5" />
+                </span>
+                <input
+                  type="text"
+                  placeholder="Search your blogs by title or content..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-10 py-2.5 rounded-lg border-0 ring-0 focus:ring-0 focus:outline-none bg-transparent text-gray-700 dark:text-gray-300 placeholder-gray-400 font-montserrat"
+                />
+                {searchQuery && (
+                  <button 
+                    className="absolute right-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                    onClick={() => setSearchQuery("")}
+                  >
+                    <XCircle className="h-5 w-5" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {loadingPublished && publishedBlogs.length === 0 ? (
+              <div className="space-y-4">
+                {Array.from({ length: 3 }).map((_, index) => (
+                  <div
+                    key={index}
+                    className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700"
+                  >
+                    <div className="p-5">
+                      <div className="animate-pulse flex flex-col sm:flex-row gap-4">
+                        <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
+                        <div className="flex-1 space-y-3">
+                          <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                          <div className="flex gap-3">
+                            <div className="h-4 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                            <div className="h-4 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                            <div className="h-4 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                          </div>
                         </div>
-                        <div className="flex items-center">
-                          <Heart className="h-4 w-4 mr-1" />
-                          <span>{blog.activity.total_likes}</span>
-                        </div>
-                        <div className="flex items-center">
-                          <MessageSquare className="h-4 w-4 mr-1" />
-                          <span>{blog.activity.total_comments}</span>
+                        <div className="flex flex-row sm:flex-col gap-2 sm:w-24">
+                          <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                          <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                          <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
                         </div>
                       </div>
                     </div>
-
-                    <div className="flex flex-row sm:flex-col gap-2 mt-3 sm:mt-0 justify-end">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        href={`/blog/${blog.blog_id}`}
-                      >
-                        <Eye className="h-4 w-4 mr-1" />
-                        View
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        href={`/editor/${blog.blog_id}`}
-                      >
-                        <Edit className="h-4 w-4 mr-1" />
-                        Edit
-                      </Button>
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        onClick={() => setConfirmDeleteId(blog.blog_id)}
-                      >
-                        <Trash2 className="h-4 w-4 mr-1" />
-                        Delete
-                      </Button>
-                    </div>
                   </div>
-                </Card>
-              ))}
-
-              {hasMorePublished && (
-                <div className="flex justify-center mt-6">
-                  <Button
-                    variant="outline"
-                    onClick={() =>
-                      fetchPublishedBlogs(publishedPage + 1, searchQuery)
-                    }
-                    disabled={loadingPublished}
-                    isLoading={loadingPublished}
+                ))}
+              </div>
+            ) : publishedBlogs.length > 0 ? (
+              <div className="space-y-4">
+                {publishedBlogs.map((blog, index) => (
+                  <motion.div
+                    key={blog.blog_id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
                   >
-                    Load More
-                  </Button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <EmptyState
-              title="No published blogs yet"
-              description="You haven't published any blogs yet. Start writing your first blog post!"
-              actionText="Write New Blog"
-              actionLink="/editor"
-              icon={<FileText className="h-12 w-12 text-gray-400" />}
-            />
-          )}
-        </div>
-      ),
-    },
-    {
-      label: "Drafts",
-      id: "drafts",
-      icon: <Edit className="h-5 w-5 mr-2" />,
-      content: (
-        <div className="space-y-6">
-          <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-              Draft Blogs
-            </h2>
-            <Button variant="primary" href="/editor" size="sm">
-              <Edit className="h-4 w-4 mr-2" />
-              Write New Blog
-            </Button>
-          </div>
+                    <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all duration-200 hover:border-primary-200 dark:hover:border-primary-800">
+                      <div className="p-5">
+                        <div className="flex flex-col sm:flex-row justify-between gap-4">
+                          <div className="flex gap-4">
+                            <div className="hidden sm:block">
+                              <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-violet-100 to-indigo-100 dark:from-violet-900 dark:to-indigo-900 flex items-center justify-center">
+                                <FileText className="h-8 w-8 text-violet-600 dark:text-violet-400" />
+                              </div>
+                            </div>
+                            
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2">
+                                <h3 className="font-playfair text-lg font-bold text-gray-900 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 transition-colors duration-200 truncate">
+                                  {blog.title}
+                                </h3>
+                                {index < 2 && (
+                                  <Badge variant="success" className="text-xs px-2 py-0.5">New</Badge>
+                                )}
+                              </div>
+                              
+                              <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 space-x-3 mt-1 font-montserrat">
+                                <div className="flex items-center">
+                                  <CalendarDays className="h-3.5 w-3.5 mr-1" />
+                                  <span>{formatDate(blog.publishedAt)}</span>
+                                </div>
+                                {blog.category && (
+                                  <Badge variant="secondary" className="px-2 py-0.5 text-xs">
+                                    {blog.category}
+                                  </Badge>
+                                )}
+                              </div>
+                              
+                              {blog.des && (
+                                <p className="font-montserrat text-gray-600 dark:text-gray-300 text-sm mt-2 line-clamp-2">
+                                  {blog.des}
+                                </p>
+                              )}
 
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search your drafts..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
-            />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </span>
-          </div>
+                              <div className="flex items-center gap-4 mt-3 text-xs text-gray-500 dark:text-gray-400">
+                                <div className="flex items-center bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                                  <Eye className="h-3.5 w-3.5 mr-1.5 text-violet-500 dark:text-violet-400" />
+                                  <span>{blog.activity?.total_reads || 0}</span>
+                                </div>
+                                <div className="flex items-center bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                                  <Heart className="h-3.5 w-3.5 mr-1.5 text-red-500" />
+                                  <span>{blog.activity?.total_likes || 0}</span>
+                                </div>
+                                <div className="flex items-center bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                                  <MessageSquare className="h-3.5 w-3.5 mr-1.5 text-blue-500" />
+                                  <span>{blog.activity?.total_comments || 0}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
 
-          {loadingDrafts && draftBlogs.length === 0 ? (
-            <div className="space-y-4">
-              {Array.from({ length: 3 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="animate-pulse bg-white dark:bg-black rounded-lg shadow p-4"
-                >
-                  <div className="h-6 bg-gray-200 dark:bg-black rounded w-3/4 mb-3"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/2 mb-2"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/4"></div>
-                </div>
-              ))}
-            </div>
-          ) : draftBlogs.length > 0 ? (
-            <div className="space-y-4">
-              {draftBlogs.map((blog) => (
-                <Card key={blog.blog_id} className="p-4">
-                  <div className="flex flex-col sm:flex-row justify-between">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center">
-                        <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
-                          {blog.title || "Untitled Draft"}
-                        </h3>
-                        <Badge variant="info" className="ml-2">
-                          Draft
-                        </Badge>
+                          <div className="flex sm:flex-col gap-2 sm:min-w-[120px]">
+                            <Button
+                              variant="white"
+                              size="sm"
+                              href={`/blog/${blog.blog_id}`}
+                              icon={<Eye className="h-4 w-4" />}
+                              iconPosition="left"
+                              shadowDepth="shallow"
+                              className="flex-1 sm:flex-none"
+                            >
+                              View
+                            </Button>
+                            <Button
+                              variant="white"
+                              size="sm"
+                              href={`/editor/${blog.blog_id}`}
+                              icon={<Edit className="h-4 w-4" />}
+                              iconPosition="left"
+                              shadowDepth="shallow"
+                              className="flex-1 sm:flex-none"
+                            >
+                              Edit
+                            </Button>
+                            <Button
+                              variant="danger"
+                              size="sm"
+                              onClick={() => setConfirmDeleteId(blog.blog_id)}
+                              icon={<Trash2 className="h-4 w-4" />}
+                              iconPosition="left"
+                              shadowDepth="shallow"
+                              className="flex-1 sm:flex-none"
+                            >
+                              Delete
+                            </Button>
+                          </div>
+                        </div>
                       </div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        Last updated on {formatDate(blog.publishedAt)}
-                      </p>
-                      {blog.des && (
-                        <p className="text-gray-700 dark:text-gray-300 text-sm mt-2 line-clamp-2">
-                          {blog.des}
-                        </p>
-                      )}
                     </div>
+                  </motion.div>
+                ))}
 
-                    <div className="flex flex-row sm:flex-col gap-2 mt-3 sm:mt-0 justify-end">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        href={`/editor/${blog.blog_id}`}
-                      >
-                        <Edit className="h-4 w-4 mr-1" />
-                        Continue Editing
-                      </Button>
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        onClick={() => setConfirmDeleteId(blog.blog_id)}
-                      >
-                        <Trash2 className="h-4 w-4 mr-1" />
-                        Delete
-                      </Button>
-                    </div>
+                {hasMorePublished && (
+                  <div className="flex justify-center mt-8">
+                    <Button
+                      variant="white"
+                      onClick={() =>
+                        fetchPublishedBlogs(publishedPage + 1, searchQuery)
+                      }
+                      disabled={loadingPublished}
+                      isLoading={loadingPublished}
+                      glossy={true}
+                      shadowDepth="shallow"
+                      className="min-w-[160px]"
+                    >
+                      Load More
+                    </Button>
                   </div>
-                </Card>
-              ))}
-
-              {hasMoreDrafts && (
-                <div className="flex justify-center mt-6">
-                  <Button
-                    variant="outline"
-                    onClick={() => fetchDraftBlogs(draftPage + 1, searchQuery)}
-                    disabled={loadingDrafts}
-                    isLoading={loadingDrafts}
-                  >
-                    Load More
-                  </Button>
+                )}
+              </div>
+            ) : (
+              <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 mb-4">
+                  <FileText className="h-8 w-8" />
                 </div>
+                <h3 className="font-playfair text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  No published blogs yet
+                </h3>
+                <p className="font-montserrat text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6">
+                  You haven't published any blogs yet. Start writing your first blog post and share your ideas with the world!
+                </p>
+                <Button
+                  variant="primary"
+                  href="/editor"
+                  glossy={true}
+                  shadowDepth="deep"
+                  icon={<Edit className="h-4 w-4" />}
+                  iconPosition="left"
+                >
+                  Write New Blog
+                </Button>
+              </div>
+            )}
+          </div>
+        ),
+      });
+
+      tabs.push({
+        label: "Drafts",
+        id: "drafts",
+        icon: <Edit className="h-5 w-5 mr-2" />,
+        content: (
+          <div className="space-y-6">
+            {/* Premium Header */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+              <div>
+                <h2 className="font-playfair text-2xl font-bold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                  Draft Blogs
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400 font-montserrat">
+                  Continue working on your unfinished writings
+                </p>
+              </div>
+              {isCreator && (
+                <Button 
+                  variant="primary" 
+                  href="/editor" 
+                  glossy={true}
+                  shadowDepth="deep"
+                  size="md"
+                  icon={<Edit className="h-4 w-4" />}
+                  iconPosition="left"
+                  className="min-w-[140px]"
+                >
+                  New Blog
+                </Button>
               )}
             </div>
-          ) : (
-            <EmptyState
-              title="No draft blogs"
-              description="You don't have any drafts. Start writing a new blog post!"
-              actionText="Write New Blog"
-              actionLink="/editor"
-              icon={<Edit className="h-12 w-12 text-gray-400" />}
-            />
-          )}
-        </div>
-      ),
-    },
-    {
+
+            {/* Search and Filter Bar */}
+            <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg shadow-sm p-2 mb-6">
+              <div className="relative flex items-center">
+                <span className="absolute left-3 text-gray-400">
+                  <Search className="h-5 w-5" />
+                </span>
+                <input
+                  type="text"
+                  placeholder="Search your drafts by title or content..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-10 py-2.5 rounded-lg border-0 ring-0 focus:ring-0 focus:outline-none bg-transparent text-gray-700 dark:text-gray-300 placeholder-gray-400 font-montserrat"
+                />
+                {searchQuery && (
+                  <button 
+                    className="absolute right-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                    onClick={() => setSearchQuery("")}
+                  >
+                    <XCircle className="h-5 w-5" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {loadingDrafts && draftBlogs.length === 0 ? (
+              <div className="space-y-4">
+                {Array.from({ length: 3 }).map((_, index) => (
+                  <div
+                    key={index}
+                    className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700"
+                  >
+                    <div className="p-5">
+                      <div className="animate-pulse flex flex-col sm:flex-row gap-4">
+                        <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
+                        <div className="flex-1 space-y-3">
+                          <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                        </div>
+                        <div className="flex flex-row sm:flex-col gap-2 sm:w-24">
+                          <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                          <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : draftBlogs.length > 0 ? (
+              <div className="space-y-4">
+                {draftBlogs.map((blog, index) => (
+                  <motion.div
+                    key={blog.blog_id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                  >
+                    <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all duration-200 hover:border-primary-200 dark:hover:border-primary-800">
+                      <div className="p-5">
+                        <div className="flex flex-col sm:flex-row justify-between gap-4">
+                          <div className="flex gap-4">
+                            <div className="hidden sm:block">
+                              <div className="w-16 h-16 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                                <PenLine className="h-8 w-8 text-gray-500 dark:text-gray-400" />
+                              </div>
+                            </div>
+                            
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2">
+                                <h3 className="font-playfair text-lg font-bold text-gray-900 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 transition-colors duration-200 truncate">
+                                  {blog.title || "Untitled Draft"}
+                                </h3>
+                                <Badge variant="secondary" className="text-xs px-2 py-0.5">Draft</Badge>
+                              </div>
+                              
+                              <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 space-x-3 mt-1 font-montserrat">
+                                <div className="flex items-center">
+                                  <Clock className="h-3.5 w-3.5 mr-1" />
+                                  <span>Last updated {formatDate(blog.publishedAt)}</span>
+                                </div>
+                              </div>
+                              
+                              {blog.des && (
+                                <p className="font-montserrat text-gray-600 dark:text-gray-300 text-sm mt-2 line-clamp-2">
+                                  {blog.des}
+                                </p>
+                              )}
+
+                              <div className="flex items-center gap-2 mt-3">
+                                <div className="h-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-full w-full">
+                                  <div 
+                                    className="h-2 bg-gradient-to-r from-yellow-500 to-yellow-400 rounded-full" 
+                                    style={{ 
+                                      width: `${Math.min(
+                                        Math.max(
+                                          ((blog.title ? 20 : 0) + 
+                                          (blog.des ? 30 : 0) + 
+                                          ((blog.content && blog.content.length > 200) ? 50 : (blog.content ? 20 : 0))), 
+                                          5), 
+                                        100)}%` 
+                                    }}
+                                  ></div>
+                                </div>
+                                <span className="text-xs text-gray-500 dark:text-gray-400 font-montserrat">
+                                  {Math.min(
+                                    Math.max(
+                                      ((blog.title ? 20 : 0) + 
+                                      (blog.des ? 30 : 0) + 
+                                      ((blog.content && blog.content.length > 200) ? 50 : (blog.content ? 20 : 0))), 
+                                      5), 
+                                    100)}% complete
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex sm:flex-col gap-2 sm:min-w-[160px]">
+                            <Button
+                              variant="primary"
+                              size="sm"
+                              href={`/editor/${blog.blog_id}`}
+                              icon={<Edit className="h-4 w-4" />}
+                              iconPosition="left"
+                              glossy={true}
+                              shadowDepth="shallow"
+                              className="flex-1 sm:flex-none"
+                            >
+                              Continue Editing
+                            </Button>
+                            <Button
+                              variant="danger"
+                              size="sm"
+                              onClick={() => setConfirmDeleteId(blog.blog_id)}
+                              icon={<Trash2 className="h-4 w-4" />}
+                              iconPosition="left"
+                              shadowDepth="shallow"
+                              className="flex-1 sm:flex-none"
+                            >
+                              Delete
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+
+                {hasMoreDrafts && (
+                  <div className="flex justify-center mt-8">
+                    <Button
+                      variant="white"
+                      onClick={() => fetchDraftBlogs(draftPage + 1, searchQuery)}
+                      disabled={loadingDrafts}
+                      isLoading={loadingDrafts}
+                      glossy={true}
+                      shadowDepth="shallow"
+                      className="min-w-[160px]"
+                    >
+                      Load More
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 mb-4">
+                  <Edit className="h-8 w-8" />
+                </div>
+                <h3 className="font-playfair text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  No draft blogs
+                </h3>
+                <p className="font-montserrat text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6">
+                  You don't have any drafts. Start writing a new blog post and save it as a draft to continue later.
+                </p>
+                {isCreator && (
+                  <Button
+                    variant="primary"
+                    href="/editor"
+                    glossy={true}
+                    shadowDepth="deep"
+                    icon={<Edit className="h-4 w-4" />}
+                    iconPosition="left"
+                  >
+                    Write New Blog
+                  </Button>
+                )}
+              </div>
+            )}
+          </div>
+        ),
+      });
+    }
+
+    // Notifications tab for all users
+    tabs.push({
       label: "Notifications",
       id: "notifications",
       icon: <Bell className="h-5 w-5 mr-2" />,
       content: (
         <div className="space-y-6">
-          <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-              Notifications
-            </h2>
-            <Button variant="outline" size="sm" onClick={markAllAsRead}>
+          {/* Premium Header */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+            <div>
+              <h2 className="font-playfair text-2xl font-bold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                Notifications
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400 font-montserrat">
+                Stay updated with activity on your content
+              </p>
+            </div>
+            <Button 
+              variant="white" 
+              onClick={markAllAsRead} 
+              size="md"
+              shadowDepth="shallow"
+              icon={<CheckCircle className="h-4 w-4" />}
+              iconPosition="left"
+            >
               Mark All as Read
             </Button>
           </div>
@@ -522,13 +744,16 @@ const DashboardPage = () => {
               {Array.from({ length: 5 }).map((_, index) => (
                 <div
                   key={index}
-                  className="animate-pulse bg-white dark:bg-black rounded-lg shadow p-4"
+                  className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700"
                 >
-                  <div className="flex items-start space-x-4">
-                    <div className="h-10 w-10 bg-gray-200 dark:bg-black rounded-full"></div>
-                    <div className="flex-1 space-y-2">
-                      <div className="h-4 bg-gray-200 dark:bg-black rounded w-3/4"></div>
-                      <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/2"></div>
+                  <div className="p-5">
+                    <div className="animate-pulse flex items-start space-x-4">
+                      <div className="h-10 w-10 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                      <div className="flex-1 space-y-2">
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                      </div>
+                      <div className="h-8 w-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
                     </div>
                   </div>
                 </div>
@@ -536,89 +761,110 @@ const DashboardPage = () => {
             </div>
           ) : notifications.length > 0 ? (
             <div className="space-y-4">
-              {notifications.map((notification) => (
-                <Card
+              {notifications.map((notification, index) => (
+                <motion.div
                   key={notification._id}
-                  className={`p-4 ${
-                    !notification.seen ? "border-l-4 border-primary-500" : ""
-                  }`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
-                  <div className="flex items-start space-x-4">
-                    <Avatar
-                      src={notification.user?.personal_info.profile_img}
-                      alt={notification.user?.personal_info.fullname}
-                      size="md"
-                      onClick={() =>
-                        navigate(
-                          `/profile/${notification.user?.personal_info.username}`
-                        )
-                      }
-                      className="cursor-pointer"
-                    />
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <span
-                            className="font-medium text-gray-900 dark:text-white cursor-pointer hover:underline"
-                            onClick={() =>
-                              navigate(
-                                `/profile/${notification.user?.personal_info.username}`
-                              )
-                            }
-                          >
-                            {notification.user?.personal_info.fullname}
-                          </span>
-                          <span className="text-gray-700 dark:text-gray-300 ml-1">
-                            {renderNotificationContent(notification)}
-                          </span>
+                  <div 
+                    className={`bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm transition-all duration-200 hover:shadow-md ${
+                      !notification.seen 
+                        ? "border-l-4 border-violet-500 dark:border-violet-500 border-y border-r border-gray-100 dark:border-gray-700" 
+                        : "border border-gray-100 dark:border-gray-700"
+                    }`}
+                  >
+                    <div className="p-5">
+                      <div className="flex items-start">
+                        <Avatar
+                          src={notification.user?.personal_info.profile_img}
+                          alt={notification.user?.personal_info.fullname}
+                          size="md"
+                          onClick={() =>
+                            navigate(
+                              `/profile/${notification.user?.personal_info.username}`
+                            )
+                          }
+                          className="cursor-pointer mr-4 flex-shrink-0"
+                        />
+                        
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1">
+                            <div>
+                              <span
+                                className="font-montserrat font-medium text-gray-900 dark:text-white cursor-pointer hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+                                onClick={() =>
+                                  navigate(
+                                    `/profile/${notification.user?.personal_info.username}`
+                                  )
+                                }
+                              >
+                                {notification.user?.personal_info.fullname}
+                              </span>
+                              <span className="font-montserrat text-gray-700 dark:text-gray-300 ml-1.5">
+                                {renderNotificationContent(notification)}
+                              </span>
+                            </div>
+                            
+                            <p className="text-xs text-gray-500 dark:text-gray-400 font-montserrat mt-1 sm:mt-0">
+                              {format(
+                                new Date(notification.createdAt),
+                                "MMM d, yyyy • h:mm a"
+                              )}
+                            </p>
+                          </div>
+
+                          {notification.comment && (
+                            <div className="mt-2 p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
+                              <p className="text-sm text-gray-600 dark:text-gray-400 font-montserrat italic">
+                                "{notification.comment.comment}"
+                              </p>
+                            </div>
+                          )}
+
+                          <div className="flex justify-between items-center mt-3">
+                            {notification.blog && (
+                              <Button
+                                variant="white"
+                                size="xs"
+                                href={`/blog/${notification.blog.blog_id}`}
+                                icon={<ArrowUpRight className="h-3.5 w-3.5" />}
+                                iconPosition="right"
+                                shadowDepth="shallow"
+                                className="text-violet-600 dark:text-violet-400"
+                              >
+                                View Blog
+                              </Button>
+                            )}
+                            
+                            <Button
+                              variant="ghost"
+                              size="xs"
+                              onClick={() => deleteNotification(notification._id)}
+                              className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+                              icon={<Trash2 className="h-3.5 w-3.5" />}
+                            >
+                              Remove
+                            </Button>
+                          </div>
                         </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => deleteNotification(notification._id)}
-                          className="text-gray-400 hover:text-gray-500"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
                       </div>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        {format(
-                          new Date(notification.createdAt),
-                          "MMM d, yyyy • h:mm a"
-                        )}
-                      </p>
-
-                      {notification.comment && (
-                        <div className="mt-2 p-2 bg-gray-50 dark:bg-black rounded-md">
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            "{notification.comment.comment}"
-                          </p>
-                        </div>
-                      )}
-
-                      {notification.blog && (
-                        <Button
-                          variant="link"
-                          size="sm"
-                          href={`/blog/${notification.blog.blog_id}`}
-                          className="mt-2 inline-flex items-center text-primary-600 dark:text-primary-400"
-                        >
-                          <ExternalLink className="h-3 w-3 mr-1" />
-                          View Blog
-                        </Button>
-                      )}
                     </div>
                   </div>
-                </Card>
+                </motion.div>
               ))}
 
               {hasMoreNotifications && (
-                <div className="flex justify-center mt-6">
+                <div className="flex justify-center mt-8">
                   <Button
-                    variant="outline"
+                    variant="white"
                     onClick={handleLoadMoreNotifications}
                     disabled={notificationsLoading}
                     isLoading={notificationsLoading}
+                    glossy={true}
+                    shadowDepth="shallow"
+                    className="min-w-[160px]"
                   >
                     Load More
                   </Button>
@@ -626,205 +872,210 @@ const DashboardPage = () => {
               )}
             </div>
           ) : (
-            <EmptyState
-              title="No notifications"
-              description="You don't have any notifications yet."
-              icon={<Bell className="h-12 w-12 text-gray-400" />}
-            />
-          )}
-        </div>
-      ),
-    },
-    {
-      label: "Blogger Application",
-      id: "blogger-application",
-      icon: <UserPlus className="h-5 w-5 mr-2" />,
-      content: (
-        <div className="space-y-6">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-            Blogger Application
-          </h2>
-
-          {loadingBloggerStatus ? (
-            <div className="animate-pulse bg-white dark:bg-black rounded-lg shadow p-6">
-              <div className="h-6 bg-gray-200 dark:bg-black rounded w-3/4 mb-4"></div>
-              <div className="h-4 bg-gray-200 dark:bg-black rounded w-full mb-2"></div>
-              <div className="h-4 bg-gray-200 dark:bg-black rounded w-full mb-2"></div>
-              <div className="h-4 bg-gray-200 dark:bg-black rounded w-3/4 mb-4"></div>
-              <div className="h-10 bg-gray-200 dark:bg-black rounded w-full"></div>
-            </div>
-          ) : currentUser?.role === "blogger" ||
-            currentUser?.role === "admin" ? (
-            <Card className="p-6">
-              <div className="flex items-center justify-center space-x-2 text-green-600 dark:text-green-400 mb-4">
-                <svg
-                  className="h-12 w-12"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
+            <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 mb-4">
+                <Bell className="h-8 w-8" />
               </div>
-              <h3 className="text-xl font-medium text-gray-900 dark:text-white text-center mb-2">
-                You Are a Blogger
+              <h3 className="font-playfair text-xl font-bold text-gray-900 dark:text-white mb-2">
+                No notifications
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-center mb-6">
-                You already have blogger privileges and can publish content on
-                the platform.
+              <p className="font-montserrat text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+                You don't have any notifications yet. When someone interacts with your content, you'll see it here.
               </p>
-              <div className="flex justify-center">
-                <Button variant="primary" href="/editor" className="px-6">
-                  <Edit className="h-4 w-4 mr-2" />
-                  Start Writing
-                </Button>
-              </div>
-            </Card>
-          ) : bloggerStatus?.has_applied ? (
-            <Card className="p-6">
-              {bloggerStatus.status === "pending" ? (
-                <>
-                  <div className="flex items-center justify-center space-x-2 text-yellow-600 dark:text-yellow-400 mb-4">
-                    <svg
-                      className="h-12 w-12"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-medium text-gray-900 dark:text-white text-center mb-2">
-                    Application Pending
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-center mb-2">
-                    Your application to become a blogger is currently under
-                    review. We'll notify you once a decision has been made.
-                  </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-6">
-                    Application submitted on{" "}
-                    {formatDate(bloggerStatus.created_at)}
-                  </p>
-                </>
-              ) : bloggerStatus.status === "approved" ? (
-                <>
-                  <div className="flex items-center justify-center space-x-2 text-green-600 dark:text-green-400 mb-4">
-                    <svg
-                      className="h-12 w-12"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-medium text-gray-900 dark:text-white text-center mb-2">
-                    Application Approved
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-center mb-2">
-                    Congratulations! Your application to become a blogger has
-                    been approved. Refresh the page to access your blogger
-                    privileges.
-                  </p>
-                  <div className="flex justify-center mt-6">
-                    <Button
-                      variant="primary"
-                      onClick={() => window.location.reload()}
-                      className="px-6"
-                    >
-                      Refresh Page
-                    </Button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="flex items-center justify-center space-x-2 text-red-600 dark:text-red-400 mb-4">
-                    <svg
-                      className="h-12 w-12"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-medium text-gray-900 dark:text-white text-center mb-2">
-                    Application Rejected
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-center mb-4">
-                    We're sorry, but your application to become a blogger was
-                    not approved at this time.
-                  </p>
-
-                  {bloggerStatus.review_notes && (
-                    <div className="bg-gray-50 dark:bg-black p-4 rounded-md mb-6">
-                      <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Reviewer Notes:
-                      </p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {bloggerStatus.review_notes}
-                      </p>
-                    </div>
-                  )}
-
-                  <div className="flex justify-center">
-                    <Button
-                      variant="primary"
-                      onClick={() => setActiveTab("blogger-application")}
-                      className="px-6"
-                    >
-                      Apply Again
-                    </Button>
-                  </div>
-                </>
-              )}
-            </Card>
-          ) : (
-            <BloggerApplicationForm onSubmit={handleBloggerApplication} />
+            </div>
           )}
         </div>
       ),
-    },
-  ];
+    });
+
+    // Blogger Application tab (only for non-creators)
+    if (!isCreator) {
+      tabs.push({
+        label: "Blogger Application",
+        id: "blogger-application",
+        icon: <UserPlus className="h-5 w-5 mr-2" />,
+        content: (
+          <div className="space-y-6">
+            {/* Premium Header */}
+            <div className="mb-8">
+              <h2 className="font-playfair text-2xl font-bold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                Blogger Application
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400 font-montserrat">
+                Join our community of content creators and share your knowledge
+              </p>
+            </div>
+
+            {loadingBloggerStatus ? (
+              <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+                <div className="animate-pulse">
+                  <div className="flex justify-center">
+                    <div className="w-20 h-20 bg-gray-200 dark:bg-gray-700 rounded-full mb-6"></div>
+                  </div>
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mx-auto mb-4"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full mb-2"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full mb-2"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-6"></div>
+                  <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded w-40 mx-auto"></div>
+                </div>
+              </div>
+            ) : currentUser?.role === "blogger" ||
+              currentUser?.role === "admin" ? (
+              <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-100 dark:border-gray-700">
+                <div className="p-8 text-center">
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/40 dark:to-green-800/40 text-green-600 dark:text-green-400 mb-6">
+                    <CheckCircle className="h-10 w-10" />
+                  </div>
+                  <h3 className="font-playfair text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                    You Are a Blogger
+                  </h3>
+                  <p className="font-montserrat text-gray-600 dark:text-gray-400 max-w-lg mx-auto mb-8">
+                    Congratulations! You have full blogger privileges and can publish content on the platform. 
+                    Your expertise and unique perspective are valuable to our community.
+                  </p>
+                  <div className="flex justify-center gap-4">
+                    <Button 
+                      variant="primary" 
+                      href="/editor" 
+                      glossy={true}
+                      shadowDepth="deep"
+                      icon={<Edit className="h-4 w-4" />}
+                      iconPosition="left"
+                    >
+                      Start Writing
+                    </Button>
+                    <Button 
+                      variant="white" 
+                      href="/bloggers-guide" 
+                      icon={<BookOpen className="h-4 w-4" />}
+                      iconPosition="left"
+                      shadowDepth="shallow"
+                    >
+                      Blogger's Guide
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ) : bloggerStatus?.has_applied ? (
+              <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-100 dark:border-gray-700">
+                <div className="p-8 text-center">
+                  {bloggerStatus.status === "pending" ? (
+                    <>
+                      <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-yellow-100 to-yellow-200 dark:from-yellow-900/40 dark:to-yellow-800/40 text-yellow-600 dark:text-yellow-400 mb-6">
+                        <ClockIcon className="h-10 w-10" />
+                      </div>
+                      <h3 className="font-playfair text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                        Application Under Review
+                      </h3>
+                      <p className="font-montserrat text-gray-600 dark:text-gray-400 max-w-lg mx-auto mb-4">
+                        Your application to become a blogger is currently under review by our team. 
+                        We carefully evaluate each application to ensure quality content for our readers.
+                      </p>
+                      <div className="flex items-center justify-center mb-8">
+                        <p className="px-4 py-2 bg-gray-100 dark:bg-gray-900/50 rounded-full text-sm text-gray-700 dark:text-gray-300 font-montserrat">
+                          Submitted on {formatDate(bloggerStatus.created_at)}
+                        </p>
+                      </div>
+                      <div className="max-w-md mx-auto bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
+                        <p className="text-sm text-blue-700 dark:text-blue-300 font-montserrat">
+                          We'll notify you once a decision has been made. Thank you for your patience!
+                        </p>
+                      </div>
+                    </>
+                  ) : bloggerStatus.status === "approved" ? (
+                    <>
+                      <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/40 dark:to-green-800/40 text-green-600 dark:text-green-400 mb-6">
+                        <CheckCircle className="h-10 w-10" />
+                      </div>
+                      <h3 className="font-playfair text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                        Application Approved!
+                      </h3>
+                      <p className="font-montserrat text-gray-600 dark:text-gray-400 max-w-lg mx-auto mb-8">
+                        Congratulations! Your application to become a blogger has been approved. 
+                        You can now create and publish content on our platform.
+                      </p>
+                      <div className="flex justify-center">
+                        <Button
+                          variant="primary"
+                          onClick={() => window.location.reload()}
+                          glossy={true}
+                          shadowDepth="deep"
+                          size="lg"
+                        >
+                          Refresh to Access Your Dashboard
+                        </Button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-red-100 to-red-200 dark:from-red-900/40 dark:to-red-800/40 text-red-600 dark:text-red-400 mb-6">
+                        <XCircle className="h-10 w-10" />
+                      </div>
+                      <h3 className="font-playfair text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                        Application Not Approved
+                      </h3>
+                      <p className="font-montserrat text-gray-600 dark:text-gray-400 max-w-lg mx-auto mb-6">
+                        We're sorry, but your application to become a blogger was not approved at this time. 
+                        This doesn't mean you can't apply again with additional information or improved samples.
+                      </p>
+
+                      {bloggerStatus.review_notes && (
+                        <div className="bg-gray-50 dark:bg-gray-900/50 p-5 rounded-lg mb-8 max-w-lg mx-auto">
+                          <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 font-montserrat">
+                            Reviewer Feedback:
+                          </p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 font-montserrat italic">
+                            "{bloggerStatus.review_notes}"
+                          </p>
+                        </div>
+                      )}
+
+                      <div className="flex justify-center">
+                        <Button
+                          variant="primary"
+                          onClick={() => setBloggerStatus(null)}
+                          glossy={true}
+                          shadowDepth="deep"
+                          size="lg"
+                        >
+                          Apply Again
+                        </Button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <BloggerApplicationForm onSubmit={handleBloggerApplication} />
+            )}
+          </div>
+        ),
+      });
+    }
+
+    return tabs;
+  };
+
+  const tabsContent = getTabsContent();
 
   // Fetch data based on active tab
   useEffect(() => {
     if (!currentUser) return;
 
-    if (activeTab === "published") {
+    if (activeTab === "published" && isCreator) {
       fetchPublishedBlogs(1, searchQuery);
-    } else if (activeTab === "drafts") {
+    } else if (activeTab === "drafts" && isCreator) {
       fetchDraftBlogs(1, searchQuery);
     } else if (activeTab === "notifications") {
       fetchNotifications(1, "all", 10);
       setHasMoreNotifications(totalNotifications > 10);
-    } else if (activeTab === "blogger-application") {
+    } else if (activeTab === "blogger-application" && !isCreator) {
       fetchBloggerStatus();
     }
 
     // Update URL
     updateUrl(activeTab);
-  }, [activeTab, currentUser, searchQuery]);
+  }, [activeTab, currentUser, searchQuery, isCreator]);
 
   // Get currently active tab index
   const getActiveTabIndex = () => {
@@ -833,102 +1084,217 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className=" mx-auto">
+    <div className="mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="space-y-8"
       >
-        {/* Dashboard Header */}
-        <div className="bg-white dark:bg-black rounded-lg shadow-md p-6">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Dashboard
-          </h1>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Card className="p-4 text-center">
-              <div className="text-primary-600 dark:text-primary-400 mb-2">
-                <FileText className="h-8 w-8 mx-auto" />
+        {/* Dashboard Header - Updated with home page styling */}
+        <div className="rounded-2xl overflow-hidden shadow-lg">
+          <div className="relative bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 py-8 px-6">
+            {/* Background decoration */}
+            <motion.div
+              className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-violet-500/20 to-indigo-500/20 dark:from-violet-500/10 dark:to-indigo-500/10 rounded-full blur-2xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.7, 0.5],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            ></motion.div>
+            <motion.div
+              className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-r from-indigo-500/20 to-violet-500/20 dark:from-indigo-500/10 dark:to-violet-500/10 rounded-full blur-3xl"
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.4, 0.6, 0.4],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1,
+              }}
+            ></motion.div>
+            
+            <div className="relative z-10">
+              <div className="flex flex-col md:flex-row justify-between items-center">
+                <div className="mb-6 md:mb-0 max-w-3xl">
+                  <motion.h1
+                    className="font-playfair text-4xl md:text-5xl font-bold mb-4 tracking-tight leading-tight text-center md:text-left"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    Welcome to{" "}
+                    <span className="relative inline-block">
+                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                        ChronoSpace
+                      </span>
+                      <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 rounded-full transform scale-x-0 animate-[expandWidth_1s_ease-in-out_forwards_0.8s]"></span>
+                    </span>
+                  </motion.h1>
+                  <motion.p
+                    className="font-montserrat text-lg mb-6 leading-relaxed italic text-gray-700 dark:text-gray-300 text-center md:text-left"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                  >
+                    {isCreator 
+                      ? `Welcome back, ${currentUser?.personal_info?.fullname || 'Author'}! Your space to manage content and connect with readers.`
+                      : "Your space for timeless content. Discover high-quality articles, share your thoughts, and connect with a community of passionate writers."}
+                  </motion.p>
+                </div>
+                
+                {/* Only show "Create New Content" button for creators */}
+                {isCreator && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                  >
+                    <Button
+                      variant="white"
+                      size="lg"
+                      href="/editor"
+                      icon={<Plus className="h-4 w-4" />}
+                      iconPosition="left"
+                      glossy={true}
+                      shadowDepth="deep"
+                      className="text-violet-600"
+                    >
+                      Create New Content
+                    </Button>
+                  </motion.div>
+                )}
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                {currentUser?.account_info?.total_posts || 0}
-              </h3>
-              <p className="text-gray-500 dark:text-gray-400">
-                Published Blogs
-              </p>
-            </Card>
-
-            <Card className="p-4 text-center">
-              <div className="text-secondary-600 dark:text-secondary-400 mb-2">
-                <Eye className="h-8 w-8 mx-auto" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                {currentUser?.account_info?.total_reads || 0}
-              </h3>
-              <p className="text-gray-500 dark:text-gray-400">Total Reads</p>
-            </Card>
-
-            <Card className="p-4 text-center">
-              <div className="text-accent-600 dark:text-accent-400 mb-2">
-                <Users className="h-8 w-8 mx-auto" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                {currentUser?.account_info?.total_followers || 0}
-              </h3>
-              <p className="text-gray-500 dark:text-gray-400">Followers</p>
-            </Card>
-
-            <Card className="p-4 text-center">
-              <div className="text-green-600 dark:text-green-400 mb-2">
-                <svg
-                  className="h-8 w-8 mx-auto"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                {currentUser?.account_info?.total_likes || 0}
-              </h3>
-              <p className="text-gray-500 dark:text-gray-400">Total Likes</p>
-            </Card>
+              
+              {/* Stats Cards - Only show for creators */}
+              {isCreator && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
+                  >
+                    <div className="flex items-center">
+                      <div className="bg-violet-500/20 rounded-lg p-2.5 mr-4">
+                        <FileText className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+                      </div>
+                      <div>
+                        <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Published Blogs</p>
+                        <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
+                          {currentUser?.account_info?.total_posts || 0}
+                        </h3>
+                      </div>
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
+                  >
+                    <div className="flex items-center">
+                      <div className="bg-indigo-500/20 rounded-lg p-2.5 mr-4">
+                        <Eye className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+                      </div>
+                      <div>
+                        <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Total Reads</p>
+                        <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
+                          {currentUser?.account_info?.total_reads || 0}
+                        </h3>
+                      </div>
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.3 }}
+                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
+                  >
+                    <div className="flex items-center">
+                      <div className="bg-pink-500/20 rounded-lg p-2.5 mr-4">
+                        <Heart className="h-5 w-5 text-pink-600 dark:text-pink-400" />
+                      </div>
+                      <div>
+                        <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Total Likes</p>
+                        <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
+                          {currentUser?.account_info?.total_likes || 0}
+                        </h3>
+                      </div>
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.4 }}
+                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
+                  >
+                    <div className="flex items-center">
+                      <div className="bg-teal-500/20 rounded-lg p-2.5 mr-4">
+                        <Users className="h-5 w-5 text-teal-600 dark:text-teal-400" />
+                      </div>
+                      <div>
+                        <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Followers</p>
+                        <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
+                          {currentUser?.account_info?.total_followers || 0}
+                        </h3>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Dashboard Tabs */}
-        <Card className="p-6">
-          {/* Custom tabs navigation */}
-          <div className="flex flex-col sm:flex-row mb-6 border-b border-gray-200 dark:border-gray-700">
-            {tabsContent.map((tab) => (
+        {/* Dashboard Tabs - Premium Style */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-100 dark:border-gray-700">
+          {/* Custom tabs navigation - Enhanced */}
+          <div className="flex flex-wrap overflow-x-auto scrollbar-hide border-b border-gray-200 dark:border-gray-700 px-4">
+            {tabsContent.map((tab, index) => (
               <button
                 key={tab.id}
-                className={`flex items-center px-4 py-3 font-medium text-sm border-b-2 -mb-px ${
+                className={`flex items-center px-5 py-4 font-medium text-sm transition-all duration-200 relative ${
                   activeTab === tab.id
-                    ? "border-primary-500 text-primary-600 dark:text-primary-400"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-700"
+                    ? "text-violet-600 dark:text-violet-400"
+                    : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                 }`}
                 onClick={() => setActiveTab(tab.id)}
               >
                 {tab.icon}
-                {tab.label}
+                <span className="font-montserrat">{tab.label}</span>
+                
+                {/* Active Indicator */}
+                {activeTab === tab.id && (
+                  <motion.div 
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-violet-600 dark:bg-violet-400"
+                    layoutId="activeTabIndicator"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                  />
+                )}
               </button>
             ))}
           </div>
 
           {/* Tab content */}
-          <div>{tabsContent.find((tab) => tab.id === activeTab)?.content}</div>
-        </Card>
+          <div className="p-6">
+            {tabsContent.find((tab) => tab.id === activeTab)?.content}
+          </div>
+        </div>
       </motion.div>
 
-      {/* Delete Confirmation Modal */}
+      {/* Delete Confirmation Modal - Premium Style */}
       <Modal
         isOpen={!!confirmDeleteId}
         onClose={() => setConfirmDeleteId(null)}
@@ -936,15 +1302,25 @@ const DashboardPage = () => {
         size="sm"
       >
         <div className="space-y-4">
-          <p className="text-gray-700 dark:text-gray-300">
-            Are you sure you want to delete this blog? This action cannot be
-            undone.
+          <div className="text-center mb-4">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 mb-4">
+              <Trash2 className="h-6 w-6" />
+            </div>
+            <h3 className="font-playfair text-xl font-medium text-gray-900 dark:text-white">
+              Delete Blog?
+            </h3>
+          </div>
+          
+          <p className="font-montserrat text-gray-700 dark:text-gray-300 text-center">
+            This action cannot be undone. Are you sure you want to permanently delete this blog?
           </p>
-          <div className="flex justify-end space-x-2">
+          
+          <div className="flex justify-center gap-3 pt-2">
             <Button
-              variant="ghost"
+              variant="white"
               onClick={() => setConfirmDeleteId(null)}
               disabled={deleting}
+              shadowDepth="shallow"
             >
               Cancel
             </Button>
@@ -953,6 +1329,8 @@ const DashboardPage = () => {
               onClick={() => handleDeleteBlog(confirmDeleteId)}
               disabled={deleting}
               isLoading={deleting}
+              shadowDepth="shallow"
+              glossy={true}
             >
               Delete
             </Button>
@@ -963,12 +1341,33 @@ const DashboardPage = () => {
   );
 };
 
-// Blogger Application Form Component
+// Blogger Application Form Component - Premium Style
 const BloggerApplicationForm = ({ onSubmit }) => {
   const [reason, setReason] = useState("");
   const [samples, setSamples] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [formStep, setFormStep] = useState(1);
+  const [formProgress, setFormProgress] = useState(0);
+
+  useEffect(() => {
+    // Calculate form progress
+    let progress = 0;
+    
+    // Step 1: Reason (70% weight)
+    if (reason.trim().length >= 10) {
+      const reasonScore = Math.min(reason.trim().length / 200, 1) * 70;
+      progress += reasonScore;
+    }
+    
+    // Step 2: Samples (30% weight)
+    if (samples.trim().length > 0) {
+      const samplesScore = Math.min(samples.trim().length / 100, 1) * 30;
+      progress += samplesScore;
+    }
+    
+    setFormProgress(Math.min(Math.round(progress), 100));
+  }, [reason, samples]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -995,98 +1394,124 @@ const BloggerApplicationForm = ({ onSubmit }) => {
   };
 
   return (
-    <Card className="p-6">
-      <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-4">
-        Apply to Become a Blogger
-      </h3>
-
-      <p className="text-gray-600 dark:text-gray-400 mb-6">
-        Share your knowledge and insights with our community! Fill out the form
-        below to apply for blogger privileges.
-      </p>
-
-      <Alert variant="info" className="mb-6">
-        <p className="text-sm">
-          Blogger applications are reviewed by our team. Please provide detailed
-          information about why you'd like to become a blogger and include
-          examples of your writing experience if possible.
-        </p>
-      </Alert>
-
-      {error && (
-        <Alert variant="danger" className="mb-4">
-          <p className="text-sm">{error}</p>
-        </Alert>
-      )}
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label
-            htmlFor="reason"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-          >
-            Why do you want to become a blogger?{" "}
-            <span className="text-red-500">*</span>
-          </label>
-          <textarea
-            id="reason"
-            rows={6}
-            value={reason}
-            onChange={(e) => setReason(e.target.value)}
-            placeholder="Share your motivation, experience, and what topics you'd like to write about..."
-            className={`w-full px-4 py-2 rounded-lg border ${
-              reason.trim().length < 10 && reason.trim().length > 0
-                ? "border-red-300 dark:border-red-700"
-                : "border-gray-300 dark:border-gray-700"
-            } bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500`}
-            required
-          />
-          <p
-            className={`text-xs ${
-              reason.trim().length < 10 ? "text-red-500" : "text-gray-500"
-            } dark:text-gray-400 mt-1`}
-          >
-            Minimum 10 characters required.{" "}
-            {reason.trim().length < 10 && reason.trim().length > 0
-              ? `(${10 - reason.trim().length} more needed)`
-              : ""}
-            Be specific about your expertise and what you want to contribute.
-          </p>
+    <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-100 dark:border-gray-700">
+      <div className="relative overflow-hidden">
+        {/* Header with Progress */}
+        <div className="p-6 pb-5">
+          {/* Progress Bar */}
+          <div className="w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-4">
+            <div 
+              className="h-1 bg-gradient-to-r from-violet-500 to-indigo-500 transition-all duration-500" 
+              style={{ width: `${formProgress}%` }}
+            ></div>
+          </div>
+          
+          <div className="flex justify-between items-center">
+            <div className="flex items-center">
+              <div className="bg-violet-100 dark:bg-violet-900/30 p-2 rounded-full mr-3">
+                <UserPlus className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+              </div>
+              <h3 className="font-playfair text-xl font-bold text-gray-900 dark:text-white">
+                Become a Blogger
+              </h3>
+            </div>
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+              {formProgress}% complete
+            </span>
+          </div>
         </div>
+        
+        {/* Application Form */}
+        <div className="px-6 pb-6">
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-6">
+            <p className="text-sm text-blue-700 dark:text-blue-300 font-montserrat">
+              Share your expertise with our community! We're looking for passionate writers who can create valuable content. Tell us about yourself and your writing experience.
+            </p>
+          </div>
 
-        <div>
-          <label
-            htmlFor="samples"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-          >
-            Writing Samples (Optional)
-          </label>
-          <textarea
-            id="samples"
-            rows={4}
-            value={samples}
-            onChange={(e) => setSamples(e.target.value)}
-            placeholder="Provide links to your previous writing work or samples..."
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
-          />
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-            You can include links to your published work, personal blog, or
-            other writing samples.
-          </p>
-        </div>
+          {error && (
+            <Alert variant="danger" className="mb-4">
+              <p className="text-sm">{error}</p>
+            </Alert>
+          )}
 
-        <div className="flex justify-end">
-          <Button
-            type="submit"
-            variant="primary"
-            disabled={submitting || !reason.trim() || reason.trim().length < 10}
-            isLoading={submitting}
-          >
-            Submit Application
-          </Button>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Step 1: Reason for Application */}
+            <div>
+              <label
+                htmlFor="reason"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 font-montserrat"
+              >
+                Why do you want to become a blogger?{" "}
+                <span className="text-red-500">*</span>
+              </label>
+              <textarea
+                id="reason"
+                rows={6}
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+                placeholder="Share your motivation, experience, areas of expertise, and what topics you'd like to write about..."
+                className={`w-full px-4 py-3 rounded-lg border ${
+                  reason.trim().length < 10 && reason.trim().length > 0
+                    ? "border-red-300 dark:border-red-700"
+                    : "border-gray-300 dark:border-gray-700"
+                } bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-violet-500 font-montserrat text-sm`}
+                required
+              />
+              <div className="flex justify-between mt-1.5 text-xs">
+                <p className={`${
+                  reason.trim().length < 10 ? "text-red-500" : "text-gray-500 dark:text-gray-400"
+                } font-montserrat`}>
+                  Minimum 10 characters required.{" "}
+                  {reason.trim().length < 10 && reason.trim().length > 0
+                    ? `(${10 - reason.trim().length} more needed)`
+                    : ""}
+                </p>
+                <p className="text-gray-500 dark:text-gray-400 font-montserrat">
+                  {reason.length}/1000
+                </p>
+              </div>
+            </div>
+
+            {/* Step 2: Writing Samples */}
+            <div>
+              <label
+                htmlFor="samples"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 font-montserrat"
+              >
+                Writing Samples (Optional)
+              </label>
+              <textarea
+                id="samples"
+                rows={4}
+                value={samples}
+                onChange={(e) => setSamples(e.target.value)}
+                placeholder="Provide links to your previous writing work or portfolio..."
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-violet-500 font-montserrat text-sm"
+              />
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5 font-montserrat">
+                Include URLs to published work, personal blog, or other writing samples that showcase your style and expertise.
+              </p>
+            </div>
+
+            {/* Submit Button */}
+            <div className="flex justify-end pt-2">
+              <Button
+                type="submit"
+                variant="primary"
+                disabled={submitting || !reason.trim() || reason.trim().length < 10}
+                isLoading={submitting}
+                glossy={true}
+                shadowDepth="deep"
+                size="lg"
+              >
+                Submit Application
+              </Button>
+            </div>
+          </form>
         </div>
-      </form>
-    </Card>
+      </div>
+    </div>
   );
 };
 
