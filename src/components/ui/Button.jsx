@@ -41,7 +41,6 @@ const Button = ({
       "bg-gradient-to-r from-primary-600 via-accent-600 to-secondary-600 hover:from-primary-500 hover:via-accent-500 hover:to-secondary-500 text-white shadow-[0_4px_0_theme(colors.secondary.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.secondary.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-primary-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.secondary.800),0_2px_5px_rgba(0,0,0,0.1)]",
     transparent:
       "bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10 text-gray-800 dark:text-white shadow-sm hover:bg-white/20 dark:hover:bg-white/10 focus:ring-2 focus:ring-white/30 active:translate-y-0.5 active:shadow-none",
-
     white:
       "bg-white hover:bg-gray-50 text-gray-900 shadow-[0_4px_0_theme(colors.gray.200),0_6px_10px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_0_theme(colors.gray.200),0_8px_15px_rgba(0,0,0,0.15)] focus:ring-2 focus:ring-gray-200 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.gray.200),0_2px_5px_rgba(0,0,0,0.05)]",
 

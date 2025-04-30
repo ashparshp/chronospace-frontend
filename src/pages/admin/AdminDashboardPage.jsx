@@ -27,6 +27,7 @@ import Button from "../../components/ui/Button";
 import Avatar from "../../components/ui/Avatar";
 import EmptyState from "../../components/ui/EmptyState";
 import Badge from "../../components/ui/Badge";
+import StatCard from "../../components/ui/StatsCard";
 
 const AdminDashboardPage = () => {
   const navigate = useNavigate();
@@ -78,7 +79,7 @@ const AdminDashboardPage = () => {
       <div className="mx-auto space-y-8 animate-pulse">
         {/* Header skeleton */}
         <div className="rounded-2xl bg-gray-200 dark:bg-gray-800 h-40 mb-8"></div>
-        
+
         {/* Stat cards skeleton */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
@@ -88,7 +89,7 @@ const AdminDashboardPage = () => {
             ></div>
           ))}
         </div>
-        
+
         {/* Popular blogs and top authors skeleton */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 h-72 border border-gray-100 dark:border-gray-700"></div>
@@ -148,7 +149,7 @@ const AdminDashboardPage = () => {
                 delay: 1,
               }}
             ></motion.div>
-            
+
             <div className="relative z-10">
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
                 <div className="mb-6 md:mb-0">
@@ -162,17 +163,19 @@ const AdminDashboardPage = () => {
                       Admin Dashboard
                     </span>
                   </motion.h1>
-                  
+
                   <motion.p
                     className="font-montserrat text-lg leading-relaxed text-gray-700 dark:text-gray-300"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
                   >
-                    Welcome back, {currentUser?.personal_info?.fullname || 'Admin'}. Here's an overview of your platform.
+                    Welcome back,{" "}
+                    {currentUser?.personal_info?.fullname || "Admin"}. Here's an
+                    overview of your platform.
                   </motion.p>
                 </div>
-                
+
                 <div className="flex flex-wrap gap-3">
                   <Button
                     variant="white"
@@ -216,116 +219,65 @@ const AdminDashboardPage = () => {
                   </Button>
                 </div>
               </div>
-              
+
               {/* Admin Stat Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Total Users</p>
-                      <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
-                        {stats?.users?.total?.toLocaleString() || 0}
-                      </h3>
-                      {stats?.users?.new_30d > 0 && (
-                        <div className="flex items-center mt-1 text-green-600 dark:text-green-400 text-xs font-montserrat">
-                          <TrendingUp className="h-3.5 w-3.5 mr-1" />
-                          <span>+{stats.users.new_30d} in 30 days</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="bg-violet-500/20 rounded-lg p-2.5">
-                      <Users className="h-6 w-6 text-violet-600 dark:text-violet-400" />
-                    </div>
-                  </div>
-
-                  <div className="mt-3 pt-3 border-t border-gray-200/30 dark:border-gray-700/30 flex justify-between text-xs">
-                    <div>
-                      <p className="text-gray-500 dark:text-gray-400 font-montserrat">Bloggers</p>
-                      <p className="font-medium text-gray-900 dark:text-white font-montserrat mt-0.5">
-                        {stats?.users?.bloggers?.toLocaleString() || 0}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-gray-500 dark:text-gray-400 font-montserrat">Active Users</p>
-                      <p className="font-medium text-gray-900 dark:text-white font-montserrat mt-0.5">
-                        {stats?.users?.active?.toLocaleString() || 0}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.2 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Total Blogs</p>
-                      <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
-                        {stats?.blogs?.total?.toLocaleString() || 0}
-                      </h3>
-                      {stats?.blogs?.new_30d > 0 && (
-                        <div className="flex items-center mt-1 text-green-600 dark:text-green-400 text-xs font-montserrat">
-                          <TrendingUp className="h-3.5 w-3.5 mr-1" />
-                          <span>+{stats.blogs.new_30d} in 30 days</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="bg-indigo-500/20 rounded-lg p-2.5">
-                      <FileText className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
-                    </div>
-                  </div>
-
-                  <div className="mt-3 pt-3 border-t border-gray-200/30 dark:border-gray-700/30 flex justify-between text-xs">
-                    <div>
-                      <p className="text-gray-500 dark:text-gray-400 font-montserrat">Published</p>
-                      <p className="font-medium text-gray-900 dark:text-white font-montserrat mt-0.5">
-                        {stats?.blogs?.published?.toLocaleString() || 0}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-gray-500 dark:text-gray-400 font-montserrat">Drafts</p>
-                      <p className="font-medium text-gray-900 dark:text-white font-montserrat mt-0.5">
-                        {stats?.blogs?.drafts?.toLocaleString() || 0}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.3 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Total Comments</p>
-                      <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
-                        {stats?.comments?.total?.toLocaleString() || 0}
-                      </h3>
-                      {stats?.comments?.new_30d > 0 && (
-                        <div className="flex items-center mt-1 text-green-600 dark:text-green-400 text-xs font-montserrat">
-                          <TrendingUp className="h-3.5 w-3.5 mr-1" />
-                          <span>+{stats.comments.new_30d} in 30 days</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="bg-pink-500/20 rounded-lg p-2.5">
-                      <MessageSquare className="h-6 w-6 text-pink-600 dark:text-pink-400" />
-                    </div>
-                  </div>
-
-                  <div className="mt-3 pt-3 border-t border-gray-200/30 dark:border-gray-700/30 flex items-center justify-center">
+                <StatCard
+                  title="Total Users"
+                  value={stats?.users?.total}
+                  icon={<Users />}
+                  delay={0.1}
+                  trend={
+                    stats?.users?.new_30d > 0
+                      ? {
+                          icon: <TrendingUp className="h-3.5 w-3.5 mr-1" />,
+                          text: `+${stats.users.new_30d} in 30 days`,
+                        }
+                      : null
+                  }
+                  subStats={[
+                    { label: "Bloggers", value: stats?.users?.bloggers },
+                    { label: "Active Users", value: stats?.users?.active },
+                  ]}
+                />
+                <StatCard
+                  title="Total Blogs"
+                  value={stats?.blogs?.total}
+                  icon={<FileText />}
+                  iconBgColor="bg-indigo-500/20"
+                  iconColor="text-indigo-600 dark:text-indigo-400"
+                  delay={0.2}
+                  trend={
+                    stats?.blogs?.new_30d > 0
+                      ? {
+                          icon: <TrendingUp className="h-3.5 w-3.5 mr-1" />,
+                          text: `+${stats.blogs.new_30d} in 30 days`,
+                        }
+                      : null
+                  }
+                  subStats={[
+                    { label: "Published", value: stats?.blogs?.published },
+                    { label: "Drafts", value: stats?.blogs?.drafts },
+                  ]}
+                />
+                <StatCard
+                  title="Total Comments"
+                  value={stats?.comments?.total}
+                  icon={<MessageSquare />}
+                  iconBgColor="bg-pink-500/20"
+                  iconColor="text-pink-600 dark:text-pink-400"
+                  delay={0.3}
+                  trend={
+                    stats?.comments?.new_30d > 0
+                      ? {
+                          icon: <TrendingUp className="h-3.5 w-3.5 mr-1" />,
+                          text: `+${stats.comments.new_30d} in 30 days`,
+                        }
+                      : null
+                  }
+                  action={
                     <Button
-                      variant="white"
+                      variant="orange"
                       size="sm"
                       href="/admin/blogs"
                       shadowDepth="shallow"
@@ -333,39 +285,33 @@ const AdminDashboardPage = () => {
                     >
                       Manage Content
                     </Button>
-                  </div>
-                </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.4 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-gray-200/20 dark:border-gray-700/20"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-700/70 dark:text-gray-300/70 text-sm font-montserrat">Pending Applications</p>
-                      <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
-                        {stats?.applications?.pending?.toLocaleString() || 0}
-                      </h3>
-                      {stats?.applications?.pending > 0 && (
-                        <div className="flex items-center mt-1 text-amber-600 dark:text-amber-400 text-xs font-montserrat">
-                          <ClipboardCheck className="h-3.5 w-3.5 mr-1" />
-                          <span>Awaiting review</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="bg-amber-500/20 rounded-lg p-2.5">
-                      <UserPlus className="h-6 w-6 text-amber-600 dark:text-amber-400" />
-                    </div>
-                  </div>
-
-                  <div className="mt-3 pt-3 border-t border-gray-200/30 dark:border-gray-700/30 flex items-center justify-center">
+                  }
+                />
+                <StatCard
+                  title="Pending Applications"
+                  value={stats?.applications?.pending}
+                  icon={<UserPlus />}
+                  iconBgColor="bg-amber-500/20"
+                  iconColor="text-amber-600 dark:text-amber-400"
+                  delay={0.4}
+                  trend={
+                    stats?.applications?.pending > 0
+                      ? {
+                          icon: <ClipboardCheck className="h-3.5 w-3.5 mr-1" />,
+                          text: `Awaiting review`,
+                        }
+                      : null
+                  }
+                  action={
                     <Button
-                      variant={stats?.applications?.pending > 0 ? "primary" : "white"}
+                      variant={
+                        stats?.applications?.pending > 0 ? "primary" : "orange"
+                      }
                       size="sm"
                       href="/admin/applications"
-                      shadowDepth={stats?.applications?.pending > 0 ? "deep" : "shallow"}
+                      shadowDepth={
+                        stats?.applications?.pending > 0 ? "deep" : "shallow"
+                      }
                       glossy={stats?.applications?.pending > 0}
                       className="w-full text-sm"
                     >
@@ -376,8 +322,8 @@ const AdminDashboardPage = () => {
                         </span>
                       )}
                     </Button>
-                  </div>
-                </motion.div>
+                  }
+                />
               </div>
             </div>
           </div>
@@ -441,19 +387,22 @@ const AdminDashboardPage = () => {
                           <div className="flex items-center bg-white dark:bg-gray-700 px-2 py-1 rounded-full">
                             <Eye className="h-3 w-3 mr-1.5 text-violet-500 dark:text-violet-400" />
                             <span className="font-montserrat">
-                              {blog.activity?.total_reads?.toLocaleString() || 0}
+                              {blog.activity?.total_reads?.toLocaleString() ||
+                                0}
                             </span>
                           </div>
                           <div className="flex items-center bg-white dark:bg-gray-700 px-2 py-1 rounded-full">
                             <Heart className="h-3 w-3 mr-1.5 text-pink-500" />
                             <span className="font-montserrat">
-                              {blog.activity?.total_likes?.toLocaleString() || 0}
+                              {blog.activity?.total_likes?.toLocaleString() ||
+                                0}
                             </span>
                           </div>
                           <div className="flex items-center bg-white dark:bg-gray-700 px-2 py-1 rounded-full">
                             <MessageSquare className="h-3 w-3 mr-1.5 text-indigo-500" />
                             <span className="font-montserrat">
-                              {blog.activity?.total_comments?.toLocaleString() || 0}
+                              {blog.activity?.total_comments?.toLocaleString() ||
+                                0}
                             </span>
                           </div>
                         </div>
@@ -509,7 +458,9 @@ const AdminDashboardPage = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: index * 0.1 }}
                       className="flex items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 transition-colors duration-200 cursor-pointer border border-gray-100 dark:border-gray-700"
-                      onClick={() => navigate(`/profile/${author.personal_info.username}`)}
+                      onClick={() =>
+                        navigate(`/profile/${author.personal_info.username}`)
+                      }
                     >
                       <Avatar
                         src={author.personal_info.profile_img}
@@ -532,7 +483,9 @@ const AdminDashboardPage = () => {
                         <div className="flex items-center justify-end mt-1">
                           <Eye className="h-3 w-3 mr-1 text-gray-500 dark:text-gray-400" />
                           <p className="text-xs text-gray-500 dark:text-gray-400 font-montserrat">
-                            {author.account_info?.total_reads?.toLocaleString() || 0} reads
+                            {author.account_info?.total_reads?.toLocaleString() ||
+                              0}{" "}
+                            reads
                           </p>
                         </div>
                       </div>
@@ -610,12 +563,17 @@ const AdminDashboardPage = () => {
                 <div className="relative z-10 mb-3 bg-white/10 rounded-full p-3">
                   {action.icon}
                 </div>
-                <h3 className="relative z-10 font-playfair text-base font-bold mb-1">{action.title}</h3>
+                <h3 className="relative z-10 font-playfair text-base font-bold mb-1">
+                  {action.title}
+                </h3>
                 <p className="relative z-10 text-xs text-white/80 font-montserrat">
                   {action.description}
                 </p>
                 {action.badge && (
-                  <Badge variant="primary" className="absolute top-2 right-2 bg-white text-primary-600 font-bold">
+                  <Badge
+                    variant="primary"
+                    className="absolute top-2 right-2 bg-white text-primary-600 font-bold"
+                  >
                     {stats?.applications?.pending}
                   </Badge>
                 )}
