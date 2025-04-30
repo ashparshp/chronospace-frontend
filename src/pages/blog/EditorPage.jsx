@@ -17,7 +17,6 @@ const EditorPage = () => {
   const [loading, setLoading] = useState(!!blogId);
   const [error, setError] = useState(null);
 
-  // Fetch blog data for editing
   useEffect(() => {
     const fetchBlog = async () => {
       if (!blogId) return;
@@ -33,7 +32,6 @@ const EditorPage = () => {
       } catch (error) {
         console.error("Error fetching blog:", error);
 
-        // Handle specific errors
         if (error.response?.status === 404) {
           setError("Blog not found");
         } else if (error.response?.status === 403) {
@@ -49,12 +47,10 @@ const EditorPage = () => {
     fetchBlog();
   }, [blogId]);
 
-  // Check if user is blogger or admin
   const isAuthorized =
     currentUser &&
     (currentUser.role === "blogger" || currentUser.role === "admin");
 
-  // If not authorized
   if (!isAuthorized) {
     return (
       <EmptyState
@@ -81,12 +77,10 @@ const EditorPage = () => {
     );
   }
 
-  // Loading state
   if (loading) {
     return <LoadingScreen />;
   }
 
-  // Error state
   if (error) {
     return (
       <EmptyState
