@@ -1,4 +1,3 @@
-// src/pages/blog/BlogPage.jsx
 import { useState, useEffect, createContext } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { format } from "date-fns";

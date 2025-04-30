@@ -9,7 +9,6 @@ import { useTheme } from "../../context/ThemeContext";
 const MainLayout = () => {
   const { darkMode } = useTheme();
 
-  // Update meta theme color based on dark mode
   useEffect(() => {
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
@@ -17,7 +16,6 @@ const MainLayout = () => {
     }
   }, [darkMode]);
 
-  // Page transition variants
   const pageVariants = {
     initial: {
       opacity: 0,

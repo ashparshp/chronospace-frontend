@@ -1,4 +1,3 @@
-// src/components/blog/FeaturedBlogCard.jsx
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
@@ -22,7 +21,6 @@ const FeaturedBlogCard = ({ blog, className = "" }) => {
     navigate(`/tag/${tag}`);
   };
 
-  // Get gradient based on blog category or default
   const getGradient = () => {
     const gradients = {
       technology: "from-indigo-600 to-blue-500",

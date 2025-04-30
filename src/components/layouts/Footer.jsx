@@ -1,4 +1,3 @@
-// src/components/layouts/Footer.jsx
 import { Link } from "react-router-dom";
 
 const Footer = () => {

@@ -1,4 +1,3 @@
-// src/components/blog/BlogEditor.jsx
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import EditorJS from "@editorjs/editorjs";
@@ -35,7 +34,6 @@ const BlogEditor = () => {
   const [editorReady, setEditorReady] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
-  // Fetch blog data if editing
   useEffect(() => {
     const fetchBlog = async () => {
       if (!blogId) return;
@@ -69,7 +67,6 @@ const BlogEditor = () => {
     }
   }, [blogId, navigate, showToast]);
 
-  // Initialize editor
   useEffect(() => {
     if (editorRef.current) return;
 
@@ -80,21 +77,18 @@ const BlogEditor = () => {
       const editor = new EditorJS({
         holder: "editor",
         tools: {
-          // Include all existing tools
           header: EDITOR_JS_TOOLS.header,
           list: EDITOR_JS_TOOLS.list,
           code: EDITOR_JS_TOOLS.code,
           embed: EDITOR_JS_TOOLS.embed,
           quote: EDITOR_JS_TOOLS.quote,
           marker: EDITOR_JS_TOOLS.marker,
-          // Override the image tool with your custom uploader
           image: {
             class: EDITOR_JS_TOOLS.image.class,
             config: {
               uploader: createImageUploadHandler(),
             },
           },
-          // Add table tool
           table: EDITOR_JS_TOOLS.table,
           checklist: EDITOR_JS_TOOLS.checklist,
         },
@@ -114,10 +108,8 @@ const BlogEditor = () => {
           editorRef.current = editor;
           setEditorReady(true);
 
-          // Set up markdown paste handler
           setupMarkdownPasteHandler(editor);
 
-          // Show a welcome toast to inform about markdown paste feature
           showToast(
             "Tip: You can paste markdown text into the editor and it will be automatically formatted!",
             "info",
@@ -129,7 +121,6 @@ const BlogEditor = () => {
       console.error("Error initializing EditorJS:", error);
     }
 
-    // Clean up on unmount
     return () => {
       if (editorRef.current) {
         try {
@@ -142,12 +133,10 @@ const BlogEditor = () => {
     };
   }, [initialData, editorReady, showToast]);
 
-  // Set initial content if editing and editor is ready
   useEffect(() => {
     if (editorRef.current && initialData?.content && isEdit && editorReady) {
       editorRef.current.render(initialData.content);
     } else if (!isEdit && editorReady) {
-      // Check for draft in localStorage for new posts
       const savedDraft = localStorage.getItem("editor-draft");
       if (savedDraft) {
         try {
@@ -162,7 +151,6 @@ const BlogEditor = () => {
     }
   }, [initialData, isEdit, editorReady]);
 
-  // Handle tag input
   const handleTagInputKeyDown = (e) => {
     if (e.key === "Enter" || e.key === ",") {
       e.preventDefault();
@@ -170,7 +158,6 @@ const BlogEditor = () => {
     }
   };
 
-  // Add tag
   const addTag = () => {
     const newTag = tagInput.trim().toLowerCase();
     if (newTag && !tags.includes(newTag) && tags.length < 10) {
@@ -179,18 +166,15 @@ const BlogEditor = () => {
     }
   };
 
-  // Remove tag
   const removeTag = (index) => {
     setTags(tags.filter((_, i) => i !== index));
   };
 
-  // Handle banner image upload
   const handleBannerUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
       setBannerFile(file);
 
-      // Show preview
       const reader = new FileReader();
       reader.onload = () => {
         setBanner(reader.result);
@@ -199,13 +183,11 @@ const BlogEditor = () => {
     }
   };
 
-  // Remove banner
   const removeBanner = () => {
     setBanner("");
     setBannerFile(null);
   };
 
-  // Save as draft
   const saveAsDraft = async () => {
     if (!title.trim()) {
       showToast("Please add a title for your draft", "error");
@@ -217,7 +199,6 @@ const BlogEditor = () => {
       const content = await editorRef.current.save();
       let bannerUrl = banner;
 
-      // Upload banner if it's a file
       if (bannerFile) {
         const uploadResult = await uploadService.uploadToS3(
           bannerFile,
@@ -236,12 +217,11 @@ const BlogEditor = () => {
         category,
         visibility,
         is_premium: isPremium,
-        id: blogId, // Include ID if editing
+        id: blogId,
       };
 
       const response = await blogService.createUpdateBlog(blogData);
 
-      // Clear localStorage draft
       localStorage.removeItem("editor-draft");
 
       showToast("Draft saved successfully", "success");
@@ -254,9 +234,7 @@ const BlogEditor = () => {
     }
   };
 
-  // Publish blog
   const publishBlog = async () => {
-    // Validate fields
     if (!title.trim()) {
       showToast("Please add a title", "error");
       return;
@@ -272,7 +250,6 @@ const BlogEditor = () => {
       return;
     }
 
-    // Validate content
     let content;
     try {
       content = await editorRef.current.save();
@@ -290,7 +267,6 @@ const BlogEditor = () => {
     try {
       let bannerUrl = banner;
 
-      // Upload banner if it's a file
       if (bannerFile) {
         const uploadResult = await uploadService.uploadToS3(
           bannerFile,
@@ -309,12 +285,11 @@ const BlogEditor = () => {
         category,
         visibility,
         is_premium: isPremium,
-        id: blogId, // Include ID if editing
+        id: blogId,
       };
 
       const response = await blogService.createUpdateBlog(blogData);
 
-      // Clear localStorage draft
       localStorage.removeItem("editor-draft");
 
       showToast(
@@ -333,11 +308,9 @@ const BlogEditor = () => {
     }
   };
 
-  // Preview function
   const previewBlog = async () => {
     try {
       const content = await editorRef.current.save();
-      // Store in sessionStorage for the preview page
       sessionStorage.setItem(
         "blog-preview",
         JSON.stringify({
@@ -351,7 +324,6 @@ const BlogEditor = () => {
           is_premium: isPremium,
         })
       );
-      // Open preview in new tab
       window.open("/preview", "_blank");
     } catch (error) {
       console.error("Error creating preview:", error);

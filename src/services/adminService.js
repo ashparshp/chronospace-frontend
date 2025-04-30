@@ -1,8 +1,6 @@
-// src/services/adminService.js
 import api from "./api";
 
 export const adminService = {
-  // Get all users (paginated)
   getAllUsers: async (
     page = 1,
     limit = 10,
@@ -15,17 +13,14 @@ export const adminService = {
     );
   },
 
-  // Update user role
   updateUserRole: async (userId, role) => {
     return api.post("/admin/update-user-role", { userId, role });
   },
 
-  // Update account status
   updateAccountStatus: async (userId, status) => {
     return api.post("/admin/update-account-status", { userId, status });
   },
 
-  // Get all blogs (admin view)
   getAllBlogs: async (
     page = 1,
     limit = 10,
@@ -39,19 +34,16 @@ export const adminService = {
     );
   },
 
-  // Toggle featured status of a blog
   toggleFeatureBlog: async (blog_id) => {
     return api.post("/admin/toggle-feature-blog", { blog_id });
   },
 
-  // Get pending blogger applications
   getPendingBloggerApplications: async (page = 1, limit = 10) => {
     return api.get(
       `/admin/pending-blogger-applications?page=${page}&limit=${limit}`
     );
   },
 
-  // Review blogger application
   reviewBloggerApplication: async (request_id, status, review_notes = "") => {
     return api.post("/admin/review-blogger-application", {
       request_id,
@@ -60,7 +52,6 @@ export const adminService = {
     });
   },
 
-  // Get dashboard statistics
   getDashboardStats: async () => {
     return api.get("/admin/dashboard-stats");
   },

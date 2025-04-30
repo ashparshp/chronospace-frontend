@@ -1,4 +1,3 @@
-// src/components/ui/Input.jsx
 import { forwardRef } from "react";
 import { motion } from "framer-motion";
 
@@ -20,7 +19,6 @@ const Input = forwardRef(
     },
     ref
   ) => {
-    // Input container animations
     const containerVariants = {
       initial: { opacity: 0, y: 10 },
       animate: {

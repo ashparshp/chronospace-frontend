@@ -1,4 +1,3 @@
-// src/config/constants.js
 import Header from "@editorjs/header";
 import List from "@editorjs/list";
 import Code from "@editorjs/code";
@@ -9,25 +8,21 @@ import Marker from "@editorjs/marker";
 import Checklist from "@editorjs/checklist";
 import Table from "@editorjs/table";
 
-// API URL - Change this to your backend URL
 export const API_URL =
   import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
-// User Roles
 export const USER_ROLES = {
   USER: "user",
   BLOGGER: "blogger",
   ADMIN: "admin",
 };
 
-// User Account Status
 export const ACCOUNT_STATUS = {
   ACTIVE: "active",
   SUSPENDED: "suspended",
   DELETED: "deleted",
 };
 
-// Blog Status
 export const BLOG_STATUS = {
   PUBLISHED: "published",
   DRAFT: "draft",
@@ -36,14 +31,12 @@ export const BLOG_STATUS = {
   ARCHIVED: "archived",
 };
 
-// Blog Visibility
 export const BLOG_VISIBILITY = {
   PUBLIC: "public",
   PRIVATE: "private",
   FOLLOWERS_ONLY: "followers_only",
 };
 
-// Notification Types
 export const NOTIFICATION_TYPES = {
   LIKE: "like",
   COMMENT: "comment",
@@ -58,14 +51,12 @@ export const NOTIFICATION_TYPES = {
   BLOG_PUBLISHED: "blog_published",
 };
 
-// Blogger Request Status
 export const BLOGGER_REQUEST_STATUS = {
   PENDING: "pending",
   APPROVED: "approved",
   REJECTED: "rejected",
 };
 
-// Pagination defaults
 export const PAGINATION = {
   DEFAULT_PAGE: 1,
   DEFAULT_LIMIT: 10,
@@ -74,7 +65,6 @@ export const PAGINATION = {
   USERS_PER_PAGE: 10,
 };
 
-// Blog categories
 export const BLOG_CATEGORIES = [
   "technology",
   "programming",
@@ -94,7 +84,6 @@ export const BLOG_CATEGORIES = [
   "other",
 ];
 
-// Form validation
 export const VALIDATION = {
   EMAIL_REGEX: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   PASSWORD_REGEX: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
@@ -102,7 +91,6 @@ export const VALIDATION = {
   BIO_MAX_LENGTH: 200,
 };
 
-// Editor.js tools configuration
 export const EDITOR_JS_TOOLS = {
   header: {
     class: Header,
@@ -122,8 +110,6 @@ export const EDITOR_JS_TOOLS = {
   image: {
     class: Image,
     config: {
-      // The uploader will be provided separately in the BlogEditor component
-      // Don't define it here, as it will be overridden
     },
   },
   embed: {

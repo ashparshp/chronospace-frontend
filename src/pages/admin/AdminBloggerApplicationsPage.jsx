@@ -1,4 +1,3 @@
-// src/pages/admin/AdminBloggerApplicationsPage.jsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -9,8 +8,6 @@ import {
   UserX,
   ChevronDown,
   ChevronUp,
-  Search,
-  Filter,
   RefreshCw,
   Clock,
 } from "lucide-react";
@@ -19,10 +16,8 @@ import { useNotification } from "../../context/NotificationContext";
 import { adminService } from "../../services/adminService";
 import Card from "../../components/ui/Card";
 import Button from "../../components/ui/Button";
-import Input from "../../components/ui/Input";
 import TextArea from "../../components/ui/TextArea";
 import Avatar from "../../components/ui/Avatar";
-import Badge from "../../components/ui/Badge";
 import Modal from "../../components/ui/Modal";
 import EmptyState from "../../components/ui/EmptyState";
 import { BLOGGER_REQUEST_STATUS } from "../../config/constants";
@@ -74,7 +69,6 @@ const AdminBloggerApplicationsPage = () => {
     fetchApplications();
   }, [isAdmin, page]);
 
-  // Toggle application details expansion
   const toggleApplicationExpand = (id) => {
     if (expandedApp === id) {
       setExpandedApp(null);
@@ -83,12 +77,10 @@ const AdminBloggerApplicationsPage = () => {
     }
   };
 
-  // Handle pagination
   const handlePageChange = (newPage) => {
     setPage(newPage);
   };
 
-  // Open approval modal
   const openApproveModal = (application) => {
     setModalData(application);
     setModalType("approve");
@@ -98,7 +90,6 @@ const AdminBloggerApplicationsPage = () => {
     setModalOpen(true);
   };
 
-  // Open rejection modal
   const openRejectModal = (application) => {
     setModalData(application);
     setModalType("reject");
@@ -108,7 +99,6 @@ const AdminBloggerApplicationsPage = () => {
     setModalOpen(true);
   };
 
-  // Handle application review submission
   const handleReviewSubmit = async () => {
     if (!modalData || !modalType) return;
 
@@ -126,10 +116,8 @@ const AdminBloggerApplicationsPage = () => {
         reviewNote
       );
 
-      // Remove the application from the list
       setApplications(applications.filter((app) => app._id !== modalData._id));
 
-      // Show success message
       showToast(
         `Application ${
           modalType === "approve" ? "approved" : "rejected"
@@ -137,7 +125,6 @@ const AdminBloggerApplicationsPage = () => {
         "success"
       );
 
-      // Close modal
       setModalOpen(false);
       setModalData(null);
       setReviewNote("");
@@ -149,12 +136,10 @@ const AdminBloggerApplicationsPage = () => {
     }
   };
 
-  // Format date
   const formatDate = (date) => {
     return format(new Date(date), "MMM d, yyyy h:mm a");
   };
 
-  // If not admin
   if (!isAdmin) {
     return (
       <EmptyState

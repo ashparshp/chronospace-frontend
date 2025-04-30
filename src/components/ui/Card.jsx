@@ -1,4 +1,3 @@
-// src/components/ui/Card.jsx
 import { motion } from "framer-motion";
 
 const Card = ({

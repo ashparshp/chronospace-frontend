@@ -1,4 +1,3 @@
-// src/components/ui/TextArea.jsx
 import { forwardRef } from "react";
 import { motion } from "framer-motion";
 
@@ -20,11 +19,9 @@ const TextArea = forwardRef(
     },
     ref
   ) => {
-    // Count characters if maxLength is provided and showCount is true
     const value = props.value || "";
     const characterCount = maxLength && showCount ? value.length : null;
 
-    // Container animation variants
     const containerVariants = {
       initial: { opacity: 0, y: 10 },
       animate: {
@@ -82,7 +79,6 @@ const TextArea = forwardRef(
             {...props}
           />
 
-          {/* Character counter */}
           {characterCount !== null && (
             <div className="absolute bottom-2 right-2 text-xs text-gray-500 dark:text-gray-400 pointer-events-none">
               {characterCount} / {maxLength}
@@ -90,14 +86,12 @@ const TextArea = forwardRef(
           )}
         </div>
 
-        {/* Helper text */}
         {helper && !error && (
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             {helper}
           </p>
         )}
 
-        {/* Error message */}
         {error && (
           <motion.p
             className="mt-1 text-sm text-red-600 dark:text-red-400 flex items-center"

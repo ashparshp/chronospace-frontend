@@ -1,4 +1,3 @@
-// src/components/ui/Select.jsx
 import { forwardRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
@@ -20,7 +19,6 @@ const Select = forwardRef(
     },
     ref
   ) => {
-    // Input container animations
     const containerVariants = {
       initial: { opacity: 0, y: 10 },
       animate: {
@@ -95,7 +93,6 @@ const Select = forwardRef(
               ))}
             </motion.select>
 
-            {/* Custom dropdown icon */}
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-500 dark:text-gray-400">
               <ChevronDown className="h-4 w-4" />
             </div>

@@ -31,7 +31,6 @@ const Quote = ({ quote, caption }) => {
   );
 };
 
-// Checkbox component for checklist items
 const CheckboxItem = ({ checked, text }) => {
   return (
     <div className="flex items-start gap-2 my-1">
@@ -76,7 +75,6 @@ const CheckboxItem = ({ checked, text }) => {
   );
 };
 
-// Checkbox list component
 const CheckList = ({ items }) => {
   return (
     <div className="my-4 pl-2">
@@ -87,11 +85,8 @@ const CheckList = ({ items }) => {
   );
 };
 
-// Simple Table component that can handle different formats
 const Table = ({ content, withHeadings }) => {
-  // First, handle if we somehow got a string instead of an array
   if (typeof content === "string") {
-    // Try to parse table content
     const tableLines = content.split("\n");
     content = tableLines.map((line) =>
       line
@@ -101,7 +96,6 @@ const Table = ({ content, withHeadings }) => {
     );
   }
 
-  // Check if content is array and has items
   if (!Array.isArray(content) || content.length === 0) {
     return (
       <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg my-4">
@@ -156,8 +150,6 @@ const Table = ({ content, withHeadings }) => {
 };
 
 const List = ({ style, items }) => {
-  // Check if this is actually a checklist/todo list
-  // (items with checked property)
   if (
     items &&
     items.length > 0 &&
@@ -167,24 +159,20 @@ const List = ({ style, items }) => {
     return <CheckList items={items} />;
   }
 
-  // Function to render list item content based on its format
   const renderListItem = (item) => {
     if (typeof item === "string") {
       return <span dangerouslySetInnerHTML={{ __html: item }}></span>;
     }
 
     if (typeof item === "object" && item !== null) {
-      // Check for EditorJS checklist item format
       if ("checked" in item) {
         return <CheckboxItem checked={item.checked} text={item.text || ""} />;
       }
 
-      // Check for EditorJS list item format
       if (item.content) {
         return <span dangerouslySetInnerHTML={{ __html: item.content }}></span>;
       }
 
-      // Check for EditorJS nested list item format
       if (item.items && Array.isArray(item.items)) {
         return (
           <>
@@ -206,12 +194,10 @@ const List = ({ style, items }) => {
         );
       }
 
-      // If it has a text property
       if (item.text) {
         return <span dangerouslySetInnerHTML={{ __html: item.text }}></span>;
       }
 
-      // Try to convert object to string if all else fails
       try {
         return String(item);
       } catch (err) {
@@ -219,7 +205,6 @@ const List = ({ style, items }) => {
       }
     }
 
-    // Fallback for any other type
     return String(item);
   };
 
@@ -239,15 +224,12 @@ const List = ({ style, items }) => {
 };
 
 const Code = ({ code, language = "" }) => {
-  // Handle the object HTMLPreElement case specifically
   if (
     code &&
     typeof code === "object" &&
     code.toString() === "[object HTMLPreElement]"
   ) {
-    // Try to extract the text content from the HTMLPreElement
     try {
-      // These are typical properties of HTMLPreElement that might contain the actual code
       let codeText = "";
       if (code.textContent) codeText = code.textContent;
       else if (code.innerText) codeText = code.innerText;
@@ -279,18 +261,13 @@ const Code = ({ code, language = "" }) => {
 };
 
 const BlogContent = ({ block }) => {
-  // Handle null/undefined block
   if (!block) return null;
 
-  // Extract type and data with fallbacks
   const type = block.type || "";
   const data = block.data || {};
 
-  // Special handling for tables that might be improperly formatted
   if (type === "table") {
-    // Check if the table data might be malformed
     if (data && typeof data === "object") {
-      // If content is missing but we have text property, try to parse it as table
       if (!data.content && data.text) {
         return (
           <Table
@@ -305,7 +282,6 @@ const BlogContent = ({ block }) => {
         );
       }
 
-      // If content is an array, use it directly
       if (Array.isArray(data.content)) {
         return (
           <Table
@@ -317,7 +293,6 @@ const BlogContent = ({ block }) => {
     }
   }
 
-  // Regular type handling
   switch (type) {
     case "paragraph":
       return (
@@ -357,7 +332,6 @@ const BlogContent = ({ block }) => {
           ></h4>
         );
       }
-      // Default to paragraph if level not specified
       return (
         <p
           className="text-xl font-semibold my-4"
@@ -385,7 +359,6 @@ const BlogContent = ({ block }) => {
       return <Table content={data.content} withHeadings={data.withHeadings} />;
 
     default:
-      // For other block types or debug purposes, just return JSON representation
       console.log("Unknown block type:", type, data);
       return null;
   }

@@ -1,10 +1,8 @@
-// src/pages/user/DashboardPage.jsx
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
 import {
-  LayoutDashboard,
   FileText,
   Edit,
   Bell,
@@ -13,17 +11,13 @@ import {
   Eye,
   MessageSquare,
   Heart,
-  ChevronDown,
-  ChevronUp,
   ExternalLink,
-  AlertCircle,
   Users,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import { useNotification } from "../../context/NotificationContext";
 import { blogService } from "../../services/blogService";
 import { userService } from "../../services/userService";
-import Tabs from "../../components/ui/Tabs";
 import Card from "../../components/ui/Card";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";

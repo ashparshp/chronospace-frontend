@@ -1,4 +1,3 @@
-// src/components/ui/ThemeToggle.jsx
 import { motion } from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
 import { Sun, Moon, Monitor } from "lucide-react";
@@ -16,7 +15,6 @@ const ThemeToggleMini = () => {
       whileTap={{ scale: 0.95 }}
       aria-label="Toggle theme"
     >
-      {/* Sun */}
       <motion.div 
         className="absolute transform"
         animate={{
@@ -28,7 +26,6 @@ const ThemeToggleMini = () => {
         <div className="w-5 h-5 rounded-full bg-yellow-400"></div>
       </motion.div>
       
-      {/* Moon */}
       <motion.div 
         className="absolute transform"
         animate={{
@@ -41,7 +38,6 @@ const ThemeToggleMini = () => {
         <div className="w-4 h-4 rounded-full bg-gray-200"></div>
       </motion.div>
       
-      {/* Stars */}
       <motion.div 
         className="absolute top-2 left-2"
         animate={{
@@ -92,7 +88,6 @@ const ThemeToggle = ({ className = "" }) => {
 
       <button
         onClick={() => {
-          // Check system preference
           const prefersDark = window.matchMedia(
             "(prefers-color-scheme: dark)"
           ).matches;
@@ -125,7 +120,6 @@ const ThemeToggle = ({ className = "" }) => {
   );
 };
 
-// Attach ThemeToggleMini as a property of ThemeToggle
 ThemeToggle.ThemeToggleMini = ThemeToggleMini;
 
 export default ThemeToggle;

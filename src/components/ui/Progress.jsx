@@ -1,4 +1,3 @@
-// src/components/ui/Progress.jsx
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
@@ -8,7 +7,7 @@ const Progress = ({
   size = "md",
   variant = "primary",
   showValue = false,
-  valuePosition = "right", // right, inside, none
+  valuePosition = "right",
   animate = true,
   striped = false,
   indeterminate = false,
@@ -16,17 +15,13 @@ const Progress = ({
   className = "",
   ...props
 }) => {
-  // Calculate percentage
   const percentage =
     max > 0 ? Math.min(100, Math.max(0, (value / max) * 100)) : 0;
 
-  // State for animated value
   const [animatedValue, setAnimatedValue] = useState(0);
 
-  // Animation effect
   useEffect(() => {
     if (animate) {
-      // Set a small delay to ensure the component is mounted
       const timeout = setTimeout(() => {
         setAnimatedValue(percentage);
       }, 50);
@@ -37,7 +32,6 @@ const Progress = ({
     }
   }, [percentage, animate]);
 
-  // Variant styles for the progress bar
   const variantStyles = {
     primary: "bg-primary-600 dark:bg-primary-500",
     secondary: "bg-secondary-600 dark:bg-secondary-500",
@@ -50,7 +44,6 @@ const Progress = ({
       "bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500",
   };
 
-  // Size styles
   const sizeStyles = {
     xs: "h-1",
     sm: "h-1.5",
@@ -59,7 +52,6 @@ const Progress = ({
     xl: "h-4",
   };
 
-  // Animation variants
   const progressVariants = {
     initial: { width: "0%" },
     animate: {
@@ -71,7 +63,6 @@ const Progress = ({
     },
   };
 
-  // Indeterminate animation
   const indeterminateVariants = {
     initial: {
       x: "-100%",
@@ -87,14 +78,12 @@ const Progress = ({
     },
   };
 
-  // Striped effect styles
   const stripedStyles = striped
     ? "bg-stripes bg-[length:20px_20px] animate-[move-stripes_1s_linear_infinite]"
     : "";
 
   return (
     <div className={`w-full ${className}`} {...props}>
-      {/* Label and value display */}
       {(label || (showValue && valuePosition === "right")) && (
         <div className="flex justify-between items-center mb-1.5">
           {label && (
@@ -111,7 +100,6 @@ const Progress = ({
         </div>
       )}
 
-      {/* Progress container */}
       <div
         className={`w-full bg-gray-200 dark:bg-black rounded-full overflow-hidden ${
           sizeStyles[size] || sizeStyles.md
@@ -136,7 +124,6 @@ const Progress = ({
               animate="animate"
               variants={progressVariants}
             >
-              {/* Value inside the progress bar */}
               {showValue && valuePosition === "inside" && percentage >= 20 && (
                 <span className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-white">
                   {`${Math.round(percentage)}%`}
@@ -147,7 +134,6 @@ const Progress = ({
         )}
       </div>
 
-      {/* Value below the progress bar */}
       {showValue && valuePosition === "below" && (
         <div className="mt-1 text-xs text-gray-500 dark:text-gray-400 text-right">
           {`${Math.round(percentage)}%`}
@@ -157,7 +143,6 @@ const Progress = ({
   );
 };
 
-// Add utility for creating stripe pattern
 const styles = `
 @keyframes move-stripes {
   from {
@@ -182,7 +167,6 @@ const styles = `
 }
 `;
 
-// Add styles to document
 if (typeof document !== "undefined") {
   const styleEl = document.createElement("style");
   styleEl.textContent = styles;

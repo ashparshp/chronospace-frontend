@@ -1,8 +1,6 @@
-// src/components/ui/LoadingScreen.jsx
 import { motion } from "framer-motion";
 
 const LoadingScreen = () => {
-  // Animation variants
   const containerVariants = {
     initial: { opacity: 0 },
     animate: {
@@ -52,7 +50,6 @@ const LoadingScreen = () => {
     },
   };
 
-  // Shadow dots animation
   const shadowDots = Array(5).fill(null);
   const dotVariants = {
     initial: { y: 0 },
@@ -75,7 +72,6 @@ const LoadingScreen = () => {
         initial="initial"
         animate="animate"
       >
-        {/* Gradient circles with pulsing animation */}
         <motion.div
           className="relative w-24 h-24 mb-8"
           variants={circleVariants}
@@ -104,7 +100,6 @@ const LoadingScreen = () => {
           />
         </motion.div>
 
-        {/* Dots animation */}
         <div className="flex space-x-2 justify-center mb-8">
           {shadowDots.map((_, index) => (
             <motion.div
@@ -118,7 +113,6 @@ const LoadingScreen = () => {
           ))}
         </div>
 
-        {/* Loading text */}
         <motion.h2
           className="text-xl font-medium gradient-heading"
           variants={textVariants}

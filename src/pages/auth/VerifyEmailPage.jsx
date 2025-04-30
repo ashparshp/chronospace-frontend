@@ -3,13 +3,12 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { authService } from "../../services/authService";
 import Button from "../../components/ui/Button";
-import Alert from "../../components/ui/Alert";
 import { CheckCircle, XCircle, Loader } from "lucide-react";
 
 const VerifyEmailPage = () => {
   const { token } = useParams();
   const navigate = useNavigate();
-  const [status, setStatus] = useState("loading"); // loading, success, error
+  const [status, setStatus] = useState("loading");
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -21,12 +20,10 @@ const VerifyEmailPage = () => {
       }
 
       try {
-        // Try GET verification first (direct link)
         try {
           await authService.verifyEmailGet(token);
           setStatus("success");
         } catch (getError) {
-          // Fall back to POST if GET fails
           await authService.verifyEmailPost(token);
           setStatus("success");
         }

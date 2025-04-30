@@ -1,4 +1,3 @@
-// src/pages/auth/SignInPage.jsx
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";

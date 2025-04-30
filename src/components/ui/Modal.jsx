@@ -1,4 +1,3 @@
-// src/components/ui/Modal.jsx
 import { Fragment, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
@@ -15,7 +14,6 @@ const Modal = ({
   disableAnimation = false,
   ...props
 }) => {
-  // Close on ESC key press
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape" && isOpen) {
@@ -26,14 +24,12 @@ const Modal = ({
     return () => window.removeEventListener("keydown", handleEsc);
   }, [isOpen, onClose]);
 
-  // Handle outside click
   const handleBackdropClick = (e) => {
     if (closeOnOutsideClick && e.target === e.currentTarget) {
       onClose();
     }
   };
 
-  // Define size styles
   const sizeStyles = {
     xs: "max-w-xs",
     sm: "max-w-md",
@@ -46,7 +42,6 @@ const Modal = ({
     full: "max-w-full mx-4",
   };
 
-  // Animation variants
   const backdropVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.2 } },
@@ -81,7 +76,6 @@ const Modal = ({
     <AnimatePresence>
       {isOpen && (
         <Fragment>
-          {/* Backdrop with blur effect */}
           <motion.div
             className="fixed inset-0 bg-black backdrop-blur-sm z-40"
             onClick={handleBackdropClick}
@@ -91,7 +85,6 @@ const Modal = ({
             variants={disableAnimation ? {} : backdropVariants}
           />
 
-          {/* Modal */}
           <div
             className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-0 overflow-y-auto"
             onClick={handleBackdropClick}
@@ -107,7 +100,6 @@ const Modal = ({
               {...props}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header */}
               {title && (
                 <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-black/50">
                   <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
@@ -127,7 +119,6 @@ const Modal = ({
                 </div>
               )}
 
-              {/* Body */}
               <div className="px-6 py-4 max-h-[70vh] overflow-y-auto scrollbar-thin">
                 {children}
               </div>

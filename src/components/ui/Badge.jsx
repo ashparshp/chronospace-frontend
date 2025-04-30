@@ -1,4 +1,3 @@
-// src/components/ui/Badge.jsx
 import { motion } from "framer-motion";
 
 const Badge = ({
@@ -10,7 +9,6 @@ const Badge = ({
   dot = false,
   ...props
 }) => {
-  // Define variant styles
   const variantStyles = {
     primary: {
       bg: "bg-primary-100 dark:bg-primary-900/30",
@@ -59,10 +57,8 @@ const Badge = ({
     },
   };
 
-  // Get selected style or fallback to primary
   const style = variantStyles[variant] || variantStyles.primary;
 
-  // Define size styles
   const sizeStyles = {
     xs: "px-1.5 py-0.5 text-xs",
     sm: "px-2 py-0.5 text-xs",
@@ -70,10 +66,8 @@ const Badge = ({
     lg: "px-3 py-1 text-base",
   };
 
-  // Decide whether to use motion.span or regular span
   const Component = animate ? motion.span : "span";
 
-  // Animation props (only applied when animate is true)
   const animationProps = animate
     ? {
         initial: { opacity: 0, scale: 0.8 },

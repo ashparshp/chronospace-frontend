@@ -1,4 +1,3 @@
-// src/components/ui/Avatar.jsx
 import { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -14,12 +13,10 @@ const Avatar = ({
 }) => {
   const [imageError, setImageError] = useState(false);
 
-  // Handle image loading error
   const handleError = () => {
     setImageError(true);
   };
 
-  // Define size styles
   const sizeStyles = {
     xs: "w-6 h-6 text-xs",
     sm: "w-8 h-8 text-xs",
@@ -30,7 +27,6 @@ const Avatar = ({
     "3xl": "w-24 h-24 text-2xl",
   };
 
-  // Status styles (online, away, busy, offline)
   const statusStyles = {
     online: "bg-green-500",
     away: "bg-yellow-500",
@@ -38,7 +34,6 @@ const Avatar = ({
     offline: "bg-gray-500",
   };
 
-  // Status size based on avatar size
   const statusSizeStyles = {
     xs: "w-1.5 h-1.5",
     sm: "w-2 h-2",
@@ -49,7 +44,6 @@ const Avatar = ({
     "3xl": "w-5 h-5",
   };
 
-  // Get initials from the alt text
   const initials = alt
     ? alt
         .split(" ")
@@ -59,7 +53,6 @@ const Avatar = ({
         .substring(0, 2)
     : "U";
 
-  // Generate a consistent color based on the name
   const getAvatarColor = (name) => {
     const colors = [
       "bg-primary-500",
@@ -77,23 +70,18 @@ const Avatar = ({
 
     if (!name) return colors[0];
 
-    // Simple hash function
     let hash = 0;
     for (let i = 0; i < name.length; i++) {
       hash = name.charCodeAt(i) + ((hash << 5) - hash);
     }
 
-    // Use hash to pick a color
     return colors[Math.abs(hash) % colors.length];
   };
 
-  // Get color based on name
   const avatarColor = getAvatarColor(alt);
 
-  // Component with conditional motion
   const Component = animate ? motion.div : "div";
 
-  // Animation props
   const animationProps = animate
     ? {
         whileHover: { scale: 1.05 },
@@ -106,7 +94,6 @@ const Avatar = ({
     sizeStyles[size] || sizeStyles.md
   } ${onClick ? "cursor-pointer" : ""} ${className}`;
 
-  // Render initials avatar if no image or error loading image
   if (!src || imageError) {
     return (
       <Component
@@ -127,7 +114,6 @@ const Avatar = ({
     );
   }
 
-  // Render image avatar
   return (
     <Component
       className={baseClassName}

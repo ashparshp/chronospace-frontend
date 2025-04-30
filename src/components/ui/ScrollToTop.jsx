@@ -1,4 +1,3 @@
-// src/components/ui/ScrollToTop.jsx
 import { useState, useEffect } from "react";
 import { ChevronUp } from "lucide-react";
 import { useLocation } from "react-router-dom";
@@ -8,7 +7,6 @@ const ScrollToTop = ({ threshold = 400, className = "", offset = 8 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const { pathname } = useLocation();
 
-  // Show button when page is scrolled down
   const toggleVisibility = () => {
     if (window.pageYOffset > threshold) {
       setIsVisible(true);
@@ -17,7 +15,6 @@ const ScrollToTop = ({ threshold = 400, className = "", offset = 8 }) => {
     }
   };
 
-  // Set scroll to top
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -25,7 +22,6 @@ const ScrollToTop = ({ threshold = 400, className = "", offset = 8 }) => {
     });
   };
 
-  // Reset scroll position on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);

@@ -1,4 +1,3 @@
-// src/context/NotificationContext.js
 import { createContext, useState, useEffect, useContext } from "react";
 import { useAuth } from "./AuthContext";
 import { notificationService } from "../services/notificationService";
@@ -15,7 +14,6 @@ export const NotificationProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const { currentUser } = useAuth();
 
-  // Check for new notifications when user is logged in
   useEffect(() => {
     if (!currentUser) {
       setHasNewNotifications(false);
@@ -35,13 +33,11 @@ export const NotificationProvider = ({ children }) => {
       }
     };
 
-    // Check immediately and then at 2-minute intervals
     checkNewNotifications();
     const intervalId = setInterval(checkNewNotifications, 2 * 60 * 1000);
     return () => clearInterval(intervalId);
   }, [currentUser]);
 
-  // Fetch notifications (paginated)
   const fetchNotifications = async (page = 1, filter = "all", limit = 10) => {
     if (!currentUser) return [];
     try {
@@ -59,10 +55,8 @@ export const NotificationProvider = ({ children }) => {
           ...response.data.notifications,
         ]);
       }
-      // Count total notifications
       const countResponse = await notificationService.countNotifications(filter);
       setTotalNotifications(countResponse.data.totalDocs);
-      // Reset new notifications flag after fetching
       setHasNewNotifications(false);
       return response.data.notifications;
     } catch (error) {
@@ -78,14 +72,12 @@ export const NotificationProvider = ({ children }) => {
     }
   };
 
-  // Automatically fetch notifications when user logs in
   useEffect(() => {
     if (currentUser) {
       fetchNotifications(1, "all", 10);
     }
   }, [currentUser]);
 
-  // Mark all notifications as read
   const markAllAsRead = async () => {
     if (!currentUser) return;
     try {
@@ -94,14 +86,12 @@ export const NotificationProvider = ({ children }) => {
         prev.map((notification) => ({ ...notification, seen: true }))
       );
       setHasNewNotifications(false);
-      // Re-fetch to sync with server state
       await fetchNotifications(1, "all", 10);
     } catch (error) {
       console.error("Error marking notifications as read:", error);
     }
   };
 
-  // Mark a specific notification as read
   const markAsRead = async (notificationId) => {
     if (!currentUser) return;
     setNotifications((prev) =>
@@ -113,7 +103,6 @@ export const NotificationProvider = ({ children }) => {
     );
   };
 
-  // Delete a notification
   const deleteNotification = async (notificationId) => {
     if (!currentUser) return;
     try {
@@ -127,7 +116,6 @@ export const NotificationProvider = ({ children }) => {
     }
   };
 
-  // Show toast notifications
   const showToast = (message, type = "success") => {
     if (type === "success") {
       toast.success(message);

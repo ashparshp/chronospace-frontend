@@ -1,4 +1,3 @@
-// src/pages/user/SettingsPage.jsx
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";

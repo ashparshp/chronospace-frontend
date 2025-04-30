@@ -1,7 +1,5 @@
-// src/components/ui/AnimatedElement.jsx
 import { motion } from "framer-motion";
 
-// Animation presets
 const animations = {
   fadeIn: {
     initial: { opacity: 0 },
@@ -91,32 +89,27 @@ const animations = {
   },
 };
 
-// Default transition
 const defaultTransition = {
   duration: 0.4,
   ease: "easeOut",
 };
 
-// Component for animated elements
 const AnimatedElement = ({
   children,
-  animation = "fadeIn", // Animation preset name
-  duration, // Override duration
-  delay = 0, // Delay before animation starts
-  ease, // Override easing function
-  once = false, // Animation happens only once when in view
-  amount = 0.2, // How much of element needs to be in view
-  transition, // Override entire transition object
-  as = "div", // HTML element or component to render
-  whileHover, // Hover animation
-  whileTap, // Tap/click animation
+  animation = "fadeIn",
+  duration,
+  delay = 0,
+  ease,
+  once = false,
+  amount = 0.2,
+  transition,
+  as = "div",
+  whileHover,
+  whileTap,
   className = "",
   ...props
 }) => {
-  // Get selected animation preset
   const selectedAnimation = animations[animation] || animations.fadeIn;
-
-  // Create transition with overrides
   const animationTransition = {
     ...defaultTransition,
     delay,
@@ -125,7 +118,6 @@ const AnimatedElement = ({
     ...(transition || {}),
   };
 
-  // Create final variants with transition applied
   const variants = {
     ...selectedAnimation,
     animate: {
@@ -137,7 +129,7 @@ const AnimatedElement = ({
           ...selectedAnimation.exit,
           transition: {
             ...animationTransition,
-            delay: 0, // No delay on exit animations
+            delay: 0,
           },
         }
       : undefined,

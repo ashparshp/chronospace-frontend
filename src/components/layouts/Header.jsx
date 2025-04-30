@@ -1,4 +1,3 @@
-// src/components/layouts/Header.jsx
 import { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";

@@ -1,4 +1,3 @@
-// src/components/notifications/NotificationDropdown.jsx
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +19,6 @@ const NotificationDropdown = ({
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
-  // Calculate unread count – fallback to the new notifications flag if list is empty
   const unreadCount =
     notifications.length > 0
       ? notifications.filter((n) => !n.seen).length
@@ -28,7 +26,6 @@ const NotificationDropdown = ({
       ? 1
       : 0;
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -44,7 +41,6 @@ const NotificationDropdown = ({
       document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Fetch notifications when dropdown opens
   useEffect(() => {
     if (isOpen && fetchNotifications) {
       fetchNotifications();
@@ -60,7 +56,6 @@ const NotificationDropdown = ({
   };
 
   const handleNotificationClick = (notification) => {
-    // Mark as read if not already (using 'seen')
     if (!notification.seen && onMarkAsRead) {
       onMarkAsRead(notification._id);
     }

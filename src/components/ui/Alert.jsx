@@ -1,4 +1,3 @@
-// src/components/ui/Alert.jsx
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -10,7 +9,6 @@ const Alert = ({
   className = "",
   ...props
 }) => {
-  // Define variant styles
   const variantStyles = {
     info: "bg-blue-50 text-blue-800 dark:bg-indigo-900/50 dark:text-blue-300",
     success:
@@ -20,7 +18,6 @@ const Alert = ({
     error: "bg-red-50 text-red-800 dark:bg-red-900/50 dark:text-red-300",
   };
 
-  // Define icon for each variant
   const variantIcon = {
     info: (
       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">

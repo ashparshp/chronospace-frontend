@@ -1,4 +1,3 @@
-// src/components/blog/BlogDetailsSkeleton.jsx
 import { motion } from "framer-motion";
 
 const BlogDetailsSkeleton = () => {

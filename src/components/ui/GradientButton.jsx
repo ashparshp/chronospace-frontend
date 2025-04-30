@@ -1,4 +1,3 @@
-// src/components/ui/GradientButton.jsx
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -20,11 +19,9 @@ const GradientButton = ({
   iconPosition = "left",
   ...props
 }) => {
-  // Define base styles
   const baseStyles =
     "inline-flex items-center justify-center font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500/50";
 
-  // Define size styles
   const sizeStyles = {
     xs: "px-2 py-1 text-xs",
     sm: "px-3 py-1.5 text-sm",
@@ -33,10 +30,8 @@ const GradientButton = ({
     xl: "px-8 py-4 text-xl",
   };
 
-  // Build the gradient styles
   const gradientStyles = `bg-gradient-to-r ${gradientFrom} ${gradientTo} ${hoverFrom} ${hoverTo} ${textColor}`;
 
-  // Combine all styles
   const buttonStyles = `
     ${baseStyles}
     ${gradientStyles}
@@ -45,7 +40,6 @@ const GradientButton = ({
     ${className}
   `;
 
-  // Loading spinner component
   const LoadingSpinner = () => (
     <svg
       className="animate-spin -ml-1 mr-2 h-4 w-4 text-current"
@@ -69,7 +63,6 @@ const GradientButton = ({
     </svg>
   );
 
-  // Button content
   const buttonContent = (
     <>
       {isLoading && <LoadingSpinner />}
@@ -83,7 +76,6 @@ const GradientButton = ({
     </>
   );
 
-  // Animation props
   const animationProps =
     !disabled && !isLoading
       ? {
@@ -93,7 +85,6 @@ const GradientButton = ({
         }
       : {};
 
-  // If href is provided, render a Link component
   if (href) {
     return (
       <motion.div {...animationProps}>
@@ -104,7 +95,6 @@ const GradientButton = ({
     );
   }
 
-  // Otherwise, render a button
   return (
     <motion.button
       type={type}

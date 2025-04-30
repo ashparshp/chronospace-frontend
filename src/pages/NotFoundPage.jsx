@@ -1,4 +1,3 @@
-// src/pages/NotFoundPage.jsx
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -7,7 +6,6 @@ import Button from "../components/ui/Button";
 const NotFoundPage = () => {
   const navigate = useNavigate();
 
-  // Auto-redirect after 10 seconds
   useEffect(() => {
     const redirectTimer = setTimeout(() => {
       navigate("/", { replace: true });
@@ -16,7 +14,6 @@ const NotFoundPage = () => {
     return () => clearTimeout(redirectTimer);
   }, [navigate]);
 
-  // SVG animation variants
   const svgVariants = {
     hidden: { opacity: 0, y: -20 },
     visible: {
