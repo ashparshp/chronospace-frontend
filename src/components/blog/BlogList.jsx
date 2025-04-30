@@ -1,4 +1,3 @@
-// src/components/blog/BlogList.jsx
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Loader } from "lucide-react";
@@ -17,9 +16,9 @@ const BlogList = ({
   emptyActionText,
   emptyActionLink,
   emptyActionClick,
-  layout = "grid", // grid, list, featured
+  layout = "grid",
   className = "",
-  blogCardVariant = "default", // default, gradient, minimal, featured
+  blogCardVariant = "default",
 }) => {
   const [renderedBlogs, setRenderedBlogs] = useState([]);
   const [visibleCount, setVisibleCount] = useState(0);

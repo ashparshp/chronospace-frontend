@@ -1,4 +1,3 @@
-// src/components/ui/Button.jsx
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -14,55 +13,90 @@ const Button = ({
   onClick,
   icon,
   iconPosition = "left",
+  glossy = false,
+  shadowDepth = "normal",
+  rounded = true,
+  equalWidth = false,
   ...props
 }) => {
-  // Define base styles
   const baseStyles =
-    "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2";
+    "inline-flex items-center justify-center font-medium transition-all duration-300 focus:outline-none box-border border border-transparent";
 
-  // Define variant styles
   const variantStyles = {
     primary:
-      "bg-gradient-to-r from-primary to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white shadow-md hover:shadow-lg focus:ring-primary-500/50",
+      "bg-gradient-to-r from-primary to-primary-700 hover:from-primary-600 hover:to-primary-800 text-white shadow-[0_4px_0_theme(colors.primary.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.primary.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-primary-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.primary.800),0_2px_5px_rgba(0,0,0,0.1)]",
     secondary:
-      "bg-gradient-to-r from-secondary to-secondary-600 hover:from-secondary-600 hover:to-secondary-700 text-white shadow-md hover:shadow-lg focus:ring-secondary-500/50",
+      "bg-gradient-to-r from-secondary to-secondary-600 hover:from-secondary-500 hover:to-secondary-700 text-white shadow-[0_4px_0_theme(colors.secondary.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.secondary.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-secondary-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.secondary.800),0_2px_5px_rgba(0,0,0,0.1)]",
     accent:
-      "bg-gradient-to-r from-accent to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white shadow-md hover:shadow-lg focus:ring-accent-500/50",
+      "bg-gradient-to-r from-accent to-accent-600 hover:from-accent-500 hover:to-accent-700 text-white shadow-[0_4px_0_theme(colors.accent.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.accent.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-accent-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.accent.800),0_2px_5px_rgba(0,0,0,0.1)]",
     outline:
-      "border border-primary text-primary dark:text-white hover:bg-primary-50 dark:hover:bg-primary-900/30 hover:border-primary-600 dark:hover:border-primary-400 focus:ring-primary-500/50",
+      "border-2 border-primary text-primary dark:text-white hover:bg-primary-50 dark:hover:bg-primary-900/30 hover:border-primary-600 dark:hover:border-primary-400 shadow-[0_2px_3px_rgba(0,0,0,0.05)] hover:shadow-[0_3px_5px_rgba(0,0,0,0.1)] focus:ring-2 focus:ring-primary-500/50 active:translate-y-0.5 active:shadow-none",
     ghost:
-      "text-primary hover:bg-primary-50 dark:hover:bg-primary-900/30 focus:ring-primary-500/50",
+      "text-primary hover:bg-primary-50 dark:hover:bg-primary-900/30 focus:ring-2 focus:ring-primary-500/50 active:scale-95",
     danger:
-      "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white shadow-md hover:shadow-lg focus:ring-red-500/50",
+      "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-400 hover:to-red-700 text-white shadow-[0_4px_0_theme(colors.red.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.red.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-red-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.red.800),0_2px_5px_rgba(0,0,0,0.1)]",
     success:
-      "bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-md hover:shadow-lg focus:ring-green-500/50",
+      "bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-700 text-white shadow-[0_4px_0_theme(colors.green.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.green.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-green-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.green.800),0_2px_5px_rgba(0,0,0,0.1)]",
     gradient:
-      "bg-gradient-to-r from-primary-600 via-accent-600 to-secondary-600 hover:from-primary-700 hover:via-accent-700 hover:to-secondary-700 text-white shadow-md hover:shadow-lg focus:ring-primary-500/50",
+      "bg-gradient-to-r from-primary-600 via-accent-600 to-secondary-600 hover:from-primary-500 hover:via-accent-500 hover:to-secondary-500 text-white shadow-[0_4px_0_theme(colors.secondary.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.secondary.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-primary-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.secondary.800),0_2px_5px_rgba(0,0,0,0.1)]",
+    transparent:
+      "bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10 text-gray-800 dark:text-white shadow-sm hover:bg-white/20 dark:hover:bg-white/10 focus:ring-2 focus:ring-white/30 active:translate-y-0.5 active:shadow-none",
+
+    white:
+      "bg-white hover:bg-gray-50 text-gray-900 shadow-[0_4px_0_theme(colors.gray.200),0_6px_10px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_0_theme(colors.gray.200),0_8px_15px_rgba(0,0,0,0.15)] focus:ring-2 focus:ring-gray-200 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.gray.200),0_2px_5px_rgba(0,0,0,0.05)]",
+
+    orange:
+      "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-700 text-white shadow-[0_4px_0_theme(colors.orange.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.orange.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-orange-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.orange.800),0_2px_5px_rgba(0,0,0,0.1)]",
+
+    black:
+      "bg-gray-900 hover:bg-black text-white shadow-[0_4px_0_theme(colors.gray.950),0_6px_10px_rgba(0,0,0,0.3)] hover:shadow-[0_6px_0_theme(colors.gray.950),0_8px_15px_rgba(0,0,0,0.4)] focus:ring-2 focus:ring-gray-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.gray.950),0_2px_5px_rgba(0,0,0,0.2)]",
   };
 
-  // Define size styles
+  // Consistent size styles with identical padding
   const sizeStyles = {
-    xs: "px-2 py-1 text-xs",
-    sm: "px-3 py-1.5 text-sm",
-    md: "px-4 py-2",
-    lg: "px-6 py-3 text-lg",
-    xl: "px-8 py-4 text-xl",
+    xs: "px-2 py-1 text-xs min-h-[1.75rem]",
+    sm: "px-3 py-1.5 text-sm min-h-[2.25rem]",
+    md: "px-4 py-2 text-base min-h-[2.5rem]",
+    lg: "px-6 py-3 text-lg min-h-[3.125rem]",
+    xl: "px-8 py-4 text-xl min-h-[3.75rem]",
   };
 
-  // Combine styles
+  const shadowDepthStyles = {
+    shallow: "shadow-sm hover:shadow-md",
+    normal: "",
+    deep: "shadow-lg hover:shadow-xl",
+  };
+
+  const roundedStyles = rounded ? "rounded-lg" : "rounded-none";
+
+  // Adjust glossy style to respect rounded corners setting
+  const glossyStyle = glossy
+    ? `before:absolute before:inset-0 before:bg-gradient-to-b before:from-white/20 before:to-transparent ${
+        rounded ? "before:rounded-lg" : ""
+      } before:pointer-events-none`
+    : "";
+
+  const stateStyles =
+    disabled || isLoading
+      ? "opacity-50 cursor-not-allowed shadow-none hover:shadow-none active:transform-none"
+      : "";
+
+  // Equal width style for button groups
+  const equalWidthStyle = equalWidth ? "w-full md:w-auto md:min-w-[160px]" : "";
+
   const buttonStyles = `
     ${baseStyles}
     ${variantStyles[variant] || variantStyles.primary}
     ${sizeStyles[size] || sizeStyles.md}
-    ${
-      disabled || isLoading
-        ? "opacity-50 cursor-not-allowed"
-        : "transform hover:-translate-y-0.5 active:translate-y-0"
-    }
+    ${shadowDepthStyles[shadowDepth] || ""}
+    ${roundedStyles}
+    ${glossyStyle}
+    ${stateStyles}
+    ${equalWidthStyle}
+    relative overflow-hidden
     ${className}
   `;
 
-  // Loading spinner component
   const LoadingSpinner = () => (
     <svg
       className="animate-spin -ml-1 mr-2 h-4 w-4 text-current"
@@ -86,7 +120,6 @@ const Button = ({
     </svg>
   );
 
-  // Button content
   const buttonContent = (
     <>
       {isLoading && <LoadingSpinner />}
@@ -100,13 +133,17 @@ const Button = ({
     </>
   );
 
-  // If href is provided, render a Link component
+  const motionSettings =
+    !disabled && !isLoading
+      ? {
+          whileHover: { scale: 1.02 },
+          whileTap: { scale: 0.98 },
+        }
+      : {};
+
   if (href) {
     return (
-      <motion.div
-        whileHover={!disabled && !isLoading ? { scale: 1.05 } : {}}
-        whileTap={!disabled && !isLoading ? { scale: 0.95 } : {}}
-      >
+      <motion.div {...motionSettings}>
         <Link to={href} className={buttonStyles} {...props}>
           {buttonContent}
         </Link>
@@ -114,15 +151,13 @@ const Button = ({
     );
   }
 
-  // Otherwise, render a button
   return (
     <motion.button
       type={type}
       className={buttonStyles}
       disabled={disabled || isLoading}
       onClick={onClick}
-      whileHover={!disabled && !isLoading ? { scale: 1.05 } : {}}
-      whileTap={!disabled && !isLoading ? { scale: 0.95 } : {}}
+      {...motionSettings}
       {...props}
     >
       {buttonContent}

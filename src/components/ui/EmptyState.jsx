@@ -1,7 +1,6 @@
-// src/components/ui/EmptyState.jsx
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Button from "./Button";
+import { useState, useEffect } from "react";
 
 const EmptyState = ({
   title,
@@ -17,7 +16,6 @@ const EmptyState = ({
   className = "",
   ...props
 }) => {
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -38,6 +36,16 @@ const EmptyState = ({
     },
   };
 
+  const [isLoading, setIsLoading] = useState(true);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    
+    return () => clearTimeout(timer);
+  }, []);
+  
   return (
     <motion.div
       className={`flex flex-col items-center justify-center py-12 px-4 text-center ${className}`}
@@ -46,81 +54,89 @@ const EmptyState = ({
       animate="visible"
       {...props}
     >
-      {icon && (
-        <motion.div
-          className="text-gray-400 dark:text-gray-500 mb-6"
-          variants={itemVariants}
-        >
-          {icon}
+      {isLoading ? (
+        <motion.div className="flex items-center justify-center" variants={itemVariants}>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
         </motion.div>
-      )}
+      ) : (
+        <>
+          {icon && (
+            <motion.div
+              className="text-gray-400 dark:text-gray-500 mb-6"
+              variants={itemVariants}
+            >
+              {icon}
+            </motion.div>
+          )}
 
-      {image && (
-        <motion.div className="mb-6 max-w-xs" variants={itemVariants}>
-          <img
-            src={image}
-            alt={title || "Empty state illustration"}
-            className="w-full h-auto"
-          />
-        </motion.div>
-      )}
+          {image && (
+            <motion.div className="mb-6 max-w-xs" variants={itemVariants}>
+              <img
+                src={image}
+                alt={title || "Empty state illustration"}
+                className="w-full h-auto"
+              />
+            </motion.div>
+          )}
 
-      {title && (
-        <motion.h3
-          className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2"
-          variants={itemVariants}
-        >
-          {title}
-        </motion.h3>
-      )}
+          {title && (
+            <motion.h3
+              className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2"
+              variants={itemVariants}
+            >
+              {title}
+            </motion.h3>
+          )}
 
-      {description && (
-        <motion.p
-          className="text-gray-600 dark:text-gray-400 mb-8 max-w-md"
-          variants={itemVariants}
-        >
-          {description}
-        </motion.p>
-      )}
+          {description && (
+            <motion.p
+              className="text-gray-600 dark:text-gray-400 mb-8 max-w-md"
+              variants={itemVariants}
+            >
+              {description}
+            </motion.p>
+          )}
 
-      <motion.div
-        className="flex flex-col sm:flex-row gap-3"
-        variants={itemVariants}
-      >
-        {actionText && actionLink && (
-          <Button href={actionLink} variant="primary" size="md" animate>
-            {actionText}
-          </Button>
-        )}
-
-        {actionText && actionClick && (
-          <Button onClick={actionClick} variant="primary" size="md" animate>
-            {actionText}
-          </Button>
-        )}
-
-        {secondaryActionText && secondaryActionLink && (
-          <Button
-            href={secondaryActionLink}
-            variant="outline"
-            size="md"
-            animate
+          <motion.div
+            className="flex flex-col sm:flex-row gap-3"
+            variants={itemVariants}
           >
-            {secondaryActionText}
-          </Button>
-        )}
+            {actionText && actionLink && (
+              <Button href={actionLink} variant="primary" size="md" animate>
+                {actionText}
+              </Button>
+            )}
 
-        {secondaryActionText && secondaryActionClick && (
-          <Button
-            onClick={secondaryActionClick}
-            variant="outline"
-            size="md"
-            animate
-          >
-            {secondaryActionText}
-          </Button>
-        )}
-      </motion.div>
+            {actionText && actionClick && (
+              <Button onClick={actionClick} variant="primary" size="md" animate>
+                {actionText}
+              </Button>
+            )}
+
+            {secondaryActionText && secondaryActionLink && (
+              <Button
+                href={secondaryActionLink}
+                variant="outline"
+                size="md"
+                animate
+              >
+                {secondaryActionText}
+              </Button>
+            )}
+
+            {secondaryActionText && secondaryActionClick && (
+              <Button
+                onClick={secondaryActionClick}
+                variant="outline"
+                size="md"
+                animate
+              >
+                {secondaryActionText}
+              </Button>
+            )}
+          </motion.div>
+        </>
+      )}
     </motion.div>
   );
 };

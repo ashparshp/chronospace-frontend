@@ -137,55 +137,27 @@ const HomePage = () => {
               </div>
             ) : (
               <div className="rounded-2xl overflow-hidden shadow-lg">
-                <div className="bg-gradient-to-r from-primary-600 to-secondary-600 rounded-2xl p-8 md:p-12 text-white text-center relative overflow-hidden">
-                  {/* Enhanced background pattern */}
-                  <div className="absolute inset-0 opacity-10">
-                    <svg
-                      className="w-full h-full"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <pattern
-                        id="pattern-circles"
-                        x="0"
-                        y="0"
-                        width="40"
-                        height="40"
-                        patternUnits="userSpaceOnUse"
-                        patternContentUnits="userSpaceOnUse"
-                      >
-                        <circle
-                          id="pattern-circle"
-                          cx="10"
-                          cy="10"
-                          r="1.6257413380501518"
-                          fill="#fff"
-                        ></circle>
-                      </pattern>
-                      <rect
-                        id="rect"
-                        x="0"
-                        y="0"
-                        width="100%"
-                        height="100%"
-                        fill="url(#pattern-circles)"
-                      ></rect>
-                    </svg>
-                  </div>
+                <div className="bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
+                  {/* No dot pattern background - removed as requested */}
 
                   <div className="relative z-10 max-w-3xl mx-auto">
                     <motion.h1
-                      className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 tracking-tight"
+                      className="font-playfair text-4xl sm:text-5xl md:text-6xl font-bold mb-6 tracking-tight leading-tight"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6 }}
                     >
                       Welcome to{" "}
-                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-200">
-                        ChronoSpace
+                      <span className="relative inline-block">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                          ChronoSpace
+                        </span>
+                        <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 rounded-full transform scale-x-0 animate-[expandWidth_1s_ease-in-out_forwards_0.8s]"></span>
                       </span>
                     </motion.h1>
+
                     <motion.p
-                      className="text-lg sm:text-xl mb-8 max-w-2xl mx-auto opacity-90 leading-relaxed"
+                      className="font-montserrat text-lg sm:text-xl mb-8 max-w-2xl mx-auto leading-relaxed italic text-gray-700 dark:text-gray-300"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.1 }}
@@ -194,6 +166,7 @@ const HomePage = () => {
                       articles, share your thoughts, and connect with a
                       community of passionate writers.
                     </motion.p>
+
                     <motion.div
                       className="flex flex-col sm:flex-row justify-center gap-4"
                       initial={{ opacity: 0, y: 20 }}
@@ -201,30 +174,37 @@ const HomePage = () => {
                       transition={{ duration: 0.6, delay: 0.2 }}
                     >
                       <Button
-                        variant="accent"
+                        variant="white"
                         size="lg"
                         href="/search"
-                        className="bg-white text-primary-600 hover:bg-gray-100 hover:shadow-lg transition-all duration-300 shadow-md"
                         icon={<Search className="h-5 w-5" />}
                         iconPosition="left"
+                        glossy={true}
+                        shadowDepth=""
+                        className="text-primary-600 "
                       >
                         Explore Blogs
                       </Button>
+
                       {!currentUser ? (
                         <Button
-                          variant="outline"
+                          variant="transparent"
                           size="lg"
                           href="/signup"
-                          className="border-white text-white hover:bg-white/20 transition-all duration-300"
+                          glossy={true}
+                          shadowDepth="deep"
+                          className="text-white border-white/30"
                         >
                           Join ChronoSpace
                         </Button>
                       ) : (
                         <Button
-                          variant="outline"
+                          variant="orange"
                           size="lg"
                           href="/dashboard"
-                          className="border-white text-white hover:bg-white/20 transition-all duration-300"
+                          glossy={true}
+                          shadowDepth=""
+                          className="text-white hover:bg-orange-500"
                         >
                           Your Dashboard
                         </Button>
@@ -234,7 +214,7 @@ const HomePage = () => {
 
                   {/* Enhanced decorative elements */}
                   <motion.div
-                    className="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"
+                    className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-violet-500/20 to-indigo-500/20 dark:from-violet-500/10 dark:to-indigo-500/10 rounded-full blur-2xl"
                     animate={{
                       scale: [1, 1.2, 1],
                       opacity: [0.5, 0.7, 0.5],
@@ -246,7 +226,7 @@ const HomePage = () => {
                     }}
                   ></motion.div>
                   <motion.div
-                    className="absolute bottom-10 right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"
+                    className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-r from-indigo-500/20 to-violet-500/20 dark:from-indigo-500/10 dark:to-violet-500/10 rounded-full blur-3xl"
                     animate={{
                       scale: [1, 1.3, 1],
                       opacity: [0.4, 0.6, 0.4],
@@ -330,10 +310,12 @@ const HomePage = () => {
                   <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-400 dark:to-secondary-400">
                     Latest Posts
                   </h2>
+                  {/* Updated view all button with ghost variant */}
                   <Button
                     variant="ghost"
                     href="/search"
                     className="text-primary-600 dark:text-primary-400 group flex items-center"
+                    shadowDepth="shallow"
                   >
                     View All
                     <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
@@ -533,22 +515,17 @@ const HomePage = () => {
                       community. Apply to become a blogger today!
                     </p>
 
-                    <motion.div
-                      whileHover={{
-                        scale: 1.05,
-                        transition: { duration: 0.2 },
-                      }}
-                      whileTap={{ scale: 0.95 }}
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      href="/search"
+                      icon={<Search className="h-5 w-5" />}
+                      iconPosition="left"
+                      glossy={true}
+                      shadowDepth=""
                     >
-                      <Button
-                        variant="accent"
-                        className="w-full bg-white text-primary-600 hover:bg-gray-100 shadow-lg"
-                        href="/dashboard?tab=blogger-application"
-                      >
-                        <span>Apply Now</span>
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                      </Button>
-                    </motion.div>
+                      Explore Blogs
+                    </Button>
                   </div>
                 </div>
               </PageTransition.Item>

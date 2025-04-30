@@ -59,6 +59,12 @@ export default {
           light: "#111827",
           dark: "#F8FAFC",
         },
+        // Add violet colors for our gradient
+        violet: {
+          400: "#a78bfa",
+          500: "#8b5cf6",
+          600: "#7c3aed",
+        },
       },
       fontFamily: {
         sans: [
@@ -71,6 +77,9 @@ export default {
         serif: ["Gelasio", "ui-serif", "Georgia", "serif"],
         mono: ["Fira Code", "ui-monospace", "SFMono-Regular", "monospace"],
         display: ["Montserrat", "ui-sans-serif", "system-ui", "sans-serif"],
+        // Add new font families
+        playfair: ['"Playfair Display"', "serif"],
+        montserrat: ["Montserrat", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       boxShadow: {
         custom: "0 4px 14px 0 rgba(0, 0, 0, 0.1)",
@@ -86,6 +95,8 @@ export default {
         "slide-down": "slideDown 0.5s ease-out",
         "fade-in": "fadeIn 0.5s ease-out",
         "fade-out": "fadeOut 0.5s ease-out",
+        // Add new animation for expanding underline
+        "expand-width": "expandWidth 1s ease-in-out forwards",
       },
       keyframes: {
         float: {
@@ -108,6 +119,11 @@ export default {
           "0%": { opacity: 1 },
           "100%": { opacity: 0 },
         },
+        // Add new keyframe for expanding underline
+        expandWidth: {
+          "0%": { transform: "scaleX(0)" },
+          "100%": { transform: "scaleX(1)" },
+        },
       },
       typography: {
         DEFAULT: {
@@ -122,6 +138,7 @@ export default {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "gradient-primary": "linear-gradient(to right, #4F46E5, #06B6D4)",
         "gradient-secondary": "linear-gradient(to right, #06B6D4, #10B981)",
+        "gradient-violet-indigo": "linear-gradient(to right, #8b5cf6, #6366f1)",
       },
     },
   },
