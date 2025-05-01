@@ -10,7 +10,7 @@ import AuthLayout from "../../components/layouts/AuthLayout";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import Alert from "../../components/ui/Alert";
-import { Eye, EyeOff, User, Mail, Lock, Check } from "lucide-react";
+import { Eye, EyeOff, User, Mail, Lock, Check, ArrowRight } from "lucide-react";
 import { VALIDATION } from "../../config/constants";
 
 // Form validation schema
@@ -103,15 +103,33 @@ const SignUpPage = () => {
 
   // Custom side content for the auth layout
   const sideContent = (
-    <div className="space-y-6">
-      <h2 className="text-3xl font-bold">Join ChronoSpace</h2>
-      <p className="text-lg opacity-90">
+    <div className="space-y-6 text-gray-50">
+      <motion.h2
+        className="text-3xl font-bold font-playfair"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        Join ChronoSpace
+      </motion.h2>
+
+      <motion.p
+        className="text-lg opacity-90 font-montserrat leading-relaxed"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
         Create an account to unlock the full potential of ChronoSpace. Share
         your thoughts, follow your favorite writers, and become part of our
         growing community.
-      </p>
+      </motion.p>
 
-      <div className="space-y-6 pt-4">
+      <motion.div
+        className="space-y-6 pt-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
         <div className="flex items-start">
           <div className="flex-shrink-0 h-6 w-6 bg-white/20 rounded-full flex items-center justify-center mr-3">
             <svg
@@ -129,8 +147,10 @@ const SignUpPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium">Personalized Experience</h3>
-            <p className="text-white/80 text-sm">
+            <h3 className="text-white font-medium font-playfair">
+              Personalized Experience
+            </h3>
+            <p className="text-white/80 text-sm font-montserrat">
               Discover blogs tailored to your interests
             </p>
           </div>
@@ -153,10 +173,10 @@ const SignUpPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium">
+            <h3 className="text-white font-medium font-playfair">
               Engage with the Community
             </h3>
-            <p className="text-white/80 text-sm">
+            <p className="text-white/80 text-sm font-montserrat">
               Comment, like, and share your favorite posts
             </p>
           </div>
@@ -179,42 +199,66 @@ const SignUpPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium">Become a Blogger</h3>
-            <p className="text-white/80 text-sm">
+            <h3 className="text-white font-medium font-playfair">
+              Become a Blogger
+            </h3>
+            <p className="text-white/80 text-sm font-montserrat">
               Share your knowledge and passion with the world
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 
   // If registration successful, show verification message
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black px-4">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-black px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-black p-8 rounded-lg shadow-md max-w-md w-full"
+          transition={{ duration: 0.5 }}
+          className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg max-w-md w-full border border-gray-100 dark:border-gray-700"
         >
           <div className="text-center">
-            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-900 mb-4">
-              <Check className="h-6 w-6 text-green-600 dark:text-green-300" />
+            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-6">
+              <Check className="h-8 w-8 text-green-600 dark:text-green-400" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 font-playfair">
               Registration Successful
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
-              We've sent a verification link to your email address. Please check
-              your inbox and verify your account.
-            </p>
-            <div className="space-y-3">
-              <Button variant="gradient" href="/signin" className="w-full">
-                Proceed to Sign In
+            <div className="space-y-4">
+              <p className="text-gray-600 dark:text-gray-300 font-montserrat leading-relaxed">
+                We've sent a verification link to your email address. Please
+                check your inbox and verify your account to get started.
+              </p>
+              <div className="bg-indigo-50 dark:bg-indigo-900/20 text-indigo-800 dark:text-indigo-300 p-3 rounded-lg text-sm font-montserrat">
+                <p>
+                  Don't see the email? Check your spam folder or contact support
+                  if you need assistance.
+                </p>
+              </div>
+            </div>
+            <div className="mt-8 space-y-3">
+              <Button
+                variant="primary"
+                href="/signin"
+                className="w-full"
+                shadowDepth="deep"
+                glossy={true}
+                icon={<ArrowRight className="h-4 w-4 ml-1" />}
+                iconPosition="right"
+              >
+                <span className="font-montserrat">Proceed to Sign In</span>
               </Button>
-              <Button variant="outline" href="/" className="w-full">
-                Return to Homepage
+              <Button
+                variant="white"
+                href="/"
+                className="w-full"
+                shadowDepth="shallow"
+              >
+                <span className="font-montserrat">Return to Homepage</span>
               </Button>
             </div>
           </div>
@@ -241,12 +285,12 @@ const SignUpPage = () => {
           onClose={() => setError(null)}
           className="mb-6"
         >
-          {error}
+          <span className="font-montserrat">{error}</span>
         </Alert>
       )}
 
       {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <div>
           <Input
             label="Full Name"
@@ -255,7 +299,13 @@ const SignUpPage = () => {
             error={errors.fullname?.message}
             required
             icon={<User className="h-5 w-5 text-gray-400" />}
+            className="bg-white dark:bg-gray-900"
           />
+          {errors.fullname && (
+            <p className="mt-1 text-sm text-red-500 font-montserrat">
+              {errors.fullname.message}
+            </p>
+          )}
         </div>
 
         <div>
@@ -267,7 +317,13 @@ const SignUpPage = () => {
             error={errors.email?.message}
             required
             icon={<Mail className="h-5 w-5 text-gray-400" />}
+            className="bg-white dark:bg-gray-900"
           />
+          {errors.email && (
+            <p className="mt-1 text-sm text-red-500 font-montserrat">
+              {errors.email.message}
+            </p>
+          )}
         </div>
 
         <div>
@@ -279,6 +335,7 @@ const SignUpPage = () => {
             error={errors.password?.message}
             required
             icon={<Lock className="h-5 w-5 text-gray-400" />}
+            className="bg-white dark:bg-gray-900"
             appendIcon={
               <button
                 type="button"
@@ -293,6 +350,11 @@ const SignUpPage = () => {
               </button>
             }
           />
+          {errors.password && (
+            <p className="mt-1 text-sm text-red-500 font-montserrat">
+              {errors.password.message}
+            </p>
+          )}
         </div>
 
         <div>
@@ -304,6 +366,7 @@ const SignUpPage = () => {
             error={errors.confirmPassword?.message}
             required
             icon={<Lock className="h-5 w-5 text-gray-400" />}
+            className="bg-white dark:bg-gray-900"
             appendIcon={
               <button
                 type="button"
@@ -318,23 +381,37 @@ const SignUpPage = () => {
               </button>
             }
           />
+          {errors.confirmPassword && (
+            <p className="mt-1 text-sm text-red-500 font-montserrat">
+              {errors.confirmPassword.message}
+            </p>
+          )}
+        </div>
+
+        <div className="mt-1">
+          <p className="text-sm text-gray-600 dark:text-gray-400 font-montserrat">
+            Password must be 6-20 characters and include at least one uppercase
+            letter, one lowercase letter, and one number.
+          </p>
         </div>
 
         <Button
           type="submit"
-          variant="gradient"
-          className="w-full"
+          variant="primary"
+          className="w-full mt-6"
           disabled={loading}
           isLoading={loading}
+          shadowDepth="deep"
+          glossy={true}
         >
-          Create Account
+          <span className="font-montserrat">Create Account</span>
         </Button>
       </form>
 
       {/* Divider */}
       <div className="my-6 flex items-center">
         <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
-        <span className="flex-shrink mx-4 text-gray-600 dark:text-gray-400">
+        <span className="flex-shrink mx-4 text-gray-600 dark:text-gray-400 font-montserrat">
           or
         </span>
         <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
@@ -343,10 +420,11 @@ const SignUpPage = () => {
       {/* Social login */}
       <Button
         type="button"
-        variant="outline"
-        className="w-full"
+        variant="white"
+        className="w-full bg-black/10 hover:bg-black/20 text-gray-900 dark:text-white dark:bg-white/10 dark:hover:bg-white/20"
         onClick={handleGoogleLogin}
         disabled={loading}
+        shadowDepth="shallow"
       >
         <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24">
           <path
@@ -367,7 +445,7 @@ const SignUpPage = () => {
           />
           <path fill="none" d="M1 1h22v22H1z" />
         </svg>
-        Continue with Google
+        <span className="font-montserrat">Continue with Google</span>
       </Button>
     </AuthLayout>
   );

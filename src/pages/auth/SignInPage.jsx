@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "framer-motion";
 import { z } from "zod";
 import { useAuth } from "../../context/AuthContext";
 import { useNotification } from "../../context/NotificationContext";
@@ -9,7 +10,7 @@ import AuthLayout from "../../components/layouts/AuthLayout";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import Alert from "../../components/ui/Alert";
-import { Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, Check } from "lucide-react";
 
 // Form validation schema
 const signinSchema = z.object({
@@ -88,14 +89,32 @@ const SignInPage = () => {
 
   // Custom side content for the auth layout
   const sideContent = (
-    <div className="space-y-6">
-      <h2 className="text-3xl font-bold">Welcome Back to ChronoSpace</h2>
-      <p className="text-lg opacity-90">
+    <div className="space-y-6 text-gray-50">
+      <motion.h2
+        className="text-3xl font-bold font-playfair "
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        Welcome Back to ChronoSpace
+      </motion.h2>
+
+      <motion.p
+        className="text-lg opacity-90 font-montserrat leading-relaxed"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
         Sign in to continue your journey. Discover new content, engage with
         fellow writers, and share your own stories with our growing community.
-      </p>
+      </motion.p>
 
-      <div className="space-y-6 pt-4">
+      <motion.div
+        className="space-y-6 pt-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
         <div className="flex items-start">
           <div className="flex-shrink-0 h-6 w-6 bg-white/20 rounded-full flex items-center justify-center mr-3">
             <svg
@@ -113,8 +132,10 @@ const SignInPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium">Discover Content</h3>
-            <p className="text-white/80 text-sm">
+            <h3 className="text-white font-medium font-playfair">
+              Discover Content
+            </h3>
+            <p className="text-white/80 text-sm font-montserrat">
               Explore articles from our talented writers
             </p>
           </div>
@@ -137,8 +158,10 @@ const SignInPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium">Join the Conversation</h3>
-            <p className="text-white/80 text-sm">
+            <h3 className="text-white font-medium font-playfair">
+              Join the Conversation
+            </h3>
+            <p className="text-white/80 text-sm font-montserrat">
               Engage with content through comments and likes
             </p>
           </div>
@@ -161,13 +184,15 @@ const SignInPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium">Personalized Experience</h3>
-            <p className="text-white/80 text-sm">
+            <h3 className="text-white font-medium font-playfair">
+              Personalized Experience
+            </h3>
+            <p className="text-white/80 text-sm font-montserrat">
               Follow your favorite authors and topics
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 
@@ -190,8 +215,13 @@ const SignInPage = () => {
           onClose={() => setVerificationSuccess(false)}
           className="mb-6"
         >
-          Your email has been successfully verified. You can now sign in to your
-          account.
+          <div className="flex items-center">
+            <Check className="h-5 w-5 mr-2 text-green-500" />
+            <span className="font-montserrat">
+              Your email has been successfully verified. You can now sign in to
+              your account.
+            </span>
+          </div>
         </Alert>
       )}
 
@@ -203,7 +233,7 @@ const SignInPage = () => {
           onClose={() => setError(null)}
           className="mb-6"
         >
-          {error}
+          <span className="font-montserrat">{error}</span>
         </Alert>
       )}
 
@@ -218,6 +248,7 @@ const SignInPage = () => {
             error={errors.email?.message}
             required
             icon={<Mail className="h-5 w-5 text-gray-400" />}
+            className="bg-white dark:bg-gray-900"
           />
         </div>
 
@@ -225,7 +256,7 @@ const SignInPage = () => {
           <div className="flex items-center justify-between">
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 font-montserrat"
             >
               Password <span className="text-red-500">*</span>
             </label>
@@ -239,6 +270,7 @@ const SignInPage = () => {
               error={errors.password?.message}
               autoComplete="current-password"
               icon={<Lock className="h-5 w-5 text-gray-400" />}
+              className="bg-white dark:bg-gray-900"
               appendIcon={
                 <button
                   type="button"
@@ -258,10 +290,12 @@ const SignInPage = () => {
 
         <Button
           type="submit"
-          variant="gradient"
+          variant="primary"
           className="w-full"
           disabled={loading}
           isLoading={loading}
+          shadowDepth="deep"
+          glossy={true}
         >
           Sign In
         </Button>
@@ -270,7 +304,7 @@ const SignInPage = () => {
       {/* Divider */}
       <div className="my-6 flex items-center">
         <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
-        <span className="flex-shrink mx-4 text-gray-600 dark:text-gray-400">
+        <span className="flex-shrink mx-4 text-gray-600 dark:text-gray-400 font-montserrat">
           or
         </span>
         <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
@@ -279,10 +313,11 @@ const SignInPage = () => {
       {/* Social login */}
       <Button
         type="button"
-        variant="outline"
-        className="w-full"
+        variant="white"
+        className="w-full bg-black/10 hover:bg-black/20 text-gray-900 dark:text-white dark:bg-white/10 dark:hover:bg-white/20"
         onClick={handleGoogleLogin}
         disabled={loading}
+        shadowDepth="shallow"
       >
         <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24">
           <path
@@ -303,7 +338,7 @@ const SignInPage = () => {
           />
           <path fill="none" d="M1 1h22v22H1z" />
         </svg>
-        Continue with Google
+        <span className="font-montserrat">Continue with Google</span>
       </Button>
     </AuthLayout>
   );
