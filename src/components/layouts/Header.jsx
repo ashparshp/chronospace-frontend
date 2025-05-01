@@ -526,7 +526,7 @@ const Header = () => {
               <Button
                 href="/signin"
                 variant="white"
-                className="bg-orange-100 dark:text-gray-900"
+                className="bg-indigo-200 dark:text-gray-900"
                 shadowDepth="shallow"
               >
                 Sign In
