@@ -65,11 +65,11 @@ const SearchPage = () => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  
+
   const [searchStats, setSearchStats] = useState({
     totalBlogs: 0,
     totalUsers: 0,
-    totalTags: 0
+    totalTags: 0,
   });
 
   // Update URL when query changes
@@ -122,7 +122,7 @@ const SearchPage = () => {
           "web-development",
         ];
         setTags(popularTags);
-        setSearchStats(prev => ({...prev, totalTags: popularTags.length}));
+        setSearchStats((prev) => ({ ...prev, totalTags: popularTags.length }));
       } catch (error) {
         console.error("Error fetching tags:", error);
       }
@@ -217,9 +217,9 @@ const SearchPage = () => {
         }
 
         // Update search stats
-        setSearchStats(prev => ({
+        setSearchStats((prev) => ({
           ...prev,
-          totalBlogs: response.data.total || blogs.length
+          totalBlogs: response.data.total || blogs.length,
         }));
 
         setHasMore(response.data.blogs.length === 9);
@@ -258,9 +258,9 @@ const SearchPage = () => {
       }
 
       // Update search stats
-      setSearchStats(prev => ({
+      setSearchStats((prev) => ({
         ...prev,
-        totalUsers: response.data.total || users.length
+        totalUsers: response.data.total || users.length,
       }));
 
       setHasMore(response.data.users.length === 10);
@@ -329,7 +329,7 @@ const SearchPage = () => {
                 delay: 1,
               }}
             ></motion.div>
-            
+
             <div className="relative z-10">
               <div className="max-w-3xl mx-auto text-center mb-6">
                 <motion.h1
@@ -342,20 +342,20 @@ const SearchPage = () => {
                     {getSearchTitle()}
                   </span>
                 </motion.h1>
-                
+
                 <motion.p
                   className="font-montserrat text-lg leading-relaxed text-gray-700 dark:text-gray-300 max-w-xl mx-auto"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.1 }}
                 >
-                  {query.q || query.tag || query.category || query.author 
+                  {query.q || query.tag || query.category || query.author
                     ? "Find relevant content, authors, and topics matching your interests."
                     : "Discover new content, connect with authors, and explore topics of interest."}
                 </motion.p>
               </div>
-              
-              <motion.div 
+
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -374,8 +374,8 @@ const SearchPage = () => {
                     </div>
 
                     <div className="flex gap-3">
-                      <Button 
-                        type="submit" 
+                      <Button
+                        type="submit"
                         variant="primary"
                         glossy={true}
                         shadowDepth="deep"
@@ -421,7 +421,8 @@ const SearchPage = () => {
                               ...BLOG_CATEGORIES.map((category) => ({
                                 value: category,
                                 label:
-                                  category.charAt(0).toUpperCase() + category.slice(1),
+                                  category.charAt(0).toUpperCase() +
+                                  category.slice(1),
                               })),
                             ]}
                             className="w-full bg-white dark:bg-gray-900"
@@ -435,7 +436,9 @@ const SearchPage = () => {
                           <Input
                             placeholder="Filter by tag"
                             value={filters.tag}
-                            onChange={(e) => handleFilterChange("tag", e.target.value)}
+                            onChange={(e) =>
+                              handleFilterChange("tag", e.target.value)
+                            }
                             icon={<TagIcon className="h-5 w-5 text-gray-400" />}
                             className="bg-white dark:bg-gray-900"
                           />
@@ -458,9 +461,9 @@ const SearchPage = () => {
                       </div>
 
                       <div className="flex justify-end mt-4">
-                        <Button 
-                          type="button" 
-                          variant="ghost" 
+                        <Button
+                          type="button"
+                          variant="ghost"
                           onClick={clearFilters}
                           className="text-violet-600 dark:text-violet-400"
                         >
@@ -476,8 +479,12 @@ const SearchPage = () => {
                 {(query.tag || query.category || query.author) && (
                   <div className="flex flex-wrap gap-2 mt-4">
                     {query.tag && (
-                      <Badge variant="secondary" className="flex items-center bg-white/80 dark:bg-gray-800/80 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 py-1 px-3">
-                        <span className="mr-1 font-montserrat">Tag:</span> <span className="font-medium">{query.tag}</span>
+                      <Badge
+                        variant="secondary"
+                        className="flex items-center bg-white/80 dark:bg-gray-800/80 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 py-1 px-3"
+                      >
+                        <span className="mr-1 font-montserrat">Tag:</span>{" "}
+                        <span className="font-medium">{query.tag}</span>
                         <button
                           className="ml-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                           onClick={() => handleFilterChange("tag", "")}
@@ -488,8 +495,12 @@ const SearchPage = () => {
                     )}
 
                     {query.category && (
-                      <Badge variant="secondary" className="flex items-center bg-white/80 dark:bg-gray-800/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 py-1 px-3">
-                        <span className="mr-1 font-montserrat">Category:</span> <span className="font-medium">{query.category}</span>
+                      <Badge
+                        variant="secondary"
+                        className="flex items-center bg-white/80 dark:bg-gray-800/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 py-1 px-3"
+                      >
+                        <span className="mr-1 font-montserrat">Category:</span>{" "}
+                        <span className="font-medium">{query.category}</span>
                         <button
                           className="ml-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                           onClick={() => handleFilterChange("category", "")}
@@ -500,8 +511,12 @@ const SearchPage = () => {
                     )}
 
                     {query.author && (
-                      <Badge variant="secondary" className="flex items-center bg-white/80 dark:bg-gray-800/80 text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800 py-1 px-3">
-                        <span className="mr-1 font-montserrat">Author:</span> <span className="font-medium">{query.author}</span>
+                      <Badge
+                        variant="secondary"
+                        className="flex items-center bg-white/80 dark:bg-gray-800/80 text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800 py-1 px-3"
+                      >
+                        <span className="mr-1 font-montserrat">Author:</span>{" "}
+                        <span className="font-medium">{query.author}</span>
                         <button
                           className="ml-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                           onClick={() => handleFilterChange("author", "")}
@@ -513,7 +528,7 @@ const SearchPage = () => {
                   </div>
                 )}
               </motion.div>
-              
+
               {/* Search Status Cards */}
               {(query.q || query.tag || query.category || query.author) && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 max-w-3xl mx-auto">
@@ -527,7 +542,9 @@ const SearchPage = () => {
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-gray-700 dark:text-gray-300 text-sm font-montserrat">Blogs</p>
+                        <p className="text-gray-700 dark:text-gray-300 text-sm font-montserrat">
+                          Blogs
+                        </p>
                         <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
                           {searchStats.totalBlogs}
                         </h3>
@@ -538,12 +555,14 @@ const SearchPage = () => {
                     </div>
                     <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700/30">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-violet-600 dark:text-violet-400 font-medium font-montserrat">View Results</span>
+                        <span className="text-sm text-violet-600 dark:text-violet-400 font-medium font-montserrat">
+                          View Results
+                        </span>
                         <ChevronRight className="h-4 w-4 text-violet-600 dark:text-violet-400" />
                       </div>
                     </div>
                   </motion.div>
-                  
+
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -554,7 +573,9 @@ const SearchPage = () => {
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-gray-700 dark:text-gray-300 text-sm font-montserrat">Users</p>
+                        <p className="text-gray-700 dark:text-gray-300 text-sm font-montserrat">
+                          Users
+                        </p>
                         <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
                           {searchStats.totalUsers}
                         </h3>
@@ -565,12 +586,14 @@ const SearchPage = () => {
                     </div>
                     <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700/30">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-indigo-600 dark:text-indigo-400 font-medium font-montserrat">View Results</span>
+                        <span className="text-sm text-indigo-600 dark:text-indigo-400 font-medium font-montserrat">
+                          View Results
+                        </span>
                         <ChevronRight className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
                       </div>
                     </div>
                   </motion.div>
-                  
+
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -581,7 +604,9 @@ const SearchPage = () => {
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-gray-700 dark:text-gray-300 text-sm font-montserrat">Tags</p>
+                        <p className="text-gray-700 dark:text-gray-300 text-sm font-montserrat">
+                          Tags
+                        </p>
                         <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
                           {searchStats.totalTags}
                         </h3>
@@ -592,7 +617,9 @@ const SearchPage = () => {
                     </div>
                     <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700/30">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-pink-600 dark:text-pink-400 font-medium font-montserrat">View All Tags</span>
+                        <span className="text-sm text-pink-600 dark:text-pink-400 font-medium font-montserrat">
+                          View All Tags
+                        </span>
                         <ChevronRight className="h-4 w-4 text-pink-600 dark:text-pink-400" />
                       </div>
                     </div>
@@ -664,7 +691,11 @@ const SearchPage = () => {
                         className="h-1 bg-gradient-to-r from-violet-500 to-indigo-500 rounded"
                         initial={{ width: 0 }}
                         animate={{ width: "10rem" }}
-                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                        transition={{
+                          duration: 0.8,
+                          delay: 0.2,
+                          ease: "easeOut",
+                        }}
                       />
                     </div>
                     <div className="flex items-center space-x-2">
@@ -702,7 +733,7 @@ const SearchPage = () => {
                     layout={viewMode} // Pass current view mode
                     emptyTitle="No blogs found"
                     emptyDescription="We couldn't find any blogs matching your search criteria."
-                    blogCardVariant="elevated" // Use the enhanced card style
+                    blogCardVariant="elevated" // Use the card style
                   />
                 </div>
               </>
@@ -755,7 +786,9 @@ const SearchPage = () => {
                       >
                         <Card
                           className="p-4 cursor-pointer border border-gray-100 dark:border-gray-800 hover:border-indigo-200 dark:hover:border-indigo-800 hover:shadow-md transition-all duration-200"
-                          onClick={() => navigate(`/profile/${user.personal_info.username}`)}
+                          onClick={() =>
+                            navigate(`/profile/${user.personal_info.username}`)
+                          }
                         >
                           <div className="flex items-center space-x-4">
                             <Avatar
@@ -796,11 +829,16 @@ const SearchPage = () => {
                           <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800 text-xs text-gray-500 dark:text-gray-400 flex items-center justify-between font-montserrat">
                             <div className="flex items-center">
                               <BookOpen className="h-3.5 w-3.5 mr-1.5 text-indigo-500 dark:text-indigo-400" />
-                              <span>{user.account_info.total_posts || 0} posts</span>
+                              <span>
+                                {user.account_info.total_posts || 0} posts
+                              </span>
                             </div>
                             <div className="flex items-center">
                               <Users className="h-3.5 w-3.5 mr-1.5 text-violet-500 dark:text-violet-400" />
-                              <span>{user.account_info.total_followers || 0} followers</span>
+                              <span>
+                                {user.account_info.total_followers || 0}{" "}
+                                followers
+                              </span>
                             </div>
                           </div>
                         </Card>
@@ -859,19 +897,25 @@ const SearchPage = () => {
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.3, delay: index * 0.02 }}
-                      whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+                      whileHover={{
+                        scale: 1.05,
+                        transition: { duration: 0.2 },
+                      }}
                     >
                       <Badge
                         variant="secondary"
                         className="py-2 px-3 cursor-pointer text-base font-medium tracking-wide font-mono lowercase bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-pink-300 dark:hover:border-pink-700 hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors duration-200 shadow-sm"
                         onClick={() => handleTagClick(tag)}
                       >
-                        <span className="text-pink-600 dark:text-pink-400">#</span>{tag}
+                        <span className="text-pink-600 dark:text-pink-400">
+                          #
+                        </span>
+                        {tag}
                       </Badge>
                     </motion.div>
                   ))}
                 </div>
-                
+
                 <div className="mt-8 bg-pink-50 dark:bg-pink-900/10 rounded-xl p-4 border border-pink-100 dark:border-pink-900/30">
                   <div className="flex items-start">
                     <div className="bg-white dark:bg-gray-800 rounded-full p-2 mr-4 shadow-sm">
@@ -882,7 +926,8 @@ const SearchPage = () => {
                         Discover Content by Tags
                       </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-400 font-montserrat">
-                        Tags help you find content on specific topics. Click any tag above to see all related blogs.
+                        Tags help you find content on specific topics. Click any
+                        tag above to see all related blogs.
                       </p>
                     </div>
                   </div>

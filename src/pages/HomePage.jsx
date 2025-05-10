@@ -103,7 +103,7 @@ const HomePage = () => {
       </div>
 
       <div className="w-full space-y-12 pb-12">
-        {/* Hero Section - Enhanced */}
+        {/* Hero Section */}
         <PageTransition.Item>
           <section className="pt-6 md:pt-10">
             {featuredBlogs.length > 0 ? (
@@ -212,7 +212,6 @@ const HomePage = () => {
                     </motion.div>
                   </div>
 
-                  {/* Enhanced decorative elements */}
                   <motion.div
                     className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-violet-500/20 to-indigo-500/20 dark:from-violet-500/10 dark:to-indigo-500/10 rounded-full blur-2xl"
                     animate={{
@@ -427,7 +426,7 @@ const HomePage = () => {
           </section>
         </PageTransition.Item>
 
-        {/* Main Content and Sidebar Layout - Enhanced */}
+        {/* Main Content and Sidebar Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           {/* Latest Blogs Section - 8 columns on large screens */}
           <div className="lg:col-span-8">
@@ -465,7 +464,7 @@ const HomePage = () => {
 
           {/* Sidebar - 4 columns on large screens */}
           <div className="lg:col-span-4 space-y-6">
-            {/* Trending Section - Enhanced */}
+            {/* Trending Section */}
             <PageTransition.Item transition="slideUp" delay={0.1}>
               <Card
                 variant="gradient"
@@ -518,7 +517,7 @@ const HomePage = () => {
                       ))}
                     </ul>
                   ) : loading ? (
-                    // Enhanced loading skeleton
+                    // loading skeleton
                     Array.from({ length: 5 }).map((_, i) => (
                       <div
                         key={i}
@@ -580,15 +579,15 @@ const HomePage = () => {
               </Card>
             </PageTransition.Item>
 
-            {/* Join Community Section - Enhanced */}
+            {/* Join Community Section */}
             {!(
               currentUser?.role === "blogger" || currentUser?.role === "admin"
             ) && (
               <PageTransition.Item transition="slideUp" delay={0.3}>
                 <div className="overflow-hidden rounded-xl relative group shadow-lg hover:shadow-xl transition-shadow duration-300">
-                  {/* Enhanced animated background */}
+                  {/*  animated background */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-700 overflow-hidden">
-                    {/* Enhanced animated particles/circles */}
+                    {/*  animated particles/circles */}
                     <motion.div
                       className="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-full blur-xl"
                       animate={{

@@ -328,7 +328,7 @@ const SettingsPage = () => {
         showToast("Please type 'delete' to confirm", "error");
         return;
       }
-      
+
       setLoading(true);
 
       // In a real app, this would call an API to delete the account
@@ -701,7 +701,9 @@ const SettingsPage = () => {
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                     <button
                       type="button"
-                      onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                      onClick={() =>
+                        setShowCurrentPassword(!showCurrentPassword)
+                      }
                       className="text-gray-400 hover:text-gray-500 focus:outline-none"
                     >
                       {showCurrentPassword ? (
@@ -777,7 +779,9 @@ const SettingsPage = () => {
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                     <button
                       type="button"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
                       className="text-gray-400 hover:text-gray-500 focus:outline-none"
                     >
                       {showConfirmPassword ? (
@@ -821,7 +825,8 @@ const SettingsPage = () => {
                   Danger Zone
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 font-montserrat mb-4">
-                  Once you delete your account, there is no going back. Please be certain.
+                  Once you delete your account, there is no going back. Please
+                  be certain.
                 </p>
 
                 <Button
@@ -863,10 +868,10 @@ const SettingsPage = () => {
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div 
+              <div
                 className={`relative bg-white dark:bg-gray-800 rounded-xl p-4 cursor-pointer border-2 transition-all duration-200 ${
-                  !darkMode 
-                    ? "border-violet-500 shadow-md" 
+                  !darkMode
+                    ? "border-violet-500 shadow-md"
                     : "border-gray-200 dark:border-gray-700 hover:border-violet-300 dark:hover:border-violet-700"
                 }`}
                 onClick={() => setTheme(false)}
@@ -890,10 +895,10 @@ const SettingsPage = () => {
                 )}
               </div>
 
-              <div 
+              <div
                 className={`relative bg-gray-900 dark:bg-black rounded-xl p-4 cursor-pointer border-2 transition-all duration-200 ${
-                  darkMode 
-                    ? "border-violet-500 shadow-md" 
+                  darkMode
+                    ? "border-violet-500 shadow-md"
                     : "border-gray-800 hover:border-violet-700"
                 }`}
                 onClick={() => setTheme(true)}
@@ -917,7 +922,7 @@ const SettingsPage = () => {
                 )}
               </div>
 
-              <div 
+              <div
                 className="relative bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-black rounded-xl p-4 cursor-pointer border-2 border-gray-200 dark:border-gray-700 hover:border-violet-300 dark:hover:border-violet-700 transition-all duration-200"
                 onClick={toggleTheme}
               >
@@ -959,7 +964,8 @@ const SettingsPage = () => {
                       Email Notifications
                     </h4>
                     <p className="text-sm text-gray-500 dark:text-gray-400 font-montserrat mt-1">
-                      Receive email notifications for important updates, new followers, and comments on your content
+                      Receive email notifications for important updates, new
+                      followers, and comments on your content
                     </p>
                   </div>
                 </div>
@@ -987,7 +993,7 @@ const SettingsPage = () => {
                   </label>
                 </div>
               </div>
-              
+
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
                   <div className="bg-indigo-100 dark:bg-indigo-900/30 rounded-full p-2 mr-3 flex-shrink-0">
@@ -1054,7 +1060,7 @@ const SettingsPage = () => {
                 delay: 1,
               }}
             ></motion.div>
-            
+
             <div className="relative z-10">
               <motion.h1
                 className="font-playfair text-3xl md:text-4xl font-bold mb-2 tracking-tight leading-tight"
@@ -1066,7 +1072,7 @@ const SettingsPage = () => {
                   Account Settings
                 </span>
               </motion.h1>
-              
+
               <motion.p
                 className="font-montserrat text-lg leading-relaxed text-gray-700 dark:text-gray-300"
                 initial={{ opacity: 0, y: 20 }}
@@ -1081,7 +1087,7 @@ const SettingsPage = () => {
 
         {/* Settings Content with improved tabs */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 overflow-hidden">
-          {/* Custom tabs navigation - Enhanced */}
+          {/* Custom tabs navigation  */}
           <div className="border-b border-gray-200 dark:border-gray-700">
             <div className="flex overflow-x-auto scrollbar-hide">
               {tabsContent.map((tab) => (
@@ -1103,15 +1109,12 @@ const SettingsPage = () => {
 
           {/* Tab content */}
           <div className="p-6">
-            {
-              tabsContent.find((tab) => tab.id === activeTab)
-                ?.content
-            }
+            {tabsContent.find((tab) => tab.id === activeTab)?.content}
           </div>
         </div>
       </motion.div>
 
-      {/* Delete Account Modal - Enhanced */}
+      {/* Delete Account Modal  */}
       <Modal
         isOpen={showDeleteAccountModal}
         onClose={() => {
@@ -1137,9 +1140,11 @@ const SettingsPage = () => {
               This action cannot be undone. This will permanently delete your
               account and remove all your data from our servers.
             </p>
-            
+
             <div className="bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 p-3 rounded-lg text-sm mb-4 font-montserrat border border-red-200 dark:border-red-800/30">
-              <p className="font-medium">Warning: All the following will be deleted:</p>
+              <p className="font-medium">
+                Warning: All the following will be deleted:
+              </p>
               <ul className="mt-2 list-disc list-inside">
                 <li>Your profile and personal information</li>
                 <li>All your published blogs and drafts</li>

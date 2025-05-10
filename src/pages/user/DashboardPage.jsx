@@ -38,7 +38,6 @@ import Avatar from "../../components/ui/Avatar";
 import Alert from "../../components/ui/Alert";
 import Modal from "../../components/ui/Modal";
 
-
 const DashboardPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -1223,7 +1222,7 @@ const DashboardPage = () => {
 
         {/* Dashboard Tabs - Premium Style */}
         <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-100 dark:border-gray-700">
-          {/* Custom tabs navigation - Enhanced */}
+          {/* Custom tabs navigation  */}
           <div className="flex flex-wrap overflow-x-auto scrollbar-hide border-b border-gray-200 dark:border-gray-700 px-4">
             {tabsContent.map((tab, index) => (
               <button

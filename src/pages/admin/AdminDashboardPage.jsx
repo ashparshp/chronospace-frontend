@@ -330,7 +330,7 @@ const AdminDashboardPage = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Popular Blogs - Enhanced Card */}
+          {/* Popular Blogs  Card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -421,7 +421,7 @@ const AdminDashboardPage = () => {
             </Card>
           </motion.div>
 
-          {/* Top Authors - Enhanced Card */}
+          {/* Top Authors  Card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -504,7 +504,7 @@ const AdminDashboardPage = () => {
           </motion.div>
         </div>
 
-        {/* Action Cards - Enhanced with gradient backgrounds and animations */}
+        {/* Action Cards  with gradient backgrounds and animations */}
         <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
           {[
             {

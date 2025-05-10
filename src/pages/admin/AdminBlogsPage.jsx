@@ -262,7 +262,7 @@ const AdminBlogsPage = () => {
                 delay: 1,
               }}
             ></motion.div>
-            
+
             <div className="relative z-10">
               <div className="flex flex-col md:flex-row justify-between items-center">
                 <div className="mb-6 md:mb-0">
@@ -277,7 +277,7 @@ const AdminBlogsPage = () => {
                   >
                     Back to Dashboard
                   </Button>
-                  
+
                   <motion.h1
                     className="font-playfair text-3xl md:text-4xl font-bold mb-2 tracking-tight leading-tight"
                     initial={{ opacity: 0, y: 20 }}
@@ -288,7 +288,7 @@ const AdminBlogsPage = () => {
                       Manage Content
                     </span>
                   </motion.h1>
-                  
+
                   <motion.p
                     className="font-montserrat text-lg leading-relaxed text-gray-700 dark:text-gray-300"
                     initial={{ opacity: 0, y: 20 }}
@@ -298,7 +298,7 @@ const AdminBlogsPage = () => {
                     {totalBlogs} blogs in your platform
                   </motion.p>
                 </div>
-                
+
                 <div className="flex gap-3">
                   <Button
                     variant="white"
@@ -325,7 +325,7 @@ const AdminBlogsPage = () => {
                   </Button>
                 </div>
               </div>
-              
+
               {/* Admin Summary Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
                 <StatCard
@@ -344,7 +344,11 @@ const AdminBlogsPage = () => {
                 />
                 <StatCard
                   title="Published"
-                  value={blogs.filter((blog) => blog.status === BLOG_STATUS.PUBLISHED).length}
+                  value={
+                    blogs.filter(
+                      (blog) => blog.status === BLOG_STATUS.PUBLISHED
+                    ).length
+                  }
                   icon={<Bookmark />}
                   iconBgColor="bg-green-500/20"
                   iconColor="text-green-600 dark:text-green-400"
@@ -352,7 +356,11 @@ const AdminBlogsPage = () => {
                 />
                 <StatCard
                   title="Pending Review"
-                  value={blogs.filter((blog) => blog.status === BLOG_STATUS.UNDER_REVIEW).length}
+                  value={
+                    blogs.filter(
+                      (blog) => blog.status === BLOG_STATUS.UNDER_REVIEW
+                    ).length
+                  }
                   icon={<Settings />}
                   iconBgColor="bg-orange-500/20"
                   iconColor="text-orange-600 dark:text-orange-400"
@@ -363,7 +371,7 @@ const AdminBlogsPage = () => {
           </div>
         </div>
 
-        {/* Filters - Enhanced */}
+        {/* Filters  */}
         {showFilters && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -386,7 +394,9 @@ const AdminBlogsPage = () => {
                   <Input
                     placeholder="Search blogs..."
                     value={filters.query}
-                    onChange={(e) => handleFilterChange("query", e.target.value)}
+                    onChange={(e) =>
+                      handleFilterChange("query", e.target.value)
+                    }
                     icon={<Search className="h-5 w-5 text-gray-400" />}
                     className="bg-white dark:bg-gray-900"
                   />
@@ -398,12 +408,17 @@ const AdminBlogsPage = () => {
                   </label>
                   <Select
                     value={filters.status}
-                    onChange={(e) => handleFilterChange("status", e.target.value)}
+                    onChange={(e) =>
+                      handleFilterChange("status", e.target.value)
+                    }
                     options={[
                       { value: "all", label: "All Statuses" },
                       { value: BLOG_STATUS.PUBLISHED, label: "Published" },
                       { value: BLOG_STATUS.DRAFT, label: "Draft" },
-                      { value: BLOG_STATUS.UNDER_REVIEW, label: "Under Review" },
+                      {
+                        value: BLOG_STATUS.UNDER_REVIEW,
+                        label: "Under Review",
+                      },
                       { value: BLOG_STATUS.REJECTED, label: "Rejected" },
                       { value: BLOG_STATUS.ARCHIVED, label: "Archived" },
                     ]}
@@ -418,7 +433,9 @@ const AdminBlogsPage = () => {
                   <Input
                     placeholder="Filter by author username"
                     value={filters.author}
-                    onChange={(e) => handleFilterChange("author", e.target.value)}
+                    onChange={(e) =>
+                      handleFilterChange("author", e.target.value)
+                    }
                     className="bg-white dark:bg-gray-900"
                   />
                 </div>
@@ -429,7 +446,9 @@ const AdminBlogsPage = () => {
                   </label>
                   <Select
                     value={filters.featured}
-                    onChange={(e) => handleFilterChange("featured", e.target.value)}
+                    onChange={(e) =>
+                      handleFilterChange("featured", e.target.value)
+                    }
                     options={[
                       { value: "all", label: "All Blogs" },
                       { value: "true", label: "Featured" },
@@ -443,9 +462,9 @@ const AdminBlogsPage = () => {
                   <Button variant="ghost" type="button" onClick={resetFilters}>
                     Reset
                   </Button>
-                  <Button 
-                    variant="primary" 
-                    type="submit" 
+                  <Button
+                    variant="primary"
+                    type="submit"
                     glossy={true}
                     shadowDepth="shallow"
                   >
@@ -457,7 +476,7 @@ const AdminBlogsPage = () => {
           </motion.div>
         )}
 
-        {/* Blogs List - Enhanced */}
+        {/* Blogs List  */}
         <div className="space-y-4">
           {loading && blogs.length === 0 ? (
             // Loading skeleton with improved styling
@@ -554,7 +573,9 @@ const AdminBlogsPage = () => {
                         </div>
                         <div className="flex items-center">
                           <Calendar className="h-3.5 w-3.5 mr-1.5" />
-                          <span>{format(new Date(blog.publishedAt), "MMM d, yyyy")}</span>
+                          <span>
+                            {format(new Date(blog.publishedAt), "MMM d, yyyy")}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -622,7 +643,7 @@ const AdminBlogsPage = () => {
           )}
         </div>
 
-        {/* Pagination - Enhanced */}
+        {/* Pagination  */}
         {totalPages > 1 && (
           <div className="flex justify-center mt-8">
             <nav className="flex items-center space-x-4">
@@ -658,7 +679,7 @@ const AdminBlogsPage = () => {
         )}
       </motion.div>
 
-      {/* Delete Confirmation Modal - Enhanced */}
+      {/* Delete Confirmation Modal  */}
       <Modal
         isOpen={!!confirmDeleteId}
         onClose={() => setConfirmDeleteId(null)}
@@ -674,11 +695,12 @@ const AdminBlogsPage = () => {
               Delete Blog?
             </h3>
           </div>
-          
+
           <p className="font-montserrat text-gray-700 dark:text-gray-300 text-center">
-            This action cannot be undone. Are you sure you want to permanently delete this blog?
+            This action cannot be undone. Are you sure you want to permanently
+            delete this blog?
           </p>
-          
+
           <div className="flex justify-center gap-3 pt-2">
             <Button
               variant="white"
@@ -702,7 +724,7 @@ const AdminBlogsPage = () => {
         </div>
       </Modal>
 
-      {/* Feature Confirmation Modal - Enhanced */}
+      {/* Feature Confirmation Modal  */}
       <Modal
         isOpen={!!featuringBlog}
         onClose={() => setFeaturingBlog(null)}
@@ -720,13 +742,13 @@ const AdminBlogsPage = () => {
               {featuringBlog?.featured ? "Unfeature Blog?" : "Feature Blog?"}
             </h3>
           </div>
-          
+
           <p className="font-montserrat text-gray-700 dark:text-gray-300 text-center">
             {featuringBlog?.featured
               ? "This blog will no longer be highlighted on the homepage."
               : "Featured blogs appear prominently on the homepage and receive more visibility."}
           </p>
-          
+
           <div className="flex justify-center gap-3 pt-2">
             <Button
               variant="white"
