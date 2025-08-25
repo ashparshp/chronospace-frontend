@@ -54,6 +54,25 @@ const Badge = ({
       bg: "bg-gradient-to-r from-primary-500/10 to-secondary-500/10 dark:from-primary-500/20 dark:to-secondary-500/20",
       text: "text-primary-800 dark:text-primary-300",
       border: "border-primary-200/50 dark:border-primary-700/30",
+    },pink: {
+      bg: "bg-pink-100 dark:bg-pink-900/30",
+      text: "text-pink-800 dark:text-pink-300",
+      border: "border-pink-200 dark:border-pink-800/50",
+    },
+    purple: {
+      bg: "bg-purple-100 dark:bg-purple-900/30",
+      text: "text-purple-800 dark:text-purple-300",
+      border: "border-purple-200 dark:border-purple-800/50",
+    },
+    teal: {
+      bg: "bg-teal-100 dark:bg-teal-900/30",
+      text: "text-teal-800 dark:text-teal-300",
+      border: "border-teal-200 dark:border-teal-800/50",
+    },
+    orange: {
+      bg: "bg-orange-100 dark:bg-orange-900/30",
+      text: "text-orange-800 dark:text-orange-300",
+      border: "border-orange-200 dark:border-orange-800/50",
     },
   };
 

@@ -72,8 +72,9 @@ const FeaturedBlogCard = ({ blog, className = "" }) => {
         <div className="flex justify-between items-start">
           <div className="flex space-x-2">
             <Badge
-              variant="accent"
+              variant="orange"
               className="px-3 py-1 uppercase text-xs font-semibold shadow-lg"
+              style={{ fontFamily: 'cursive' }}
             >
               Featured
             </Badge>
@@ -91,6 +92,7 @@ const FeaturedBlogCard = ({ blog, className = "" }) => {
             <Badge
               variant="secondary"
               className="bg-white/20 text-white uppercase text-xs tracking-wider"
+              style={{ fontFamily: 'cursive' }}
             >
               {blog.category}
             </Badge>
@@ -99,11 +101,18 @@ const FeaturedBlogCard = ({ blog, className = "" }) => {
 
         {/* Middle Section: Title, Description & Tags */}
         <div className="mt-4 flex-1">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 drop-shadow-lg text-gray-50">
+          <h2
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 drop-shadow-lg text-gray-50"
+            style={{ fontFamily: '"Pacifico", "Brush Script MT", cursive' }}
+          >
             {blog.title}
           </h2>
           {blog.des && (
-            <p className="text-white/90 mb-4 line-clamp-3 drop-shadow-md">
+            <p
+              className="text-white/90 mb-4 line-clamp-3 drop-shadow-md"
+              style={{ fontFamily: 'cursive' }}
+
+            >
               {blog.des}
             </p>
           )}
@@ -115,6 +124,7 @@ const FeaturedBlogCard = ({ blog, className = "" }) => {
                   variant="secondary"
                   className="bg-white/20 text-white uppercase text-xs tracking-wider hover:bg-white/30 transition-colors duration-300"
                   onClick={(e) => handleTagClick(e, tag)}
+                  style={{ fontFamily: 'cursive' }}
                 >
                   {tag}
                 </Badge>
@@ -135,10 +145,10 @@ const FeaturedBlogCard = ({ blog, className = "" }) => {
             className="border-2 border-white"
           />
           <div className="ml-4">
-            <p className="font-semibold text-white">
+            <p className="font-semibold text-white" style={{ fontFamily: 'cursive' }}>
               {blog.author.personal_info.fullname}
             </p>
-            <p className="text-sm text-white/80">
+            <p className="text-sm text-white/80" style={{ fontFamily: 'cursive' }}>
               {format(new Date(blog.publishedAt), "MMM d, yyyy")} •{" "}
               {blog.estimated_read_time || "5"} min read
             </p>
