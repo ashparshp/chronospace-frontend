@@ -85,7 +85,7 @@ const ResetPasswordPage = () => {
   const sideContent = (
     <div className="space-y-6 text-gray-50">
       <motion.h2
-        className="text-3xl font-bold font-playfair"
+        className="text-3xl font-bold font-heading"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -94,7 +94,7 @@ const ResetPasswordPage = () => {
       </motion.h2>
 
       <motion.p
-        className="text-lg opacity-90 font-montserrat leading-relaxed"
+        className="text-lg opacity-90 font-body leading-relaxed"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
@@ -126,10 +126,10 @@ const ResetPasswordPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium font-playfair">
+            <h3 className="text-white font-medium font-heading">
               Strong Passwords
             </h3>
-            <p className="text-white/80 text-sm font-montserrat">
+            <p className="text-white/80 text-sm font-body">
               Mix letters, numbers, and symbols for better security
             </p>
           </div>
@@ -152,10 +152,10 @@ const ResetPasswordPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium font-playfair">
+            <h3 className="text-white font-medium font-heading">
               Unique Passwords
             </h3>
-            <p className="text-white/80 text-sm font-montserrat">
+            <p className="text-white/80 text-sm font-body">
               Use different passwords for different services
             </p>
           </div>
@@ -178,10 +178,10 @@ const ResetPasswordPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium font-playfair">
+            <h3 className="text-white font-medium font-heading">
               Regular Updates
             </h3>
-            <p className="text-white/80 text-sm font-montserrat">
+            <p className="text-white/80 text-sm font-body">
               Change your password periodically for added security
             </p>
           </div>
@@ -198,21 +198,21 @@ const ResetPasswordPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg max-w-md w-full border border-gray-100 dark:border-gray-700"
+          className="bg-white dark:bg-stone-800 p-8 rounded-xl shadow-lg max-w-md w-full border border-stone-100 dark:border-stone-700"
         >
           <div className="text-center">
             <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-6">
               <ShieldCheck className="h-8 w-8 text-green-600 dark:text-green-400" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 font-playfair">
+            <h2 className="text-2xl font-bold text-stone-900 dark:text-white mb-4 font-heading">
               Password Reset Successful
             </h2>
             <div className="space-y-4">
-              <p className="text-gray-600 dark:text-gray-300 font-montserrat leading-relaxed">
+              <p className="text-stone-600 dark:text-stone-300 font-body leading-relaxed">
                 Your password has been reset successfully. You can now sign in
                 with your new password to access your account.
               </p>
-              <div className="bg-indigo-50 dark:bg-indigo-900/20 text-indigo-800 dark:text-indigo-300 p-3 rounded-lg text-sm font-montserrat">
+              <div className="bg-indigo-50 dark:bg-indigo-900/20 text-indigo-800 dark:text-indigo-300 p-3 rounded-lg text-sm font-body">
                 <p>
                   For security reasons, you'll be logged out of any other
                   devices where you were previously signed in.
@@ -229,7 +229,7 @@ const ResetPasswordPage = () => {
                 icon={<ArrowRight className="h-4 w-4 ml-1" />}
                 iconPosition="right"
               >
-                <span className="font-montserrat">Proceed to Sign In</span>
+                <span className="font-body">Proceed to Sign In</span>
               </Button>
               <Button
                 variant="white"
@@ -237,7 +237,7 @@ const ResetPasswordPage = () => {
                 className="w-full"
                 shadowDepth="shallow"
               >
-                <span className="font-montserrat">Return to Homepage</span>
+                <span className="font-body">Return to Homepage</span>
               </Button>
             </div>
           </div>
@@ -264,7 +264,7 @@ const ResetPasswordPage = () => {
           onClose={() => setError(null)}
           className="mb-6"
         >
-          <span className="font-montserrat">{error}</span>
+          <span className="font-body">{error}</span>
         </Alert>
       )}
 
@@ -278,13 +278,13 @@ const ResetPasswordPage = () => {
             placeholder="••••••••"
             error={errors.password?.message}
             required
-            icon={<KeyRound className="h-5 w-5 text-gray-400" />}
-            className="bg-white dark:bg-gray-900"
+            icon={<KeyRound className="h-5 w-5 text-stone-400" />}
+            className="bg-white dark:bg-stone-900"
             appendIcon={
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-gray-400 hover:text-gray-500"
+                className="text-stone-400 hover:text-stone-500"
               >
                 {showPassword ? (
                   <EyeOff className="h-5 w-5" />
@@ -295,7 +295,7 @@ const ResetPasswordPage = () => {
             }
           />
           {errors.password && (
-            <p className="mt-1 text-sm text-red-500 font-montserrat">
+            <p className="mt-1 text-sm text-red-500 font-body">
               {errors.password.message}
             </p>
           )}
@@ -309,13 +309,13 @@ const ResetPasswordPage = () => {
             placeholder="••••••••"
             error={errors.confirmPassword?.message}
             required
-            icon={<Lock className="h-5 w-5 text-gray-400" />}
-            className="bg-white dark:bg-gray-900"
+            icon={<Lock className="h-5 w-5 text-stone-400" />}
+            className="bg-white dark:bg-stone-900"
             appendIcon={
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="text-gray-400 hover:text-gray-500"
+                className="text-stone-400 hover:text-stone-500"
               >
                 {showConfirmPassword ? (
                   <EyeOff className="h-5 w-5" />
@@ -326,14 +326,14 @@ const ResetPasswordPage = () => {
             }
           />
           {errors.confirmPassword && (
-            <p className="mt-1 text-sm text-red-500 font-montserrat">
+            <p className="mt-1 text-sm text-red-500 font-body">
               {errors.confirmPassword.message}
             </p>
           )}
         </div>
 
         <div className="mt-1">
-          <p className="text-sm text-gray-600 dark:text-gray-400 font-montserrat">
+          <p className="text-sm text-stone-600 dark:text-stone-400 font-body">
             Password must be 6-20 characters and include at least one uppercase
             letter, one lowercase letter, and one number.
           </p>
@@ -348,7 +348,7 @@ const ResetPasswordPage = () => {
           shadowDepth="deep"
           glossy={true}
         >
-          <span className="font-montserrat">Reset Password</span>
+          <span className="font-body">Reset Password</span>
         </Button>
       </form>
     </AuthLayout>

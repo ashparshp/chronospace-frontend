@@ -41,11 +41,11 @@ const VerifyEmailPage = () => {
   }, [token]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black px-4">
+    <div className="min-h-screen flex items-center justify-center bg-stone-50 dark:bg-stone-900 px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-black p-8 rounded-lg shadow-md max-w-md w-full"
+        className="bg-white dark:bg-stone-900 p-8 rounded-lg shadow-md max-w-md w-full"
       >
         <div className="text-center">
           {status === "loading" ? (
@@ -62,7 +62,7 @@ const VerifyEmailPage = () => {
             </div>
           )}
 
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-2xl font-bold text-stone-900 dark:text-white mb-2">
             {status === "loading"
               ? "Verifying Your Email"
               : status === "success"
@@ -70,7 +70,7 @@ const VerifyEmailPage = () => {
               : "Verification Failed"}
           </h2>
 
-          <p className="text-gray-600 dark:text-gray-300 mb-6">
+          <p className="text-stone-600 dark:text-stone-300 mb-6">
             {status === "loading"
               ? "Please wait while we verify your email address..."
               : status === "success"
@@ -89,7 +89,7 @@ const VerifyEmailPage = () => {
                   <Button variant="primary" href="/signup" className="w-full">
                     Try Signing Up Again
                   </Button>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                  <p className="text-sm text-stone-500 dark:text-stone-400 mt-2">
                     If you continue to face issues, please{" "}
                     <a
                       href="mailto:support@chronospace.com"

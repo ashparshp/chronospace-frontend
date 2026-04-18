@@ -32,16 +32,16 @@ const AuthLayout = ({
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-black/40"></div>
           </div>
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-violet-600 to-indigo-600"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-secondary-500"></div>
         );
       case "none":
         return (
-          <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900"></div>
+          <div className="absolute inset-0 bg-stone-50 dark:bg-stone-900"></div>
         );
       case "gradient":
       default:
         return (
-          <div className="absolute inset-0 bg-gradient-to-br from-violet-600 to-indigo-600">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-secondary-500">
             {/* Background decoration */}
             <motion.div
               className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl"
@@ -105,16 +105,16 @@ const AuthLayout = ({
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen flex flex-col md:flex-row bg-stone-50 dark:bg-stone-900">
       <motion.div
-        className={`flex-1 flex items-center justify-center p-6 sm:p-12 ${contentOrder} ${className} bg-white dark:bg-gray-900 relative overflow-hidden`}
+        className={`flex-1 flex items-center justify-center p-6 sm:p-12 ${contentOrder} ${className} bg-white dark:bg-stone-900 relative overflow-hidden`}
         initial="hidden"
         animate="visible"
         variants={containerVariants}
         {...props}
       >
         {/* Subtle background decoration for the form side */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50/70 to-white/70 dark:from-gray-900/70 dark:to-gray-800/70 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-stone-50/70 to-white/70 dark:from-stone-900/70 dark:to-stone-800/70 backdrop-blur-sm"></div>
         
         <div className="relative z-10 w-full max-w-md">
           <div className="mb-6 flex justify-between items-center">
@@ -126,7 +126,7 @@ const AuthLayout = ({
               >
                 <Link
                   to="/"
-                  className="flex items-center text-gray-600 hover:text-violet-600 dark:text-gray-400 dark:hover:text-violet-400 transition-colors duration-200 font-montserrat text-sm"
+                  className="flex items-center text-stone-600 hover:text-primary-600 dark:text-stone-400 dark:hover:text-primary-400 transition-colors duration-200 font-body text-sm"
                 >
                   <ChevronLeft className="h-4 w-4 mr-1" />
                   Back to home
@@ -141,7 +141,7 @@ const AuthLayout = ({
           {showLogo && (
             <motion.div className="text-center mb-8" variants={itemVariants}>
               <Link to="/" className="inline-block">
-                <h1 className="text-3xl font-bold font-playfair bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                <h1 className="text-3xl font-bold font-heading bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400">
                   ChronoSpace
                 </h1>
               </Link>
@@ -151,12 +151,12 @@ const AuthLayout = ({
           {(title || subtitle) && (
             <motion.div className="text-center mb-8" variants={itemVariants}>
               {title && (
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white font-playfair">
+                <h2 className="text-2xl font-bold text-stone-900 dark:text-white font-heading">
                   {title}
                 </h2>
               )}
               {subtitle && (
-                <p className="text-gray-600 dark:text-gray-400 mt-2 font-montserrat">
+                <p className="text-stone-600 dark:text-stone-400 mt-2 font-body">
                   {subtitle}
                 </p>
               )}
@@ -165,14 +165,14 @@ const AuthLayout = ({
 
           <motion.div 
             variants={itemVariants}
-            className="bg-white dark:bg-gray-800 shadow-md rounded-xl border border-gray-100 dark:border-gray-700 p-6"
+            className="bg-white dark:bg-stone-800 shadow-warm-md rounded-xl border border-stone-200 dark:border-stone-700 p-6"
           >
             {children}
           </motion.div>
 
           {footerLinks.length > 0 && (
             <motion.div
-              className="mt-8 text-center text-gray-600 dark:text-gray-400 font-montserrat"
+              className="mt-8 text-center text-stone-600 dark:text-stone-400 font-body"
               variants={itemVariants}
             >
               {footerLinks.map((link, index) => (
@@ -181,14 +181,14 @@ const AuthLayout = ({
                   {link.to ? (
                     <Link
                       to={link.to}
-                      className="text-violet-600 dark:text-violet-400 hover:underline font-medium"
+                      className="text-primary-600 dark:text-primary-400 hover:underline font-medium"
                     >
                       {link.label}
                     </Link>
                   ) : (
                     <a
                       href={link.href}
-                      className="text-violet-600 dark:text-violet-400 hover:underline font-medium"
+                      className="text-primary-600 dark:text-primary-400 hover:underline font-medium"
                       target={link.external ? "_blank" : undefined}
                       rel={link.external ? "noopener noreferrer" : undefined}
                     >
@@ -218,7 +218,7 @@ const AuthLayout = ({
             ) : (
               <div className="space-y-6 text-white">
                 <motion.h2 
-                  className="text-3xl font-bold font-playfair"
+                  className="text-3xl font-bold font-heading"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
@@ -227,7 +227,7 @@ const AuthLayout = ({
                 </motion.h2>
                 
                 <motion.p 
-                  className="text-lg opacity-90 font-montserrat leading-relaxed"
+                  className="text-lg opacity-90 font-body leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 }}
@@ -260,10 +260,10 @@ const AuthLayout = ({
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-white font-medium font-playfair">
+                      <h3 className="text-white font-medium font-heading">
                         Personalized Experience
                       </h3>
-                      <p className="text-white/80 text-sm font-montserrat">
+                      <p className="text-white/80 text-sm font-body">
                         Discover content tailored to your interests
                       </p>
                     </div>
@@ -286,10 +286,10 @@ const AuthLayout = ({
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-white font-medium font-playfair">
+                      <h3 className="text-white font-medium font-heading">
                         Engage with the Community
                       </h3>
-                      <p className="text-white/80 text-sm font-montserrat">
+                      <p className="text-white/80 text-sm font-body">
                         Comment, like, and share your favorite posts
                       </p>
                     </div>
@@ -312,10 +312,10 @@ const AuthLayout = ({
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-white font-medium font-playfair">
+                      <h3 className="text-white font-medium font-heading">
                         Become a Creator
                       </h3>
-                      <p className="text-white/80 text-sm font-montserrat">
+                      <p className="text-white/80 text-sm font-body">
                         Share your knowledge and passion with the world
                       </p>
                     </div>

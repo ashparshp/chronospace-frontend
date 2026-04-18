@@ -77,7 +77,7 @@ const LoadingScreen = () => {
           variants={circleVariants}
         >
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-primary-600 to-secondary-500 rounded-full opacity-30"
+            className="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-400 rounded-full opacity-30"
             variants={pulseVariants}
           />
           <motion.div
@@ -85,7 +85,7 @@ const LoadingScreen = () => {
             variants={circleVariants}
           />
           <motion.div
-            className="absolute inset-6 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full"
+            className="absolute inset-6 bg-gradient-to-r from-primary-500 to-accent-400 rounded-full"
             variants={pulseVariants}
             custom={1}
           />
@@ -94,7 +94,7 @@ const LoadingScreen = () => {
             variants={circleVariants}
           />
           <motion.div
-            className="absolute inset-11 bg-gradient-to-r from-accent-500 to-secondary-500 rounded-full"
+            className="absolute inset-11 bg-gradient-to-r from-accent-400 to-secondary-400 rounded-full"
             variants={pulseVariants}
             custom={2}
           />
@@ -108,7 +108,7 @@ const LoadingScreen = () => {
               variants={dotVariants}
               animate="animate"
               initial="initial"
-              className="w-2 h-2 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full"
+              className="w-2 h-2 bg-gradient-to-r from-primary-500 to-secondary-400 rounded-full"
             />
           ))}
         </div>
@@ -120,7 +120,7 @@ const LoadingScreen = () => {
           Loading...
         </motion.h2>
         <motion.p
-          className="mt-2 text-gray-600 dark:text-gray-400 text-center max-w-sm px-4"
+          className="mt-2 text-stone-600 dark:text-stone-400 text-center max-w-sm px-4"
           variants={textVariants}
         >
           Please wait while we prepare your experience

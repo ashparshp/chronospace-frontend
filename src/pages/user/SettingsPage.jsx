@@ -358,17 +358,17 @@ const SettingsPage = () => {
         <div className="space-y-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
             <div>
-              <h2 className="font-playfair text-2xl font-bold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+              <h2 className="font-heading text-2xl font-bold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400">
                 Profile Settings
               </h2>
-              <p className="text-gray-600 dark:text-gray-400 font-montserrat">
+              <p className="text-stone-600 dark:text-stone-400 font-body">
                 Manage your personal information and public profile
               </p>
             </div>
           </div>
 
           {/* Profile Image */}
-          <Card className="bg-white/90 dark:bg-gray-800/90 border border-gray-200 dark:border-gray-700 shadow-sm p-6">
+          <Card className="bg-white/90 dark:bg-stone-800/90 border border-stone-200 dark:border-stone-700 shadow-sm p-6">
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8">
               <div className="flex flex-col items-center">
                 <div className="relative group">
@@ -376,7 +376,7 @@ const SettingsPage = () => {
                     src={previewImage || profileImage}
                     alt={currentUser?.fullname}
                     size="2xl"
-                    className="h-32 w-32 border-4 border-white dark:border-gray-800 shadow-lg"
+                    className="h-32 w-32 border-4 border-white dark:border-stone-800 shadow-lg"
                   />
 
                   <div
@@ -418,23 +418,23 @@ const SettingsPage = () => {
                 >
                   {/* Username */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                    <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1 font-body">
                       Username
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <User className="h-5 w-5 text-gray-400" />
+                        <User className="h-5 w-5 text-stone-400" />
                       </div>
                       <input
                         {...profileRegister("username")}
-                        className={`bg-white dark:bg-gray-900 focus:ring-violet-500 focus:border-violet-500 block w-full pl-10 pr-12 py-2.5 sm:text-sm border-gray-300 dark:border-gray-700 rounded-lg shadow-sm ${
+                        className={`bg-white dark:bg-stone-900 focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 pr-12 py-2.5 sm:text-sm border-stone-300 dark:border-stone-700 rounded-lg shadow-sm ${
                           profileErrors.username ? "border-red-500" : ""
                         }`}
                         placeholder="username"
                         disabled={loading}
                       />
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                        <UserCog className="h-5 w-5 text-gray-400" />
+                        <UserCog className="h-5 w-5 text-stone-400" />
                       </div>
                     </div>
                     {profileErrors.username && (
@@ -446,16 +446,16 @@ const SettingsPage = () => {
 
                   {/* Bio */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                    <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1 font-body">
                       Bio
                     </label>
                     <div className="relative">
                       <div className="absolute top-3 left-3 flex items-start pointer-events-none">
-                        <PenLine className="h-5 w-5 text-gray-400" />
+                        <PenLine className="h-5 w-5 text-stone-400" />
                       </div>
                       <textarea
                         {...profileRegister("bio")}
-                        className={`bg-white dark:bg-gray-900 focus:ring-violet-500 focus:border-violet-500 block w-full pl-10 py-2.5 sm:text-sm border-gray-300 dark:border-gray-700 rounded-lg shadow-sm ${
+                        className={`bg-white dark:bg-stone-900 focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 py-2.5 sm:text-sm border-stone-300 dark:border-stone-700 rounded-lg shadow-sm ${
                           profileErrors.bio ? "border-red-500" : ""
                         }`}
                         placeholder="Tell us about yourself..."
@@ -472,7 +472,7 @@ const SettingsPage = () => {
 
                   {/* Social Links */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 font-montserrat">
+                    <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-3 font-body">
                       <div className="flex items-center">
                         <LinkIcon className="h-5 w-5 mr-2 text-indigo-500 dark:text-indigo-400" />
                         Social Links
@@ -482,11 +482,11 @@ const SettingsPage = () => {
                     <div className="space-y-4">
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <Globe className="h-5 w-5 text-gray-400" />
+                          <Globe className="h-5 w-5 text-stone-400" />
                         </div>
                         <input
                           {...profileRegister("social_links.website")}
-                          className={`bg-white dark:bg-gray-900 focus:ring-violet-500 focus:border-violet-500 block w-full pl-10 py-2.5 sm:text-sm border-gray-300 dark:border-gray-700 rounded-lg shadow-sm ${
+                          className={`bg-white dark:bg-stone-900 focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 py-2.5 sm:text-sm border-stone-300 dark:border-stone-700 rounded-lg shadow-sm ${
                             profileErrors.social_links?.website
                               ? "border-red-500"
                               : ""
@@ -507,7 +507,7 @@ const SettingsPage = () => {
                         </div>
                         <input
                           {...profileRegister("social_links.twitter")}
-                          className={`bg-white dark:bg-gray-900 focus:ring-violet-500 focus:border-violet-500 block w-full pl-10 py-2.5 sm:text-sm border-gray-300 dark:border-gray-700 rounded-lg shadow-sm ${
+                          className={`bg-white dark:bg-stone-900 focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 py-2.5 sm:text-sm border-stone-300 dark:border-stone-700 rounded-lg shadow-sm ${
                             profileErrors.social_links?.twitter
                               ? "border-red-500"
                               : ""
@@ -528,7 +528,7 @@ const SettingsPage = () => {
                         </div>
                         <input
                           {...profileRegister("social_links.facebook")}
-                          className={`bg-white dark:bg-gray-900 focus:ring-violet-500 focus:border-violet-500 block w-full pl-10 py-2.5 sm:text-sm border-gray-300 dark:border-gray-700 rounded-lg shadow-sm ${
+                          className={`bg-white dark:bg-stone-900 focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 py-2.5 sm:text-sm border-stone-300 dark:border-stone-700 rounded-lg shadow-sm ${
                             profileErrors.social_links?.facebook
                               ? "border-red-500"
                               : ""
@@ -549,7 +549,7 @@ const SettingsPage = () => {
                         </div>
                         <input
                           {...profileRegister("social_links.instagram")}
-                          className={`bg-white dark:bg-gray-900 focus:ring-violet-500 focus:border-violet-500 block w-full pl-10 py-2.5 sm:text-sm border-gray-300 dark:border-gray-700 rounded-lg shadow-sm ${
+                          className={`bg-white dark:bg-stone-900 focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 py-2.5 sm:text-sm border-stone-300 dark:border-stone-700 rounded-lg shadow-sm ${
                             profileErrors.social_links?.instagram
                               ? "border-red-500"
                               : ""
@@ -566,11 +566,11 @@ const SettingsPage = () => {
 
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <Github className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+                          <Github className="h-5 w-5 text-stone-700 dark:text-stone-300" />
                         </div>
                         <input
                           {...profileRegister("social_links.github")}
-                          className={`bg-white dark:bg-gray-900 focus:ring-violet-500 focus:border-violet-500 block w-full pl-10 py-2.5 sm:text-sm border-gray-300 dark:border-gray-700 rounded-lg shadow-sm ${
+                          className={`bg-white dark:bg-stone-900 focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 py-2.5 sm:text-sm border-stone-300 dark:border-stone-700 rounded-lg shadow-sm ${
                             profileErrors.social_links?.github
                               ? "border-red-500"
                               : ""
@@ -615,25 +615,25 @@ const SettingsPage = () => {
         <div className="space-y-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
             <div>
-              <h2 className="font-playfair text-2xl font-bold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+              <h2 className="font-heading text-2xl font-bold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400">
                 Account Settings
               </h2>
-              <p className="text-gray-600 dark:text-gray-400 font-montserrat">
+              <p className="text-stone-600 dark:text-stone-400 font-body">
                 Manage your account details and security preferences
               </p>
             </div>
           </div>
 
           {/* User Info */}
-          <Card className="bg-white/90 dark:bg-gray-800/90 border border-gray-200 dark:border-gray-700 shadow-sm p-6">
+          <Card className="bg-white/90 dark:bg-stone-800/90 border border-stone-200 dark:border-stone-700 shadow-sm p-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white font-playfair mb-4">
+                <h3 className="text-lg font-bold text-stone-900 dark:text-white font-heading mb-4">
                   Email Address
                 </h3>
                 <div className="flex items-center">
                   <Mail className="h-5 w-5 text-indigo-500 dark:text-indigo-400 mr-2" />
-                  <p className="text-base font-medium text-gray-900 dark:text-white font-montserrat">
+                  <p className="text-base font-medium text-stone-900 dark:text-white font-body">
                     {currentUser?.email}
                   </p>
                 </div>
@@ -661,8 +661,8 @@ const SettingsPage = () => {
           </Card>
 
           {/* Change Password Section */}
-          <Card className="bg-white/90 dark:bg-gray-800/90 border border-gray-200 dark:border-gray-700 shadow-sm p-6">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white font-playfair mb-4">
+          <Card className="bg-white/90 dark:bg-stone-800/90 border border-stone-200 dark:border-stone-700 shadow-sm p-6">
+            <h3 className="text-lg font-bold text-stone-900 dark:text-white font-heading mb-4">
               Change Password
             </h3>
 
@@ -682,17 +682,17 @@ const SettingsPage = () => {
               className="space-y-5"
             >
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1 font-body">
                   Current Password
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-gray-400" />
+                    <Lock className="h-5 w-5 text-stone-400" />
                   </div>
                   <input
                     {...passwordRegister("currentPassword")}
                     type={showCurrentPassword ? "text" : "password"}
-                    className={`bg-white dark:bg-gray-900 focus:ring-violet-500 focus:border-violet-500 block w-full pl-10 pr-12 py-2.5 sm:text-sm border-gray-300 dark:border-gray-700 rounded-lg shadow-sm ${
+                    className={`bg-white dark:bg-stone-900 focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 pr-12 py-2.5 sm:text-sm border-stone-300 dark:border-stone-700 rounded-lg shadow-sm ${
                       passwordErrors.currentPassword ? "border-red-500" : ""
                     }`}
                     placeholder="••••••••"
@@ -704,7 +704,7 @@ const SettingsPage = () => {
                       onClick={() =>
                         setShowCurrentPassword(!showCurrentPassword)
                       }
-                      className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                      className="text-stone-400 hover:text-stone-500 focus:outline-none"
                     >
                       {showCurrentPassword ? (
                         <EyeOff className="h-5 w-5" />
@@ -722,17 +722,17 @@ const SettingsPage = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1 font-body">
                   New Password
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-gray-400" />
+                    <Lock className="h-5 w-5 text-stone-400" />
                   </div>
                   <input
                     {...passwordRegister("newPassword")}
                     type={showNewPassword ? "text" : "password"}
-                    className={`bg-white dark:bg-gray-900 focus:ring-violet-500 focus:border-violet-500 block w-full pl-10 pr-12 py-2.5 sm:text-sm border-gray-300 dark:border-gray-700 rounded-lg shadow-sm ${
+                    className={`bg-white dark:bg-stone-900 focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 pr-12 py-2.5 sm:text-sm border-stone-300 dark:border-stone-700 rounded-lg shadow-sm ${
                       passwordErrors.newPassword ? "border-red-500" : ""
                     }`}
                     placeholder="••••••••"
@@ -742,7 +742,7 @@ const SettingsPage = () => {
                     <button
                       type="button"
                       onClick={() => setShowNewPassword(!showNewPassword)}
-                      className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                      className="text-stone-400 hover:text-stone-500 focus:outline-none"
                     >
                       {showNewPassword ? (
                         <EyeOff className="h-5 w-5" />
@@ -760,17 +760,17 @@ const SettingsPage = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1 font-body">
                   Confirm New Password
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-gray-400" />
+                    <Lock className="h-5 w-5 text-stone-400" />
                   </div>
                   <input
                     {...passwordRegister("confirmPassword")}
                     type={showConfirmPassword ? "text" : "password"}
-                    className={`bg-white dark:bg-gray-900 focus:ring-violet-500 focus:border-violet-500 block w-full pl-10 pr-12 py-2.5 sm:text-sm border-gray-300 dark:border-gray-700 rounded-lg shadow-sm ${
+                    className={`bg-white dark:bg-stone-900 focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 pr-12 py-2.5 sm:text-sm border-stone-300 dark:border-stone-700 rounded-lg shadow-sm ${
                       passwordErrors.confirmPassword ? "border-red-500" : ""
                     }`}
                     placeholder="••••••••"
@@ -782,7 +782,7 @@ const SettingsPage = () => {
                       onClick={() =>
                         setShowConfirmPassword(!showConfirmPassword)
                       }
-                      className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                      className="text-stone-400 hover:text-stone-500 focus:outline-none"
                     >
                       {showConfirmPassword ? (
                         <EyeOff className="h-5 w-5" />
@@ -821,10 +821,10 @@ const SettingsPage = () => {
                 <Shield className="h-6 w-6 text-red-600 dark:text-red-400" />
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-bold text-red-600 dark:text-red-400 font-playfair mb-2">
+                <h3 className="text-lg font-bold text-red-600 dark:text-red-400 font-heading mb-2">
                   Danger Zone
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 font-montserrat mb-4">
+                <p className="text-stone-600 dark:text-stone-400 font-body mb-4">
                   Once you delete your account, there is no going back. Please
                   be certain.
                 </p>
@@ -852,27 +852,27 @@ const SettingsPage = () => {
         <div className="space-y-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
             <div>
-              <h2 className="font-playfair text-2xl font-bold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+              <h2 className="font-heading text-2xl font-bold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400">
                 Preferences
               </h2>
-              <p className="text-gray-600 dark:text-gray-400 font-montserrat">
+              <p className="text-stone-600 dark:text-stone-400 font-body">
                 Customize your ChronoSpace experience
               </p>
             </div>
           </div>
 
           {/* Theme Settings */}
-          <Card className="bg-white/90 dark:bg-gray-800/90 border border-gray-200 dark:border-gray-700 shadow-sm p-6">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white font-playfair mb-4">
+          <Card className="bg-white/90 dark:bg-stone-800/90 border border-stone-200 dark:border-stone-700 shadow-sm p-6">
+            <h3 className="text-lg font-bold text-stone-900 dark:text-white font-heading mb-4">
               Theme
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div
-                className={`relative bg-white dark:bg-gray-800 rounded-xl p-4 cursor-pointer border-2 transition-all duration-200 ${
+                className={`relative bg-white dark:bg-stone-800 rounded-xl p-4 cursor-pointer border-2 transition-all duration-200 ${
                   !darkMode
-                    ? "border-violet-500 shadow-md"
-                    : "border-gray-200 dark:border-gray-700 hover:border-violet-300 dark:hover:border-violet-700"
+                    ? "border-primary-500 shadow-md"
+                    : "border-stone-200 dark:border-stone-700 hover:border-violet-300 dark:hover:border-violet-700"
                 }`}
                 onClick={() => setTheme(false)}
               >
@@ -880,11 +880,11 @@ const SettingsPage = () => {
                   <div className="bg-amber-100 rounded-full p-2 mr-3">
                     <Sun className="h-5 w-5 text-amber-600" />
                   </div>
-                  <span className="font-medium text-gray-900 dark:text-white font-montserrat">
+                  <span className="font-medium text-stone-900 dark:text-white font-body">
                     Light
                   </span>
                 </div>
-                <div className="rounded-lg bg-gray-100 p-3 flex justify-between items-center">
+                <div className="rounded-lg bg-stone-100 p-3 flex justify-between items-center">
                   <div className="w-8 h-3 bg-indigo-600 rounded-full"></div>
                   <div className="w-4 h-3 bg-gray-400 rounded-full"></div>
                 </div>
@@ -896,9 +896,9 @@ const SettingsPage = () => {
               </div>
 
               <div
-                className={`relative bg-gray-900 dark:bg-black rounded-xl p-4 cursor-pointer border-2 transition-all duration-200 ${
+                className={`relative bg-gray-900 dark:bg-stone-900 rounded-xl p-4 cursor-pointer border-2 transition-all duration-200 ${
                   darkMode
-                    ? "border-violet-500 shadow-md"
+                    ? "border-primary-500 shadow-md"
                     : "border-gray-800 hover:border-violet-700"
                 }`}
                 onClick={() => setTheme(true)}
@@ -907,12 +907,12 @@ const SettingsPage = () => {
                   <div className="bg-indigo-900/50 rounded-full p-2 mr-3">
                     <Moon className="h-5 w-5 text-indigo-400" />
                   </div>
-                  <span className="font-medium text-white font-montserrat">
+                  <span className="font-medium text-white font-body">
                     Dark
                   </span>
                 </div>
                 <div className="rounded-lg bg-gray-800 p-3 flex justify-between items-center">
-                  <div className="w-8 h-3 bg-violet-500 rounded-full"></div>
+                  <div className="w-8 h-3 bg-primary-500 rounded-full"></div>
                   <div className="w-4 h-3 bg-gray-600 rounded-full"></div>
                 </div>
                 {darkMode && (
@@ -923,7 +923,7 @@ const SettingsPage = () => {
               </div>
 
               <div
-                className="relative bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-black rounded-xl p-4 cursor-pointer border-2 border-gray-200 dark:border-gray-700 hover:border-violet-300 dark:hover:border-violet-700 transition-all duration-200"
+                className="relative bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-black rounded-xl p-4 cursor-pointer border-2 border-stone-200 dark:border-stone-700 hover:border-violet-300 dark:hover:border-violet-700 transition-all duration-200"
                 onClick={toggleTheme}
               >
                 <div className="flex items-center mb-3">
@@ -931,7 +931,7 @@ const SettingsPage = () => {
                     <Sun className="h-5 w-5 text-amber-600 dark:text-amber-400 absolute top-2 left-2 opacity-50" />
                     <Moon className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
                   </div>
-                  <span className="font-medium text-gray-900 dark:text-white font-montserrat">
+                  <span className="font-medium text-stone-900 dark:text-white font-body">
                     System
                   </span>
                 </div>
@@ -942,28 +942,28 @@ const SettingsPage = () => {
               </div>
             </div>
 
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-4 font-montserrat">
+            <p className="text-sm text-stone-500 dark:text-stone-400 mt-4 font-body">
               Choose your preferred theme for the ChronoSpace interface.
             </p>
           </Card>
 
           {/* Notification Settings */}
-          <Card className="bg-white/90 dark:bg-gray-800/90 border border-gray-200 dark:border-gray-700 shadow-sm p-6">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white font-playfair mb-4">
+          <Card className="bg-white/90 dark:bg-stone-800/90 border border-stone-200 dark:border-stone-700 shadow-sm p-6">
+            <h3 className="text-lg font-bold text-stone-900 dark:text-white font-heading mb-4">
               Notifications
             </h3>
 
             <div className="space-y-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
-                  <div className="bg-violet-100 dark:bg-violet-900/30 rounded-full p-2 mr-3 flex-shrink-0">
-                    <Bell className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+                  <div className="bg-violet-100 dark:bg-primary-900/30 rounded-full p-2 mr-3 flex-shrink-0">
+                    <Bell className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 dark:text-white font-montserrat">
+                    <h4 className="font-medium text-stone-900 dark:text-white font-body">
                       Email Notifications
                     </h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 font-montserrat mt-1">
+                    <p className="text-sm text-stone-500 dark:text-stone-400 font-body mt-1">
                       Receive email notifications for important updates, new
                       followers, and comments on your content
                     </p>
@@ -981,12 +981,12 @@ const SettingsPage = () => {
                     htmlFor="emailNotifications"
                     className={`absolute cursor-pointer top-0 left-0 right-0 bottom-0 rounded-full transition-colors duration-200 ${
                       emailNotifications
-                        ? "bg-violet-500"
-                        : "bg-gray-300 dark:bg-gray-700"
+                        ? "bg-primary-500"
+                        : "bg-gray-300 dark:bg-stone-700"
                     }`}
                   >
                     <span
-                      className={`absolute left-1 bottom-1 bg-white dark:bg-gray-200 w-4 h-4 rounded-full transition-transform duration-200 ${
+                      className={`absolute left-1 bottom-1 bg-white dark:bg-stone-200 w-4 h-4 rounded-full transition-transform duration-200 ${
                         emailNotifications ? "transform translate-x-6" : ""
                       }`}
                     ></span>
@@ -1000,16 +1000,16 @@ const SettingsPage = () => {
                     <RefreshCw className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 dark:text-white font-montserrat">
+                    <h4 className="font-medium text-stone-900 dark:text-white font-body">
                       Notification Frequency
                     </h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 font-montserrat mt-1">
+                    <p className="text-sm text-stone-500 dark:text-stone-400 font-body mt-1">
                       How often would you like to receive notification emails?
                     </p>
                   </div>
                 </div>
                 <div className="flex-shrink-0">
-                  <select className="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm focus:ring-violet-500 focus:border-violet-500">
+                  <select className="bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 rounded-lg px-3 py-2 text-sm focus:ring-primary-500 focus:border-primary-500">
                     <option>Immediately</option>
                     <option>Daily digest</option>
                     <option>Weekly digest</option>
@@ -1063,18 +1063,18 @@ const SettingsPage = () => {
 
             <div className="relative z-10">
               <motion.h1
-                className="font-playfair text-3xl md:text-4xl font-bold mb-2 tracking-tight leading-tight"
+                className="font-heading text-3xl md:text-4xl font-bold mb-2 tracking-tight leading-tight"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400">
                   Account Settings
                 </span>
               </motion.h1>
 
               <motion.p
-                className="font-montserrat text-lg leading-relaxed text-gray-700 dark:text-gray-300"
+                className="font-body text-lg leading-relaxed text-stone-700 dark:text-stone-300"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
@@ -1086,17 +1086,17 @@ const SettingsPage = () => {
         </div>
 
         {/* Settings Content with improved tabs */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 overflow-hidden">
+        <div className="bg-white dark:bg-stone-800 rounded-xl shadow-md border border-stone-100 dark:border-stone-700 overflow-hidden">
           {/* Custom tabs navigation  */}
-          <div className="border-b border-gray-200 dark:border-gray-700">
+          <div className="border-b border-stone-200 dark:border-stone-700">
             <div className="flex overflow-x-auto scrollbar-hide">
               {tabsContent.map((tab) => (
                 <button
                   key={tab.id}
                   className={`flex items-center whitespace-nowrap px-6 py-4 font-medium text-sm transition-colors duration-200 ${
                     activeTab === tab.id
-                      ? "border-b-2 border-violet-500 text-violet-600 dark:text-violet-400 font-montserrat"
-                      : "border-b-2 border-transparent text-gray-600 hover:text-gray-800 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-700 font-montserrat"
+                      ? "border-b-2 border-primary-500 text-primary-600 dark:text-primary-400 font-body"
+                      : "border-b-2 border-transparent text-stone-600 hover:text-gray-800 hover:border-stone-300 dark:text-stone-400 dark:hover:text-gray-300 dark:hover:border-gray-700 font-body"
                   }`}
                   onClick={() => setActiveTab(tab.id)}
                 >
@@ -1132,16 +1132,16 @@ const SettingsPage = () => {
           </div>
 
           <div className="text-center">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 font-playfair">
+            <h3 className="text-xl font-bold text-stone-900 dark:text-white mb-2 font-heading">
               Delete Your Account?
             </h3>
 
-            <p className="text-gray-600 dark:text-gray-400 font-montserrat mb-2">
+            <p className="text-stone-600 dark:text-stone-400 font-body mb-2">
               This action cannot be undone. This will permanently delete your
               account and remove all your data from our servers.
             </p>
 
-            <div className="bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 p-3 rounded-lg text-sm mb-4 font-montserrat border border-red-200 dark:border-red-800/30">
+            <div className="bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 p-3 rounded-lg text-sm mb-4 font-body border border-red-200 dark:border-red-800/30">
               <p className="font-medium">
                 Warning: All the following will be deleted:
               </p>
@@ -1154,14 +1154,14 @@ const SettingsPage = () => {
           </div>
 
           <div className="pt-2">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+            <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1 font-body">
               Type "delete" to confirm
             </label>
             <input
               value={deleteConfirmText}
               onChange={(e) => setDeleteConfirmText(e.target.value)}
               placeholder="delete"
-              className="bg-white dark:bg-gray-900 focus:ring-red-500 focus:border-red-500 block w-full py-2.5 px-4 sm:text-sm border-gray-300 dark:border-gray-700 rounded-lg shadow-sm"
+              className="bg-white dark:bg-stone-900 focus:ring-red-500 focus:border-red-500 block w-full py-2.5 px-4 sm:text-sm border-stone-300 dark:border-stone-700 rounded-lg shadow-sm"
             />
           </div>
 

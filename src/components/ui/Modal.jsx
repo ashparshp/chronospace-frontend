@@ -92,7 +92,7 @@ const Modal = ({
             <motion.div
               className={`w-full ${
                 sizeStyles[size] || sizeStyles.md
-              } bg-white dark:bg-black rounded-xl shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700 ${className}`}
+              } bg-white dark:bg-stone-900 rounded-xl shadow-xl overflow-hidden border border-stone-200 dark:border-stone-700 ${className}`}
               initial="hidden"
               animate="visible"
               exit="exit"
@@ -101,14 +101,14 @@ const Modal = ({
               onClick={(e) => e.stopPropagation()}
             >
               {title && (
-                <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-black/50">
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                <div className="px-6 py-4 border-b border-stone-200 dark:border-stone-700 flex justify-between items-center bg-stone-50 dark:bg-stone-900/50">
+                  <h3 className="text-lg font-medium text-stone-900 dark:text-gray-100">
                     {title}
                   </h3>
                   {showCloseButton && (
                     <motion.button
                       onClick={onClose}
-                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none p-1 rounded-full hover:bg-gray-200 dark:hover:bg-black transition-colors duration-200"
+                      className="text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-gray-200 focus:outline-none p-1 rounded-full hover:bg-stone-200 dark:hover:bg-black transition-colors duration-200"
                       aria-label="Close"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}

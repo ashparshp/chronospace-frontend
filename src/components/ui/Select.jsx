@@ -48,7 +48,7 @@ const Select = forwardRef(
         {label && (
           <motion.label
             htmlFor={name}
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
@@ -59,7 +59,7 @@ const Select = forwardRef(
 
         <div className="relative">
           {icon && (
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 dark:text-gray-400">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-stone-500 dark:text-stone-400">
               {icon}
             </div>
           )}
@@ -73,8 +73,8 @@ const Select = forwardRef(
               className={`w-full px-4 py-2 pr-10 rounded-lg border appearance-none ${
                 error
                   ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                  : "border-gray-300 dark:border-gray-700 focus:ring-primary-500/50 focus:border-primary-500"
-              } bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 ${
+                  : "border-stone-300 dark:border-stone-700 focus:ring-primary-500/50 focus:border-primary-500"
+              } bg-white dark:bg-stone-900 text-stone-900 dark:text-gray-100 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 ${
                 icon ? "pl-10" : ""
               } ${className}`}
               animate={error ? "error" : "animate"}
@@ -93,14 +93,14 @@ const Select = forwardRef(
               ))}
             </motion.select>
 
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-500 dark:text-gray-400">
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-stone-500 dark:text-stone-400">
               <ChevronDown className="h-4 w-4" />
             </div>
           </div>
         </div>
 
         {helper && !error && (
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
             {helper}
           </p>
         )}

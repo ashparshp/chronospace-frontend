@@ -33,9 +33,9 @@ const BlogCard = ({ blog, className = "", variant = "default", layout = "grid" }
   };
 
   const cardVariants = {
-    default: "bg-white dark:bg-black shadow-custom",
+    default: "bg-white dark:bg-stone-900 shadow-warm-sm",
     gradient: "card-gradient",
-    minimal: "bg-white dark:bg-black border border-gray-100 dark:border-gray-800",
+    minimal: "bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800",
     featured: "bg-gradient-to-r from-primary-500/10 to-secondary-500/10 dark:from-primary-900/20 dark:to-secondary-900/20",
   };
 
@@ -60,7 +60,7 @@ const BlogCard = ({ blog, className = "", variant = "default", layout = "grid" }
       <div
         className={`relative ${
           layout === "list"
-            ? "w-[200px] h-[160px] flex items-center justify-center flex-shrink-0 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden ml-1"
+            ? "w-[200px] h-[160px] flex items-center justify-center flex-shrink-0 bg-stone-100 dark:bg-stone-800 rounded-xl overflow-hidden ml-1"
             : "h-48 w-full"
         }`}
       >
@@ -111,17 +111,17 @@ const BlogCard = ({ blog, className = "", variant = "default", layout = "grid" }
           </div>
         )}
 
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+        <h3 className="text-xl font-bold text-stone-900 dark:text-white mb-3 line-clamp-2">
           {blog.title}
         </h3>
 
         {blog.des && (
-          <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2 flex-grow">
+          <p className="text-stone-600 dark:text-stone-300 text-sm mb-4 line-clamp-2 flex-grow">
             {blog.des}
           </p>
         )}
 
-        <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
+        <div className="flex items-center justify-between mt-auto pt-4 border-t border-stone-200 dark:border-stone-800">
           {blog.author?.personal_info ? (
             <div
               className="flex items-center gap-2 cursor-pointer group"
@@ -134,10 +134,10 @@ const BlogCard = ({ blog, className = "", variant = "default", layout = "grid" }
                 animate
               />
               <div>
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                <p className="text-sm font-medium text-stone-900 dark:text-white">
                   {blog.author.personal_info.fullname}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-stone-500 dark:text-stone-400">
                   {formatDate(blog.publishedAt)}
                 </p>
               </div>
@@ -146,17 +146,17 @@ const BlogCard = ({ blog, className = "", variant = "default", layout = "grid" }
             <div className="flex items-center gap-2">
               <Avatar size="sm" />
               <div>
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                <p className="text-sm font-medium text-stone-900 dark:text-white">
                   Unknown Author
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-stone-500 dark:text-stone-400">
                   {formatDate(blog.publishedAt)}
                 </p>
               </div>
             </div>
           )}
 
-          <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-3 text-sm text-stone-500 dark:text-stone-400">
             <div className="flex items-center gap-1 hover:text-red-500">
               <Heart size={16} />
               <span>{blog.activity?.total_likes || 0}</span>

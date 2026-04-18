@@ -65,7 +65,7 @@ const NotificationDropdown = ({
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button
         onClick={handleDropdownToggle}
-        className="relative p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black transition-colors duration-200"
+        className="relative p-2 rounded-full text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-black transition-colors duration-200"
         aria-label="Notifications"
       >
         <Bell size={20} />
@@ -87,10 +87,10 @@ const NotificationDropdown = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2, type: "spring", stiffness: 500, damping: 30 }}
-            className="absolute right-0 mt-2 w-80 bg-white dark:bg-black rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 z-50 overflow-hidden"
+            className="absolute right-0 mt-2 w-80 bg-white dark:bg-stone-900 rounded-xl shadow-lg border border-stone-100 dark:border-stone-700 z-50 overflow-hidden"
           >
-            <div className="flex justify-between items-center p-4 border-b border-gray-100 dark:border-gray-700 bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/30 dark:to-secondary-900/30">
-              <h3 className="font-semibold text-gray-900 dark:text-white">Notifications</h3>
+            <div className="flex justify-between items-center p-4 border-b border-stone-100 dark:border-stone-700 bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/30 dark:to-secondary-900/30">
+              <h3 className="font-semibold text-stone-900 dark:text-white">Notifications</h3>
               <div className="flex items-center space-x-2">
                 {unreadCount > 0 && (
                   <button
@@ -107,7 +107,7 @@ const NotificationDropdown = ({
                     navigate("/dashboard?tab=notifications");
                     setIsOpen(false);
                   }}
-                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                  className="text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-gray-300"
                 >
                   <Settings size={16} />
                 </button>
@@ -122,7 +122,7 @@ const NotificationDropdown = ({
                       key={notification._id}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className={`p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-black/50 transition-colors duration-200 ${
+                      className={`p-4 cursor-pointer hover:bg-stone-50 dark:hover:bg-black/50 transition-colors duration-200 ${
                         !notification.seen ? "bg-primary-50/50 dark:bg-primary-900/20" : ""
                       }`}
                       onClick={() => handleNotificationClick(notification)}
@@ -145,7 +145,7 @@ const NotificationDropdown = ({
                             <div className="flex items-center">
                               {getNotificationIcon(notification.type)}
                             </div>
-                            <span className="text-xs text-gray-500">
+                            <span className="text-xs text-stone-500">
                               {formatDistanceToNow(new Date(notification.createdAt), { addSuffix: true })}
                             </span>
                           </div>
@@ -159,15 +159,15 @@ const NotificationDropdown = ({
                 </ul>
               ) : (
                 <div className="p-6 text-center">
-                  <div className="mx-auto h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center mb-3">
-                    <Bell size={24} className="text-gray-400" />
+                  <div className="mx-auto h-12 w-12 rounded-full bg-stone-100 flex items-center justify-center mb-3">
+                    <Bell size={24} className="text-stone-400" />
                   </div>
-                  <p className="text-gray-500">No notifications yet</p>
+                  <p className="text-stone-500">No notifications yet</p>
                 </div>
               )}
             </div>
 
-            <div className="p-3 border-t border-gray-100 text-center">
+            <div className="p-3 border-t border-stone-100 text-center">
               <Button
                 variant="ghost"
                 size="sm"

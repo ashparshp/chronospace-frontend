@@ -9,8 +9,8 @@ const StatCard = ({
   subStats = null,
   action = null,
   delay = 0,
-  iconBgColor = "bg-violet-500/20",
-  iconColor = "text-violet-600 dark:text-violet-400",
+  iconBgColor = "bg-primary-500/20",
+  iconColor = "text-primary-600 dark:text-primary-400",
   trendColor = "text-green-600 dark:text-green-400",
 }) => {
   return (
@@ -18,19 +18,19 @@ const StatCard = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay }}
-      className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-gray-200 dark:border-gray-700/20 shadow-sm dark:bg-gray-800/90"
+      className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-stone-200 dark:border-stone-700/20 shadow-sm dark:bg-stone-800/90"
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-gray-700 dark:text-gray-300 text-sm font-montserrat">
+          <p className="text-stone-700 dark:text-stone-300 text-sm font-body">
             {title}
           </p>
-          <h3 className="text-gray-900 dark:text-white font-playfair text-2xl font-bold">
+          <h3 className="text-stone-900 dark:text-white font-heading text-2xl font-bold">
             {typeof value === "number" ? value.toLocaleString() : value}
           </h3>
           {trend && (
             <div
-              className={`flex items-center mt-1 ${trendColor} text-xs font-montserrat`}
+              className={`flex items-center mt-1 ${trendColor} text-xs font-body`}
             >
               {trend.icon}
               <span>{trend.text}</span>
@@ -43,15 +43,15 @@ const StatCard = ({
       </div>
 
       {(subStats || action) && (
-        <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700/30 flex justify-between text-xs">
+        <div className="mt-3 pt-3 border-t border-stone-200 dark:border-stone-700/30 flex justify-between text-xs">
           {subStats ? (
             <>
               {subStats.map((stat, index) => (
                 <div key={index} className={index > 0 ? "text-right" : ""}>
-                  <p className="text-gray-500 dark:text-gray-400 font-montserrat">
+                  <p className="text-stone-500 dark:text-stone-400 font-body">
                     {stat.label}
                   </p>
-                  <p className="font-medium text-gray-900 dark:text-white font-montserrat mt-0.5">
+                  <p className="font-medium text-stone-900 dark:text-white font-body mt-0.5">
                     {typeof stat.value === "number"
                       ? stat.value.toLocaleString()
                       : stat.value}

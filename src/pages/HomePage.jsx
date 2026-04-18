@@ -97,9 +97,9 @@ const HomePage = () => {
     <PageTransition>
       {/* Refined background decoration */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none opacity-60">
-        <div className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-gradient-to-b from-primary-100/30 to-transparent dark:from-primary-900/15 blur-3xl"></div>
-        <div className="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-gradient-to-t from-secondary-100/30 to-transparent dark:from-secondary-900/15 blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] rounded-full bg-gradient-to-r from-primary-100/10 to-secondary-100/10 dark:from-primary-900/5 dark:to-secondary-900/5 blur-3xl"></div>
+        <div className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-gradient-to-b from-primary-100/30 to-transparent dark:from-primary-950/15 blur-3xl"></div>
+        <div className="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-gradient-to-t from-secondary-100/30 to-transparent dark:from-secondary-950/15 blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] rounded-full bg-gradient-to-r from-primary-100/10 to-secondary-100/10 dark:from-primary-950/5 dark:to-secondary-950/5 blur-3xl"></div>
       </div>
 
       <div className="w-full space-y-12 pb-12">
@@ -115,7 +115,7 @@ const HomePage = () => {
                   >
                     <FeaturedBlogCard
                       blog={blog}
-                      className="h-full shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800"
+                      className="h-full shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-2xl overflow-hidden border border-stone-200 dark:border-stone-800"
                     />
                   </div>
                 ))}
@@ -124,40 +124,40 @@ const HomePage = () => {
                   <div key={blog.blog_id}>
                     <FeaturedBlogCard
                       blog={blog}
-                      className="h-full shadow-md hover:shadow-lg transition-shadow duration-300 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800"
+                      className="h-full shadow-md hover:shadow-lg transition-shadow duration-300 rounded-2xl overflow-hidden border border-stone-200 dark:border-stone-800"
                     />
                   </div>
                 ))}
               </div>
             ) : loading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                <div className="md:col-span-2 lg:row-span-2 bg-gray-200 dark:bg-black animate-pulse rounded-2xl h-96"></div>
-                <div className="bg-gray-200 dark:bg-black animate-pulse rounded-2xl h-64"></div>
-                <div className="bg-gray-200 dark:bg-black animate-pulse rounded-2xl h-64"></div>
+                <div className="md:col-span-2 lg:row-span-2 bg-stone-200 dark:bg-stone-800 animate-pulse rounded-2xl h-96"></div>
+                <div className="bg-stone-200 dark:bg-stone-800 animate-pulse rounded-2xl h-64"></div>
+                <div className="bg-stone-200 dark:bg-stone-800 animate-pulse rounded-2xl h-64"></div>
               </div>
             ) : (
               <div className="rounded-2xl overflow-hidden shadow-lg">
-                <div className="bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
+                <div className="bg-gradient-to-r from-stone-100 to-stone-200 dark:from-stone-800 dark:to-stone-900 rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
                   {/* No dot pattern background - removed as requested */}
 
                   <div className="relative z-10 max-w-3xl mx-auto">
                     <motion.h1
-                      className="font-playfair text-4xl sm:text-5xl md:text-6xl font-bold mb-6 tracking-tight leading-tight"
+                      className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold mb-6 tracking-tight leading-tight"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6 }}
                     >
                       Welcome to{" "}
                       <span className="relative inline-block">
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400">
                           ChronoSpace
                         </span>
-                        <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 rounded-full transform scale-x-0 animate-[expandWidth_1s_ease-in-out_forwards_0.8s]"></span>
+                        <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 rounded-full transform scale-x-0 animate-[expandWidth_1s_ease-in-out_forwards_0.8s]"></span>
                       </span>
                     </motion.h1>
 
                     <motion.p
-                      className="font-montserrat text-lg sm:text-xl mb-8 max-w-2xl mx-auto leading-relaxed italic text-gray-700 dark:text-gray-300"
+                      className="font-body text-lg sm:text-xl mb-8 max-w-2xl mx-auto leading-relaxed italic text-stone-700 dark:text-stone-300"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.1 }}
@@ -213,7 +213,7 @@ const HomePage = () => {
                   </div>
 
                   <motion.div
-                    className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-violet-500/20 to-indigo-500/20 dark:from-violet-500/10 dark:to-indigo-500/10 rounded-full blur-2xl"
+                    className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 dark:from-primary-500/10 dark:to-secondary-500/10 rounded-full blur-2xl"
                     animate={{
                       scale: [1, 1.2, 1],
                       opacity: [0.5, 0.7, 0.5],
@@ -225,7 +225,7 @@ const HomePage = () => {
                     }}
                   ></motion.div>
                   <motion.div
-                    className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-r from-indigo-500/20 to-violet-500/20 dark:from-indigo-500/10 dark:to-violet-500/10 rounded-full blur-3xl"
+                    className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-r from-secondary-500/20 to-primary-500/20 dark:from-secondary-500/10 dark:to-primary-500/10 rounded-full blur-3xl"
                     animate={{
                       scale: [1, 1.3, 1],
                       opacity: [0.4, 0.6, 0.4],
@@ -250,12 +250,12 @@ const HomePage = () => {
             <div className="relative">
               {/* Section Title with Premium Typography */}
               <div className="mb-10 text-center">
-                <h2 className="font-playfair text-3xl font-bold inline-block relative tracking-tight">
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                <h2 className="font-heading text-3xl font-bold inline-block relative tracking-tight">
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400">
                     Discover Categories
                   </span>
                   <motion.div
-                    className="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 rounded-full"
+                    className="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 rounded-full"
                     initial={{ width: 0, left: "50%" }}
                     animate={{ width: "100%", left: 0 }}
                     transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -272,9 +272,9 @@ const HomePage = () => {
                     description:
                       "Discover the latest tech innovations and digital transformations",
                     gradient:
-                      "bg-gradient-to-br from-indigo-700 via-blue-600 to-sky-600",
+                      "bg-gradient-to-br from-stone-700 via-slate-600 to-primary-700",
                     hoverGradient:
-                      "bg-gradient-to-br from-indigo-600 via-blue-500 to-sky-500",
+                      "bg-gradient-to-br from-stone-600 via-slate-500 to-primary-600",
                     pattern:
                       "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20L0 20z' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E\")",
                     iconBg: "bg-white/20",
@@ -287,9 +287,9 @@ const HomePage = () => {
                     description:
                       "Explore wellness, personal growth, and balanced living",
                     gradient:
-                      "bg-gradient-to-br from-fuchsia-700 via-purple-600 to-violet-600",
+                      "bg-gradient-to-br from-secondary-600 via-rose-500 to-pink-500",
                     hoverGradient:
-                      "bg-gradient-to-br from-fuchsia-600 via-purple-500 to-violet-500",
+                      "bg-gradient-to-br from-secondary-500 via-rose-400 to-pink-400",
                     pattern:
                       "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E\")",
                     iconBg: "bg-white/20",
@@ -302,9 +302,9 @@ const HomePage = () => {
                     description:
                       "Stay informed on market trends and entrepreneurship",
                     gradient:
-                      "bg-gradient-to-br from-amber-600 via-orange-600 to-red-600",
+                      "bg-gradient-to-br from-primary-600 via-amber-500 to-orange-500",
                     hoverGradient:
-                      "bg-gradient-to-br from-amber-500 via-orange-500 to-red-500",
+                      "bg-gradient-to-br from-primary-500 via-amber-400 to-orange-400",
                     pattern:
                       "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h10v10H0zm10 10h10v10H10z' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E\")",
                     iconBg: "bg-white/20",
@@ -383,7 +383,7 @@ const HomePage = () => {
 
                             {/* Description with White Text */}
                             <div className="mt-1 mb-4">
-                              <p className="font-montserrat text-sm text-white/90 leading-relaxed overflow-hidden transition-all duration-500 ease-out">
+                              <p className="font-body text-sm text-white/90 leading-relaxed overflow-hidden transition-all duration-500 ease-out">
                                 {category.description}
                               </p>
                             </div>
@@ -432,8 +432,8 @@ const HomePage = () => {
           <div className="lg:col-span-8">
             <PageTransition.Item transition="slideUp">
               <section className="space-y-6">
-                <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-800 pb-4">
-                  <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-400 dark:to-secondary-400">
+                <div className="flex justify-between items-center border-b border-stone-200 dark:border-stone-800 pb-4">
+                  <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400">
                     Latest Posts
                   </h2>
                   {/* Updated view all button with ghost variant */}
@@ -468,14 +468,14 @@ const HomePage = () => {
             <PageTransition.Item transition="slideUp" delay={0.1}>
               <Card
                 variant="gradient"
-                className="overflow-visible border border-gray-100 dark:border-gray-800 shadow-md"
+                className="overflow-visible border border-stone-200 dark:border-stone-800 shadow-warm-md"
               >
-                <Card.Header className="space-y-3 border-b border-gray-100 dark:border-gray-800">
+                <Card.Header className="space-y-3 border-b border-stone-200 dark:border-stone-800">
                   <div className="flex items-center space-x-2">
                     <div className="p-1.5 bg-primary-100 dark:bg-primary-900/50 rounded-md">
                       <TrendingUp className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                     </div>
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                    <h2 className="text-xl font-bold text-stone-900 dark:text-white">
                       Trending Now
                     </h2>
                   </div>
@@ -483,7 +483,7 @@ const HomePage = () => {
 
                 <Card.Body className="pt-4">
                   {trendingBlogs.length > 0 ? (
-                    <ul className="space-y-4 divide-y divide-gray-100 dark:divide-gray-800">
+                    <ul className="space-y-4 divide-y divide-stone-100 dark:divide-stone-800">
                       {trendingBlogs.map((blog, index) => (
                         <li
                           key={blog.blog_id}
@@ -497,10 +497,10 @@ const HomePage = () => {
                               {index + 1}
                             </div>
                             <div className="flex-1">
-                              <h3 className="font-medium text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
+                              <h3 className="font-medium text-stone-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
                                 {blog.title}
                               </h3>
-                              <div className="flex items-center mt-1 text-sm text-gray-500 dark:text-gray-400">
+                              <div className="flex items-center mt-1 text-sm text-stone-500 dark:text-stone-400">
                                 <span className="truncate max-w-[100px]">
                                   {blog.author && blog.author.personal_info
                                     ? blog.author.personal_info.fullname
@@ -521,17 +521,17 @@ const HomePage = () => {
                     Array.from({ length: 5 }).map((_, i) => (
                       <div
                         key={i}
-                        className="flex items-start space-x-4 pb-4 mb-4 border-b border-gray-100 dark:border-gray-700 last:border-0 last:mb-0 last:pb-0"
+                        className="flex items-start space-x-4 pb-4 mb-4 border-b border-stone-200 dark:border-stone-700 last:border-0 last:mb-0 last:pb-0"
                       >
-                        <div className="flex-shrink-0 bg-gray-200 dark:bg-black rounded-full w-8 h-8 animate-pulse"></div>
+                        <div className="flex-shrink-0 bg-stone-200 dark:bg-stone-800 rounded-full w-8 h-8 animate-pulse"></div>
                         <div className="flex-1 space-y-2">
-                          <div className="h-4 bg-gray-200 dark:bg-black rounded animate-pulse"></div>
-                          <div className="h-3 bg-gray-200 dark:bg-black rounded animate-pulse w-2/3"></div>
+                          <div className="h-4 bg-stone-200 dark:bg-stone-800 rounded animate-pulse"></div>
+                          <div className="h-3 bg-stone-200 dark:bg-stone-800 rounded animate-pulse w-2/3"></div>
                         </div>
                       </div>
                     ))
                   ) : (
-                    <p className="text-gray-500 dark:text-gray-400 text-center py-4">
+                    <p className="text-stone-500 dark:text-stone-400 text-center py-4">
                       No trending blogs yet.
                     </p>
                   )}
@@ -543,14 +543,14 @@ const HomePage = () => {
             <PageTransition.Item transition="slideUp" delay={0.2}>
               <Card
                 variant="elevated"
-                className="border border-gray-100 dark:border-gray-800 shadow-md"
+                className="border border-stone-200 dark:border-stone-800 shadow-warm-md"
               >
-                <Card.Header className="flex flex-col items-start pb-3 border-b border-gray-100 dark:border-gray-800">
+                <Card.Header className="flex flex-col items-start pb-3 border-b border-stone-200 dark:border-stone-800">
                   <div className="flex items-center space-x-2">
                     <div className="p-2 bg-secondary-100 dark:bg-secondary-900/50 rounded-full shadow-sm">
                       <Tags className="h-5 w-5 text-secondary-600 dark:text-secondary-400" />
                     </div>
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
+                    <h2 className="text-xl font-bold text-stone-900 dark:text-white tracking-tight">
                       Popular Tags
                     </h2>
                   </div>

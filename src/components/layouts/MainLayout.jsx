@@ -12,7 +12,7 @@ const MainLayout = () => {
   useEffect(() => {
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
-      metaThemeColor.setAttribute("content", darkMode ? "#0F172A" : "#F9FAFB");
+      metaThemeColor.setAttribute("content", darkMode ? "#0C0A09" : "#FAFAF9");
     }
   }, [darkMode]);
 
@@ -45,8 +45,8 @@ const MainLayout = () => {
 
       {/* Background effect for visual interest */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[40%] -right-[30%] w-[80%] h-[80%] rounded-full bg-gradient-to-b from-primary-100/30 to-transparent dark:from-primary-900/10 blur-3xl"></div>
-        <div className="absolute -bottom-[40%] -left-[30%] w-[80%] h-[80%] rounded-full bg-gradient-to-t from-secondary-100/30 to-transparent dark:from-secondary-900/10 blur-3xl"></div>
+        <div className="absolute -top-[40%] -right-[30%] w-[80%] h-[80%] rounded-full bg-gradient-to-b from-primary-100/20 to-transparent dark:from-primary-950/10 blur-3xl"></div>
+        <div className="absolute -bottom-[40%] -left-[30%] w-[80%] h-[80%] rounded-full bg-gradient-to-t from-secondary-100/20 to-transparent dark:from-secondary-950/10 blur-3xl"></div>
       </div>
 
 

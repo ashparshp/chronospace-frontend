@@ -250,9 +250,9 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center">
+      <h3 className="text-xl font-bold text-stone-900 dark:text-white flex items-center">
         <span className="mr-1">Comments</span>
-        <span className="px-2 py-0.5 bg-gray-100 dark:bg-black rounded-full text-sm font-normal">
+        <span className="px-2 py-0.5 bg-stone-100 dark:bg-stone-900 rounded-full text-sm font-normal">
           {comments.length}
         </span>
       </h3>
@@ -271,7 +271,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
               onChange={(e) => setCommentText(e.target.value)}
               placeholder="Add a comment..."
               rows={3}
-              className="flex-1 bg-gray-50 dark:bg-black/50 border border-gray-200 dark:border-gray-700"
+              className="flex-1 bg-stone-50 dark:bg-stone-900/50 border border-stone-200 dark:border-stone-700"
               maxLength={1000}
               showCount
             />
@@ -290,12 +290,12 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
         </form>
       ) : (
         <motion.div
-          className="bg-gray-50 dark:bg-black rounded-xl p-6 text-center border border-gray-200 dark:border-gray-700"
+          className="bg-stone-50 dark:bg-stone-900 rounded-xl p-6 text-center border border-stone-200 dark:border-stone-700"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <p className="text-gray-700 dark:text-gray-300 mb-4">
+          <p className="text-stone-700 dark:text-stone-300 mb-4">
             Please sign in to join the conversation.
           </p>
           <Button variant="gradient" href="/signin" className="px-8">
@@ -307,11 +307,11 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
         {loading && comments.length === 0 ? (
           Array.from({ length: 3 }).map((_, i) => (
             <div key={i} className="animate-pulse flex space-x-4">
-              <div className="rounded-full bg-gray-200 dark:bg-black h-10 w-10"></div>
+              <div className="rounded-full bg-stone-200 dark:bg-stone-900 h-10 w-10"></div>
               <div className="flex-1 space-y-2 py-1">
-                <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/4"></div>
-                <div className="h-4 bg-gray-200 dark:bg-black rounded w-3/4"></div>
-                <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/2"></div>
+                <div className="h-4 bg-stone-200 dark:bg-stone-900 rounded w-1/4"></div>
+                <div className="h-4 bg-stone-200 dark:bg-stone-900 rounded w-3/4"></div>
+                <div className="h-4 bg-stone-200 dark:bg-stone-900 rounded w-1/2"></div>
               </div>
             </div>
           ))
@@ -325,7 +325,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                 exit="exit"
                 variants={commentVariants}
                 custom={index}
-                className="border-b border-gray-100 dark:border-gray-800 pb-6"
+                className="border-b border-stone-100 dark:border-stone-800 pb-6"
                 transition={{ delay: index * 0.1 }}
               >
                 <div className="flex space-x-4">
@@ -345,7 +345,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                     <div className="flex justify-between items-start">
                       <div>
                         <h4
-                          className="font-medium text-gray-900 dark:text-gray-100 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+                          className="font-medium text-stone-900 dark:text-gray-100 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
                           onClick={() =>
                             navigate(
                               `/profile/${comment.commented_by.personal_info.username}`
@@ -354,7 +354,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                         >
                           {comment.commented_by.personal_info.fullname}
                         </h4>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-stone-500 dark:text-stone-400">
                           {formatCommentDate(comment.commentedAt)}
                         </p>
                       </div>
@@ -373,13 +373,13 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                         )}
                       </div>
                     </div>
-                    <div className="mt-2 text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-black/50 p-3 rounded-lg">
+                    <div className="mt-2 text-gray-800 dark:text-gray-200 bg-stone-50 dark:bg-stone-900/50 p-3 rounded-lg">
                       {comment.comment}
                     </div>
                     <div className="mt-2 flex items-center space-x-4">
                       <button
                         onClick={() => handleLikeComment(comment._id)}
-                        className={`flex items-center text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 ${
+                        className={`flex items-center text-stone-500 dark:text-stone-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 ${
                           likedComments[comment._id]
                             ? "text-primary-600 dark:text-primary-400"
                             : ""
@@ -399,7 +399,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                               replyingTo === comment._id ? null : comment._id
                             )
                           }
-                          className="text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 flex items-center"
+                          className="text-stone-500 dark:text-stone-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 flex items-center"
                         >
                           <Reply className="h-4 w-4 mr-1" />
                           <span className="text-xs">Reply</span>
@@ -417,14 +417,14 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                         >
                           <form
                             onSubmit={(e) => handleSubmitReply(e, comment._id)}
-                            className="ml-6 border-l-2 border-gray-100 dark:border-gray-800 pl-4"
+                            className="ml-6 border-l-2 border-stone-100 dark:border-stone-800 pl-4"
                           >
                             <TextArea
                               value={replyText}
                               onChange={(e) => setReplyText(e.target.value)}
                               placeholder={`Reply to ${comment.commented_by.personal_info.fullname}...`}
                               rows={2}
-                              className="bg-gray-50 dark:bg-black/50 border border-gray-200 dark:border-gray-700"
+                              className="bg-stone-50 dark:bg-stone-900/50 border border-stone-200 dark:border-stone-700"
                             />
                             <div className="flex justify-end space-x-2 mt-2">
                               <Button
@@ -459,7 +459,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                           size="sm"
                           onClick={() => toggleReplies(comment._id)}
                           disabled={loadingReplies[comment._id]}
-                          className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+                          className="text-stone-600 dark:text-stone-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
                         >
                           {loadingReplies[comment._id] ? (
                             <span className="flex items-center">
@@ -506,7 +506,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                                 animate="visible"
                                 exit="exit"
                                 variants={repliesVariants}
-                                className="mt-4 pl-8 space-y-4 border-l-2 border-gray-100 dark:border-gray-800"
+                                className="mt-4 pl-8 space-y-4 border-l-2 border-stone-100 dark:border-stone-800"
                               >
                                 {expandedReplies[comment._id].map(
                                   (reply, replyIndex) => (
@@ -544,7 +544,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                                         <div className="flex justify-between items-start">
                                           <div>
                                             <h5
-                                              className="font-medium text-gray-900 dark:text-gray-100 text-sm cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+                                              className="font-medium text-stone-900 dark:text-gray-100 text-sm cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
                                               onClick={() =>
                                                 navigate(
                                                   `/profile/${reply.commented_by.personal_info.username}`
@@ -556,7 +556,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                                                   .fullname
                                               }
                                             </h5>
-                                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                            <p className="text-xs text-stone-500 dark:text-stone-400">
                                               {formatCommentDate(
                                                 reply.commentedAt
                                               )}
@@ -579,7 +579,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                                             </Button>
                                           )}
                                         </div>
-                                        <div className="mt-1 text-gray-800 dark:text-gray-200 text-sm bg-gray-50 dark:bg-black/50 p-2 rounded-lg">
+                                        <div className="mt-1 text-gray-800 dark:text-gray-200 text-sm bg-stone-50 dark:bg-stone-900/50 p-2 rounded-lg">
                                           {reply.comment}
                                         </div>
                                         <div className="mt-1 flex items-center space-x-3">
@@ -587,7 +587,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                                             onClick={() =>
                                               handleLikeComment(reply._id)
                                             }
-                                            className={`flex items-center text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 text-xs ${
+                                            className={`flex items-center text-stone-500 dark:text-stone-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 text-xs ${
                                               likedComments[reply._id]
                                                 ? "text-primary-600 dark:text-primary-400"
                                                 : ""
@@ -623,7 +623,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                   onClick={loadMoreComments}
                   disabled={loading}
                   isLoading={loading}
-                  className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-black shadow-sm"
+                  className="border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 shadow-sm"
                 >
                   Load More Comments
                 </Button>
@@ -632,13 +632,13 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
           </>
         ) : (
           <motion.div
-            className="text-center py-12 bg-gray-50 dark:bg-black rounded-xl border border-gray-100 dark:border-gray-800"
+            className="text-center py-12 bg-stone-50 dark:bg-stone-900 rounded-xl border border-stone-100 dark:border-stone-800"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
             <svg
-              className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-600"
+              className="mx-auto h-12 w-12 text-stone-400 dark:text-stone-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -650,7 +650,7 @@ const CommentSection = ({ blogId, blogAuthorId }) => {
                 d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
               />
             </svg>
-            <p className="mt-4 text-gray-500 dark:text-gray-400">
+            <p className="mt-4 text-stone-500 dark:text-stone-400">
               No comments yet. Be the first to comment!
             </p>
           </motion.div>

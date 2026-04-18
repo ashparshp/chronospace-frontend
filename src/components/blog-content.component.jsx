@@ -7,7 +7,7 @@ const Img = ({ url, caption }) => {
         className="w-full rounded-lg"
       />
       {caption && caption.length ? (
-        <p className="w-full text-center my-3 md:mb-12 text-base text-gray-600 dark:text-gray-400">
+        <p className="w-full text-center my-3 md:mb-12 text-base text-stone-600 dark:text-stone-400">
           {caption}
         </p>
       ) : null}
@@ -51,7 +51,7 @@ const CheckboxItem = ({ checked, text }) => {
           </svg>
         ) : (
           <svg
-            className="h-5 w-5 text-gray-400"
+            className="h-5 w-5 text-stone-400"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -67,7 +67,7 @@ const CheckboxItem = ({ checked, text }) => {
       </div>
       <div
         className={`${
-          checked ? "text-gray-500 dark:text-gray-400 line-through" : ""
+          checked ? "text-stone-500 dark:text-stone-400 line-through" : ""
         }`}
         dangerouslySetInnerHTML={{ __html: text }}
       ></div>
@@ -98,8 +98,8 @@ const Table = ({ content, withHeadings }) => {
 
   if (!Array.isArray(content) || content.length === 0) {
     return (
-      <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg my-4">
-        <p className="text-gray-500 dark:text-gray-400">
+      <div className="bg-stone-100 dark:bg-stone-800 p-4 rounded-lg my-4">
+        <p className="text-stone-500 dark:text-stone-400">
           Table content missing or invalid
         </p>
       </div>
@@ -108,14 +108,14 @@ const Table = ({ content, withHeadings }) => {
 
   return (
     <div className="overflow-x-auto my-4">
-      <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700">
+      <table className="min-w-full border-collapse border border-stone-300 dark:border-stone-700">
         {withHeadings && (
           <thead>
-            <tr className="bg-gray-100 dark:bg-gray-800">
+            <tr className="bg-stone-100 dark:bg-stone-800">
               {content[0].map((cell, cellIndex) => (
                 <th
                   key={cellIndex}
-                  className="border border-gray-300 dark:border-gray-700 px-4 py-2 text-left"
+                  className="border border-stone-300 dark:border-stone-700 px-4 py-2 text-left"
                 >
                   {cell}
                 </th>
@@ -129,14 +129,14 @@ const Table = ({ content, withHeadings }) => {
               key={rowIndex}
               className={
                 rowIndex % 2 === 0
-                  ? "bg-white dark:bg-black"
-                  : "bg-gray-50 dark:bg-gray-900"
+                  ? "bg-white dark:bg-stone-900"
+                  : "bg-stone-50 dark:bg-stone-900"
               }
             >
               {row.map((cell, cellIndex) => (
                 <td
                   key={cellIndex}
-                  className="border border-gray-300 dark:border-gray-700 px-4 py-2"
+                  className="border border-stone-300 dark:border-stone-700 px-4 py-2"
                 >
                   {cell}
                 </td>
@@ -237,7 +237,7 @@ const Code = ({ code, language = "" }) => {
       else codeText = "Unable to extract code from HTMLPreElement";
 
       return (
-        <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg my-4 overflow-x-auto text-sm">
+        <pre className="bg-stone-100 dark:bg-stone-900 p-4 rounded-lg my-4 overflow-x-auto text-sm">
           <code className={language ? `language-${language}` : ""}>
             {codeText}
           </code>
@@ -246,7 +246,7 @@ const Code = ({ code, language = "" }) => {
     } catch (error) {
       console.error("Error extracting code from HTMLPreElement:", error);
       return (
-        <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg my-4 overflow-x-auto text-sm">
+        <pre className="bg-stone-100 dark:bg-stone-900 p-4 rounded-lg my-4 overflow-x-auto text-sm">
           <code>Error extracting code content</code>
         </pre>
       );
@@ -254,7 +254,7 @@ const Code = ({ code, language = "" }) => {
   }
 
   return (
-    <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg my-4 overflow-x-auto text-sm">
+    <pre className="bg-stone-100 dark:bg-stone-900 p-4 rounded-lg my-4 overflow-x-auto text-sm">
       <code className={language ? `language-${language}` : ""}>{code}</code>
     </pre>
   );

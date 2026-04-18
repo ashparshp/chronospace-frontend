@@ -105,7 +105,7 @@ const SignUpPage = () => {
   const sideContent = (
     <div className="space-y-6 text-gray-50">
       <motion.h2
-        className="text-3xl font-bold font-playfair"
+        className="text-3xl font-bold font-heading"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -114,7 +114,7 @@ const SignUpPage = () => {
       </motion.h2>
 
       <motion.p
-        className="text-lg opacity-90 font-montserrat leading-relaxed"
+        className="text-lg opacity-90 font-body leading-relaxed"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
@@ -147,10 +147,10 @@ const SignUpPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium font-playfair">
+            <h3 className="text-white font-medium font-heading">
               Personalized Experience
             </h3>
-            <p className="text-white/80 text-sm font-montserrat">
+            <p className="text-white/80 text-sm font-body">
               Discover blogs tailored to your interests
             </p>
           </div>
@@ -173,10 +173,10 @@ const SignUpPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium font-playfair">
+            <h3 className="text-white font-medium font-heading">
               Engage with the Community
             </h3>
-            <p className="text-white/80 text-sm font-montserrat">
+            <p className="text-white/80 text-sm font-body">
               Comment, like, and share your favorite posts
             </p>
           </div>
@@ -199,10 +199,10 @@ const SignUpPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium font-playfair">
+            <h3 className="text-white font-medium font-heading">
               Become a Blogger
             </h3>
-            <p className="text-white/80 text-sm font-montserrat">
+            <p className="text-white/80 text-sm font-body">
               Share your knowledge and passion with the world
             </p>
           </div>
@@ -219,21 +219,21 @@ const SignUpPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg max-w-md w-full border border-gray-100 dark:border-gray-700"
+          className="bg-white dark:bg-stone-800 p-8 rounded-xl shadow-lg max-w-md w-full border border-stone-100 dark:border-stone-700"
         >
           <div className="text-center">
             <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-6">
               <Check className="h-8 w-8 text-green-600 dark:text-green-400" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 font-playfair">
+            <h2 className="text-2xl font-bold text-stone-900 dark:text-white mb-4 font-heading">
               Registration Successful
             </h2>
             <div className="space-y-4">
-              <p className="text-gray-600 dark:text-gray-300 font-montserrat leading-relaxed">
+              <p className="text-stone-600 dark:text-stone-300 font-body leading-relaxed">
                 We've sent a verification link to your email address. Please
                 check your inbox and verify your account to get started.
               </p>
-              <div className="bg-indigo-50 dark:bg-indigo-900/20 text-indigo-800 dark:text-indigo-300 p-3 rounded-lg text-sm font-montserrat">
+              <div className="bg-indigo-50 dark:bg-indigo-900/20 text-indigo-800 dark:text-indigo-300 p-3 rounded-lg text-sm font-body">
                 <p>
                   Don't see the email? Check your spam folder or contact support
                   if you need assistance.
@@ -250,7 +250,7 @@ const SignUpPage = () => {
                 icon={<ArrowRight className="h-4 w-4 ml-1" />}
                 iconPosition="right"
               >
-                <span className="font-montserrat">Proceed to Sign In</span>
+                <span className="font-body">Proceed to Sign In</span>
               </Button>
               <Button
                 variant="white"
@@ -258,7 +258,7 @@ const SignUpPage = () => {
                 className="w-full"
                 shadowDepth="shallow"
               >
-                <span className="font-montserrat">Return to Homepage</span>
+                <span className="font-body">Return to Homepage</span>
               </Button>
             </div>
           </div>
@@ -285,7 +285,7 @@ const SignUpPage = () => {
           onClose={() => setError(null)}
           className="mb-6"
         >
-          <span className="font-montserrat">{error}</span>
+          <span className="font-body">{error}</span>
         </Alert>
       )}
 
@@ -298,11 +298,11 @@ const SignUpPage = () => {
             placeholder="John Doe"
             error={errors.fullname?.message}
             required
-            icon={<User className="h-5 w-5 text-gray-400" />}
-            className="bg-white dark:bg-gray-900"
+            icon={<User className="h-5 w-5 text-stone-400" />}
+            className="bg-white dark:bg-stone-900"
           />
           {errors.fullname && (
-            <p className="mt-1 text-sm text-red-500 font-montserrat">
+            <p className="mt-1 text-sm text-red-500 font-body">
               {errors.fullname.message}
             </p>
           )}
@@ -316,11 +316,11 @@ const SignUpPage = () => {
             type="email"
             error={errors.email?.message}
             required
-            icon={<Mail className="h-5 w-5 text-gray-400" />}
-            className="bg-white dark:bg-gray-900"
+            icon={<Mail className="h-5 w-5 text-stone-400" />}
+            className="bg-white dark:bg-stone-900"
           />
           {errors.email && (
-            <p className="mt-1 text-sm text-red-500 font-montserrat">
+            <p className="mt-1 text-sm text-red-500 font-body">
               {errors.email.message}
             </p>
           )}
@@ -334,13 +334,13 @@ const SignUpPage = () => {
             placeholder="••••••••"
             error={errors.password?.message}
             required
-            icon={<Lock className="h-5 w-5 text-gray-400" />}
-            className="bg-white dark:bg-gray-900"
+            icon={<Lock className="h-5 w-5 text-stone-400" />}
+            className="bg-white dark:bg-stone-900"
             appendIcon={
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-gray-400 hover:text-gray-500"
+                className="text-stone-400 hover:text-stone-500"
               >
                 {showPassword ? (
                   <EyeOff className="h-5 w-5" />
@@ -351,7 +351,7 @@ const SignUpPage = () => {
             }
           />
           {errors.password && (
-            <p className="mt-1 text-sm text-red-500 font-montserrat">
+            <p className="mt-1 text-sm text-red-500 font-body">
               {errors.password.message}
             </p>
           )}
@@ -365,13 +365,13 @@ const SignUpPage = () => {
             placeholder="••••••••"
             error={errors.confirmPassword?.message}
             required
-            icon={<Lock className="h-5 w-5 text-gray-400" />}
-            className="bg-white dark:bg-gray-900"
+            icon={<Lock className="h-5 w-5 text-stone-400" />}
+            className="bg-white dark:bg-stone-900"
             appendIcon={
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="text-gray-400 hover:text-gray-500"
+                className="text-stone-400 hover:text-stone-500"
               >
                 {showConfirmPassword ? (
                   <EyeOff className="h-5 w-5" />
@@ -382,14 +382,14 @@ const SignUpPage = () => {
             }
           />
           {errors.confirmPassword && (
-            <p className="mt-1 text-sm text-red-500 font-montserrat">
+            <p className="mt-1 text-sm text-red-500 font-body">
               {errors.confirmPassword.message}
             </p>
           )}
         </div>
 
         <div className="mt-1">
-          <p className="text-sm text-gray-600 dark:text-gray-400 font-montserrat">
+          <p className="text-sm text-stone-600 dark:text-stone-400 font-body">
             Password must be 6-20 characters and include at least one uppercase
             letter, one lowercase letter, and one number.
           </p>
@@ -404,24 +404,24 @@ const SignUpPage = () => {
           shadowDepth="deep"
           glossy={true}
         >
-          <span className="font-montserrat">Create Account</span>
+          <span className="font-body">Create Account</span>
         </Button>
       </form>
 
       {/* Divider */}
       <div className="my-6 flex items-center">
-        <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
-        <span className="flex-shrink mx-4 text-gray-600 dark:text-gray-400 font-montserrat">
+        <div className="flex-grow border-t border-stone-200 dark:border-stone-700"></div>
+        <span className="flex-shrink mx-4 text-stone-600 dark:text-stone-400 font-body">
           or
         </span>
-        <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
+        <div className="flex-grow border-t border-stone-200 dark:border-stone-700"></div>
       </div>
 
       {/* Social login */}
       <Button
         type="button"
         variant="white"
-        className="w-full bg-black/10 hover:bg-black/20 text-gray-900 dark:text-white dark:bg-white/10 dark:hover:bg-white/20"
+        className="w-full bg-black/10 hover:bg-black/20 text-stone-900 dark:text-white dark:bg-white/10 dark:hover:bg-white/20"
         onClick={handleGoogleLogin}
         disabled={loading}
         shadowDepth="shallow"
@@ -445,7 +445,7 @@ const SignUpPage = () => {
           />
           <path fill="none" d="M1 1h22v22H1z" />
         </svg>
-        <span className="font-montserrat">Continue with Google</span>
+        <span className="font-body">Continue with Google</span>
       </Button>
     </AuthLayout>
   );

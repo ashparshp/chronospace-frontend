@@ -46,9 +46,9 @@ const Badge = ({
       border: "border-blue-200 dark:border-blue-800/50",
     },
     neutral: {
-      bg: "bg-gray-100 dark:bg-black/50",
-      text: "text-gray-800 dark:text-gray-300",
-      border: "border-gray-200 dark:border-gray-700/50",
+      bg: "bg-stone-100 dark:bg-stone-800/50",
+      text: "text-stone-800 dark:text-stone-300",
+      border: "border-stone-200 dark:border-stone-700/50",
     },
     gradient: {
       bg: "bg-gradient-to-r from-primary-500/10 to-secondary-500/10 dark:from-primary-500/20 dark:to-secondary-500/20",
@@ -124,7 +124,7 @@ const Badge = ({
               ? "bg-red-500"
               : variant === "info"
               ? "bg-blue-500"
-              : "bg-gray-500"
+              : "bg-stone-500"
           }`}
         />
       )}

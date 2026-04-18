@@ -31,7 +31,7 @@ const Avatar = ({
     online: "bg-green-500",
     away: "bg-yellow-500",
     busy: "bg-red-500",
-    offline: "bg-gray-500",
+    offline: "bg-stone-500",
   };
 
   const statusSizeStyles = {

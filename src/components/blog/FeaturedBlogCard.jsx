@@ -23,13 +23,13 @@ const FeaturedBlogCard = ({ blog, className = "" }) => {
 
   const getGradient = () => {
     const gradients = {
-      technology: "from-indigo-600 to-blue-500",
-      programming: "from-blue-600 to-cyan-500",
-      science: "from-cyan-500 to-teal-400",
-      health: "from-teal-500 to-green-400",
-      business: "from-orange-500 to-amber-400",
-      lifestyle: "from-pink-500 to-rose-400",
-      default: "from-primary-600 to-secondary-600",
+      technology: "from-stone-700 to-primary-600",
+      programming: "from-primary-600 to-amber-500",
+      science: "from-teal-600 to-emerald-500",
+      health: "from-emerald-500 to-teal-400",
+      business: "from-primary-500 to-amber-400",
+      lifestyle: "from-secondary-500 to-rose-400",
+      default: "from-primary-500 to-secondary-500",
     };
 
     return gradients[blog.category] || gradients.default;
@@ -45,7 +45,7 @@ const FeaturedBlogCard = ({ blog, className = "" }) => {
     >
       {/* Animated Gradient Border */}
       <motion.div 
-        className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-xl blur opacity-30 group-hover:opacity-70 transition duration-300"
+        className="absolute -inset-0.5 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl blur opacity-30 group-hover:opacity-70 transition duration-300"
       />
 
       {/* Background Image with Overlay */}
@@ -74,7 +74,6 @@ const FeaturedBlogCard = ({ blog, className = "" }) => {
             <Badge
               variant="orange"
               className="px-3 py-1 uppercase text-xs font-semibold shadow-lg"
-              style={{ fontFamily: 'cursive' }}
             >
               Featured
             </Badge>
@@ -92,7 +91,6 @@ const FeaturedBlogCard = ({ blog, className = "" }) => {
             <Badge
               variant="secondary"
               className="bg-white/20 text-white uppercase text-xs tracking-wider"
-              style={{ fontFamily: 'cursive' }}
             >
               {blog.category}
             </Badge>
@@ -102,15 +100,13 @@ const FeaturedBlogCard = ({ blog, className = "" }) => {
         {/* Middle Section: Title, Description & Tags */}
         <div className="mt-4 flex-1">
           <h2
-            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 drop-shadow-lg text-gray-50"
-            style={{ fontFamily: '"Pacifico", "Brush Script MT", cursive' }}
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 drop-shadow-lg text-gray-50 font-heading"
           >
             {blog.title}
           </h2>
           {blog.des && (
             <p
               className="text-white/90 mb-4 line-clamp-3 drop-shadow-md"
-              style={{ fontFamily: 'cursive' }}
 
             >
               {blog.des}
@@ -124,7 +120,6 @@ const FeaturedBlogCard = ({ blog, className = "" }) => {
                   variant="secondary"
                   className="bg-white/20 text-white uppercase text-xs tracking-wider hover:bg-white/30 transition-colors duration-300"
                   onClick={(e) => handleTagClick(e, tag)}
-                  style={{ fontFamily: 'cursive' }}
                 >
                   {tag}
                 </Badge>
@@ -145,10 +140,10 @@ const FeaturedBlogCard = ({ blog, className = "" }) => {
             className="border-2 border-white"
           />
           <div className="ml-4">
-            <p className="font-semibold text-white" style={{ fontFamily: 'cursive' }}>
+            <p className="font-semibold text-white">
               {blog.author.personal_info.fullname}
             </p>
-            <p className="text-sm text-white/80" style={{ fontFamily: 'cursive' }}>
+            <p className="text-sm text-white/80">
               {format(new Date(blog.publishedAt), "MMM d, yyyy")} •{" "}
               {blog.estimated_read_time || "5"} min read
             </p>

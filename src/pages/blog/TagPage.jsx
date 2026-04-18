@@ -104,10 +104,10 @@ const TagPage = () => {
         className="space-y-8"
       >
         {/* Tag Header */}
-        <div className="bg-white dark:bg-black rounded-lg shadow-md p-6">
+        <div className="bg-white dark:bg-stone-900 rounded-lg shadow-md p-6">
           <div className="flex items-center space-x-3 mb-4">
             <Tag className="h-6 w-6 text-primary-600 dark:text-primary-400" />
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl font-bold text-stone-900 dark:text-white">
               #{tag}
             </h1>
           </div>
@@ -135,17 +135,17 @@ const TagPage = () => {
         </div>
 
         {/* Blog List */}
-        <div className="bg-white dark:bg-black rounded-lg shadow-md p-6">
+        <div className="bg-white dark:bg-stone-900 rounded-lg shadow-md p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-xl font-bold text-stone-900 dark:text-white">
               Blogs tagged with #{tag}
             </h2>
             <div className="flex items-center space-x-2">
               <button
                 className={`p-2 rounded-md ${
                   viewMode === "grid"
-                    ? "bg-gray-100 dark:bg-black"
-                    : "text-gray-500 dark:text-gray-400"
+                    ? "bg-stone-100 dark:bg-stone-900"
+                    : "text-stone-500 dark:text-stone-400"
                 }`}
                 onClick={() => setViewMode("grid")}
                 aria-label="Grid view"
@@ -155,8 +155,8 @@ const TagPage = () => {
               <button
                 className={`p-2 rounded-md ${
                   viewMode === "list"
-                    ? "bg-gray-100 dark:bg-black"
-                    : "text-gray-500 dark:text-gray-400"
+                    ? "bg-stone-100 dark:bg-stone-900"
+                    : "text-stone-500 dark:text-stone-400"
                 }`}
                 onClick={() => setViewMode("list")}
                 aria-label="List view"

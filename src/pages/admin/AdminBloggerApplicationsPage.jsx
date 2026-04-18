@@ -177,10 +177,10 @@ const AdminBloggerApplicationsPage = () => {
         {/* Page Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl font-bold text-stone-900 dark:text-white">
               Blogger Applications
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-stone-600 dark:text-stone-400 mt-1">
               Review and manage user applications to become bloggers
             </p>
           </div>
@@ -221,18 +221,18 @@ const AdminBloggerApplicationsPage = () => {
               {Array.from({ length: 3 }).map((_, i) => (
                 <div
                   key={i}
-                  className="animate-pulse bg-white dark:bg-black rounded-lg p-4 border border-gray-200 dark:border-gray-700"
+                  className="animate-pulse bg-white dark:bg-stone-900 rounded-lg p-4 border border-stone-200 dark:border-stone-700"
                 >
                   <div className="flex items-start space-x-4">
-                    <div className="h-12 w-12 bg-gray-200 dark:bg-black rounded-full"></div>
+                    <div className="h-12 w-12 bg-stone-200 dark:bg-stone-900 rounded-full"></div>
                     <div className="flex-1 space-y-2 py-1">
-                      <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/4"></div>
-                      <div className="h-4 bg-gray-200 dark:bg-black rounded w-1/2"></div>
-                      <div className="h-4 bg-gray-200 dark:bg-black rounded w-3/4"></div>
+                      <div className="h-4 bg-stone-200 dark:bg-stone-900 rounded w-1/4"></div>
+                      <div className="h-4 bg-stone-200 dark:bg-stone-900 rounded w-1/2"></div>
+                      <div className="h-4 bg-stone-200 dark:bg-stone-900 rounded w-3/4"></div>
                     </div>
                     <div className="space-y-2">
-                      <div className="h-8 w-24 bg-gray-200 dark:bg-black rounded"></div>
-                      <div className="h-8 w-24 bg-gray-200 dark:bg-black rounded"></div>
+                      <div className="h-8 w-24 bg-stone-200 dark:bg-stone-900 rounded"></div>
+                      <div className="h-8 w-24 bg-stone-200 dark:bg-stone-900 rounded"></div>
                     </div>
                   </div>
                 </div>
@@ -245,7 +245,7 @@ const AdminBloggerApplicationsPage = () => {
                 {applications.map((application) => (
                   <div
                     key={application._id}
-                    className="bg-white dark:bg-black rounded-lg p-4 border border-gray-200 dark:border-gray-700"
+                    className="bg-white dark:bg-stone-900 rounded-lg p-4 border border-stone-200 dark:border-stone-700"
                   >
                     <div className="flex flex-col sm:flex-row justify-between gap-4">
                       {/* Applicant Info */}
@@ -263,7 +263,7 @@ const AdminBloggerApplicationsPage = () => {
                         />
                         <div>
                           <h3
-                            className="font-bold text-gray-900 dark:text-white text-lg cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                            className="font-bold text-stone-900 dark:text-white text-lg cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
                             onClick={() =>
                               navigate(
                                 `/profile/${application.user.personal_info.username}`
@@ -272,16 +272,16 @@ const AdminBloggerApplicationsPage = () => {
                           >
                             {application.user.personal_info.fullname}
                           </h3>
-                          <p className="text-gray-600 dark:text-gray-400">
+                          <p className="text-stone-600 dark:text-stone-400">
                             @{application.user.personal_info.username}
                           </p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                          <p className="text-sm text-stone-500 dark:text-stone-400 mt-1">
                             <Clock className="h-4 w-4 inline-block mr-1" />
                             Applied {formatDate(application.createdAt)}
                           </p>
 
                           {/* Stats */}
-                          <div className="flex space-x-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
+                          <div className="flex space-x-4 mt-2 text-sm text-stone-500 dark:text-stone-400">
                             <span>
                               {application.user.account_info.total_posts} posts
                             </span>
@@ -322,7 +322,7 @@ const AdminBloggerApplicationsPage = () => {
                       variant="ghost"
                       size="sm"
                       onClick={() => toggleApplicationExpand(application._id)}
-                      className="mt-4 w-full flex items-center justify-center text-gray-600 dark:text-gray-400"
+                      className="mt-4 w-full flex items-center justify-center text-stone-600 dark:text-stone-400"
                     >
                       {expandedApp === application._id ? (
                         <>
@@ -339,12 +339,12 @@ const AdminBloggerApplicationsPage = () => {
 
                     {/* Application Details */}
                     {expandedApp === application._id && (
-                      <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                        <h4 className="font-medium text-gray-900 dark:text-white mb-2">
+                      <div className="mt-4 pt-4 border-t border-stone-200 dark:border-stone-700">
+                        <h4 className="font-medium text-stone-900 dark:text-white mb-2">
                           Application Reason:
                         </h4>
-                        <div className="bg-gray-50 dark:bg-black p-4 rounded-md mb-4">
-                          <p className="text-gray-700 dark:text-gray-300 whitespace-pre-line">
+                        <div className="bg-stone-50 dark:bg-stone-900 p-4 rounded-md mb-4">
+                          <p className="text-stone-700 dark:text-stone-300 whitespace-pre-line">
                             {application.reason}
                           </p>
                         </div>
@@ -352,11 +352,11 @@ const AdminBloggerApplicationsPage = () => {
                         {application.writing_samples &&
                           application.writing_samples.length > 0 && (
                             <>
-                              <h4 className="font-medium text-gray-900 dark:text-white mb-2">
+                              <h4 className="font-medium text-stone-900 dark:text-white mb-2">
                                 Writing Samples:
                               </h4>
-                              <div className="bg-gray-50 dark:bg-black p-4 rounded-md">
-                                <p className="text-gray-700 dark:text-gray-300 whitespace-pre-line">
+                              <div className="bg-stone-50 dark:bg-stone-900 p-4 rounded-md">
+                                <p className="text-stone-700 dark:text-stone-300 whitespace-pre-line">
                                   {application.writing_samples.join("\n\n")}
                                 </p>
                               </div>
@@ -381,7 +381,7 @@ const AdminBloggerApplicationsPage = () => {
                       Previous
                     </Button>
 
-                    <div className="flex items-center px-4 py-1 text-sm text-gray-700 dark:text-gray-300">
+                    <div className="flex items-center px-4 py-1 text-sm text-stone-700 dark:text-stone-300">
                       Page {page} of {totalPages}
                     </div>
 
@@ -401,7 +401,7 @@ const AdminBloggerApplicationsPage = () => {
             <EmptyState
               title="No Pending Applications"
               description="There are no blogger applications waiting for review."
-              icon={<ClipboardCheck className="h-12 w-12 text-gray-400" />}
+              icon={<ClipboardCheck className="h-12 w-12 text-stone-400" />}
               actionText="Go to Dashboard"
               actionLink="/admin"
             />
@@ -427,10 +427,10 @@ const AdminBloggerApplicationsPage = () => {
                 size="md"
               />
               <div>
-                <h3 className="font-medium text-gray-900 dark:text-white">
+                <h3 className="font-medium text-stone-900 dark:text-white">
                   {modalData.user.personal_info.fullname}
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-stone-500 dark:text-stone-400">
                   @{modalData.user.personal_info.username}
                 </p>
               </div>
@@ -452,7 +452,7 @@ const AdminBloggerApplicationsPage = () => {
               rows={4}
             />
 
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-stone-500 dark:text-stone-400">
               {modalType === "approve"
                 ? "This user will be granted blogger privileges and notified of their approval."
                 : "This user will be notified that their application has been rejected."}

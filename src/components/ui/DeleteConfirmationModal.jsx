@@ -17,7 +17,7 @@ const DeleteConfirmationModal = ({
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-80"
+            className="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg w-80"
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0.8 }}

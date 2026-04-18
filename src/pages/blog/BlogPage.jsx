@@ -326,21 +326,21 @@ const BlogPage = () => {
   if (loading) {
     return (
       <div className="max-w-4xl mx-auto space-y-8 animate-pulse">
-        <div className="h-8 bg-gray-200 dark:bg-black rounded w-3/4"></div>
-        <div className="h-6 bg-gray-200 dark:bg-black rounded w-1/2"></div>
+        <div className="h-8 bg-stone-200 dark:bg-stone-900 rounded w-3/4"></div>
+        <div className="h-6 bg-stone-200 dark:bg-stone-900 rounded w-1/2"></div>
         <div className="flex items-center space-x-4">
-          <div className="h-12 w-12 bg-gray-200 dark:bg-black rounded-full"></div>
+          <div className="h-12 w-12 bg-stone-200 dark:bg-stone-900 rounded-full"></div>
           <div className="space-y-2">
-            <div className="h-4 bg-gray-200 dark:bg-black rounded w-32"></div>
-            <div className="h-3 bg-gray-200 dark:bg-black rounded w-24"></div>
+            <div className="h-4 bg-stone-200 dark:bg-stone-900 rounded w-32"></div>
+            <div className="h-3 bg-stone-200 dark:bg-stone-900 rounded w-24"></div>
           </div>
         </div>
-        <div className="h-80 bg-gray-200 dark:bg-black rounded"></div>
+        <div className="h-80 bg-stone-200 dark:bg-stone-900 rounded"></div>
         <div className="space-y-3">
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="h-4 bg-gray-200 dark:bg-black rounded"
+              className="h-4 bg-stone-200 dark:bg-stone-900 rounded"
             ></div>
           ))}
         </div>
@@ -352,10 +352,10 @@ const BlogPage = () => {
   if (error) {
     return (
       <div className="max-w-4xl mx-auto text-center py-12">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+        <h2 className="text-2xl font-bold text-stone-900 dark:text-white mb-4">
           {error === "Blog not found" ? "Blog Not Found" : "Error Loading Blog"}
         </h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-6">
+        <p className="text-stone-600 dark:text-stone-400 mb-6">
           {error === "Blog not found"
             ? "The blog post you are looking for does not exist or has been removed."
             : "There was a problem loading this blog post. Please try again later."}
@@ -374,10 +374,10 @@ const BlogPage = () => {
   ) {
     return (
       <div className="max-w-4xl mx-auto text-center py-12">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+        <h2 className="text-2xl font-bold text-stone-900 dark:text-white mb-4">
           Private Content
         </h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-6">
+        <p className="text-stone-600 dark:text-stone-400 mb-6">
           This blog is private and only visible to its author.
         </p>
         <Button variant="primary" onClick={() => navigate("/")}>
@@ -394,10 +394,10 @@ const BlogPage = () => {
   ) {
     return (
       <div className="max-w-4xl mx-auto text-center py-12">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+        <h2 className="text-2xl font-bold text-stone-900 dark:text-white mb-4">
           Followers-Only Content
         </h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-6">
+        <p className="text-stone-600 dark:text-stone-400 mb-6">
           This blog is only available to followers of{" "}
           {blog.author?.personal_info?.fullname || "the author"}.
         </p>
@@ -470,19 +470,19 @@ const BlogPage = () => {
               </div>
 
               {/* Title */}
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">
                 {blog?.title || "Untitled Blog"}
               </h1>
 
               {/* Description */}
               {blog?.des && (
-                <p className="text-lg text-gray-700 dark:text-gray-300">
+                <p className="text-lg text-stone-700 dark:text-stone-300">
                   {blog.des}
                 </p>
               )}
 
               {/* Author and date */}
-              <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-800">
+              <div className="flex items-center justify-between pt-4 border-t border-stone-100 dark:border-stone-800">
                 {blog?.author && blog.author.personal_info ? (
                   <div
                     className="flex items-center space-x-3 cursor-pointer"
@@ -496,10 +496,10 @@ const BlogPage = () => {
                       size="md"
                     />
                     <div>
-                      <h3 className="font-medium text-gray-900 dark:text-white">
+                      <h3 className="font-medium text-stone-900 dark:text-white">
                         {blog.author.personal_info.fullname}
                       </h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-stone-500 dark:text-stone-400">
                         {formatPublishedDate(blog.publishedAt)} •{" "}
                         {blog.estimated_read_time || 1} min read
                       </p>
@@ -509,10 +509,10 @@ const BlogPage = () => {
                   <div className="flex items-center space-x-3">
                     <Avatar size="md" />
                     <div>
-                      <h3 className="font-medium text-gray-900 dark:text-white">
+                      <h3 className="font-medium text-stone-900 dark:text-white">
                         Unknown Author
                       </h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-stone-500 dark:text-stone-400">
                         {formatPublishedDate(blog?.publishedAt)} •{" "}
                         {blog?.estimated_read_time || 1} min read
                       </p>
@@ -562,7 +562,7 @@ const BlogPage = () => {
 
             {/* Tags */}
             {blog?.tags && blog.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-100 dark:border-gray-800">
+              <div className="flex flex-wrap gap-2 pt-4 border-t border-stone-100 dark:border-stone-800">
                 {blog.tags.map((tag, index) => (
                   <Badge
                     key={index}
@@ -577,7 +577,7 @@ const BlogPage = () => {
             )}
 
             {/* Blog engagement */}
-            <div className="flex items-center justify-between py-4 border-t border-b border-gray-100 dark:border-gray-800">
+            <div className="flex items-center justify-between py-4 border-t border-b border-stone-100 dark:border-stone-800">
               <div className="flex items-center space-x-6">
                 {/* Like button */}
                 <button
@@ -585,7 +585,7 @@ const BlogPage = () => {
                   className={`flex items-center space-x-1 ${
                     liked
                       ? "text-red-500 dark:text-red-400"
-                      : "text-gray-500 dark:text-gray-400"
+                      : "text-stone-500 dark:text-stone-400"
                   } hover:text-red-500 dark:hover:text-red-400`}
                 >
                   <Heart className={`h-5 w-5 ${liked ? "fill-current" : ""}`} />
@@ -601,14 +601,14 @@ const BlogPage = () => {
                       commentsSection.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
-                  className="flex items-center space-x-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                  className="flex items-center space-x-1 text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-gray-300"
                 >
                   <MessageSquare className="h-5 w-5" />
                   <span>{blog?.activity?.total_comments || 0}</span>
                 </button>
 
                 {/* Views count */}
-                <div className="flex items-center space-x-1 text-gray-500 dark:text-gray-400">
+                <div className="flex items-center space-x-1 text-stone-500 dark:text-stone-400">
                   <Eye className="h-5 w-5" />
                   <span>{blog?.activity?.total_reads || 0}</span>
                 </div>
@@ -616,7 +616,7 @@ const BlogPage = () => {
 
               <div className="flex items-center space-x-4">
                 {/* Bookmark button */}
-                <button className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                <button className="text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-gray-300">
                   <Bookmark className="h-5 w-5" />
                 </button>
 
@@ -624,35 +624,35 @@ const BlogPage = () => {
                 <div className="relative">
                   <button
                     onClick={() => setShareOpen(!shareOpen)}
-                    className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                    className="text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-gray-300"
                   >
                     <Share2 className="h-5 w-5" />
                   </button>
 
                   {shareOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-black rounded-md shadow-lg z-10">
+                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-stone-900 rounded-md shadow-lg z-10">
                       <div className="py-1">
                         <button
                           onClick={() => handleShare("facebook")}
-                          className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black w-full text-left"
+                          className="flex items-center px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-black w-full text-left"
                         >
                           Share on Facebook
                         </button>
                         <button
                           onClick={() => handleShare("twitter")}
-                          className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black w-full text-left"
+                          className="flex items-center px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-black w-full text-left"
                         >
                           Share on Twitter
                         </button>
                         <button
                           onClick={() => handleShare("linkedin")}
-                          className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black w-full text-left"
+                          className="flex items-center px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-black w-full text-left"
                         >
                           Share on LinkedIn
                         </button>
                         <button
                           onClick={() => handleShare("copy")}
-                          className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-black w-full text-left"
+                          className="flex items-center px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-black w-full text-left"
                         >
                           Copy Link
                         </button>
@@ -682,10 +682,10 @@ const BlogPage = () => {
                       size="xl"
                       className="mx-auto mb-4"
                     />
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                    <h3 className="text-xl font-bold text-stone-900 dark:text-white mb-2">
                       {blog.author.personal_info.fullname}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    <p className="text-stone-600 dark:text-stone-400 mb-4">
                       {blog.author.personal_info.bio || `Writer at BlogApp`}
                     </p>
 
@@ -736,10 +736,10 @@ const BlogPage = () => {
                 ) : (
                   <>
                     <Avatar size="xl" className="mx-auto mb-4" />
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                    <h3 className="text-xl font-bold text-stone-900 dark:text-white mb-2">
                       Unknown Author
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    <p className="text-stone-600 dark:text-stone-400 mb-4">
                       Writer at BlogApp
                     </p>
                   </>
@@ -748,28 +748,28 @@ const BlogPage = () => {
 
               {/* Author stats */}
               {blog?.author && (
-                <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
+                <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-stone-100 dark:border-stone-800">
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <p className="text-2xl font-bold text-stone-900 dark:text-white">
                       {blog.author.account_info?.total_posts || 0}
                     </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-stone-500 dark:text-stone-400">
                       Posts
                     </p>
                   </div>
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <p className="text-2xl font-bold text-stone-900 dark:text-white">
                       {blog.author.account_info?.total_followers || 0}
                     </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-stone-500 dark:text-stone-400">
                       Followers
                     </p>
                   </div>
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <p className="text-2xl font-bold text-stone-900 dark:text-white">
                       {blog.author.account_info?.total_reads || 0}
                     </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-stone-500 dark:text-stone-400">
                       Reads
                     </p>
                   </div>
@@ -780,7 +780,7 @@ const BlogPage = () => {
             {/* Related blogs */}
             {relatedBlogs.length > 0 && (
               <div className="space-y-4">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                <h3 className="text-xl font-bold text-stone-900 dark:text-white">
                   Related Posts
                 </h3>
 
@@ -798,10 +798,10 @@ const BlogPage = () => {
                           className="w-full h-40 object-cover rounded-lg mb-3"
                         />
                       )}
-                      <h4 className="font-bold text-gray-900 dark:text-white mb-2">
+                      <h4 className="font-bold text-stone-900 dark:text-white mb-2">
                         {relatedBlog.title || "Untitled Blog"}
                       </h4>
-                      <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                      <div className="flex items-center justify-between text-sm text-stone-500 dark:text-stone-400">
                         <p>{formatPublishedDate(relatedBlog.publishedAt)}</p>
                         <p>{relatedBlog.estimated_read_time || 1} min read</p>
                       </div>
@@ -814,7 +814,7 @@ const BlogPage = () => {
             {/* Tags cloud */}
             {blog?.tags && blog.tags.length > 0 && (
               <div className="space-y-4">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                <h3 className="text-xl font-bold text-stone-900 dark:text-white">
                   Explore Tags
                 </h3>
 

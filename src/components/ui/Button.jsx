@@ -24,31 +24,31 @@ const Button = ({
 
   const variantStyles = {
     primary:
-      "bg-gradient-to-r from-primary to-primary-700 hover:from-primary-600 hover:to-primary-800 text-white shadow-[0_4px_0_theme(colors.primary.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.primary.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-primary-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.primary.800),0_2px_5px_rgba(0,0,0,0.1)]",
+      "bg-gradient-to-r from-primary-500 to-primary-700 hover:from-primary-600 hover:to-primary-800 text-white shadow-[0_4px_0_theme(colors.primary.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.primary.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-primary-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.primary.800),0_2px_5px_rgba(0,0,0,0.1)]",
     secondary:
-      "bg-gradient-to-r from-secondary to-secondary-600 hover:from-secondary-500 hover:to-secondary-700 text-white shadow-[0_4px_0_theme(colors.secondary.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.secondary.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-secondary-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.secondary.800),0_2px_5px_rgba(0,0,0,0.1)]",
+      "bg-gradient-to-r from-secondary-400 to-secondary-600 hover:from-secondary-500 hover:to-secondary-700 text-white shadow-[0_4px_0_theme(colors.secondary.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.secondary.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-secondary-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.secondary.800),0_2px_5px_rgba(0,0,0,0.1)]",
     accent:
-      "bg-gradient-to-r from-accent to-accent-600 hover:from-accent-500 hover:to-accent-700 text-white shadow-[0_4px_0_theme(colors.accent.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.accent.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-accent-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.accent.800),0_2px_5px_rgba(0,0,0,0.1)]",
+      "bg-gradient-to-r from-accent-400 to-accent-600 hover:from-accent-500 hover:to-accent-700 text-white shadow-[0_4px_0_theme(colors.accent.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.accent.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-accent-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.accent.800),0_2px_5px_rgba(0,0,0,0.1)]",
     outline:
-      "border-2 border-primary text-primary dark:text-white hover:bg-primary-50 dark:hover:bg-primary-900/30 hover:border-primary-600 dark:hover:border-primary-400 shadow-[0_2px_3px_rgba(0,0,0,0.05)] hover:shadow-[0_3px_5px_rgba(0,0,0,0.1)] focus:ring-2 focus:ring-primary-500/50 active:translate-y-0.5 active:shadow-none",
+      "border-2 border-primary-500 text-primary-600 dark:text-white hover:bg-primary-50 dark:hover:bg-primary-950/30 hover:border-primary-600 dark:hover:border-primary-400 shadow-[0_2px_3px_rgba(0,0,0,0.05)] hover:shadow-[0_3px_5px_rgba(0,0,0,0.1)] focus:ring-2 focus:ring-primary-500/50 active:translate-y-0.5 active:shadow-none",
     ghost:
-      "text-primary hover:bg-primary-50 dark:hover:bg-primary-900/30 focus:ring-2 focus:ring-primary-500/50 active:scale-95",
+      "text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-950/30 focus:ring-2 focus:ring-primary-500/50 active:scale-95",
     danger:
       "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-400 hover:to-red-700 text-white shadow-[0_4px_0_theme(colors.red.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.red.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-red-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.red.800),0_2px_5px_rgba(0,0,0,0.1)]",
     success:
       "bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-700 text-white shadow-[0_4px_0_theme(colors.green.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.green.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-green-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.green.800),0_2px_5px_rgba(0,0,0,0.1)]",
     gradient:
-      "bg-gradient-to-r from-primary-600 via-accent-600 to-secondary-600 hover:from-primary-500 hover:via-accent-500 hover:to-secondary-500 text-white shadow-[0_4px_0_theme(colors.secondary.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.secondary.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-primary-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.secondary.800),0_2px_5px_rgba(0,0,0,0.1)]",
+      "bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-400 hover:from-primary-600 hover:via-secondary-600 hover:to-accent-500 text-white shadow-[0_4px_0_theme(colors.secondary.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.secondary.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-primary-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.secondary.800),0_2px_5px_rgba(0,0,0,0.1)]",
     transparent:
-      "bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10 text-gray-800 dark:text-white shadow-sm hover:bg-white/20 dark:hover:bg-white/10 focus:ring-2 focus:ring-white/30 active:translate-y-0.5 active:shadow-none",
+      "bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10 text-stone-800 dark:text-white shadow-sm hover:bg-white/20 dark:hover:bg-white/10 focus:ring-2 focus:ring-white/30 active:translate-y-0.5 active:shadow-none",
     white:
-      "bg-white hover:bg-gray-50 text-gray-900 shadow-[0_4px_0_theme(colors.gray.200),0_6px_10px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_0_theme(colors.gray.200),0_8px_15px_rgba(0,0,0,0.15)] focus:ring-2 focus:ring-gray-200 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.gray.200),0_2px_5px_rgba(0,0,0,0.05)]",
+      "bg-white hover:bg-stone-50 text-stone-900 shadow-[0_4px_0_theme(colors.stone.200),0_6px_10px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_0_theme(colors.stone.200),0_8px_15px_rgba(0,0,0,0.15)] focus:ring-2 focus:ring-stone-200 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.stone.200),0_2px_5px_rgba(0,0,0,0.05)]",
 
     orange:
       "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-700 text-white shadow-[0_4px_0_theme(colors.orange.800),0_6px_10px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_0_theme(colors.orange.800),0_8px_15px_rgba(0,0,0,0.2)] focus:ring-2 focus:ring-orange-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.orange.800),0_2px_5px_rgba(0,0,0,0.1)]",
 
     black:
-      "bg-gray-900 hover:bg-black text-white shadow-[0_4px_0_theme(colors.gray.950),0_6px_10px_rgba(0,0,0,0.3)] hover:shadow-[0_6px_0_theme(colors.gray.950),0_8px_15px_rgba(0,0,0,0.4)] focus:ring-2 focus:ring-gray-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.gray.950),0_2px_5px_rgba(0,0,0,0.2)]",
+      "bg-stone-900 hover:bg-stone-950 text-white shadow-[0_4px_0_theme(colors.stone.950),0_6px_10px_rgba(0,0,0,0.3)] hover:shadow-[0_6px_0_theme(colors.stone.950),0_8px_15px_rgba(0,0,0,0.4)] focus:ring-2 focus:ring-stone-500/50 active:translate-y-1 active:shadow-[0_2px_0_theme(colors.stone.950),0_2px_5px_rgba(0,0,0,0.2)]",
   };
 
   // Consistent size styles with identical padding

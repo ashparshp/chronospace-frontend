@@ -100,8 +100,8 @@ const Header = () => {
   // Header className based on scroll state
   const headerClass = `sticky top-0 z-50 w-full transition-all duration-300 ${
     scrolled
-      ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-md border-b border-gray-200 dark:border-gray-800"
-      : "bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm"
+      ? "bg-white/90 dark:bg-stone-900/90 backdrop-blur-sm shadow-warm-md border-b border-stone-200 dark:border-stone-800"
+      : "bg-white/80 dark:bg-stone-900/80 backdrop-blur-sm"
   }`;
 
   // Animation variants for nav items
@@ -144,9 +144,9 @@ const Header = () => {
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="font-playfair text-2xl font-bold"
+            className="font-heading text-2xl font-bold"
           >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400">
               ChronoSpace
             </span>
           </motion.div>
@@ -159,8 +159,8 @@ const Header = () => {
             className={({ isActive }) =>
               `relative px-3 py-2 rounded-lg transition-all duration-200 ${
                 isActive
-                  ? "text-violet-600 dark:text-violet-400 font-medium bg-violet-50 dark:bg-violet-900/20"
-                  : "text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                  ? "text-primary-600 dark:text-primary-400 font-medium bg-primary-50 dark:bg-primary-900/20"
+                  : "text-stone-700 dark:text-stone-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-stone-50 dark:hover:bg-stone-800/50"
               } mr-2`
             }
           >
@@ -169,7 +169,7 @@ const Header = () => {
           <div className="relative" ref={navDropdownRef}>
             <button
               onClick={toggleNavDropdown}
-              className="md:inline-flex lg:hidden items-center gap-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm"
+              className="md:inline-flex lg:hidden items-center gap-1 px-4 py-2 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700 transition-all duration-200 shadow-sm"
             >
               <span>Menu</span>
               <ChevronDown className="w-4 h-4" />
@@ -185,7 +185,7 @@ const Header = () => {
                   stiffness: 300,
                   damping: 30,
                 }}
-                className="absolute right-0 mt-2 w-56 rounded-xl bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 z-50 overflow-hidden"
+                className="absolute right-0 mt-2 w-56 rounded-xl bg-white dark:bg-stone-800 shadow-warm-lg border border-stone-200 dark:border-stone-700 z-50 overflow-hidden"
               >
                 <div className="flex flex-col space-y-1 p-2">
                   {[
@@ -237,8 +237,8 @@ const Header = () => {
                         className={({ isActive }) =>
                           `flex items-center px-3 py-2 rounded-lg transition-all duration-200 ${
                             isActive
-                              ? "text-violet-600 dark:text-violet-400 font-medium bg-violet-50 dark:bg-violet-900/20"
-                              : "text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                              ? "text-primary-600 dark:text-primary-400 font-medium bg-primary-50 dark:bg-primary-900/20"
+                              : "text-stone-700 dark:text-stone-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-stone-50 dark:hover:bg-stone-700/50"
                           }`
                         }
                       >
@@ -299,13 +299,13 @@ const Header = () => {
                   className={({ isActive }) =>
                     `flex items-center px-3 py-2 rounded-lg transition-all duration-200 ${
                       isActive
-                        ? "text-violet-600 dark:text-violet-400 font-medium bg-violet-50 dark:bg-violet-900/20"
-                        : "text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                        ? "text-primary-600 dark:text-primary-400 font-medium bg-primary-50 dark:bg-primary-900/20"
+                        : "text-stone-700 dark:text-stone-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-stone-50 dark:hover:bg-stone-800/50"
                     }`
                   }
                 >
                   {item.icon}
-                  <span className="font-montserrat">{item.label}</span>
+                  <span className="font-body">{item.label}</span>
                 </NavLink>
               </motion.div>
             ))}
@@ -327,16 +327,16 @@ const Header = () => {
                 type="text"
                 name="search"
                 placeholder="Search blogs..."
-                className="w-48 lg:w-64 px-4 py-2 pl-10 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-violet-500/50 text-sm transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-violet-300 dark:hover:border-violet-600 focus:border-violet-400 shadow-sm"
+                className="w-48 lg:w-64 px-4 py-2 pl-10 rounded-lg bg-stone-50 dark:bg-stone-800 text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-sm transition-all duration-300 border border-stone-200 dark:border-stone-700 hover:border-primary-300 dark:hover:border-primary-600 focus:border-primary-400 shadow-sm"
               />
               <Search
-                className="absolute left-3 top-2.5 text-gray-500 dark:text-gray-400"
+                className="absolute left-3 top-2.5 text-stone-500 dark:text-stone-400"
                 size={16}
               />
             </div>
             <button
               type="submit"
-              className="absolute right-3 top-2.5 text-gray-500 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors duration-200"
+              className="absolute right-3 top-2.5 text-stone-500 dark:text-stone-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -383,7 +383,7 @@ const Header = () => {
                 currentUser.role === "admin") && (
                 <Link
                   to="/editor"
-                  className="hidden sm:flex items-center space-x-1 p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                  className="hidden sm:flex items-center space-x-1 p-2 rounded-full text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-gray-800 transition-colors duration-200"
                   aria-label="Create new blog"
                 >
                   <Edit size={18} />
@@ -398,7 +398,7 @@ const Header = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="relative w-9 h-9 overflow-hidden rounded-full border-2 border-gray-200 dark:border-gray-700 hover:border-violet-500 dark:hover:border-violet-400 transition-colors duration-300 shadow-sm">
+                <div className="relative w-9 h-9 overflow-hidden rounded-full border-2 border-stone-200 dark:border-stone-700 hover:border-primary-500 dark:hover:border-primary-400 transition-colors duration-300 shadow-sm">
                   <img
                     src={currentUser.profile_img}
                     alt={currentUser.fullname}
@@ -408,10 +408,10 @@ const Header = () => {
                     <span className="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-white dark:ring-gray-900"></span>
                   )}
                 </div>
-                <span className="hidden lg:block text-gray-700 dark:text-gray-300 font-medium font-montserrat">
+                <span className="hidden lg:block text-stone-700 dark:text-stone-300 font-medium font-body">
                   {currentUser.fullname}
                 </span>
-                <ChevronDown className="hidden lg:block w-4 h-4 text-gray-500 dark:text-gray-400" />
+                <ChevronDown className="hidden lg:block w-4 h-4 text-stone-500 dark:text-stone-400" />
               </motion.button>
 
               {/* Profile Dropdown Menu */}
@@ -427,21 +427,21 @@ const Header = () => {
                       stiffness: 300,
                       damping: 30,
                     }}
-                    className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700 z-50"
+                    className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-stone-800 rounded-xl shadow-warm-lg overflow-hidden border border-stone-200 dark:border-stone-700 z-50"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className="p-3 border-b border-gray-100 dark:border-gray-700">
+                    <div className="p-3 border-b border-stone-200 dark:border-stone-700">
                       <div className="flex items-center space-x-3">
                         <img
                           src={currentUser.profile_img}
                           alt={currentUser.fullname}
-                          className="w-10 h-10 rounded-full border-2 border-gray-200 dark:border-gray-700"
+                          className="w-10 h-10 rounded-full border-2 border-stone-200 dark:border-stone-700"
                         />
                         <div>
-                          <p className="font-medium text-gray-900 dark:text-white font-montserrat">
+                          <p className="font-medium text-stone-900 dark:text-white font-body">
                             {currentUser.fullname}
                           </p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400 font-montserrat">
+                          <p className="text-sm text-stone-500 dark:text-stone-400 font-body">
                             @{currentUser.username}
                           </p>
                         </div>
@@ -485,11 +485,11 @@ const Header = () => {
                         >
                           <Link
                             to={item.to}
-                            className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:text-violet-600 dark:hover:text-violet-400 transition-colors duration-200"
+                            className="flex items-center px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700/50 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
                             onClick={() => setIsProfileMenuOpen(false)}
                           >
                             {item.icon}
-                            <span className="font-montserrat">
+                            <span className="font-body">
                               {item.label}
                             </span>
                           </Link>
@@ -497,7 +497,7 @@ const Header = () => {
                       ))}
                     </div>
 
-                    <div className="border-t border-gray-100 dark:border-gray-700 py-1">
+                    <div className="border-t border-stone-200 dark:border-stone-700 py-1">
                       <motion.button
                         initial={{ opacity: 0, x: -10 }}
                         animate={{
@@ -509,7 +509,7 @@ const Header = () => {
                         className="flex items-center w-full px-4 py-2 text-sm text-left text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors duration-200"
                       >
                         <LogOut className="w-4 h-4 mr-2" />
-                        <span className="font-montserrat">Logout</span>
+                        <span className="font-body">Logout</span>
                       </motion.button>
                     </div>
                   </motion.div>
@@ -526,7 +526,7 @@ const Header = () => {
               <Button
                 href="/signin"
                 variant="white"
-                className="bg-indigo-200 dark:text-gray-900"
+                className="bg-primary-100 dark:text-stone-900"
                 shadowDepth="shallow"
               >
                 Sign In
@@ -547,7 +547,7 @@ const Header = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3, delay: 0.3 }}
             onClick={toggleMenu}
-            className="md:hidden p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+            className="md:hidden p-2 rounded-full text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors duration-200"
             aria-label="Menu"
             whileTap={{ scale: 0.9 }}
           >
@@ -564,7 +564,7 @@ const Header = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden bg-white dark:bg-gray-800 shadow-md border-t border-gray-100 dark:border-gray-700"
+            className="md:hidden bg-white dark:bg-stone-800 shadow-warm-md border-t border-stone-200 dark:border-stone-700"
           >
             <div className="container-custom mx-auto px-4 py-4 space-y-4">
               {/* Mobile Search */}
@@ -577,15 +577,15 @@ const Header = () => {
                     type="text"
                     name="search"
                     placeholder="Search blogs..."
-                    className="w-full px-4 py-2 pl-10 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-violet-500/50 text-sm transition-all duration-300 border border-gray-200 dark:border-gray-600 focus:border-violet-400"
+                    className="w-full px-4 py-2 pl-10 rounded-lg bg-stone-50 dark:bg-stone-700 text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-sm transition-all duration-300 border border-stone-200 dark:border-stone-600 focus:border-primary-400"
                   />
                   <Search
-                    className="absolute left-3 top-2.5 text-gray-500 dark:text-gray-400"
+                    className="absolute left-3 top-2.5 text-stone-500 dark:text-stone-400"
                     size={16}
                   />
                   <button
                     type="submit"
-                    className="absolute right-3 top-2.5 text-gray-500 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors duration-200"
+                    className="absolute right-3 top-2.5 text-stone-500 dark:text-stone-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -669,14 +669,14 @@ const Header = () => {
                       className={({ isActive }) =>
                         `flex items-center px-4 py-2.5 rounded-lg ${
                           isActive
-                            ? "text-violet-600 dark:text-violet-400 font-medium bg-violet-50 dark:bg-violet-900/20"
-                            : "text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                            ? "text-primary-600 dark:text-primary-400 font-medium bg-primary-50 dark:bg-primary-900/20"
+                            : "text-stone-700 dark:text-stone-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-stone-50 dark:hover:bg-stone-700/50"
                         } transition-colors duration-200`
                       }
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.icon}
-                      <span className="font-montserrat">{item.label}</span>
+                      <span className="font-body">{item.label}</span>
                     </NavLink>
                   </motion.div>
                 ))}
@@ -696,7 +696,7 @@ const Header = () => {
                     className="flex items-center px-4 py-2.5 rounded-lg text-left text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors duration-200 w-full"
                   >
                     <LogOut className="w-5 h-5 mr-3" />
-                    <span className="font-montserrat">Logout</span>
+                    <span className="font-body">Logout</span>
                   </motion.button>
                 ) : (
                   <div className="flex flex-col space-y-3 pt-2">
@@ -707,7 +707,7 @@ const Header = () => {
                     >
                       <Link
                         to="/signin"
-                        className="px-4 py-2.5 text-center text-violet-600 dark:text-violet-400 border border-violet-600 dark:border-violet-500 rounded-lg hover:bg-violet-50 dark:hover:bg-violet-900/30 transition-colors duration-300 block font-montserrat"
+                        className="px-4 py-2.5 text-center text-primary-600 dark:text-primary-400 border border-primary-600 dark:border-primary-500 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/30 transition-colors duration-300 block font-body"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         Sign In
@@ -720,7 +720,7 @@ const Header = () => {
                     >
                       <Link
                         to="/signup"
-                        className="px-4 py-2.5 text-center bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-lg hover:from-violet-700 hover:to-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg block font-montserrat"
+                        className="px-4 py-2.5 text-center bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-lg hover:from-primary-600 hover:to-secondary-600 transition-all duration-300 shadow-md hover:shadow-lg block font-body"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         Get Started
@@ -731,8 +731,8 @@ const Header = () => {
               </nav>
 
               {/* Theme Toggle in Mobile Menu */}
-              <div className="py-2 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                <span className="text-gray-700 dark:text-gray-300 font-montserrat text-sm">
+              <div className="py-2 border-t border-stone-200 dark:border-stone-700 flex justify-between items-center">
+                <span className="text-stone-700 dark:text-stone-300 font-body text-sm">
                   Theme Mode
                 </span>
                 <ThemeToggle.ThemeToggleMini />

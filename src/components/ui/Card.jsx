@@ -14,15 +14,15 @@ const Card = ({
 
   const variantStyles = {
     default:
-      "bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm dark:shadow-gray-900/10",
+      "bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-warm-sm dark:shadow-stone-950/10",
     gradient:
-      "bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm dark:shadow-gray-900/10 relative before:absolute before:inset-0 before:rounded-xl before:p-[1px] before:bg-gradient-to-r before:from-primary-200 before:to-secondary-200 dark:before:from-primary-800/40 dark:before:to-secondary-800/40 before:-z-10 before:opacity-70",
+      "bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-warm-sm dark:shadow-stone-950/10 relative before:absolute before:inset-0 before:rounded-xl before:p-[1px] before:bg-gradient-to-r before:from-primary-200 before:to-secondary-200 dark:before:from-primary-800/40 dark:before:to-secondary-800/40 before:-z-10 before:opacity-70",
     outline:
-      "bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-primary-400 dark:hover:border-primary-500 shadow-none",
+      "bg-white dark:bg-stone-900 border-2 border-stone-200 dark:border-stone-700 hover:border-primary-400 dark:hover:border-primary-500 shadow-none",
     glass:
-      "bg-white/70 dark:bg-gray-800/70 backdrop-blur-md backdrop-saturate-150 border border-white/20 dark:border-gray-700/20 shadow-lg shadow-gray-200/50 dark:shadow-black/20",
+      "bg-white/70 dark:bg-stone-900/70 backdrop-blur-md backdrop-saturate-150 border border-white/20 dark:border-stone-700/20 shadow-warm-lg shadow-stone-200/50 dark:shadow-black/20",
     elevated:
-      "bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-md hover:shadow-lg dark:shadow-gray-900/10",
+      "bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-warm-md hover:shadow-warm-lg dark:shadow-stone-950/10",
   };
 
   const hoverAnimations = hoverEffect
@@ -100,7 +100,7 @@ Card.Body = ({ children, className = "", ...props }) => (
 
 Card.Footer = ({ children, className = "", ...props }) => (
   <div
-    className={`p-5 border-t border-gray-100 dark:border-gray-800 mt-auto ${className}`}
+    className={`p-5 border-t border-stone-200 dark:border-stone-800 mt-auto ${className}`}
     {...props}
   >
     {children}

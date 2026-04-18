@@ -77,7 +77,7 @@ const Alert = ({
               {onClose && (
                 <button
                   type="button"
-                  className="inline-flex rounded-md text-current hover:bg-opacity-20 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-current"
+                  className="inline-flex rounded-md text-current hover:bg-opacity-20 hover:bg-stone-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-current"
                   onClick={onClose}
                 >
                   <span className="sr-only">Close</span>

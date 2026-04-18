@@ -284,7 +284,7 @@ const AdminUsersPage = () => {
         actionText="Go to Home"
         actionLink="/"
         icon={<Shield className="h-16 w-16 text-red-500" />}
-        className="bg-white dark:bg-gray-800 rounded-xl p-10 border border-gray-100 dark:border-gray-700 shadow-sm"
+        className="bg-white dark:bg-stone-800 rounded-xl p-10 border border-stone-100 dark:border-stone-700 shadow-sm"
       />
     );
   }
@@ -343,18 +343,18 @@ const AdminUsersPage = () => {
                   </Button>
 
                   <motion.h1
-                    className="font-playfair text-3xl md:text-4xl font-bold mb-2 tracking-tight leading-tight"
+                    className="font-heading text-3xl md:text-4xl font-bold mb-2 tracking-tight leading-tight"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                   >
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400">
                       User Management
                     </span>
                   </motion.h1>
 
                   <motion.p
-                    className="font-montserrat text-lg leading-relaxed text-gray-700 dark:text-gray-300"
+                    className="font-body text-lg leading-relaxed text-stone-700 dark:text-stone-300"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
@@ -370,8 +370,8 @@ const AdminUsersPage = () => {
                       name="search"
                       placeholder="Search users..."
                       defaultValue={search}
-                      className="rounded-r-none bg-white dark:bg-gray-900"
-                      icon={<Search className="h-5 w-5 text-gray-400" />}
+                      className="rounded-r-none bg-white dark:bg-stone-900"
+                      icon={<Search className="h-5 w-5 text-stone-400" />}
                     />
                     <Button
                       type="submit"
@@ -447,13 +447,13 @@ const AdminUsersPage = () => {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
           >
-            <Card className="p-6 border border-gray-100 dark:border-gray-800 shadow-md">
-              <h3 className="font-playfair text-xl font-bold mb-4 text-gray-900 dark:text-white">
+            <Card className="p-6 border border-stone-100 dark:border-stone-800 shadow-md">
+              <h3 className="font-heading text-xl font-bold mb-4 text-stone-900 dark:text-white">
                 Filter Users
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                  <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1 font-body">
                     Role
                   </label>
                   <Select
@@ -465,12 +465,12 @@ const AdminUsersPage = () => {
                       { value: "blogger", label: "Blogger" },
                       { value: "admin", label: "Admin" },
                     ]}
-                    className="bg-white dark:bg-gray-900"
+                    className="bg-white dark:bg-stone-900"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                  <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1 font-body">
                     Status
                   </label>
                   <Select
@@ -484,7 +484,7 @@ const AdminUsersPage = () => {
                       { value: "suspended", label: "Suspended" },
                       { value: "deleted", label: "Deleted" },
                     ]}
-                    className="bg-white dark:bg-gray-900"
+                    className="bg-white dark:bg-stone-900"
                   />
                 </div>
 
@@ -493,7 +493,7 @@ const AdminUsersPage = () => {
                     variant="ghost"
                     onClick={clearFilters}
                     size="md"
-                    className="text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-900/10"
+                    className="text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/10"
                     icon={<Filter className="h-4 w-4 mr-1" />}
                     iconPosition="left"
                   >
@@ -506,77 +506,77 @@ const AdminUsersPage = () => {
         )}
 
         {/* Users Table */}
-        <Card className="border border-gray-100 dark:border-gray-800 shadow-md overflow-hidden">
+        <Card className="border border-stone-100 dark:border-stone-800 shadow-md overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
-              <thead className="bg-gray-50 dark:bg-gray-800/50">
+              <thead className="bg-stone-50 dark:bg-stone-800/50">
                 <tr>
                   <th
                     scope="col"
-                    className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider font-montserrat"
+                    className="px-6 py-4 text-left text-xs font-medium text-stone-500 dark:text-stone-400 uppercase tracking-wider font-body"
                   >
                     User
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider font-montserrat"
+                    className="px-6 py-4 text-left text-xs font-medium text-stone-500 dark:text-stone-400 uppercase tracking-wider font-body"
                   >
                     Email
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider font-montserrat"
+                    className="px-6 py-4 text-left text-xs font-medium text-stone-500 dark:text-stone-400 uppercase tracking-wider font-body"
                   >
                     Role
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider font-montserrat"
+                    className="px-6 py-4 text-left text-xs font-medium text-stone-500 dark:text-stone-400 uppercase tracking-wider font-body"
                   >
                     Status
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider font-montserrat"
+                    className="px-6 py-4 text-left text-xs font-medium text-stone-500 dark:text-stone-400 uppercase tracking-wider font-body"
                   >
                     Joined
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-4 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider font-montserrat"
+                    className="px-6 py-4 text-right text-xs font-medium text-stone-500 dark:text-stone-400 uppercase tracking-wider font-body"
                   >
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+              <tbody className="bg-white dark:bg-stone-800 divide-y divide-gray-100 dark:divide-gray-700">
                 {loading && users.length === 0 ? (
                   // Loading skeleton
                   Array.from({ length: 5 }).map((_, index) => (
                     <tr key={index} className="animate-pulse">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                          <div className="h-10 w-10 rounded-full bg-stone-200 dark:bg-stone-700"></div>
                           <div className="ml-4">
-                            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
-                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-16 mt-1"></div>
+                            <div className="h-4 bg-stone-200 dark:bg-stone-700 rounded w-24"></div>
+                            <div className="h-3 bg-stone-200 dark:bg-stone-700 rounded w-16 mt-1"></div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
+                        <div className="h-4 bg-stone-200 dark:bg-stone-700 rounded w-32"></div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+                        <div className="h-6 bg-stone-200 dark:bg-stone-700 rounded w-16"></div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+                        <div className="h-6 bg-stone-200 dark:bg-stone-700 rounded w-16"></div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+                        <div className="h-4 bg-stone-200 dark:bg-stone-700 rounded w-24"></div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right">
-                        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-8 ml-auto"></div>
+                        <div className="h-8 bg-stone-200 dark:bg-stone-700 rounded w-8 ml-auto"></div>
                       </td>
                     </tr>
                   ))
@@ -587,7 +587,7 @@ const AdminUsersPage = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: index * 0.05 }}
-                      className="hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer transition-colors duration-150"
+                      className="hover:bg-stone-50 dark:hover:bg-gray-700/50 cursor-pointer transition-colors duration-150"
                       onClick={() =>
                         viewUserProfile(user.personal_info.username)
                       }
@@ -598,23 +598,23 @@ const AdminUsersPage = () => {
                             src={user.personal_info.profile_img}
                             alt={user.personal_info.fullname}
                             size="md"
-                            className="cursor-pointer border-2 border-white dark:border-gray-800 shadow-sm"
+                            className="cursor-pointer border-2 border-white dark:border-stone-800 shadow-sm"
                           />
                           <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900 dark:text-white font-playfair hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
+                            <div className="text-sm font-medium text-stone-900 dark:text-white font-heading hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                               {user.personal_info.fullname}
                             </div>
-                            <div className="text-xs text-gray-500 dark:text-gray-400 font-montserrat">
+                            <div className="text-xs text-stone-500 dark:text-stone-400 font-body">
                               @{user.personal_info.username}
                             </div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900 dark:text-white font-montserrat">
+                        <div className="text-sm text-stone-900 dark:text-white font-body">
                           {user.personal_info.email}
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 font-montserrat">
+                        <div className="text-xs text-stone-500 dark:text-stone-400 font-body">
                           {user.email_verified ? (
                             <span className="flex items-center text-green-600 dark:text-green-400">
                               <CheckCircle className="h-3 w-3 mr-1" />
@@ -631,7 +631,7 @@ const AdminUsersPage = () => {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <Badge
                           variant={getRoleBadgeVariant(user.role)}
-                          className="capitalize font-montserrat text-xs"
+                          className="capitalize font-body text-xs"
                         >
                           {user.role === "admin" ? (
                             <Shield className="h-3 w-3 mr-1 inline-block" />
@@ -646,17 +646,17 @@ const AdminUsersPage = () => {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <Badge
                           variant={getStatusBadgeVariant(user.account_status)}
-                          className="capitalize font-montserrat text-xs"
+                          className="capitalize font-body text-xs"
                         >
                           {user.account_status}
                         </Badge>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900 dark:text-white font-montserrat">
-                          <Calendar className="h-3.5 w-3.5 mr-1 inline-block text-gray-500 dark:text-gray-400" />
+                        <div className="text-sm text-stone-900 dark:text-white font-body">
+                          <Calendar className="h-3.5 w-3.5 mr-1 inline-block text-stone-500 dark:text-stone-400" />
                           {formatDate(user.joinedAt)}
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1 font-montserrat">
+                        <div className="text-xs text-stone-500 dark:text-stone-400 mt-1 font-body">
                           Last login: {formatDate(user.last_login)}
                         </div>
                       </td>
@@ -664,35 +664,35 @@ const AdminUsersPage = () => {
                         <div className="relative">
                           <button
                             onClick={(e) => toggleActionMenu(user._id, e)}
-                            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 bg-gray-100 dark:bg-gray-700 p-2 rounded-lg"
+                            className="text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-gray-300 bg-stone-100 dark:bg-stone-700 p-2 rounded-lg"
                           >
                             <Settings className="h-4 w-4" />
                           </button>
 
                           {isActionMenuOpen[user._id] && (
-                            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-10 border border-gray-100 dark:border-gray-700 overflow-hidden">
+                            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-stone-800 rounded-lg shadow-lg z-10 border border-stone-100 dark:border-stone-700 overflow-hidden">
                               <div
                                 className="py-1"
                                 onClick={(e) => e.stopPropagation()}
                               >
                                 <button
-                                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                                  className="flex items-center w-full px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-gray-700 transition-colors"
                                   onClick={() =>
                                     viewUserProfile(user.personal_info.username)
                                   }
                                 >
-                                  <User className="h-4 w-4 mr-2 text-gray-500 dark:text-gray-400" />
+                                  <User className="h-4 w-4 mr-2 text-stone-500 dark:text-stone-400" />
                                   View Profile
                                 </button>
                                 <button
-                                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                                  className="flex items-center w-full px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-gray-700 transition-colors"
                                   onClick={() => handleEditRole(user)}
                                 >
                                   <Shield className="h-4 w-4 mr-2 text-indigo-500 dark:text-indigo-400" />
                                   Change Role
                                 </button>
                                 <button
-                                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                                  className="flex items-center w-full px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-gray-700 transition-colors"
                                   onClick={() => handleEditStatus(user)}
                                 >
                                   {user.account_status === "active" ? (
@@ -718,11 +718,11 @@ const AdminUsersPage = () => {
                   <tr>
                     <td
                       colSpan="6"
-                      className="px-6 py-10 text-center text-gray-500 dark:text-gray-400 font-montserrat"
+                      className="px-6 py-10 text-center text-stone-500 dark:text-stone-400 font-body"
                     >
                       <div className="flex flex-col items-center">
-                        <Users className="h-12 w-12 text-gray-400 mb-4" />
-                        <p className="text-lg font-medium text-gray-900 dark:text-white mb-1">
+                        <Users className="h-12 w-12 text-stone-400 mb-4" />
+                        <p className="text-lg font-medium text-stone-900 dark:text-white mb-1">
                           No users found
                         </p>
                         <p>Try adjusting your search or filter criteria</p>
@@ -736,8 +736,8 @@ const AdminUsersPage = () => {
 
           {/* Pagination */}
           {users.length > 0 && (
-            <div className="px-6 py-4 flex items-center justify-between border-t border-gray-200 dark:border-gray-700">
-              <div className="text-sm text-gray-500 dark:text-gray-400 font-montserrat">
+            <div className="px-6 py-4 flex items-center justify-between border-t border-stone-200 dark:border-stone-700">
+              <div className="text-sm text-stone-500 dark:text-stone-400 font-body">
                 Showing <span className="font-medium">{users.length}</span> of{" "}
                 <span className="font-medium">{totalUsers}</span> users
               </div>
@@ -784,19 +784,19 @@ const AdminUsersPage = () => {
                 src={selectedUser.personal_info.profile_img}
                 alt={selectedUser.personal_info.fullname}
                 size="md"
-                className="border-2 border-white dark:border-gray-800 shadow-sm"
+                className="border-2 border-white dark:border-stone-800 shadow-sm"
               />
               <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white font-playfair">
+                <h3 className="text-lg font-bold text-stone-900 dark:text-white font-heading">
                   {selectedUser.personal_info.fullname}
                 </h3>
-                <p className="text-gray-500 dark:text-gray-400 font-montserrat">
+                <p className="text-stone-500 dark:text-stone-400 font-body">
                   @{selectedUser.personal_info.username}
                 </p>
               </div>
             </div>
 
-            <p className="text-gray-600 dark:text-gray-400 font-montserrat mb-4">
+            <p className="text-stone-600 dark:text-stone-400 font-body mb-4">
               Select a new role for this user:
             </p>
 
@@ -806,8 +806,8 @@ const AdminUsersPage = () => {
                   key={role}
                   className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
                     selectedUser.role === role
-                      ? "border-violet-500 bg-violet-50 dark:bg-violet-900/20"
-                      : "border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                      ? "border-primary-500 bg-primary-50 dark:bg-primary-900/20"
+                      : "border-stone-200 dark:border-stone-700 hover:bg-stone-50 dark:hover:bg-gray-700/50"
                   }`}
                   onClick={() => updateUserRole(selectedUser._id, role)}
                   whileHover={{ scale: 1.02 }}
@@ -820,15 +820,15 @@ const AdminUsersPage = () => {
                       ) : role === "blogger" ? (
                         <Edit className="h-5 w-5 text-indigo-600 dark:text-indigo-400 mr-2" />
                       ) : (
-                        <User className="h-5 w-5 text-gray-600 dark:text-gray-400 mr-2" />
+                        <User className="h-5 w-5 text-stone-600 dark:text-stone-400 mr-2" />
                       )}
                       <span className="font-medium capitalize">{role}</span>
                     </div>
                     {selectedUser.role === role && (
-                      <CheckCircle className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+                      <CheckCircle className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                     )}
                   </div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 ml-7 font-montserrat">
+                  <p className="text-sm text-stone-500 dark:text-stone-400 mt-2 ml-7 font-body">
                     {role === "admin"
                       ? "Full access to all features and admin controls"
                       : role === "blogger"
@@ -867,19 +867,19 @@ const AdminUsersPage = () => {
                 src={selectedUser.personal_info.profile_img}
                 alt={selectedUser.personal_info.fullname}
                 size="md"
-                className="border-2 border-white dark:border-gray-800 shadow-sm"
+                className="border-2 border-white dark:border-stone-800 shadow-sm"
               />
               <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white font-playfair">
+                <h3 className="text-lg font-bold text-stone-900 dark:text-white font-heading">
                   {selectedUser.personal_info.fullname}
                 </h3>
-                <p className="text-gray-500 dark:text-gray-400 font-montserrat">
+                <p className="text-stone-500 dark:text-stone-400 font-body">
                   @{selectedUser.personal_info.username}
                 </p>
               </div>
             </div>
 
-            <p className="text-gray-600 dark:text-gray-400 font-montserrat mb-4">
+            <p className="text-stone-600 dark:text-stone-400 font-body mb-4">
               Select a new status for this account:
             </p>
 
@@ -889,8 +889,8 @@ const AdminUsersPage = () => {
                   key={status}
                   className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
                     selectedUser.account_status === status
-                      ? "border-violet-500 bg-violet-50 dark:bg-violet-900/20"
-                      : "border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                      ? "border-primary-500 bg-primary-50 dark:bg-primary-900/20"
+                      : "border-stone-200 dark:border-stone-700 hover:bg-stone-50 dark:hover:bg-gray-700/50"
                   }`}
                   onClick={() => updateUserStatus(selectedUser._id, status)}
                   whileHover={{ scale: 1.02 }}
@@ -908,10 +908,10 @@ const AdminUsersPage = () => {
                       <span className="font-medium capitalize">{status}</span>
                     </div>
                     {selectedUser.account_status === status && (
-                      <CheckCircle className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+                      <CheckCircle className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                     )}
                   </div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 ml-7 font-montserrat">
+                  <p className="text-sm text-stone-500 dark:text-stone-400 mt-2 ml-7 font-body">
                     {status === "active"
                       ? "User has full access to the platform"
                       : status === "suspended"
@@ -923,7 +923,7 @@ const AdminUsersPage = () => {
             </div>
 
             <Alert variant="warning" className="mt-6">
-              <p className="text-sm font-montserrat">
+              <p className="text-sm font-body">
                 {selectedUser.account_status === "active"
                   ? "Suspending or deleting an account will immediately revoke the user's access to the platform."
                   : "Activating this account will restore the user's access to the platform."}

@@ -58,7 +58,7 @@ const RequestPasswordResetPage = () => {
   const sideContent = (
     <div className="space-y-6 text-gray-50">
       <motion.h2 
-        className="text-3xl font-bold font-playfair"
+        className="text-3xl font-bold font-heading"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -67,7 +67,7 @@ const RequestPasswordResetPage = () => {
       </motion.h2>
       
       <motion.p 
-        className="text-lg opacity-90 font-montserrat leading-relaxed"
+        className="text-lg opacity-90 font-body leading-relaxed"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
@@ -98,8 +98,8 @@ const RequestPasswordResetPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium font-playfair">Check Your Email</h3>
-            <p className="text-white/80 text-sm font-montserrat">
+            <h3 className="text-white font-medium font-heading">Check Your Email</h3>
+            <p className="text-white/80 text-sm font-body">
               We'll send a secure reset link to your email
             </p>
           </div>
@@ -122,8 +122,8 @@ const RequestPasswordResetPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium font-playfair">Follow the Link</h3>
-            <p className="text-white/80 text-sm font-montserrat">
+            <h3 className="text-white font-medium font-heading">Follow the Link</h3>
+            <p className="text-white/80 text-sm font-body">
               Open the link and set a new secure password
             </p>
           </div>
@@ -146,8 +146,8 @@ const RequestPasswordResetPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-white font-medium font-playfair">Regain Access</h3>
-            <p className="text-white/80 text-sm font-montserrat">
+            <h3 className="text-white font-medium font-heading">Regain Access</h3>
+            <p className="text-white/80 text-sm font-body">
               Log back in and continue enjoying ChronoSpace
             </p>
           </div>
@@ -164,20 +164,20 @@ const RequestPasswordResetPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg max-w-md w-full border border-gray-100 dark:border-gray-700"
+          className="bg-white dark:bg-stone-800 p-8 rounded-xl shadow-lg max-w-md w-full border border-stone-100 dark:border-stone-700"
         >
           <div className="text-center">
             <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 dark:bg-indigo-900/30 mb-6">
               <Mailbox className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 font-playfair">
+            <h2 className="text-2xl font-bold text-stone-900 dark:text-white mb-4 font-heading">
               Check Your Email
             </h2>
             <div className="space-y-4">
-              <p className="text-gray-600 dark:text-gray-300 font-montserrat leading-relaxed">
+              <p className="text-stone-600 dark:text-stone-300 font-body leading-relaxed">
                 If an account exists with the email you provided, we've sent instructions on how to reset your password. Please check your inbox and spam folder.
               </p>
-              <div className="bg-violet-50 dark:bg-violet-900/20 text-violet-800 dark:text-violet-300 p-3 rounded-lg text-sm font-montserrat">
+              <div className="bg-primary-50 dark:bg-primary-900/20 text-violet-800 dark:text-violet-300 p-3 rounded-lg text-sm font-body">
                 <p>The reset link will expire in 15 minutes for security purposes. If you don't see the email, you can request another one.</p>
               </div>
             </div>
@@ -191,7 +191,7 @@ const RequestPasswordResetPage = () => {
                 icon={<ArrowRight className="h-4 w-4 ml-1" />}
                 iconPosition="right"
               >
-                <span className="font-montserrat">Return to Sign In</span>
+                <span className="font-body">Return to Sign In</span>
               </Button>
               <Button 
                 variant="white" 
@@ -201,7 +201,7 @@ const RequestPasswordResetPage = () => {
                 icon={<MoveLeft className="h-4 w-4 mr-1" />}
                 iconPosition="left"
               >
-                <span className="font-montserrat">Return to Homepage</span>
+                <span className="font-body">Return to Homepage</span>
               </Button>
             </div>
           </div>
@@ -228,7 +228,7 @@ const RequestPasswordResetPage = () => {
           onClose={() => setError(null)}
           className="mb-6"
         >
-          <span className="font-montserrat">{error}</span>
+          <span className="font-body">{error}</span>
         </Alert>
       )}
 
@@ -242,17 +242,17 @@ const RequestPasswordResetPage = () => {
             type="email"
             error={errors.email?.message}
             required
-            icon={<Mail className="h-5 w-5 text-gray-400" />}
-            className="bg-white dark:bg-gray-900"
+            icon={<Mail className="h-5 w-5 text-stone-400" />}
+            className="bg-white dark:bg-stone-900"
           />
           {errors.email && (
-            <p className="mt-1 text-sm text-red-500 font-montserrat">
+            <p className="mt-1 text-sm text-red-500 font-body">
               {errors.email.message}
             </p>
           )}
         </div>
 
-        <p className="text-sm text-gray-600 dark:text-gray-400 font-montserrat mt-2">
+        <p className="text-sm text-stone-600 dark:text-stone-400 font-body mt-2">
           We'll send a secure link to this email address that will allow you to reset your password.
         </p>
 
@@ -267,7 +267,7 @@ const RequestPasswordResetPage = () => {
           icon={<Send className="h-4 w-4 ml-1" />}
           iconPosition="right"
         >
-          <span className="font-montserrat">Send Reset Link</span>
+          <span className="font-body">Send Reset Link</span>
         </Button>
       </form>
     </AuthLayout>

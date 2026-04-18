@@ -69,7 +69,7 @@ const AdminDashboardPage = () => {
         actionText="Go to Home"
         actionLink="/"
         icon={<AlertCircle className="h-16 w-16 text-red-500" />}
-        className="bg-white dark:bg-gray-800 rounded-xl p-10 border border-gray-100 dark:border-gray-700 shadow-sm"
+        className="bg-white dark:bg-stone-800 rounded-xl p-10 border border-stone-100 dark:border-stone-700 shadow-sm"
       />
     );
   }
@@ -78,22 +78,22 @@ const AdminDashboardPage = () => {
     return (
       <div className="mx-auto space-y-8 animate-pulse">
         {/* Header skeleton */}
-        <div className="rounded-2xl bg-gray-200 dark:bg-gray-800 h-40 mb-8"></div>
+        <div className="rounded-2xl bg-stone-200 dark:bg-stone-800 h-40 mb-8"></div>
 
         {/* Stat cards skeleton */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 h-32 border border-gray-100 dark:border-gray-700"
+              className="bg-white dark:bg-stone-800 rounded-xl shadow-md p-4 h-32 border border-stone-100 dark:border-stone-700"
             ></div>
           ))}
         </div>
 
         {/* Popular blogs and top authors skeleton */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 h-72 border border-gray-100 dark:border-gray-700"></div>
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 h-72 border border-gray-100 dark:border-gray-700"></div>
+          <div className="bg-white dark:bg-stone-800 rounded-xl shadow-md p-4 h-72 border border-stone-100 dark:border-stone-700"></div>
+          <div className="bg-white dark:bg-stone-800 rounded-xl shadow-md p-4 h-72 border border-stone-100 dark:border-stone-700"></div>
         </div>
       </div>
     );
@@ -107,7 +107,7 @@ const AdminDashboardPage = () => {
         actionText="Try Again"
         actionClick={() => window.location.reload()}
         icon={<AlertCircle className="h-16 w-16 text-red-500" />}
-        className="bg-white dark:bg-gray-800 rounded-xl p-10 border border-gray-100 dark:border-gray-700 shadow-sm"
+        className="bg-white dark:bg-stone-800 rounded-xl p-10 border border-stone-100 dark:border-stone-700 shadow-sm"
       />
     );
   }
@@ -154,18 +154,18 @@ const AdminDashboardPage = () => {
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
                 <div className="mb-6 md:mb-0">
                   <motion.h1
-                    className="font-playfair text-3xl md:text-4xl font-bold mb-2 tracking-tight leading-tight"
+                    className="font-heading text-3xl md:text-4xl font-bold mb-2 tracking-tight leading-tight"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                   >
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400">
                       Admin Dashboard
                     </span>
                   </motion.h1>
 
                   <motion.p
-                    className="font-montserrat text-lg leading-relaxed text-gray-700 dark:text-gray-300"
+                    className="font-body text-lg leading-relaxed text-stone-700 dark:text-stone-300"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
@@ -336,13 +336,13 @@ const AdminDashboardPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <Card className="p-6 border border-gray-100 dark:border-gray-800 shadow-md h-full">
+            <Card className="p-6 border border-stone-100 dark:border-stone-800 shadow-md h-full">
               <div className="flex justify-between items-center mb-6">
                 <div className="flex items-center">
-                  <div className="bg-violet-100 dark:bg-violet-900/30 p-2 rounded-lg mr-3">
-                    <Star className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+                  <div className="bg-violet-100 dark:bg-primary-900/30 p-2 rounded-lg mr-3">
+                    <Star className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                   </div>
-                  <h2 className="font-playfair text-xl font-bold text-gray-900 dark:text-white">
+                  <h2 className="font-heading text-xl font-bold text-stone-900 dark:text-white">
                     Popular Blogs
                   </h2>
                 </div>
@@ -352,7 +352,7 @@ const AdminDashboardPage = () => {
                   href="/admin/blogs"
                   icon={<ArrowRight className="h-4 w-4" />}
                   iconPosition="right"
-                  className="text-violet-600 dark:text-violet-400 group"
+                  className="text-primary-600 dark:text-primary-400 group"
                 >
                   <span className="group-hover:underline">View All</span>
                 </Button>
@@ -366,41 +366,41 @@ const AdminDashboardPage = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: index * 0.1 }}
-                      className="flex items-start space-x-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-violet-50 dark:hover:bg-violet-900/10 transition-colors duration-200 cursor-pointer border border-gray-100 dark:border-gray-700"
+                      className="flex items-start space-x-4 p-3 rounded-lg bg-stone-50 dark:bg-stone-800/50 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-colors duration-200 cursor-pointer border border-stone-100 dark:border-stone-700"
                       onClick={() => navigate(`/blog/${blog.blog_id}`)}
                     >
                       <div className="flex-shrink-0 bg-gradient-to-br from-violet-500 to-indigo-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center shadow-sm">
                         {index + 1}
                       </div>
                       <div className="flex-grow min-w-0">
-                        <h3 className="font-playfair font-medium text-gray-900 dark:text-white text-sm mb-1 line-clamp-1 hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
+                        <h3 className="font-heading font-medium text-stone-900 dark:text-white text-sm mb-1 line-clamp-1 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                           {blog.title}
                         </h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 font-montserrat">
+                        <p className="text-xs text-stone-500 dark:text-stone-400 font-body">
                           by{" "}
-                          <span className="font-medium text-gray-700 dark:text-gray-300">
+                          <span className="font-medium text-stone-700 dark:text-stone-300">
                             {blog.author.personal_info.username}
                           </span>{" "}
                           • {format(new Date(blog.publishedAt), "MMM d, yyyy")}
                         </p>
-                        <div className="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400 space-x-3">
-                          <div className="flex items-center bg-white dark:bg-gray-700 px-2 py-1 rounded-full">
-                            <Eye className="h-3 w-3 mr-1.5 text-violet-500 dark:text-violet-400" />
-                            <span className="font-montserrat">
+                        <div className="flex items-center mt-2 text-xs text-stone-500 dark:text-stone-400 space-x-3">
+                          <div className="flex items-center bg-white dark:bg-stone-700 px-2 py-1 rounded-full">
+                            <Eye className="h-3 w-3 mr-1.5 text-violet-500 dark:text-primary-400" />
+                            <span className="font-body">
                               {blog.activity?.total_reads?.toLocaleString() ||
                                 0}
                             </span>
                           </div>
-                          <div className="flex items-center bg-white dark:bg-gray-700 px-2 py-1 rounded-full">
+                          <div className="flex items-center bg-white dark:bg-stone-700 px-2 py-1 rounded-full">
                             <Heart className="h-3 w-3 mr-1.5 text-pink-500" />
-                            <span className="font-montserrat">
+                            <span className="font-body">
                               {blog.activity?.total_likes?.toLocaleString() ||
                                 0}
                             </span>
                           </div>
-                          <div className="flex items-center bg-white dark:bg-gray-700 px-2 py-1 rounded-full">
+                          <div className="flex items-center bg-white dark:bg-stone-700 px-2 py-1 rounded-full">
                             <MessageSquare className="h-3 w-3 mr-1.5 text-indigo-500" />
-                            <span className="font-montserrat">
+                            <span className="font-body">
                               {blog.activity?.total_comments?.toLocaleString() ||
                                 0}
                             </span>
@@ -410,9 +410,9 @@ const AdminDashboardPage = () => {
                     </motion.div>
                   ))
                 ) : (
-                  <div className="text-center py-12 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-700">
-                    <FileText className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-                    <p className="text-gray-500 dark:text-gray-400 font-montserrat">
+                  <div className="text-center py-12 bg-stone-50 dark:bg-stone-800/50 rounded-lg border border-stone-100 dark:border-stone-700">
+                    <FileText className="h-12 w-12 text-stone-400 mx-auto mb-3" />
+                    <p className="text-stone-500 dark:text-stone-400 font-body">
                       No popular blogs yet
                     </p>
                   </div>
@@ -427,13 +427,13 @@ const AdminDashboardPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Card className="p-6 border border-gray-100 dark:border-gray-800 shadow-md h-full">
+            <Card className="p-6 border border-stone-100 dark:border-stone-800 shadow-md h-full">
               <div className="flex justify-between items-center mb-6">
                 <div className="flex items-center">
                   <div className="bg-indigo-100 dark:bg-indigo-900/30 p-2 rounded-lg mr-3">
                     <Award className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
                   </div>
-                  <h2 className="font-playfair text-xl font-bold text-gray-900 dark:text-white">
+                  <h2 className="font-heading text-xl font-bold text-stone-900 dark:text-white">
                     Top Authors
                   </h2>
                 </div>
@@ -457,7 +457,7 @@ const AdminDashboardPage = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: index * 0.1 }}
-                      className="flex items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 transition-colors duration-200 cursor-pointer border border-gray-100 dark:border-gray-700"
+                      className="flex items-center p-3 rounded-lg bg-stone-50 dark:bg-stone-800/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 transition-colors duration-200 cursor-pointer border border-stone-100 dark:border-stone-700"
                       onClick={() =>
                         navigate(`/profile/${author.personal_info.username}`)
                       }
@@ -466,23 +466,23 @@ const AdminDashboardPage = () => {
                         src={author.personal_info.profile_img}
                         alt={author.personal_info.fullname}
                         size="md"
-                        className="mr-3 border-2 border-white dark:border-gray-800 shadow-sm"
+                        className="mr-3 border-2 border-white dark:border-stone-800 shadow-sm"
                       />
                       <div className="min-w-0 flex-1">
-                        <h3 className="font-playfair font-medium text-gray-900 dark:text-white text-sm mb-1 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors line-clamp-1">
+                        <h3 className="font-heading font-medium text-stone-900 dark:text-white text-sm mb-1 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors line-clamp-1">
                           {author.personal_info.fullname}
                         </h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 font-montserrat font-medium">
+                        <p className="text-xs text-stone-500 dark:text-stone-400 font-body font-medium">
                           @{author.personal_info.username}
                         </p>
                       </div>
                       <div className="ml-4 flex-shrink-0 text-right">
-                        <p className="text-sm font-medium text-gray-900 dark:text-white font-montserrat">
+                        <p className="text-sm font-medium text-stone-900 dark:text-white font-body">
                           {author.account_info.total_posts} posts
                         </p>
                         <div className="flex items-center justify-end mt-1">
-                          <Eye className="h-3 w-3 mr-1 text-gray-500 dark:text-gray-400" />
-                          <p className="text-xs text-gray-500 dark:text-gray-400 font-montserrat">
+                          <Eye className="h-3 w-3 mr-1 text-stone-500 dark:text-stone-400" />
+                          <p className="text-xs text-stone-500 dark:text-stone-400 font-body">
                             {author.account_info?.total_reads?.toLocaleString() ||
                               0}{" "}
                             reads
@@ -492,9 +492,9 @@ const AdminDashboardPage = () => {
                     </motion.div>
                   ))
                 ) : (
-                  <div className="text-center py-12 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-700">
-                    <Users className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-                    <p className="text-gray-500 dark:text-gray-400 font-montserrat">
+                  <div className="text-center py-12 bg-stone-50 dark:bg-stone-800/50 rounded-lg border border-stone-100 dark:border-stone-700">
+                    <Users className="h-12 w-12 text-stone-400 mx-auto mb-3" />
+                    <p className="text-stone-500 dark:text-stone-400 font-body">
                       No top authors yet
                     </p>
                   </div>
@@ -511,7 +511,7 @@ const AdminDashboardPage = () => {
               title: "Manage Users",
               icon: <Users className="h-6 w-6" />,
               link: "/admin/users",
-              color: "from-violet-600 to-indigo-600",
+              color: "from-primary-500 to-secondary-500",
               colorDark: "from-violet-500 to-indigo-500",
               description: "User accounts & roles",
               delay: 0.1,
@@ -563,10 +563,10 @@ const AdminDashboardPage = () => {
                 <div className="relative z-10 mb-3 bg-white/10 rounded-full p-3">
                   {action.icon}
                 </div>
-                <h3 className="relative z-10 font-playfair text-base font-bold mb-1">
+                <h3 className="relative z-10 font-heading text-base font-bold mb-1">
                   {action.title}
                 </h3>
-                <p className="relative z-10 text-xs text-white/80 font-montserrat">
+                <p className="relative z-10 text-xs text-white/80 font-body">
                   {action.description}
                 </p>
                 {action.badge && (

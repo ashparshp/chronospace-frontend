@@ -95,7 +95,7 @@ const FeatureHighlight = ({
           <h3 className={`text-2xl font-bold ${currentColor.text}`}>{title}</h3>
 
           {/* Description */}
-          <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p className="text-stone-600 dark:text-stone-300 leading-relaxed">
             {description}
           </p>
         </div>
@@ -111,7 +111,7 @@ const FeatureHighlight = ({
               <div className="absolute -inset-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
 
               {/* Main image */}
-              <div className="relative bg-white dark:bg-black p-2 rounded-xl shadow-xl">
+              <div className="relative bg-white dark:bg-stone-900 p-2 rounded-xl shadow-xl">
                 {image}
               </div>
 
@@ -197,8 +197,8 @@ FeatureHighlight.List = ({
               ? `border-${colors[index % colors.length]}-200 dark:border-${
                   colors[index % colors.length]
                 }-800/30`
-              : "border-gray-200 dark:border-gray-800"
-          } bg-white dark:bg-black shadow-sm hover:shadow-md transition-shadow duration-300`}
+              : "border-stone-200 dark:border-stone-800"
+          } bg-white dark:bg-stone-900 shadow-sm hover:shadow-md transition-shadow duration-300`}
           variants={animate ? itemVariants : {}}
         >
           {feature.icon && (
@@ -212,10 +212,10 @@ FeatureHighlight.List = ({
               {feature.icon}
             </div>
           )}
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+          <h3 className="text-lg font-semibold text-stone-900 dark:text-white mb-2">
             {feature.title}
           </h3>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-stone-600 dark:text-stone-300">
             {feature.description}
           </p>
         </motion.div>

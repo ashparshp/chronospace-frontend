@@ -340,9 +340,9 @@ const BlogEditor = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-black shadow-md rounded-lg overflow-hidden">
+    <div className="bg-white dark:bg-stone-900 shadow-md rounded-lg overflow-hidden">
       {/* Editor Header/Toolbar */}
-      <div className="bg-gray-50 dark:bg-black border-b border-gray-200 dark:border-gray-700 p-4">
+      <div className="bg-stone-50 dark:bg-stone-900 border-b border-stone-200 dark:border-stone-700 p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Button
@@ -354,7 +354,7 @@ const BlogEditor = () => {
               <ArrowLeft className="h-5 w-5 mr-1" />
               Back
             </Button>
-            <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+            <h2 className="text-lg font-medium text-stone-900 dark:text-gray-100">
               {isEdit ? "Edit Blog" : "Create Blog"}
             </h2>
           </div>
@@ -399,7 +399,7 @@ const BlogEditor = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Blog Title"
-          className="text-2xl font-bold mb-4 border-0 border-b border-gray-200 dark:border-gray-700 rounded-none px-0 py-2 focus:ring-0"
+          className="text-2xl font-bold mb-4 border-0 border-b border-stone-200 dark:border-stone-700 rounded-none px-0 py-2 focus:ring-0"
         />
 
         {/* Banner Upload */}
@@ -421,10 +421,10 @@ const BlogEditor = () => {
               </Button>
             </div>
           ) : (
-            <div className="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-8 text-center">
+            <div className="border-2 border-dashed border-stone-300 dark:border-stone-700 rounded-lg p-8 text-center">
               <div className="flex flex-col items-center">
-                <Image className="h-10 w-10 text-gray-400 dark:text-gray-500 mb-2" />
-                <p className="text-gray-500 dark:text-gray-400 mb-2">
+                <Image className="h-10 w-10 text-stone-400 dark:text-stone-500 mb-2" />
+                <p className="text-stone-500 dark:text-stone-400 mb-2">
                   Drag & drop a banner image or click to upload
                 </p>
                 <div>
@@ -460,27 +460,27 @@ const BlogEditor = () => {
             maxLength={200}
             className="text-gray-800 dark:text-gray-200"
           />
-          <p className="text-right text-xs text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-right text-xs text-stone-500 dark:text-stone-400 mt-1">
             {description.length}/200
           </p>
         </div>
 
         {/* Tags */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">
             Tags (up to 10)
           </label>
           <div className="flex flex-wrap gap-2 mb-2">
             {tags.map((tag, index) => (
               <div
                 key={index}
-                className="bg-gray-100 dark:bg-black rounded-full px-3 py-1 text-sm flex items-center"
+                className="bg-stone-100 dark:bg-stone-900 rounded-full px-3 py-1 text-sm flex items-center"
               >
                 <span className="text-gray-800 dark:text-gray-200">{tag}</span>
                 <button
                   type="button"
                   onClick={() => removeTag(index)}
-                  className="ml-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  className="ml-1 text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-gray-200"
                 >
                   <X className="h-3 w-3" />
                 </button>
@@ -507,7 +507,7 @@ const BlogEditor = () => {
               Add
             </Button>
           </div>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">
             {tags.length}/10 tags
           </p>
         </div>
@@ -554,7 +554,7 @@ const BlogEditor = () => {
             />
             <label
               htmlFor="premium"
-              className="ml-2 text-gray-700 dark:text-gray-300"
+              className="ml-2 text-stone-700 dark:text-stone-300"
             >
               Premium Content
             </label>
@@ -562,8 +562,8 @@ const BlogEditor = () => {
         </div>
 
         {/* Editor.js Container */}
-        <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 min-h-[400px]">
-          <div className="markdown-support-tip text-xs text-gray-500 dark:text-gray-400 mb-2 italic">
+        <div className="border border-stone-200 dark:border-stone-700 rounded-lg p-4 min-h-[400px]">
+          <div className="markdown-support-tip text-xs text-stone-500 dark:text-stone-400 mb-2 italic">
             Tip: You can paste markdown content and it will be automatically
             formatted.
           </div>

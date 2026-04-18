@@ -87,13 +87,13 @@ const Progress = ({
       {(label || (showValue && valuePosition === "right")) && (
         <div className="flex justify-between items-center mb-1.5">
           {label && (
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <span className="text-sm font-medium text-stone-700 dark:text-stone-300">
               {label}
             </span>
           )}
 
           {showValue && valuePosition === "right" && (
-            <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+            <span className="text-xs font-medium text-stone-500 dark:text-stone-400">
               {value} / {max}
             </span>
           )}
@@ -101,7 +101,7 @@ const Progress = ({
       )}
 
       <div
-        className={`w-full bg-gray-200 dark:bg-black rounded-full overflow-hidden ${
+        className={`w-full bg-stone-200 dark:bg-stone-900 rounded-full overflow-hidden ${
           sizeStyles[size] || sizeStyles.md
         }`}
       >
@@ -135,7 +135,7 @@ const Progress = ({
       </div>
 
       {showValue && valuePosition === "below" && (
-        <div className="mt-1 text-xs text-gray-500 dark:text-gray-400 text-right">
+        <div className="mt-1 text-xs text-stone-500 dark:text-stone-400 text-right">
           {`${Math.round(percentage)}%`}
         </div>
       )}

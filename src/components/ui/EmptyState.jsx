@@ -45,7 +45,7 @@ const EmptyState = ({
     >
       {icon && (
         <motion.div
-          className="text-gray-400 dark:text-gray-500 mb-6"
+          className="text-stone-400 dark:text-stone-500 mb-6"
           variants={itemVariants}
         >
           {icon}
@@ -64,7 +64,7 @@ const EmptyState = ({
 
       {title && (
         <motion.h3
-          className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2"
+          className="text-xl font-semibold text-stone-900 dark:text-gray-100 mb-2"
           variants={itemVariants}
         >
           {title}
@@ -73,7 +73,7 @@ const EmptyState = ({
 
       {description && (
         <motion.p
-          className="text-gray-600 dark:text-gray-400 mb-8 max-w-md"
+          className="text-stone-600 dark:text-stone-400 mb-8 max-w-md"
           variants={itemVariants}
         >
           {description}

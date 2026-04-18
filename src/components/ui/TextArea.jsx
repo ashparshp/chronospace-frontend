@@ -51,7 +51,7 @@ const TextArea = forwardRef(
         {label && (
           <motion.label
             htmlFor={name}
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
@@ -72,22 +72,22 @@ const TextArea = forwardRef(
             className={`w-full px-4 py-2 rounded-lg border ${
               error
                 ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                : "border-gray-300 dark:border-gray-700 focus:ring-primary-500/50 focus:border-primary-500"
-            } bg-white dark:bg-black text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 resize-y ${className}`}
+                : "border-stone-300 dark:border-stone-700 focus:ring-primary-500/50 focus:border-primary-500"
+            } bg-white dark:bg-stone-900 text-stone-900 dark:text-gray-100 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 resize-y ${className}`}
             animate={error ? "error" : "animate"}
             variants={containerVariants}
             {...props}
           />
 
           {characterCount !== null && (
-            <div className="absolute bottom-2 right-2 text-xs text-gray-500 dark:text-gray-400 pointer-events-none">
+            <div className="absolute bottom-2 right-2 text-xs text-stone-500 dark:text-stone-400 pointer-events-none">
               {characterCount} / {maxLength}
             </div>
           )}
         </div>
 
         {helper && !error && (
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
             {helper}
           </p>
         )}

@@ -221,15 +221,15 @@ const ProfilePage = () => {
   if (loading) {
     return (
       <div className="mx-auto space-y-8 animate-pulse">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
-          <div className="h-48 bg-gray-200 dark:bg-gray-700"></div>
+        <div className="bg-white dark:bg-stone-800 rounded-xl shadow-md overflow-hidden">
+          <div className="h-48 bg-stone-200 dark:bg-stone-700"></div>
           <div className="p-6">
             <div className="flex flex-col items-center -mt-24">
-              <div className="h-36 w-36 rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-white dark:border-gray-800"></div>
+              <div className="h-36 w-36 rounded-full bg-stone-200 dark:bg-stone-700 border-4 border-white dark:border-stone-800"></div>
               <div className="mt-4 space-y-2 text-center">
-                <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-48 mx-auto"></div>
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32 mx-auto"></div>
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-64 mx-auto"></div>
+                <div className="h-8 bg-stone-200 dark:bg-stone-700 rounded w-48 mx-auto"></div>
+                <div className="h-4 bg-stone-200 dark:bg-stone-700 rounded w-32 mx-auto"></div>
+                <div className="h-4 bg-stone-200 dark:bg-stone-700 rounded w-64 mx-auto"></div>
               </div>
             </div>
           </div>
@@ -248,10 +248,10 @@ const ProfilePage = () => {
               ? "The user you are looking for does not exist or has been removed."
               : "There was a problem loading this profile."
           }
-          icon={<Users className="h-16 w-16 text-gray-400" />}
+          icon={<Users className="h-16 w-16 text-stone-400" />}
           actionText="Return to Homepage"
           actionLink="/"
-          className="bg-white dark:bg-gray-800 rounded-xl p-10 border border-gray-100 dark:border-gray-700 shadow-sm"
+          className="bg-white dark:bg-stone-800 rounded-xl p-10 border border-stone-100 dark:border-stone-700 shadow-sm"
         />
       </div>
     );
@@ -264,9 +264,9 @@ const ProfilePage = () => {
   const getColorForRole = (role) => {
     switch (role) {
       case "admin":
-        return "from-purple-600 to-indigo-600 dark:from-purple-500 dark:to-indigo-500";
+        return "from-purple-600 to-secondary-500 dark:from-purple-500 dark:to-indigo-500";
       case "blogger":
-        return "from-violet-600 to-blue-600 dark:from-violet-500 dark:to-blue-500";
+        return "from-primary-500 to-blue-600 dark:from-violet-500 dark:to-blue-500";
       default:
         return "from-blue-600 to-sky-600 dark:from-blue-500 dark:to-sky-500";
     }
@@ -280,7 +280,7 @@ const ProfilePage = () => {
         <div className="mt-6">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white font-playfair">
+              <h3 className="text-xl font-bold text-stone-900 dark:text-white font-heading">
                 Published Blogs
               </h3>
               <div className="mt-1 h-1 bg-gradient-to-r from-violet-500 to-indigo-500 w-20 rounded"></div>
@@ -289,8 +289,8 @@ const ProfilePage = () => {
               <button
                 className={`p-2 rounded-md transition-colors duration-200 ${
                   viewMode === "grid"
-                    ? "bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400"
-                    : "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400 hover:bg-violet-50 dark:hover:bg-violet-900/10"
+                    ? "bg-violet-100 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400"
+                    : "bg-stone-100 text-stone-500 dark:bg-stone-800 dark:text-stone-400 hover:bg-primary-50 dark:hover:bg-primary-900/10"
                 }`}
                 onClick={() => setViewMode("grid")}
                 aria-label="Grid view"
@@ -300,8 +300,8 @@ const ProfilePage = () => {
               <button
                 className={`p-2 rounded-md transition-colors duration-200 ${
                   viewMode === "list"
-                    ? "bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400"
-                    : "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400 hover:bg-violet-50 dark:hover:bg-violet-900/10"
+                    ? "bg-violet-100 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400"
+                    : "bg-stone-100 text-stone-500 dark:bg-stone-800 dark:text-stone-400 hover:bg-primary-50 dark:hover:bg-primary-900/10"
                 }`}
                 onClick={() => setViewMode("list")}
                 aria-label="List view"
@@ -326,11 +326,11 @@ const ProfilePage = () => {
                 Array.from({ length: 3 }).map((_, i) => (
                   <div
                     key={i}
-                    className="animate-pulse bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 border border-gray-100 dark:border-gray-700"
+                    className="animate-pulse bg-white dark:bg-stone-800 rounded-lg shadow-md p-4 border border-stone-100 dark:border-stone-700"
                   >
-                    <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-3"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mb-2"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
+                    <div className="h-6 bg-stone-200 dark:bg-stone-700 rounded w-3/4 mb-3"></div>
+                    <div className="h-4 bg-stone-200 dark:bg-stone-700 rounded w-1/2 mb-2"></div>
+                    <div className="h-4 bg-stone-200 dark:bg-stone-700 rounded w-1/4"></div>
                   </div>
                 ))
               ) : blogs.length > 0 ? (
@@ -343,7 +343,7 @@ const ProfilePage = () => {
                       transition={{ duration: 0.3, delay: index * 0.05 }}
                     >
                       <Card
-                        className="p-4 cursor-pointer border border-gray-100 dark:border-gray-700 hover:border-violet-200 dark:hover:border-violet-800 transition-all duration-300 hover:shadow-md"
+                        className="p-4 cursor-pointer border border-stone-100 dark:border-stone-700 hover:border-violet-200 dark:hover:border-violet-800 transition-all duration-300 hover:shadow-md"
                         onClick={() => navigate(`/blog/${blog.blog_id}`)}
                       >
                         <div className="flex items-start space-x-4">
@@ -362,39 +362,39 @@ const ProfilePage = () => {
                             </div>
                           )}
                           <div className="flex-1">
-                            <h4 className="font-bold text-gray-900 dark:text-white mb-1 font-playfair hover:text-violet-600 dark:hover:text-violet-400 transition-colors line-clamp-2">
+                            <h4 className="font-bold text-stone-900 dark:text-white mb-1 font-heading hover:text-primary-600 dark:hover:text-primary-400 transition-colors line-clamp-2">
                               {blog.title}
                             </h4>
                             {blog.des && (
-                              <p className="text-gray-600 dark:text-gray-400 text-sm mb-2 line-clamp-2 font-montserrat">
+                              <p className="text-stone-600 dark:text-stone-400 text-sm mb-2 line-clamp-2 font-body">
                                 {blog.des}
                               </p>
                             )}
-                            <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-400 font-montserrat">
-                              <span className="flex items-center bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
-                                <Calendar className="h-3 w-3 mr-1 text-violet-500 dark:text-violet-400" />
+                            <div className="flex flex-wrap items-center gap-3 text-xs text-stone-500 dark:text-stone-400 font-body">
+                              <span className="flex items-center bg-stone-100 dark:bg-stone-700 px-2 py-1 rounded-full">
+                                <Calendar className="h-3 w-3 mr-1 text-violet-500 dark:text-primary-400" />
                                 {format(
                                   new Date(blog.publishedAt),
                                   "MMM d, yyyy"
                                 )}
                               </span>
-                              <span className="flex items-center bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                              <span className="flex items-center bg-stone-100 dark:bg-stone-700 px-2 py-1 rounded-full">
                                 <Clock className="h-3 w-3 mr-1 text-blue-500 dark:text-blue-400" />
                                 {blog.estimated_read_time || "5"} min read
                               </span>
-                              <span className="flex items-center bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                              <span className="flex items-center bg-stone-100 dark:bg-stone-700 px-2 py-1 rounded-full">
                                 <Eye className="h-3 w-3 mr-1 text-green-500 dark:text-green-400" />
                                 {blog.activity?.total_reads?.toLocaleString() ||
                                   0}
                               </span>
                               {blog.activity?.total_likes > 0 && (
-                                <span className="flex items-center bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                                <span className="flex items-center bg-stone-100 dark:bg-stone-700 px-2 py-1 rounded-full">
                                   <Heart className="h-3 w-3 mr-1 text-red-500 dark:text-red-400" />
                                   {blog.activity.total_likes}
                                 </span>
                               )}
                               {blog.activity?.total_comments > 0 && (
-                                <span className="flex items-center bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                                <span className="flex items-center bg-stone-100 dark:bg-stone-700 px-2 py-1 rounded-full">
                                   <MessageSquare className="h-3 w-3 mr-1 text-indigo-500 dark:text-indigo-400" />
                                   {blog.activity.total_comments}
                                 </span>
@@ -424,8 +424,8 @@ const ProfilePage = () => {
                 <EmptyState
                   title="No blogs published yet"
                   description={`${profile.personal_info.fullname} hasn't published any blogs yet.`}
-                  icon={<BookOpen className="h-16 w-16 text-gray-400" />}
-                  className="bg-white dark:bg-gray-800 rounded-xl p-10 border border-gray-100 dark:border-gray-700 shadow-sm"
+                  icon={<BookOpen className="h-16 w-16 text-stone-400" />}
+                  className="bg-white dark:bg-stone-800 rounded-xl p-10 border border-stone-100 dark:border-stone-700 shadow-sm"
                 />
               )}
             </div>
@@ -439,7 +439,7 @@ const ProfilePage = () => {
       content: (
         <div className="mt-6">
           <div className="mb-6">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white font-playfair">
+            <h3 className="text-xl font-bold text-stone-900 dark:text-white font-heading">
               Followers
             </h3>
             <div className="mt-1 h-1 bg-gradient-to-r from-violet-500 to-indigo-500 w-20 rounded"></div>
@@ -449,13 +449,13 @@ const ProfilePage = () => {
               {Array.from({ length: 6 }).map((_, i) => (
                 <div
                   key={i}
-                  className="animate-pulse bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 border border-gray-100 dark:border-gray-700"
+                  className="animate-pulse bg-white dark:bg-stone-800 rounded-lg shadow-md p-4 border border-stone-100 dark:border-stone-700"
                 >
                   <div className="flex items-center space-x-4">
-                    <div className="h-12 w-12 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                    <div className="h-12 w-12 bg-stone-200 dark:bg-stone-700 rounded-full"></div>
                     <div className="space-y-2 flex-1">
-                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                      <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                      <div className="h-4 bg-stone-200 dark:bg-stone-700 rounded w-3/4"></div>
+                      <div className="h-3 bg-stone-200 dark:bg-stone-700 rounded w-1/2"></div>
                     </div>
                   </div>
                 </div>
@@ -471,7 +471,7 @@ const ProfilePage = () => {
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
                   <Card
-                    className="p-4 cursor-pointer border border-gray-100 dark:border-gray-700 hover:border-violet-200 dark:hover:border-violet-800 transition-all duration-300 hover:shadow-md"
+                    className="p-4 cursor-pointer border border-stone-100 dark:border-stone-700 hover:border-violet-200 dark:hover:border-violet-800 transition-all duration-300 hover:shadow-md"
                     onClick={() =>
                       navigate(`/profile/${follower.personal_info.username}`)
                     }
@@ -481,13 +481,13 @@ const ProfilePage = () => {
                         src={follower.personal_info.profile_img}
                         alt={follower.personal_info.fullname}
                         size="md"
-                        className="border-2 border-white dark:border-gray-800 shadow-sm"
+                        className="border-2 border-white dark:border-stone-800 shadow-sm"
                       />
                       <div>
-                        <h4 className="font-medium text-gray-900 dark:text-white font-playfair hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
+                        <h4 className="font-medium text-stone-900 dark:text-white font-heading hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                           {follower.personal_info.fullname}
                         </h4>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 font-montserrat">
+                        <p className="text-sm text-stone-500 dark:text-stone-400 font-body">
                           @{follower.personal_info.username}
                         </p>
                         {follower.role && (
@@ -510,9 +510,9 @@ const ProfilePage = () => {
                       </div>
                     </div>
                     {follower.account_info && (
-                      <div className="mt-2 pt-2 border-t border-gray-100 dark:border-gray-700 grid grid-cols-2 gap-2 text-xs text-gray-500 dark:text-gray-400 font-montserrat">
+                      <div className="mt-2 pt-2 border-t border-stone-100 dark:border-stone-700 grid grid-cols-2 gap-2 text-xs text-stone-500 dark:text-stone-400 font-body">
                         <div className="flex items-center">
-                          <BookOpen className="h-3 w-3 mr-1 text-violet-500 dark:text-violet-400" />
+                          <BookOpen className="h-3 w-3 mr-1 text-violet-500 dark:text-primary-400" />
                           <span>
                             {follower.account_info.total_posts || 0} posts
                           </span>
@@ -534,8 +534,8 @@ const ProfilePage = () => {
             <EmptyState
               title="No followers yet"
               description={`${profile.personal_info.fullname} doesn't have any followers yet.`}
-              icon={<Users className="h-16 w-16 text-gray-400" />}
-              className="bg-white dark:bg-gray-800 rounded-xl p-10 border border-gray-100 dark:border-gray-700 shadow-sm"
+              icon={<Users className="h-16 w-16 text-stone-400" />}
+              className="bg-white dark:bg-stone-800 rounded-xl p-10 border border-stone-100 dark:border-stone-700 shadow-sm"
             />
           )}
         </div>
@@ -547,7 +547,7 @@ const ProfilePage = () => {
       content: (
         <div className="mt-6">
           <div className="mb-6">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white font-playfair">
+            <h3 className="text-xl font-bold text-stone-900 dark:text-white font-heading">
               Following
             </h3>
             <div className="mt-1 h-1 bg-gradient-to-r from-violet-500 to-indigo-500 w-20 rounded"></div>
@@ -557,13 +557,13 @@ const ProfilePage = () => {
               {Array.from({ length: 6 }).map((_, i) => (
                 <div
                   key={i}
-                  className="animate-pulse bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 border border-gray-100 dark:border-gray-700"
+                  className="animate-pulse bg-white dark:bg-stone-800 rounded-lg shadow-md p-4 border border-stone-100 dark:border-stone-700"
                 >
                   <div className="flex items-center space-x-4">
-                    <div className="h-12 w-12 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                    <div className="h-12 w-12 bg-stone-200 dark:bg-stone-700 rounded-full"></div>
                     <div className="space-y-2 flex-1">
-                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                      <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                      <div className="h-4 bg-stone-200 dark:bg-stone-700 rounded w-3/4"></div>
+                      <div className="h-3 bg-stone-200 dark:bg-stone-700 rounded w-1/2"></div>
                     </div>
                   </div>
                 </div>
@@ -579,7 +579,7 @@ const ProfilePage = () => {
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
                   <Card
-                    className="p-4 cursor-pointer border border-gray-100 dark:border-gray-700 hover:border-violet-200 dark:hover:border-violet-800 transition-all duration-300 hover:shadow-md"
+                    className="p-4 cursor-pointer border border-stone-100 dark:border-stone-700 hover:border-violet-200 dark:hover:border-violet-800 transition-all duration-300 hover:shadow-md"
                     onClick={() =>
                       navigate(`/profile/${follow.personal_info.username}`)
                     }
@@ -589,13 +589,13 @@ const ProfilePage = () => {
                         src={follow.personal_info.profile_img}
                         alt={follow.personal_info.fullname}
                         size="md"
-                        className="border-2 border-white dark:border-gray-800 shadow-sm"
+                        className="border-2 border-white dark:border-stone-800 shadow-sm"
                       />
                       <div>
-                        <h4 className="font-medium text-gray-900 dark:text-white font-playfair hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
+                        <h4 className="font-medium text-stone-900 dark:text-white font-heading hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                           {follow.personal_info.fullname}
                         </h4>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 font-montserrat">
+                        <p className="text-sm text-stone-500 dark:text-stone-400 font-body">
                           @{follow.personal_info.username}
                         </p>
                         {follow.role && (
@@ -618,9 +618,9 @@ const ProfilePage = () => {
                       </div>
                     </div>
                     {follow.account_info && (
-                      <div className="mt-2 pt-2 border-t border-gray-100 dark:border-gray-700 grid grid-cols-2 gap-2 text-xs text-gray-500 dark:text-gray-400 font-montserrat">
+                      <div className="mt-2 pt-2 border-t border-stone-100 dark:border-stone-700 grid grid-cols-2 gap-2 text-xs text-stone-500 dark:text-stone-400 font-body">
                         <div className="flex items-center">
-                          <BookOpen className="h-3 w-3 mr-1 text-violet-500 dark:text-violet-400" />
+                          <BookOpen className="h-3 w-3 mr-1 text-violet-500 dark:text-primary-400" />
                           <span>
                             {follow.account_info.total_posts || 0} posts
                           </span>
@@ -641,8 +641,8 @@ const ProfilePage = () => {
             <EmptyState
               title="Not following anyone yet"
               description={`${profile.personal_info.fullname} isn't following anyone yet.`}
-              icon={<Users className="h-16 w-16 text-gray-400" />}
-              className="bg-white dark:bg-gray-800 rounded-xl p-10 border border-gray-100 dark:border-gray-700 shadow-sm"
+              icon={<Users className="h-16 w-16 text-stone-400" />}
+              className="bg-white dark:bg-stone-800 rounded-xl p-10 border border-stone-100 dark:border-stone-700 shadow-sm"
             />
           )}
         </div>
@@ -700,7 +700,7 @@ const ProfilePage = () => {
             <div className="absolute inset-0 opacity-10 bg-grid-pattern"></div>
           </div>
 
-          <div className="relative bg-white dark:bg-gray-800 px-6 pb-6">
+          <div className="relative bg-white dark:bg-stone-800 px-6 pb-6">
             <div className="flex flex-col md:flex-row items-center md:items-end -mt-24 md:space-x-6">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -711,7 +711,7 @@ const ProfilePage = () => {
                   src={profile.personal_info.profile_img}
                   alt={profile.personal_info.fullname}
                   size="2xl"
-                  className="border-4 border-white dark:border-gray-800 shadow-lg rounded-full h-36 w-36"
+                  className="border-4 border-white dark:border-stone-800 shadow-lg rounded-full h-36 w-36"
                 />
               </motion.div>
 
@@ -722,10 +722,10 @@ const ProfilePage = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                  <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white font-playfair">
+                  <h1 className="text-2xl md:text-3xl font-bold text-stone-900 dark:text-white font-heading">
                     {profile.personal_info.fullname}
                   </h1>
-                  <p className="text-gray-600 dark:text-gray-400 font-montserrat">
+                  <p className="text-stone-600 dark:text-stone-400 font-body">
                     @{profile.personal_info.username}
                   </p>
                   <div className="mt-2">
@@ -813,13 +813,13 @@ const ProfilePage = () => {
               transition={{ duration: 0.5, delay: 0.4 }}
             >
               {profile.personal_info.bio && (
-                <p className="text-gray-700 dark:text-gray-300 mb-4 font-montserrat leading-relaxed">
+                <p className="text-stone-700 dark:text-stone-300 mb-4 font-body leading-relaxed">
                   {profile.personal_info.bio}
                 </p>
               )}
-              <div className="flex flex-col sm:flex-row sm:space-x-6 space-y-2 sm:space-y-0 text-sm text-gray-600 dark:text-gray-400 font-montserrat">
+              <div className="flex flex-col sm:flex-row sm:space-x-6 space-y-2 sm:space-y-0 text-sm text-stone-600 dark:text-stone-400 font-body">
                 <div className="flex items-center">
-                  <Calendar className="h-4 w-4 mr-2 text-violet-500 dark:text-violet-400" />
+                  <Calendar className="h-4 w-4 mr-2 text-violet-500 dark:text-primary-400" />
                   <span>Joined {formatDate(profile.joinedAt)}</span>
                 </div>
                 {profile.location && (
@@ -838,7 +838,7 @@ const ProfilePage = () => {
                         href={profile.social_links.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-500 hover:text-violet-600 dark:text-gray-400 dark:hover:text-violet-400 transition-colors"
+                        className="text-stone-500 hover:text-primary-600 dark:text-stone-400 dark:hover:text-primary-400 transition-colors"
                         aria-label="Website"
                       >
                         <Globe className="h-5 w-5" />
@@ -849,7 +849,7 @@ const ProfilePage = () => {
                         href={profile.social_links.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
+                        className="text-stone-500 hover:text-blue-500 dark:text-stone-400 dark:hover:text-blue-400 transition-colors"
                         aria-label="Twitter"
                       >
                         <Twitter className="h-5 w-5" />
@@ -860,7 +860,7 @@ const ProfilePage = () => {
                         href={profile.social_links.facebook}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500 transition-colors"
+                        className="text-stone-500 hover:text-blue-600 dark:text-stone-400 dark:hover:text-blue-500 transition-colors"
                         aria-label="Facebook"
                       >
                         <Facebook className="h-5 w-5" />
@@ -871,7 +871,7 @@ const ProfilePage = () => {
                         href={profile.social_links.instagram}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-500 hover:text-pink-600 dark:text-gray-400 dark:hover:text-pink-400 transition-colors"
+                        className="text-stone-500 hover:text-pink-600 dark:text-stone-400 dark:hover:text-pink-400 transition-colors"
                         aria-label="Instagram"
                       >
                         <Instagram className="h-5 w-5" />
@@ -882,7 +882,7 @@ const ProfilePage = () => {
                         href={profile.social_links.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                        className="text-stone-500 hover:text-gray-800 dark:text-stone-400 dark:hover:text-gray-200 transition-colors"
                         aria-label="GitHub"
                       >
                         <GitHub className="h-5 w-5" />
@@ -934,8 +934,8 @@ const ProfilePage = () => {
         </div>
 
         {/* Custom Styled Tabs */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 overflow-hidden">
-          <div className="border-b border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-stone-800 rounded-xl shadow-md border border-stone-100 dark:border-stone-700 overflow-hidden">
+          <div className="border-b border-stone-200 dark:border-stone-700">
             <nav
               className="flex justify-around md:justify-start px-4"
               aria-label="Tabs"
@@ -944,10 +944,10 @@ const ProfilePage = () => {
                 <button
                   key={tab.id}
                   onClick={() => handleTabChange(index)}
-                  className={`whitespace-nowrap py-4 px-6 font-medium text-sm font-montserrat relative ${
+                  className={`whitespace-nowrap py-4 px-6 font-medium text-sm font-body relative ${
                     activeTab === tab.id
-                      ? "text-violet-600 dark:text-violet-400"
-                      : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                      ? "text-primary-600 dark:text-primary-400"
+                      : "text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-gray-300"
                   }`}
                 >
                   {tab.label}

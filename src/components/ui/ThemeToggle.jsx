@@ -9,8 +9,8 @@ const ThemeToggleMini = () => {
     <motion.button 
       onClick={toggleTheme} 
       className={`w-14 h-8 rounded-full overflow-hidden relative transition-colors duration-200 ${
-        darkMode ? 'bg-gray-800' : 'bg-blue-300'
-      } border-2 ${darkMode ? 'border-gray-600' : 'border-blue-400'} shadow-sm`}
+        darkMode ? 'bg-stone-800' : 'bg-primary-300'
+      } border-2 ${darkMode ? 'border-stone-600' : 'border-primary-400'} shadow-sm`}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       aria-label="Toggle theme"
@@ -35,7 +35,7 @@ const ThemeToggleMini = () => {
         }}
         transition={{ duration: 0.2 }}
       >
-        <div className="w-4 h-4 rounded-full bg-gray-200"></div>
+        <div className="w-4 h-4 rounded-full bg-stone-200"></div>
       </motion.div>
       
       <motion.div 
@@ -76,7 +76,7 @@ const ThemeToggle = ({ className = "" }) => {
         className={`p-2 rounded-full ${
           !darkMode
             ? "bg-primary-100 text-primary-600 dark:bg-primary-900 dark:text-primary-300"
-            : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-black"
+            : "text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-black"
         } transition-all duration-200`}
         aria-label="Light mode"
         title="Light mode"
@@ -93,7 +93,7 @@ const ThemeToggle = ({ className = "" }) => {
           ).matches;
           setTheme(prefersDark);
         }}
-        className={`p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-black transition-all duration-200`}
+        className={`p-2 rounded-full text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 transition-all duration-200`}
         aria-label="System preference"
         title="System preference"
       >
@@ -107,7 +107,7 @@ const ThemeToggle = ({ className = "" }) => {
         className={`p-2 rounded-full ${
           darkMode
             ? "bg-primary-100 text-primary-600 dark:bg-primary-900 dark:text-primary-300"
-            : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-black"
+            : "text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-black"
         } transition-all duration-200`}
         aria-label="Dark mode"
         title="Dark mode"

@@ -279,18 +279,18 @@ const AdminBlogsPage = () => {
                   </Button>
 
                   <motion.h1
-                    className="font-playfair text-3xl md:text-4xl font-bold mb-2 tracking-tight leading-tight"
+                    className="font-heading text-3xl md:text-4xl font-bold mb-2 tracking-tight leading-tight"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                   >
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400">
                       Manage Content
                     </span>
                   </motion.h1>
 
                   <motion.p
-                    className="font-montserrat text-lg leading-relaxed text-gray-700 dark:text-gray-300"
+                    className="font-body text-lg leading-relaxed text-stone-700 dark:text-stone-300"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
@@ -379,8 +379,8 @@ const AdminBlogsPage = () => {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
           >
-            <Card className="p-6 border border-gray-100 dark:border-gray-800 shadow-md">
-              <h3 className="font-playfair text-xl font-bold mb-4 text-gray-900 dark:text-white">
+            <Card className="p-6 border border-stone-100 dark:border-stone-800 shadow-md">
+              <h3 className="font-heading text-xl font-bold mb-4 text-stone-900 dark:text-white">
                 Filter Blogs
               </h3>
               <form
@@ -388,7 +388,7 @@ const AdminBlogsPage = () => {
                 className="grid grid-cols-1 md:grid-cols-4 gap-4"
               >
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                  <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1 font-body">
                     Search
                   </label>
                   <Input
@@ -397,13 +397,13 @@ const AdminBlogsPage = () => {
                     onChange={(e) =>
                       handleFilterChange("query", e.target.value)
                     }
-                    icon={<Search className="h-5 w-5 text-gray-400" />}
-                    className="bg-white dark:bg-gray-900"
+                    icon={<Search className="h-5 w-5 text-stone-400" />}
+                    className="bg-white dark:bg-stone-900"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                  <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1 font-body">
                     Status
                   </label>
                   <Select
@@ -422,12 +422,12 @@ const AdminBlogsPage = () => {
                       { value: BLOG_STATUS.REJECTED, label: "Rejected" },
                       { value: BLOG_STATUS.ARCHIVED, label: "Archived" },
                     ]}
-                    className="bg-white dark:bg-gray-900"
+                    className="bg-white dark:bg-stone-900"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                  <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1 font-body">
                     Author
                   </label>
                   <Input
@@ -436,12 +436,12 @@ const AdminBlogsPage = () => {
                     onChange={(e) =>
                       handleFilterChange("author", e.target.value)
                     }
-                    className="bg-white dark:bg-gray-900"
+                    className="bg-white dark:bg-stone-900"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-montserrat">
+                  <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1 font-body">
                     Featured
                   </label>
                   <Select
@@ -454,7 +454,7 @@ const AdminBlogsPage = () => {
                       { value: "true", label: "Featured" },
                       { value: "false", label: "Not Featured" },
                     ]}
-                    className="bg-white dark:bg-gray-900"
+                    className="bg-white dark:bg-stone-900"
                   />
                 </div>
 
@@ -483,28 +483,28 @@ const AdminBlogsPage = () => {
             Array.from({ length: 5 }).map((_, index) => (
               <div
                 key={index}
-                className="animate-pulse bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-100 dark:border-gray-700 p-5"
+                className="animate-pulse bg-white dark:bg-stone-800 rounded-xl overflow-hidden shadow-md border border-stone-100 dark:border-stone-700 p-5"
               >
                 <div className="flex flex-col sm:flex-row">
                   <div className="flex-1 space-y-3">
-                    <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                    <div className="h-6 bg-stone-200 dark:bg-stone-700 rounded w-3/4"></div>
+                    <div className="h-4 bg-stone-200 dark:bg-stone-700 rounded w-1/2"></div>
                     <div className="flex gap-2">
-                      <div className="h-6 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
-                      <div className="h-6 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                      <div className="h-6 w-16 bg-stone-200 dark:bg-stone-700 rounded"></div>
+                      <div className="h-6 w-16 bg-stone-200 dark:bg-stone-700 rounded"></div>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <div className="h-10 w-10 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                      <div className="h-10 w-10 bg-stone-200 dark:bg-stone-700 rounded-full"></div>
                       <div className="flex-1">
-                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
-                        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-16 mt-1"></div>
+                        <div className="h-4 bg-stone-200 dark:bg-stone-700 rounded w-24"></div>
+                        <div className="h-3 bg-stone-200 dark:bg-stone-700 rounded w-16 mt-1"></div>
                       </div>
                     </div>
                   </div>
                   <div className="flex flex-row sm:flex-col gap-2 mt-4 sm:mt-0 sm:ml-4">
-                    <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded w-28"></div>
-                    <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded w-28"></div>
-                    <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded w-28"></div>
+                    <div className="h-10 bg-stone-200 dark:bg-stone-700 rounded w-28"></div>
+                    <div className="h-10 bg-stone-200 dark:bg-stone-700 rounded w-28"></div>
+                    <div className="h-10 bg-stone-200 dark:bg-stone-700 rounded w-28"></div>
                   </div>
                 </div>
               </div>
@@ -517,11 +517,11 @@ const AdminBlogsPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
               >
-                <Card className="p-5 border border-gray-100 dark:border-gray-700 hover:border-violet-200 dark:hover:border-violet-800 transition-all duration-300 hover:shadow-md">
+                <Card className="p-5 border border-stone-100 dark:border-stone-700 hover:border-violet-200 dark:hover:border-violet-800 transition-all duration-300 hover:shadow-md">
                   <div className="flex flex-col sm:flex-row justify-between">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center">
-                        <h3 className="font-playfair text-lg font-bold text-gray-900 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 transition-colors duration-200 truncate mr-2">
+                        <h3 className="font-heading text-lg font-bold text-stone-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 truncate mr-2">
                           {blog.title}
                         </h3>
                         {blog.featured && (
@@ -542,7 +542,7 @@ const AdminBlogsPage = () => {
                             <Badge
                               key={i}
                               variant="secondary"
-                              className="text-xs px-2 py-0.5 font-mono lowercase bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                              className="text-xs px-2 py-0.5 font-mono lowercase bg-stone-100 dark:bg-stone-700 text-stone-700 dark:text-stone-300"
                             >
                               #{tag}
                             </Badge>
@@ -557,18 +557,18 @@ const AdminBlogsPage = () => {
                           className="mr-3"
                         />
                         <div>
-                          <p className="text-sm font-medium text-gray-900 dark:text-white font-montserrat">
+                          <p className="text-sm font-medium text-stone-900 dark:text-white font-body">
                             {blog.author.personal_info.fullname}
                           </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 font-montserrat">
+                          <p className="text-xs text-stone-500 dark:text-stone-400 font-body">
                             @{blog.author.personal_info.username}
                           </p>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-4 mt-3 text-xs text-gray-500 dark:text-gray-400 font-montserrat">
-                        <div className="flex items-center bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
-                          <Eye className="h-3.5 w-3.5 mr-1.5 text-violet-500 dark:text-violet-400" />
+                      <div className="flex items-center gap-4 mt-3 text-xs text-stone-500 dark:text-stone-400 font-body">
+                        <div className="flex items-center bg-stone-100 dark:bg-stone-700 px-2 py-1 rounded-full">
+                          <Eye className="h-3.5 w-3.5 mr-1.5 text-violet-500 dark:text-primary-400" />
                           <span>{blog.activity?.total_reads || 0} reads</span>
                         </div>
                         <div className="flex items-center">
@@ -635,10 +635,10 @@ const AdminBlogsPage = () => {
             <EmptyState
               title="No blogs found"
               description="No blogs matching your filters were found."
-              icon={<AlertCircle className="h-16 w-16 text-gray-400" />}
+              icon={<AlertCircle className="h-16 w-16 text-stone-400" />}
               actionText="Reset Filters"
               actionClick={resetFilters}
-              className="bg-white dark:bg-gray-800 rounded-xl p-10 border border-gray-100 dark:border-gray-700 shadow-sm"
+              className="bg-white dark:bg-stone-800 rounded-xl p-10 border border-stone-100 dark:border-stone-700 shadow-sm"
             />
           )}
         </div>
@@ -659,7 +659,7 @@ const AdminBlogsPage = () => {
                 Previous
               </Button>
 
-              <div className="text-sm font-medium text-gray-700 dark:text-gray-300 font-montserrat bg-white dark:bg-gray-800 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700">
+              <div className="text-sm font-medium text-stone-700 dark:text-stone-300 font-body bg-white dark:bg-stone-800 px-4 py-2 rounded-lg border border-stone-200 dark:border-stone-700">
                 Page {page} of {totalPages}
               </div>
 
@@ -691,12 +691,12 @@ const AdminBlogsPage = () => {
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 mb-4">
               <Trash2 className="h-6 w-6" />
             </div>
-            <h3 className="font-playfair text-xl font-medium text-gray-900 dark:text-white">
+            <h3 className="font-heading text-xl font-medium text-stone-900 dark:text-white">
               Delete Blog?
             </h3>
           </div>
 
-          <p className="font-montserrat text-gray-700 dark:text-gray-300 text-center">
+          <p className="font-body text-stone-700 dark:text-stone-300 text-center">
             This action cannot be undone. Are you sure you want to permanently
             delete this blog?
           </p>
@@ -738,12 +738,12 @@ const AdminBlogsPage = () => {
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 mb-4">
               <Star className="h-6 w-6" />
             </div>
-            <h3 className="font-playfair text-xl font-medium text-gray-900 dark:text-white">
+            <h3 className="font-heading text-xl font-medium text-stone-900 dark:text-white">
               {featuringBlog?.featured ? "Unfeature Blog?" : "Feature Blog?"}
             </h3>
           </div>
 
-          <p className="font-montserrat text-gray-700 dark:text-gray-300 text-center">
+          <p className="font-body text-stone-700 dark:text-stone-300 text-center">
             {featuringBlog?.featured
               ? "This blog will no longer be highlighted on the homepage."
               : "Featured blogs appear prominently on the homepage and receive more visibility."}

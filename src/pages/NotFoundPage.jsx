@@ -122,8 +122,8 @@ const NotFoundPage = () => {
                 y2="200"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stopColor="#4F46E5" />
-                <stop offset="1" stopColor="#10B981" />
+                <stop stopColor="#D97706" />
+                <stop offset="1" stopColor="#F43F5E" />
               </linearGradient>
               <linearGradient
                 id="paint1_linear"
@@ -133,8 +133,8 @@ const NotFoundPage = () => {
                 y2="200"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stopColor="#4F46E5" />
-                <stop offset="1" stopColor="#06B6D4" />
+                <stop stopColor="#D97706" />
+                <stop offset="1" stopColor="#A78BFA" />
               </linearGradient>
               <linearGradient
                 id="paint2_linear"
@@ -144,8 +144,8 @@ const NotFoundPage = () => {
                 y2="200"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stopColor="#06B6D4" />
-                <stop offset="1" stopColor="#10B981" />
+                <stop stopColor="#A78BFA" />
+                <stop offset="1" stopColor="#F43F5E" />
               </linearGradient>
               <linearGradient
                 id="paint3_linear"
@@ -155,8 +155,8 @@ const NotFoundPage = () => {
                 y2="40"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stopColor="#4F46E5" />
-                <stop offset="1" stopColor="#06B6D4" />
+                <stop stopColor="#D97706" />
+                <stop offset="1" stopColor="#A78BFA" />
               </linearGradient>
               <linearGradient
                 id="paint4_linear"
@@ -166,8 +166,8 @@ const NotFoundPage = () => {
                 y2="185"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stopColor="#10B981" />
-                <stop offset="1" stopColor="#06B6D4" />
+                <stop stopColor="#F43F5E" />
+                <stop offset="1" stopColor="#A78BFA" />
               </linearGradient>
               <linearGradient
                 id="paint5_linear"
@@ -177,8 +177,8 @@ const NotFoundPage = () => {
                 y2="175"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stopColor="#4F46E5" />
-                <stop offset="1" stopColor="#10B981" />
+                <stop stopColor="#D97706" />
+                <stop offset="1" stopColor="#F43F5E" />
               </linearGradient>
             </defs>
           </motion.svg>
@@ -194,7 +194,7 @@ const NotFoundPage = () => {
         </motion.h1>
 
         <motion.p
-          className="text-lg text-gray-600 dark:text-gray-400"
+          className="text-lg text-stone-600 dark:text-stone-400"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.5 }}
@@ -229,7 +229,7 @@ const NotFoundPage = () => {
         </motion.div>
 
         <motion.div
-          className="text-sm text-gray-500 dark:text-gray-500 mt-8"
+          className="text-sm text-stone-500 dark:text-stone-500 mt-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.1, duration: 0.5 }}
@@ -239,7 +239,7 @@ const NotFoundPage = () => {
 
         {/* Auto-redirect progress */}
         <motion.div
-          className="w-full bg-gray-100 dark:bg-black h-1 rounded-full overflow-hidden"
+          className="w-full bg-stone-100 dark:bg-stone-800 h-1 rounded-full overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}

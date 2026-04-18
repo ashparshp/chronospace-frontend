@@ -63,7 +63,7 @@ const PreviewPage = () => {
         description="There is no blog preview data available. Please go back to the editor."
         actionText="Go to Editor"
         actionLink="/editor"
-        icon={<Eye className="h-12 w-12 text-gray-400" />}
+        icon={<Eye className="h-12 w-12 text-stone-400" />}
       />
     );
   }
@@ -124,13 +124,13 @@ const PreviewPage = () => {
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">
             {previewData.title || "Untitled Blog"}
           </h1>
 
           {/* Description */}
           {previewData.des && (
-            <p className="text-lg text-gray-700 dark:text-gray-300 mt-3">
+            <p className="text-lg text-stone-700 dark:text-stone-300 mt-3">
               {previewData.des}
             </p>
           )}
@@ -143,10 +143,10 @@ const PreviewPage = () => {
               size="md"
             />
             <div>
-              <h3 className="font-medium text-gray-900 dark:text-white">
+              <h3 className="font-medium text-stone-900 dark:text-white">
                 {currentUser.fullname}
               </h3>
-              <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+              <div className="flex items-center text-sm text-stone-500 dark:text-stone-400">
                 <Calendar className="h-4 w-4 mr-1" />
                 <span>{formatDate()}</span>
               </div>
@@ -172,7 +172,7 @@ const PreviewPage = () => {
 
         {/* Tags */}
         {previewData.tags && previewData.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-100 dark:border-gray-800">
+          <div className="flex flex-wrap gap-2 pt-4 border-t border-stone-100 dark:border-stone-800">
             {previewData.tags.map((tag, index) => (
               <Badge key={index} variant="secondary">
                 #{tag}
